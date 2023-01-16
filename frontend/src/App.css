@@ -1,0 +1,75 @@
+.App {
+  text-align: center;
+  min-width: 100%;
+  min-height: 100%;
+  position: fixed;
+  background: repeating-linear-gradient(150deg, #7cac54, #7cac54 20px, #3f8744 0, #3f8744 40px);
+  /* board를 가운데 정렬 */
+  display: flex;
+  justify-content: center;
+}
+
+.Board {
+  min-width: 80%;
+  min-height: 100%;
+  position: fixed;
+  background-color: rgba(63, 131, 84, 0.8);
+  /* Back을 가운데 정렬 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Back2 {
+  min-width: 80%;
+  min-height: 100%;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* flex-grow: 1; */
+}
+
+.Back {
+  background-color: #f9fbe7;
+  min-width: 60%;
+  min-height: 80%;
+  position: fixed;
+  /* border: solid 7px pink; */
+  box-shadow: 0 0 0 3px #000 inset; 
+  border-radius: 10px;
+  display: flex;
+  /* justify-content: center; */
+  /* flex-grow: 1; */
+}
+
+.ButtonList {
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: space-between; */
+  flex-direction: column;
+  /* flex-grow: 1; */
+}
+
+.ButtonList .btn {
+  background-color: gray;
+  margin-bottom: 10px;
+}
+
+.Back .Hamster {
+  /* border: solid 5px pink; */
+  text-align: center;
+  width: 30%;
+  margin: 0px;
+  padding: 0px;
+}
+
+.Back .Screen {
+  text-align: center;
+  width: 70%;
+  border-left: solid 3px black;
+  margin: 0px;
+  padding: 0px;
+}
+
+
