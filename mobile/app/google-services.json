@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "616408032515",
+    "project_id": "teamrestructuring-8b91c",
+    "storage_bucket": "teamrestructuring-8b91c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:616408032515:android:85caf243001eb75d783536",
+        "android_client_info": {
+          "package_name": "com.team.teamrestructuring"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "616408032515-26jcupak68gbtranqof3ejenesjdhhf6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.team.teamrestructuring",
+            "certificate_hash": "7185aa6c9bbf7ebc29e274ad6e99bac2c12bc3cd"
+          }
+        },
+        {
+          "client_id": "616408032515-pdlld4de1ettr6i8rd00qh8ofosf77ge.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAk1ztGj4IlfPFHuP4O3tySeMrRtmqP83I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "616408032515-pdlld4de1ettr6i8rd00qh8ofosf77ge.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
