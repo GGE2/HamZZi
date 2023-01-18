@@ -91,7 +91,6 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
      * setOnItemSelectedListener 사용
      */
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-
             when(item.itemId){
             R.id.menu_home ->{
                 binding.viewpagerMainPager.currentItem = 0
@@ -130,5 +129,5 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
         })
         createNotificationChannel(channel_id,"team9")
     }
-    
+
 }
