@@ -1,6 +1,10 @@
 package com.team.teamrestructuring.service
 
+<<<<<<< Updated upstream
 import android.app.Notification
+=======
+import android.annotation.SuppressLint
+>>>>>>> Stashed changes
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.os.Build
@@ -26,9 +30,15 @@ class FcmService : FirebaseMessagingService() {
     }
 
     /**
+<<<<<<< Updated upstream
      * Foreground,Background 모두 처리*/
 
     /*@SuppressLint("SuspiciousIndentation")
+=======
+     * Foreground,Background 모두 처리
+     */
+    @SuppressLint("SuspiciousIndentation")
+>>>>>>> Stashed changes
     @RequiresApi(Build.VERSION_CODES.S)
     override fun onMessageReceived(message: RemoteMessage) { //Foreground 있는 경우
         super.onMessageReceived(message)
