@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public ResponseEntity registerUser(UserLogin user) {
         //존재하는 user 인지 찾아오기
-        Optional<UserLogin> existUser = userRepository.findById(user.getEmail());
+        Optional<UserLogin> existUser = userRepository.findByEmail(user.getEmail());
         if(existUser.isEmpty()) {
             UserLogin newUser = UserLogin.builder()
                     .email(user.getEmail())
