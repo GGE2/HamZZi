@@ -75,30 +75,5 @@ class FcmService : FirebaseMessagingService() {
         }
     }
 }
-    /*//Notification 설정
-    @RequiresApi(Build.VERSION_CODES.S)
-    private fun sendNotification(title:String, text:String, requestId:Int){
-        val intent = Intent(applicationContext,HomeActivity::class.java).apply{
-            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP and Intent.FLAG_ACTIVITY_NEW_TASK
-        }
-        val pendingIntent = PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_MUTABLE)
-
-        val channelId = getString(R.string.notification_channel_id)
-        val channelName = getString(R.string.default_notification_channel_name)
-        val defaultSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-        val notificationBuilder = NotificationCompat.Builder(this,channelId)
-            .setAutoCancel(true)
-            .setSound(defaultSound)
-            .setContentText(text)
-            .setContentTitle(title)
-            .setContentIntent(pendingIntent)
-            .setSmallIcon(R.drawable.all_title)
-
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        val channel = NotificationChannel(channelId,channelName,NotificationManager.IMPORTANCE_HIGH)
-        notificationManager.createNotificationChannel(channel)
-        notificationManager.notify(0,notificationBuilder.build())
-        }*/
-
 
 
