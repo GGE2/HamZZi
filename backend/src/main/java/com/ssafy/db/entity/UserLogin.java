@@ -1,8 +1,12 @@
 package com.ssafy.db.entity;
 
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
+@Builder
 public class UserLogin {
     private int user_id;
     private String email;
