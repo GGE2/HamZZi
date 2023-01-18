@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools" >
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -12,6 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TeamRestructuring"
         tools:targetApi="31" >
+
+
+        <service android:name=".service.FcmService"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSSAGING_EVENT"/>
+            </intent-filter>
+        </service>
         <activity
             android:name=".view.activities.LoginActivity"
             android:exported="false" >

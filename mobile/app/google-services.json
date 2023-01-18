@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "616408032515-4jqsn8pop6gktm4t9obi6ktpo4aanud9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.team.teamrestructuring",
+            "certificate_hash": "128883032c2c5331eb64b76dccbca6400558d0ec"
+          }
+        },
+        {
           "client_id": "616408032515-pdlld4de1ettr6i8rd00qh8ofosf77ge.apps.googleusercontent.com",
           "client_type": 3
         }
