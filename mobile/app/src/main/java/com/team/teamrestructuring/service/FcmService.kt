@@ -70,7 +70,7 @@ class FcmService : FirebaseMessagingService() {
             .setSound(defaultSound)
             .setContentIntent(mainPendingIntent)
 
-        NotificationManagerCompat.from(this).apply {
+            NotificationManagerCompat.from(this).apply {
             notify(101, builder1.build())
         }
     }
