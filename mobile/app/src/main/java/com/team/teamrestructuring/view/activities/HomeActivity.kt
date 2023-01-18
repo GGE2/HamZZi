@@ -8,15 +8,18 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.widget.FrameLayout
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.messaging.FirebaseMessaging
 import com.team.teamrestructuring.R
 import com.team.teamrestructuring.databinding.ActivityHomeBinding
+import com.team.teamrestructuring.view.adapters.ViewPagerAdapter
 import com.team.teamrestructuring.view.fragments.GuildFragment
 import com.team.teamrestructuring.view.fragments.HomeFragment
 import com.team.teamrestructuring.view.fragments.MyPageFragment
@@ -24,7 +27,7 @@ import com.team.teamrestructuring.view.fragments.TodoFragment
 
 
 private const val TAG = "HomeActivity_지훈"
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSelectedListener{
 
     companion object{
         const val channel_id = "team_channel"
@@ -53,7 +56,21 @@ class HomeActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun init(){
         getFCM()
-        setBottomNavigation()
+        setViewPager()
+    }
+
+    /**
+     * viewPager adapter 연결
+     */
+    private fun setViewPager(){
+        binding.viewpagerMainPager.adapter = ViewPagerAdapter(this)
+        binding.viewpagerMainPager.registerOnPageChangeCallback(object :ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                binding.bottomnavigationHomeNav.menu.getItem(position).isChecked = true
+            }
+        })
+        binding.bottomnavigationHomeNav.setOnNavigationItemSelectedListener(this)
     }
 
     /**
@@ -67,6 +84,34 @@ class HomeActivity : AppCompatActivity() {
         val notificationManager : NotificationManager
                 = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.createNotificationChannel(channel)
+    }
+    /**
+     * Home화면을 default로 한 bottomNavigation 설정
+     * setOnNavigationItemSelectedListener is Deprecated
+     * setOnItemSelectedListener 사용
+     */
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+
+            when(item.itemId){
+            R.id.menu_home ->{
+                binding.viewpagerMainPager.currentItem = 0
+                return true
+            }
+            R.id.menu_todo ->{
+                binding.viewpagerMainPager.currentItem = 1
+                return true
+            }
+            R.id.menu_guild ->{
+                binding.viewpagerMainPager.currentItem = 2
+                return true
+            }
+            R.id.menu_my_page ->{
+                binding.viewpagerMainPager.currentItem = 3
+                return true
+            }
+            else -> return false
+        }
+
     }
 
     /**
@@ -85,34 +130,5 @@ class HomeActivity : AppCompatActivity() {
         })
         createNotificationChannel(channel_id,"team9")
     }
-    /**
-     * Home화면을 default로 한 bottomNavigation 설정
-     * setOnNavigationItemSelectedListener is Deprecated
-     * setOnItemSelectedListener 사용
-     */
-    private fun setBottomNavigation(){
-        Log.d(TAG, "setBottomNavigation: ")
-        supportFragmentManager.beginTransaction().add(frameLayout.id, HomeFragment()).commit()
-        bottomNavigation.setOnItemSelectedListener { item->
-            replaceFragment(
-            when(item.itemId){
-                R.id.menu_home -> HomeFragment()
-                R.id.menu_todo -> TodoFragment()
-                R.id.menu_guild -> GuildFragment()
-                else -> MyPageFragment()
-                }
-            )
-            true
-        }
-    }
-
-    /**
-     * fragment 화면간 이동
-     */
-    private fun replaceFragment(fragment : Fragment){
-        Log.d(TAG, "replaceFragment: ")
-        supportFragmentManager.beginTransaction().replace(frameLayout.id,fragment).commit()
-    }
-
-
+    
 }
