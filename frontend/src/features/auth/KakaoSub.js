@@ -1,11 +1,41 @@
 import React, { useEffect, useState } from "react";
+import "../../css/Login.css";
+import { REST_API_KEY, REDIRECT_URI } from "../../KakaoLoginData";
+// import { useDispatch } from "react-redux";
 
 const User = {
   email: "test@example.com",
   pw: "test2323@@@",
 };
+// const { Kakao } = window;
+// const SigiIn = () => {}
+
+// const goToKakao = () => {
+//   Kakao.Auth.login({
+//     succes: function (authObj) {
+//       console.log(authObj)
+//       fetch(`${}`)
+//     }
+//   })
+// }
 
 export default function Login() {
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}`;
+
+  const handleLogin = () => {
+    window.open(
+      KAKAO_AUTH_URL,
+      "windowPop",
+      "width=400, height=600, left=400, top=400, resizable = yes"
+    );
+  };
+
+  // const dispatch = useDispatch();
+
+  let code = window.location.href;
+  // const code_params = code.searchParams.get('code')
+  console.log(code);
+
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
 
@@ -89,14 +119,19 @@ export default function Login() {
         </div>
       </div>
 
-      {/* <div className="socialLogin">
+      <div className="socialLogin">
         <button>
-          <img className="loginBtn" src="btn_login_kakao.png" alt="" />
+          <img
+            onClick={handleLogin}
+            className="loginBtn"
+            src="btn_login_kakao.png"
+            alt=""
+          />
         </button>
         <button>
           <img className="loginBtn" src="btn_login_google.png" alt="" />
         </button>
-      </div> */}
+      </div>
 
       <div>
         <button
