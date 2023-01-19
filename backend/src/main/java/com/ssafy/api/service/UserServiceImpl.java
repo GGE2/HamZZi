@@ -1,16 +1,13 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.request.UserRegisterRequest;
-import com.ssafy.db.entity.UserLogin;
+import com.ssafy.db.entity.User.UserLogin;
 import com.ssafy.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Optional;
 
 @Service
 @Transactional
