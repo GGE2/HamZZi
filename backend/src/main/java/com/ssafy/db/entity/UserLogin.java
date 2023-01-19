@@ -4,11 +4,12 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Entity;
+
 @Getter
 @Setter
-@Builder
-public class UserLogin {
-    private int user_id;
+@Entity
+public class UserLogin extends User{
     private String email;
     private String password;
     private String telephone;
