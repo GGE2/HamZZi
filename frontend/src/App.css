@@ -1,131 +1,73 @@
-.App {
-  text-align: center;
-  min-width: 100%;
-  min-height: 100%;
-  position: fixed;
-  background: repeating-linear-gradient(150deg, #7cac54, #7cac54 20px, #3f8744 0, #3f8744 40px);
-  /* board를 가운데 정렬 */
-  display: flex;
-  justify-content: center;
+body {
+  background-image: url("../public/login_background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  /* background-color: #9230f4; */
 }
 
-.Board {
-  min-width: 80%;
-  min-height: 100%;
-  position: relative;
-  background-color: rgba(63, 131, 84, 0.8);
-  /* Back을 가운데 정렬 */
+.buttonWrap {
+  /* width: 200px; */
   display: flex;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center; */
+  /* overflow: hidden; */
+  /* padding: 10px 30px; */
+  /* height: 50px */
+  border: 1px solid black;
 }
 
-.Back2 {
-  min-width: 80%;
-  min-height: 100%;
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* flex-grow: 1; */
+.imgWrap {
+  padding: 0;
+  border: 1px solid pink;
+  /* width:  */
 }
 
-.Back {
-  background-color: #f9fbe7;
-  min-width: 60%;
-  min-height: 80%;
-  position: fixed;
-  /* border: solid 7px pink; */
-  box-shadow: 0 0 0 3px #000 inset; 
-  border-radius: 10px;
+.imgWrap img {
+  /* width: auto; */
+  transition: all 0.3s ease;
+  height: 50px;
+  /* padding: 0 5px; */
+  /* border: 1px; */
+  /* object-fit: cover; */
+  margin: 0px;
+}
+
+.login_forgot {
   display: flex;
   justify-content: space-between;
-  /* flex-grow: 1; */
+  margin: 0 8px 8px 8px;
+  font-size: 14px;
+  font-weight: 400;
 }
 
-.ButtonList {
-  display: flex;
-  /* flex-wrap: wrap; */
-  /* justify-content: space-between; */
-  flex-direction: column;
-  /* flex-grow: 1; */
-  float: right;
-  margin-left: 80%;
-  margin-bottom: 20%;
+.login_forgot a {
+text-decoration: none;
+color: black;
 }
-
-.ButtonList .btn {
-  background-color: gray;
-  margin-bottom: 10px;
-  height: 30px;
-}
-
-.Back .Hamster {
-  /* border: solid 5px pink; */
-  text-align: center;
-  width: 30%;
-  margin: 0px;
-  padding: 0px;
-}
-
-.Back .Screen {
-  text-align: center;
-  width: 70%;
-  border-left: solid 3px black;
-  margin: 0px;
-  padding: 0px;
-}
-
-/* .BackSlide {
-  display: flex;
-  flex-direction: row;
-}
-
-.BackSlide img {
-  flex:1
-} */
-
-.slide1 {
-  flex-basis: 40%;
-  display: flex;
-  padding: 0 5%;
-}
-
-.slide1 img {
-  display: flex;
-  width: 100%;
-  height: auto;
-
-  margin: auto;
-  /* padding-right: ; */
-  /* display: block; */
-}
-
-
-
-/* Login */
-/* Login */
-/* Login */
-/* Login */
-/* Login */
 
 .page {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0 20px;
+
+  /* 블러 처리 해버리기 */
+  backdrop-filter: blur(10px);
+  box-shadow: 2px 7px 15px 8px rgba(0,0,0,0.3);
+  /* border-radius: 30px; */
+
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  flex-basis: 55%;
-  padding-right: 4%;
-  
 }
 
-.titleWrap {
-  margin-top: 87px;
-  font-size: 26px;
-  font-weight: 700;
-  color: #262626
+.loginform {
+  border: 1px solid black;
 }
 
 .contentWrap {
-  margin-top: 26px;
+  margin-top: 15px;
   flex: 1
 }
 
@@ -138,14 +80,15 @@
 .inputWrap {
   display: flex;
   border-radius: 8px;
-  padding: 16px;
+  padding: 12px;
   margin-top: 8px;
+  margin-bottom: 8px;
   background-color: white;
   border: 1px solid gray;
 }
 
 .inputWrap:focus-within {
-  border: 1px solid #9230f4;
+  border: 1px solid black;
 }
 
 .input {
@@ -155,6 +98,7 @@
   height: 17px;
   font-size: 14px;
   font-weight: 400;
+  /* margin-bottom: ; */
 }
 
 .input::placeholder {
@@ -173,9 +117,9 @@
   border: none;
   font-weight: 700;
   background-color: #9230f4;
-  border-radius: 64px;
+  border-radius: 8px;
   color: white;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
   cursor: pointer;
 }
 
@@ -184,38 +128,8 @@
   color: white;
 }
 
-/* 소셜로그인 */
-/* 소셜로그인 */
-/* 소셜로그인 */
-/* 소셜로그인 */
-.socialLogin {
+
+/* 배경 */
+.selectlogin {
   display: flex;
-  flex-direction: column;
-  width: 100%;
-  align-items: center;
-  margin-bottom: 30px;
-}
-
-.socialLogin .loginBtn {
-  /* width: 100%; */
-  /* object-fit: fill; */
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
-}
-
-.socialLogin button {
-  /* margin-top: 20px; */
-  outline: none;
-  border: none;
-  width: 100%;
-  /* height: 17px; */
-  /* border-radius: 8px; */
-}
-
-
-.signuppage {
-  display: flex;
-  flex-direction: column;
-  flex-basis: 55%;
 }
