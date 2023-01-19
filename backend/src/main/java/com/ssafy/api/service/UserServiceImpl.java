@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public UserLogin registerUser(UserRegisterRequest registerInfo) {
         UserLogin newUser = new UserLogin();
-        newUser.setUser_id(registerInfo.getUser_id());
+//      newUser.setUser_id(registerInfo.getUser_id());
         newUser.setEmail(registerInfo.getEmail());
         newUser.setPassword(registerInfo.getPassword());
         newUser.setTelephone(registerInfo.getTelephone());
