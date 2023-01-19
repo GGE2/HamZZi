@@ -1,6 +1,6 @@
 package com.ssafy.db.repository;
 
-import com.ssafy.db.entity.UserLogin;
+import com.ssafy.db.entity.User.UserLogin;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

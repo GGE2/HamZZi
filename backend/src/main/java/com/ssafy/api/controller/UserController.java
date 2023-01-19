@@ -1,9 +1,10 @@
 package com.ssafy.api.controller;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.ssafy.api.request.UserRegisterRequest;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.model.response.BaseResponseBody;
-import com.ssafy.db.entity.UserLogin;
+import com.ssafy.db.entity.User.UserLogin;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/user")
 @RequiredArgsConstructor
 public class UserController {
+
+    @Autowired
+    FirebaseAuth firebaseAuth;
 
     @Autowired
     UserService userService;

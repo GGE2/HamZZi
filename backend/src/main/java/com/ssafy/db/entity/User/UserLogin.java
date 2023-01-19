@@ -1,6 +1,5 @@
-package com.ssafy.db.entity;
+package com.ssafy.db.entity.User;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
