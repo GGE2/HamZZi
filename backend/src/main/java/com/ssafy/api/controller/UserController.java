@@ -1,9 +1,12 @@
 package com.ssafy.api.controller;
 
+import com.ssafy.api.request.UserRegisterRequest;
 import com.ssafy.api.service.UserService;
+import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.UserLogin;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserService userService;
+    @Autowired
+    UserService userService;
 
     @PostMapping()
     @ApiOperation(value = "회원 가입", notes = "필요한 정보를 전부 입력한다")
@@ -27,8 +31,12 @@ public class UserController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity registerUser(@RequestBody UserLogin user) {
-        return userService.registerUser(user);
+    public ResponseEntity<? extends BaseResponseBody> registerUser(
+            @RequestBody @ApiParam(value="회원가입 정보", required = true) UserRegisterRequest registerInfo) {
+
+        UserLogin user = userService.registerUser(registerInfo);
+        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+
     }
 
 
