@@ -10,8 +10,8 @@ import lombok.Setter;
 @ApiModel("UserRegisterRequest")
 public class UserRegisterRequest {
 
-    @ApiModelProperty(name="유저 gender", example="M")
-    int user_id;
+//    @ApiModelProperty(name="유저 id", example="1")
+//    int user_id;
     @ApiModelProperty(name="유저 이메일", example="ssafy_web")
     String email;
     @ApiModelProperty(name="유저 Password", example="your_password")
