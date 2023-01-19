@@ -2,16 +2,14 @@ package com.team.teamrestructuring.view.activities
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.MenuItem
+import android.view.*
 import android.widget.FrameLayout
 import androidx.annotation.RequiresApi
-import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -20,10 +18,6 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.team.teamrestructuring.R
 import com.team.teamrestructuring.databinding.ActivityHomeBinding
 import com.team.teamrestructuring.view.adapters.ViewPagerAdapter
-import com.team.teamrestructuring.view.fragments.GuildFragment
-import com.team.teamrestructuring.view.fragments.HomeFragment
-import com.team.teamrestructuring.view.fragments.MyPageFragment
-import com.team.teamrestructuring.view.fragments.TodoFragment
 
 
 private const val TAG = "HomeActivity_지훈"
@@ -57,6 +51,7 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
     private fun init(){
         getFCM()
         setViewPager()
+        setFullScreen()
     }
 
     /**
@@ -73,6 +68,30 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
         binding.bottomnavigationHomeNav.setOnNavigationItemSelectedListener(this)
     }
 
+    /**
+     * 상태표시줄 , 하단 네비게이션 없애기기
+    */
+    private fun setFullScreen(){
+        //Android 11(R) 대응
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.R){
+            supportActionBar?.hide()
+            window.setDecorFitsSystemWindows(false)
+            val controller = window.insetsController
+            if(controller!=null){
+                controller.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
+                controller.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+            }
+        }else{ //R버전 이하 대응
+            supportActionBar?.hide()
+            window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_IMMERSIVE or
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    or View.SYSTEM_UI_FLAG_FULLSCREEN)
+        }
+    }
     /**
      * Notification 수신을 위한 채널 추가
      */
@@ -112,6 +131,9 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
         }
 
     }
+
+
+
 
     /**
      * FCM 토큰 수신

@@ -92,6 +92,26 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_home_stat"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginBottom="3dp"
+            android:layout_marginRight="30dp"
+            app:backgroundTintMode="add"
+            android:text="5"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:background="@drawable/alert_radius_yellow"
+            app:layout_constraintBottom_toBottomOf="@id/textview_home_name"
+            app:icon="@drawable/ic_baseline_more_horiz_24"
+            app:layout_constraintTop_toTopOf="@id/textview_home_name"
+            app:layout_constraintRight_toRightOf="parent"
+            app:iconGravity="textStart"
+            app:cornerRadius="50dp"
+            app:iconPadding="0dp"
+            app:iconSize="30dp" />
+
 
         <FrameLayout
             android:id="@+id/framelayout_main_statframe"
@@ -100,15 +120,32 @@
             app:layout_constraintTop_toBottomOf="@id/textview_home_name"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_home_level"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="3dp"
+                android:clickable="false"
+                app:backgroundTintMode="add"
+                android:layout_marginLeft="40dp"
+                android:text="5"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:background="@drawable/alert_radius_yellow"
+                app:iconGravity="textStart"
+                app:cornerRadius="50dp"
+                app:iconPadding="0dp"
+                app:iconSize="30dp" />
 
             <ProgressBar
+                android:id="@+id/progressbar_main_stat"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                 android:scaleY="6"
                 android:progress="100"
                 android:max="250"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="70dp"
                 android:layout_marginRight="30dp"/>
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/relativelayout_main_stattext"
@@ -123,6 +160,8 @@
                     android:text="100/150"
                     android:textStyle="bold"
                     android:textSize="20sp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent" />
 

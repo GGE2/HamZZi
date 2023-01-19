@@ -1,12 +1,21 @@
 package com.team.teamrestructuring.view.fragments
 
+import android.app.AlertDialog
+import android.content.Context
+import android.graphics.Color
+import android.graphics.Point
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import androidx.appcompat.widget.AppCompatButton
+import androidx.core.content.ContextCompat.getSystemService
 import com.team.teamrestructuring.R
+import com.team.teamrestructuring.databinding.FragmentHomeBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,14 +39,50 @@ class HomeFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
     }
-
+    private lateinit var binding : FragmentHomeBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        binding = FragmentHomeBinding.inflate(inflater,container,false)
+        return binding.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.buttonHomeFind.setOnClickListener {
+            showDialog()
+        }
+
+    }
+    /**
+     * 친구추가 버튼 클릭시 Dialog 창 생성
+     */
+    private fun showDialog(){
+        var builder = AlertDialog.Builder(context,androidx.appcompat.R.style.AlertDialog_AppCompat)
+        var view = LayoutInflater.from(context).inflate(R.layout.dialog_create_find_friend,binding.root.findViewById(R.id.alertdialog_main_findfriend))
+        builder.setView(view)
+
+        val alertDialog = builder.create()
+
+        val display = getSystemService(requireContext(),WindowManager::class.java)?.defaultDisplay
+        var point = Point()
+        display!!.getSize(point)
+        var pointWidth = (point.x * 0.9).toInt()
+        var pointHeight = (point.y * 0.4).toInt()
+
+        view.findViewById<AppCompatButton>(R.id.button_dialog_cancle).setOnClickListener {
+            alertDialog.dismiss()
+        }
+        alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        alertDialog.window!!.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
+        alertDialog.setCancelable(false)
+        alertDialog.window!!.attributes.width = pointWidth
+        alertDialog.window!!.attributes.height = pointHeight
+        alertDialog.show()
+    }
+
+
 
     companion object {
         /**

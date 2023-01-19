@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/alertdialog_main_findfriend"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/alert_radius_white">
+
+    <TextView
+        android:id="@+id/textview_dialog_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="회원 아이디를 입력하세요."
+        android:textSize="20sp"
+        android:fontFamily="@font/nexon_gothic_bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="20dp"/>
+    <FrameLayout
+        android:id="@+id/framelayout_dialog_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/textview_dialog_title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/edittext_dialog_find"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginRight="20dp"
+                android:paddingStart="4dp"
+                android:background="@drawable/item_edit_text"
+                android:fontFamily="@font/nexon_gothic_medium"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_alert_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="검색하기"
+                android:textStyle="bold"
+                android:fontFamily="@font/nexon_gothic_bold"
+                android:background="@drawable/item_edittext_ok"
+                app:layout_constraintTop_toTopOf="@id/edittext_dialog_find"
+                app:layout_constraintRight_toRightOf="@id/edittext_dialog_find"
+                app:layout_constraintBottom_toBottomOf="@id/edittext_dialog_find"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </FrameLayout>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_dialog_result"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:text="회원 닉네임으로 검색하여 친구를 추가하세요."
+        android:fontFamily="@font/nexon_gothic_medium"
+        android:textSize="16sp"
+        android:background="@drawable/item_button_text"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@id/button_dialog_cancle"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/framelayout_dialog_parent"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_dialog_cancle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/alert_btn_radius"
+        android:text="닫기"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/button_dialog_result"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
