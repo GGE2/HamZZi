@@ -11,10 +11,18 @@ import javax.persistence.Entity;
 @Entity
 public class UserLogin extends User{
 
-    @Column(name = "email", unique = true)
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
+
+    @Column(nullable = true)
     private String password;
+
+    @Column(nullable = true)
     private String telephone;
+
+    @Column(nullable = true)
     private String name;
+
+    @Column(nullable = true)
     private char gender;
 }
