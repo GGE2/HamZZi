@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Api(value = "유저 API", tags = {"User"})
+@Api(value = "user API", tags = {"User"})
 @RestController
 //임시 주소...
 @RequestMapping("api/user")
