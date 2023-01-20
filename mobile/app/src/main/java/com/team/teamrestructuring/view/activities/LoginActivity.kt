@@ -1,21 +1,95 @@
 package com.team.teamrestructuring.view.activities
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.ContentValues
+import android.content.Intent
 import android.os.Bundle
-import android.widget.TextView
-import com.team.teamrestructuring.R
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+
+
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.auth.FirebaseAuth
 import com.team.teamrestructuring.databinding.ActivityLoginBinding
 
+
+
+
 class LoginActivity : AppCompatActivity() {
+    private lateinit var googleSignInClient: GoogleSignInClient
+    private lateinit var auth: FirebaseAuth
+
     private lateinit var binding:ActivityLoginBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var te:TextView = binding.googleSignIn.getChildAt(0) as TextView
-        te.text = "구글 계정으로 로그인"
+        auth = FirebaseAuth.getInstance()
+        //google sign in
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken("616408032515-pdlld4de1ettr6i8rd00qh8ofosf77ge.apps.googleusercontent.com")
+            .requestEmail()
+            .build()
+
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
+
+        binding.googleSignIn.setOnClickListener {
+            signIn()
+        }
+    //        var te:TextView = binding.googleSignIn.getChildAt(0) as TextView
+//        te.text = "구글 계정으로 로그인"
     }
-    // 카카오 로그인
+
+    private fun signIn() {
+        val signInIntent = googleSignInClient.signInIntent
+        startActivityForResult(signInIntent, RC_Sign_in)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RC_Sign_in) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                val account = task.getResult(ApiException::class.java)!!
+                Log.d(ContentValues.TAG, "firebaseAuthWithGoogle" + account.id)
+                firebaseAuthWithGoogle(account.idToken.toString())
+            } catch (e: ApiException) {
+                Log.w(ContentValues.TAG, "Google sign in failed")
+            }
+        }
+    }
+    private fun firebaseAuthWithGoogle(idToken: String) {
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
+        auth.signInWithCredential(credential)
+            .addOnCompleteListener(this){ task ->
+                if (task.isSuccessful) {
+                    Log.d(ContentValues.TAG, "signInWithCredential:success")
+                    val user = auth.currentUser
+                    updateUi(user)
+                } else {
+                    Log.w(ContentValues.TAG, "signInWithCredential:failure", task.exception)
+                    updateUi(null)
+                }
+            }
+    }
+    private fun updateUi(user: FirebaseUser?) {
+        if (user != null) {
+            val intent = Intent(applicationContext, GoogleSignInActivity::class.java)
+            intent.putExtra(EXTRA_NAME, user.displayName)
+            startActivity(intent)
+        }
+    }
+
+    companion object{
+        const val RC_Sign_in = 1001
+        const val EXTRA_NAME = "EXTRA NAME"
+    }
 
 }
