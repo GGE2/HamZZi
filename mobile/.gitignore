@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Created by https://www.toptal.com/developers/gitignore/api/kotlin,android,androidstudio
 # Edit at https://www.toptal.com/developers/gitignore?templates=kotlin,android,androidstudio
 
@@ -125,6 +126,23 @@ obj/
 *.iws
 /out/
 
+=======
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+>>>>>>> 80cb373bd1c7a76ff5444d954028e73ed201ded3
 # User-specific configurations
 .idea/caches/
 .idea/libraries/
@@ -150,6 +168,7 @@ obj/
 .idea/gradle.xml
 .idea/jarRepositories.xml
 .idea/navEditor.xml
+<<<<<<< HEAD
 
 # Legacy Eclipse project files
 .classpath
@@ -185,3 +204,6 @@ fabric.properties
 !/gradle/wrapper/gradle-wrapper.jar
 
 # End of https://www.toptal.com/developers/gitignore/api/kotlin,android,androidstudio
+=======
+.idea/*
+>>>>>>> 80cb373bd1c7a76ff5444d954028e73ed201ded3
