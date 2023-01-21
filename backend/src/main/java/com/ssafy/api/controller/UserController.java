@@ -4,7 +4,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.ssafy.api.request.UserRegisterRequest;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.model.response.BaseResponseBody;
-import com.ssafy.db.entity.User.UserLogin;
+import com.ssafy.db.entity.User.UserPrivacy;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,7 @@ public class UserController {
     public ResponseEntity<? extends BaseResponseBody> registerUser(
             @RequestBody @ApiParam(value="회원가입 정보", required = true) UserRegisterRequest registerInfo) {
 
-        UserLogin user = userService.registerUser(registerInfo);
+        UserPrivacy user = userService.registerUser(registerInfo);
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
 
     }

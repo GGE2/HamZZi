@@ -14,13 +14,13 @@ public class UserRegisterRequest {
 //    int user_id;
     @ApiModelProperty(name="유저 이메일", example="ssafy_web")
     String email;
-    @ApiModelProperty(name="유저 Password", example="your_password")
+    @ApiModelProperty(name="유저 비밀번호", example="your_password")
     String password;
-    @ApiModelProperty(name="유저 Name", example="your_name")
+    @ApiModelProperty(name="유저 이름", example="your_name")
     String name;
-    @ApiModelProperty(name="유저 telephone number", example="010-0000-1234")
+    @ApiModelProperty(name="유저 전화번호", example="010-0000-1234")
     String telephone;
-    @ApiModelProperty(name="유저 gender", example="M")
+    @ApiModelProperty(name="유저 성별", example="M")
     char gender;
 
 }
