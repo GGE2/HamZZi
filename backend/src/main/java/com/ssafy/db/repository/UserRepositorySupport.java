@@ -1,9 +1,9 @@
 package com.ssafy.db.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.ssafy.db.entity.User.QUserLogin;
+import com.ssafy.db.entity.User.QUserPrivacy;
 
-import com.ssafy.db.entity.User.UserLogin;
+import com.ssafy.db.entity.User.UserPrivacy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -16,12 +16,12 @@ import java.util.Optional;
 public class UserRepositorySupport {
     @Autowired
     private JPAQueryFactory jpaQueryFactory;
-    QUserLogin qUserLogin = QUserLogin.userLogin;
+    QUserPrivacy qUserPrivacy = QUserPrivacy.userPrivacy;
 
-    public Optional<UserLogin> findByEmail(String email) {
-        UserLogin userLogin = jpaQueryFactory.select(qUserLogin).from(qUserLogin)
-                .where(qUserLogin.email.eq(email)).fetchOne();
-        if(userLogin == null) return Optional.empty();
-        return Optional.ofNullable(userLogin);
+    public Optional<UserPrivacy> findByEmail(String email) {
+        UserPrivacy userPrivacy = jpaQueryFactory.select(qUserPrivacy).from(qUserPrivacy)
+                .where(qUserPrivacy.email.eq(email)).fetchOne();
+        if(userPrivacy == null) return Optional.empty();
+        return Optional.ofNullable(userPrivacy);
     }
 }

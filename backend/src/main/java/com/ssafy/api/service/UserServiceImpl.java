@@ -1,7 +1,7 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.request.UserRegisterRequest;
-import com.ssafy.db.entity.User.UserLogin;
+import com.ssafy.db.entity.User.UserPrivacy;
 import com.ssafy.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +18,8 @@ public class UserServiceImpl implements UserService{
     UserRepository userRepository;
 
     @Override
-    public UserLogin registerUser(UserRegisterRequest registerInfo) {
-        UserLogin newUser = new UserLogin();
+    public UserPrivacy registerUser(UserRegisterRequest registerInfo) {
+        UserPrivacy newUser = new UserPrivacy();
 //      newUser.setUser_id(registerInfo.getUser_id());
         newUser.setEmail(registerInfo.getEmail());
         newUser.setPassword(registerInfo.getPassword());
