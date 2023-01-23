@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 @Entity
 public class UserPrivacy extends User{
 
-    @Column(name = "email", unique = true, nullable = false)
+    @Column(unique = true, nullable = false)
     private String email;
 
     @Column(nullable = true)
