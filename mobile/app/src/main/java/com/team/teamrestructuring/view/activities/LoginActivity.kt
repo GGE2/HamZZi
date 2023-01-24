@@ -42,7 +42,9 @@ class LoginActivity : AppCompatActivity() {
 
         binding.googleSignIn.setOnClickListener {
             signIn()
+
         }
+
         // signup
         binding.signup.setOnClickListener{
             val intent = Intent(this, SignupActivity::class.java)
@@ -50,9 +52,16 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+
     private fun signIn() {
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_Sign_in)
+        loginandhome()
+    }
+    // 구글 로그인 이후 홈으로 가기
+    private fun loginandhome() {
+        val intent = Intent(this, HomeActivity::class.java)
+        startActivity(intent)
     }
 
 
@@ -76,6 +85,7 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     Log.d(ContentValues.TAG, "signInWithCredential:success")
                     val user = auth.currentUser
+
                     updateUi(user)
                 } else {
                     Log.w(ContentValues.TAG, "signInWithCredential:failure", task.exception)

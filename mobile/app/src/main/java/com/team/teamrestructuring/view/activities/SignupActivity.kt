@@ -1,5 +1,6 @@
 package com.team.teamrestructuring.view.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -28,6 +29,8 @@ class SignupActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         val user = auth.currentUser
                         Toast.makeText(this, "회원 가입 성공", Toast.LENGTH_LONG).show()
+                        val intent = Intent(this, LoginActivity::class.java)
+                        startActivity(intent)
                     }
                     else {
                         Toast.makeText(baseContext, "회원가입에 실패하였습니다",
