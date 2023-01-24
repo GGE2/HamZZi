@@ -13,6 +13,27 @@
         android:theme="@style/Theme.TeamRestructuring"
         tools:targetApi="31">
         <activity
+            android:name=".view.activities.SignupActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".AuthActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".testActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".TextActivity"
             android:exported="false">
             <meta-data

@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     android:background="#D1C7D3"
     android:padding="20dp"
-    tools:context=".view.activities.LoginActivity">
+    tools:context=".view.activities.LoginActivity"
+    >
   <TextView
       android:id="@+id/textview"
       android:layout_width="wrap_content"
@@ -50,22 +51,24 @@
       android:id="@+id/appCompatButton"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginLeft="10dp"
+      android:layout_marginTop="8dp"
       android:background="#FFD400"
-      android:text="아직 회원이 아닌 가요?"
+      android:text="로그인"
       android:textAllCaps="false"
+      android:layout_marginLeft="10dp"
       android:textSize="17sp"
       android:textStyle="bold"
       app:layout_constraintTop_toBottomOf="@+id/passwordLogin"
       app:layout_editor_absoluteX="10dp"
-      tools:layout_editor_absoluteX="43dp" />
+      tools:layout_editor_absoluteX="30dp" />
 
-  <TextView
-      android:id="@+id/textview2"
+  <androidx.appcompat.widget.AppCompatButton
+      android:id="@+id/signup"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="28dp"
-      android:text="이미 회원이신가요"
+      android:text="아직회원이 아니신가요"
+      android:textStyle="bold"
       android:textSize="16sp"
       app:layout_constraintEnd_toEndOf="@+id/appCompatButton"
       app:layout_constraintStart_toStartOf="@+id/appCompatButton"
@@ -78,7 +81,7 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="32dp"
       android:background="#4286f4"
-      app:layout_constraintTop_toBottomOf="@+id/textview2"
+      app:layout_constraintTop_toBottomOf="@+id/signup"
       android:layout_marginLeft="10dp"
       app:iconGravity="textStart"
       android:textAllCaps="false"

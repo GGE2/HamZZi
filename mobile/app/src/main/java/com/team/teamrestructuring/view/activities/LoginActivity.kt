@@ -43,14 +43,18 @@ class LoginActivity : AppCompatActivity() {
         binding.googleSignIn.setOnClickListener {
             signIn()
         }
-    //        var te:TextView = binding.googleSignIn.getChildAt(0) as TextView
-//        te.text = "구글 계정으로 로그인"
+        // signup
+        binding.signup.setOnClickListener{
+            val intent = Intent(this, SignupActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun signIn() {
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_Sign_in)
     }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
