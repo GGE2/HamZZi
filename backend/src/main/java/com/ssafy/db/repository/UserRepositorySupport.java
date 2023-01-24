@@ -32,4 +32,10 @@ public class UserRepositorySupport {
                 .where(qUserProfile.user_id.eq(qUserProfile.user_id)).fetchOne();
         return nickname;
     }
+
+    public int findPointByNick(String nickname) {
+        int point = jpaQueryFactory.select(qUserProfile.point).from(qUserProfile)
+                .where(qUserProfile.nickname.eq(nickname)).fetchOne();
+        return point;
+    }
 }
