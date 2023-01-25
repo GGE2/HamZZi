@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(allowedHeaders = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @Api(value = "user API", tags = {"User"})
 @RestController
 //임시 주소...
