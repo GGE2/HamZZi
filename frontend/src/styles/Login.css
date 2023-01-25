@@ -1,0 +1,26 @@
+.loginback {
+    height: 80%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0 20px;
+  
+    /* 블러 처리 해버리기 */
+    backdrop-filter: blur(10px);
+    box-shadow: 2px 7px 15px 8px rgba(0,0,0,0.3);
+    /* border-radius: 30px; */
+  
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+.loginbody {
+    background-image: url("../../public/login_background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    width: 100vw;
+    height: 100vh;
+  }
