@@ -21,24 +21,8 @@ function Google() {
       .then((data) => {
         setUserData(data.user); // user data 설정
         console.log(data); // console에 UserCredentialImpl 출력
-        // axios({
-        //   method: "post",
-        //   url: "/api/user",
-        //   data: {
-        //     firstName: "Fred",
-        //     lastName: "Flintstone",
-        //   },
-        // });
-
-        // axios.post("api/user").then((res) => {
-        //   console.log("api연결");
-        //   console.log(res);
-        // });
-
-        // setUsers(null);
-        axios.get("https://jsonplaceholder.typicode.com/users").then((res) => {
-          console.log(res.data);
-          console.log(res);
+        axios.post("/api/user", {
+          email: data.user.email,
         });
 
         // console.log(res.data)
