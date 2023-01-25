@@ -6,8 +6,6 @@ import com.ssafy.api.response.UserRes;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.auth.LoginUserData;
 import com.ssafy.common.model.response.BaseResponseBody;
-import com.ssafy.db.entity.User.UserPrivacy;
-import com.ssafy.db.entity.User.UserProfile;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
