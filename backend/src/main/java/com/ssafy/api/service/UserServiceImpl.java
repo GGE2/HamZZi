@@ -1,6 +1,8 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.request.UserRegisterRequest;
+import com.ssafy.db.entity.User.User;
+import com.ssafy.db.entity.User.UserProfile;
 import com.ssafy.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,28 @@ import javax.transaction.Transactional;
 @Transactional
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService{
+
+    @Autowired
+    UserRepository userRepo;
+
+    @Override
+    public Long registerUser(UserRegisterRequest registerInfo) {
+        User user = new User();
+        user.setEmail(registerInfo.getEmail());
+        user.setPassword(registerInfo.getPassword());
+
+        user.setTelephone(registerInfo.getTelephone());
+        user.setName(registerInfo.getName());
+        user.setGender(registerInfo.getGender());
+
+        userRepo.save(user);
+        return user.getUser_id();
+    }
+
+    @Override
+    public UserProfile loginUserData() {
+        return null;
+    }
 
 //    @Autowired
 //    UserRepository userRepository;
