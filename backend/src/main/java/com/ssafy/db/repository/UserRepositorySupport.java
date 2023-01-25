@@ -40,7 +40,7 @@ public class UserRepositorySupport implements UserRepository {
     // 사용자의 게임 닉네임 리턴(UserProfile FK 찾기)
     @Override
     public String findNicknameById(Long user_id) {
-        return em.f
+        return em.find(UserProfile.nickname)
     }
 
 //    @Autowired
