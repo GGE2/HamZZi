@@ -1,25 +1,18 @@
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
-import Login from "./Login";
-import LayOut from "./components/Layout";
-import Public from "./components/Public";
+import Main from "./pages/Main";
+import Login from "./pages/Login";
+import { Route, Routes } from "react-router-dom";
+import Sendtest from './pages/Sendtest';
 
 function App() {
   return (
-    <div className="app">
-      <Routes>
-        <Route path="/" element={<LayOut />}>
-          {/* public routes */}
-          <Route index element={<Public />} />
-          <Route path="login" element={<Login />} />
-
-          {/* protected routes */}
-          {/* <Route element={<RequireAuth />}>
-              <Route path="welcome" element={<Welcome />} />
-            </Route> */}
-        </Route>
-      </Routes>
-    </div>
+    // <div>
+    //   <Sendtest />
+    // </div>
+    <Routes>
+      <Route path="/main" element={<Main />} />
+      <Route path="/" element={<Login />} />
+    </Routes>
   );
 }
 

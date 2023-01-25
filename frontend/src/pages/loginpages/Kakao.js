@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 
-function Kakaopop() {
+function Kakao() {
   const [user, setUser] = useState(null);
   const [isLogin, setIsLogin] = useState(false);
   const { Kakao } = window;
@@ -91,8 +91,6 @@ function Kakaopop() {
 
   return (
     <div>
-      {/* <div>{token}</div> */}
-      <h2>카카오 로그인 구현</h2>
 
       {user ? (
         <div>
@@ -119,4 +117,4 @@ function Kakaopop() {
     </div>
   );
 }
-export default Kakaopop;
+export default Kakao;

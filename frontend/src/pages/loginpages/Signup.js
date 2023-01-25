@@ -48,6 +48,7 @@ export default function Signup() {
       // console.log(createdUser);
       setEmail("");
       setPassword("");
+      // **Login 함수 작성하기**
     } catch (err) {
       console.log(err.code);
       switch (err.code) {
@@ -59,6 +60,8 @@ export default function Signup() {
           break;
         case "auth/email-already-in-use":
           setErrorMsg("이미 가입되어 있는 계정입니다");
+          break;
+        default:
           break;
       }
     }
@@ -94,7 +97,10 @@ export default function Signup() {
     console.log(email);
     const regex =
       /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
-    if (!regex.test(e.target.value)) {
+    if (currentEmail === "") {
+      setEmailMessage("");
+      setEmailValid(true);
+    } else if (!regex.test(e.target.value)) {
       setEmailMessage("이메일의 형식이 올바르지 않습니다!");
       setEmailValid(false);
     } else {
@@ -107,8 +113,13 @@ export default function Signup() {
   const handlePw = (e) => {
     const currentPassword = e.target.value;
     setPassword(currentPassword);
+    // console.log(1123123);
+    console.log(e.target.value);
     const regex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
-    if (!regex.test(e.target.value)) {
+    if (currentPassword === "") {
+      setPasswordMessage("");
+      setPasswordValid(true);
+    } else if (!regex.test(e.target.value)) {
       setPasswordMessage(
         "숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!"
       );
@@ -123,7 +134,10 @@ export default function Signup() {
   const handlePasswordConfirm = (e) => {
     const currentPasswordConfirm = e.target.value;
     setPasswordConfirm(currentPasswordConfirm);
-    if (password !== currentPasswordConfirm) {
+    if (currentPasswordConfirm === "") {
+      setPasswordConfirmMessage("");
+      setPasswordConfirmValid(true);
+    } else if (password !== currentPasswordConfirm) {
       setPasswordConfirmMessage("비밀번호가 똑같지 않아요!");
       setPasswordConfirmValid(false);
     } else {
@@ -137,7 +151,10 @@ export default function Signup() {
     const currentName = e.target.value;
     setNickname(currentName);
     console.log(nickname);
-    if (currentName.length < 2 || currentName.length > 5) {
+    if (currentName === "") {
+      setNicknameMessage("");
+      setNicknameValid(true);
+    } else if (currentName.length < 2 || currentName.length > 5) {
       setNicknameMessage("닉네임은 2글자 이상 5글자 이하로 입력해주세요!");
       setNicknameValid(false);
     } else {
@@ -150,7 +167,10 @@ export default function Signup() {
     const currentPhone = e;
     setPhone(currentPhone);
     const regex = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
-    if (!regex.test(currentPhone)) {
+    if (currentPhone === "") {
+      setPhoneMessage("");
+      setPhoneValid(true);
+    } else if (!regex.test(currentPhone)) {
       setPhoneMessage("올바른 형식이 아닙니다!");
       setPhoneValid(false);
     } else {
@@ -176,7 +196,10 @@ export default function Signup() {
     const currentName = e.target.value;
     setName(currentName);
 
-    if (currentName.length < 2 || currentName.length > 5) {
+    if (currentName === "") {
+      setNameMessage("");
+      setNameValid(true);
+    } else if (currentName.length < 2 || currentName.length > 5) {
       setNameMessage("이름은 2글자 이상 5글자 이하로 입력해주세요!");
       setNameValid(false);
     } else {
@@ -184,7 +207,6 @@ export default function Signup() {
       setNameValid(true);
     }
   };
-  // 회원가입 검사
 
   // 중복 이메일 검사
 
@@ -205,9 +227,7 @@ export default function Signup() {
           </div>
           <div className="siginup_errorMessageWrap">{emailMessage}</div>
 
-          <div style={{ marginTop: "26px" }} className="inputTitle">
-            비밀번호
-          </div>
+          <div className="inputTitle">비밀번호</div>
           <div className="siginup_inputWrap">
             <input
               className="siginup_input"
