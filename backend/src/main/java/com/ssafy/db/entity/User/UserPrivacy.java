@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 @Getter
 @Setter
 @Entity
-public class UserPrivacy extends User{
+public class UserPrivacy extends User {
 
     @Column(unique = true, nullable = false)
     private String email;
