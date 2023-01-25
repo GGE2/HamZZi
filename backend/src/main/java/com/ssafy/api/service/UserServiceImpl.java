@@ -1,7 +1,6 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.request.UserRegisterRequest;
-import com.ssafy.db.entity.User.UserPrivacy;
 import com.ssafy.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

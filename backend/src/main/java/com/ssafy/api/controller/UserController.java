@@ -4,7 +4,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.ssafy.api.request.UserRegisterRequest;
 import com.ssafy.api.service.UserService;
 import com.ssafy.common.model.response.BaseResponseBody;
-import com.ssafy.db.entity.User.UserPrivacy;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
