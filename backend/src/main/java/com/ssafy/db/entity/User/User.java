@@ -28,4 +28,8 @@ public class User {
     @Column(nullable = true)
     private char gender;
 
+    @OneToOne
+    @JoinColumn(name="user_id")
+    private UserProfile userProfile;
+
 }

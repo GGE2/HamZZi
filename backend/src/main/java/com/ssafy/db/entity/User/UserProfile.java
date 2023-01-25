@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-public class UserProfile extends User {
+public class UserProfile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,8 +16,4 @@ public class UserProfile extends User {
 
     @Column(nullable = false)
     private int point;
-
-    @OneToOne
-    @JoinColumn(name="user_id")
-    private User user;
 }
