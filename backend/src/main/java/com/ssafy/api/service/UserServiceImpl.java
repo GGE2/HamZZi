@@ -13,18 +13,18 @@ import javax.transaction.Transactional;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService{
 
-    @Autowired
-    UserRepository userRepository;
-
-    @Override
-    public UserPrivacy registerUser(UserRegisterRequest registerInfo) {
-        UserPrivacy newUser = new UserPrivacy();
-//      newUser.setUser_id(registerInfo.getUser_id());
-        newUser.setEmail(registerInfo.getEmail());
-        newUser.setPassword(registerInfo.getPassword());
-        newUser.setTelephone(registerInfo.getTelephone());
-        newUser.setName(registerInfo.getName());
-        newUser.setGender(registerInfo.getGender());
-        return userRepository.save(newUser);
-    }
+//    @Autowired
+//    UserRepository userRepository;
+//
+//    @Override
+//    public UserPrivacy registerUser(UserRegisterRequest registerInfo) {
+//        UserPrivacy newUser = new UserPrivacy();
+////      newUser.setUser_id(registerInfo.getUser_id());
+//        newUser.setEmail(registerInfo.getEmail());
+//        newUser.setPassword(registerInfo.getPassword());
+//        newUser.setTelephone(registerInfo.getTelephone());
+//        newUser.setName(registerInfo.getName());
+//        newUser.setGender(registerInfo.getGender());
+//        return userRepository.save(newUser);
+//    }
 }
