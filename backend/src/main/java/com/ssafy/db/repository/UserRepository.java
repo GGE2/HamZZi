@@ -14,8 +14,9 @@ public interface UserRepository {
     void remove(Long user_id);
 
     // Read --------------------------------
-    // 사용자의 개인정보(로그인 정보) 리턴(ID)
+    // 사용자의 개인정보(로그인 정보) 리턴(ID, email)
     User findById(Long user_id);
+    User findByEmail(String email);
 
     // 사용자의 게임 내 정보 리턴(ID, nickname)
     UserProfile findByNickname(String nickname);

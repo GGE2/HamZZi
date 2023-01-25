@@ -29,19 +29,21 @@ public class UserRepositorySupport implements UserRepository {
     }
 
     // Read --------------------------------
-    // 사용자의 개인정보(로그인 정보) 리턴
+    // 사용자의 개인정보(로그인 정보) 리턴(ID, email)
     @Override
     public User findById(Long user_id) {
         return em.find(User.class, user_id);
     }
+    @Override
+    public User findByEmail(String email) {
+        return em.find(User.class, email);
+    }
 
-    // 사용자의 게임 내 정보 리턴
+    // 사용자의 게임 내 정보 리턴(ID, nickname)
     @Override
     public UserProfile findByNickname(String nickname) {
         return em.find(UserProfile.class, nickname);
     }
-
-    // 사용자의 게임 닉네임 리턴(UserProfile FK 찾기)
     @Override
     public UserProfile findUPById(Long user_id) {
         return em.find(UserProfile.class, user_id);
