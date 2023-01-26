@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.Map;
 
 @Controller
+@RequestMapping("api/kakao")
 public class MainController {
     @Autowired
     KakaoService kakaoService;
 
-//    @RequestMapping("api/kakao")
+//
 //    @ResponseBody
     @GetMapping()
     public String testConnect() {
