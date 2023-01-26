@@ -14,16 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @Api(value = "user API", tags = {"User"})
 @RestController
 //임시 주소...
 @RequestMapping("api/user")
 @RequiredArgsConstructor
 public class UserController {
-
-    //오류발생시 1순위 주석처리대상 -> config.FirebaseInitializer 도 주석
-//    @Autowired
-//    FirebaseAuth firebaseAuth;
 
     @Autowired
     UserService userService;
@@ -59,15 +56,15 @@ public class UserController {
 //        return null;
 //    }
 
-    @PutMapping("/update")
-    @ApiOperation(value = "회원 정보 업데이트", notes = "조회한 정보 업데이트")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "성공"),
-            @ApiResponse(code = 401, message = "인증 실패"),
-            @ApiResponse(code = 404, message = "사용자 없음"),
-            @ApiResponse(code = 500, message = "서버 오류")
-    })
-    public ResponseEntity<? extends BaseResponseBody> updateUser() {}
+//    @PutMapping("/update")
+//    @ApiOperation(value = "회원 정보 업데이트", notes = "조회한 정보 업데이트")
+//    @ApiResponses({
+//            @ApiResponse(code = 200, message = "성공"),
+//            @ApiResponse(code = 401, message = "인증 실패"),
+//            @ApiResponse(code = 404, message = "사용자 없음"),
+//            @ApiResponse(code = 500, message = "서버 오류")
+//    })
+//    public ResponseEntity<? extends BaseResponseBody> updateUser() {}
 
 //    @DeleteMapping
     // 체크할 것
