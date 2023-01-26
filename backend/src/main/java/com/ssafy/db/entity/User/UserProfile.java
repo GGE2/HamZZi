@@ -12,8 +12,8 @@ public class UserProfile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "USER_NICKNAME")
     private String nickname;
 
-    @Column(nullable = false)
     private int point;
 }

@@ -59,15 +59,15 @@ public class UserController {
 //        return null;
 //    }
 
-    @PutMapping("/update")
-    @ApiOperation(value = "회원 정보 업데이트", notes = "조회한 정보 업데이트")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "성공"),
-            @ApiResponse(code = 401, message = "인증 실패"),
-            @ApiResponse(code = 404, message = "사용자 없음"),
-            @ApiResponse(code = 500, message = "서버 오류")
-    })
-    public ResponseEntity<? extends BaseResponseBody> updateUser() {}
+//    @PutMapping("/update")
+//    @ApiOperation(value = "회원 정보 업데이트", notes = "조회한 정보 업데이트")
+//    @ApiResponses({
+//            @ApiResponse(code = 200, message = "성공"),
+//            @ApiResponse(code = 401, message = "인증 실패"),
+//            @ApiResponse(code = 404, message = "사용자 없음"),
+//            @ApiResponse(code = 500, message = "서버 오류")
+//    })
+//    public ResponseEntity<? extends BaseResponseBody> updateUser() {}
 
 //    @DeleteMapping
     // 체크할 것
