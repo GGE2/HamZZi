@@ -1,4 +1,4 @@
-package com.ssafy.db.entity;
+package com.ssafy.db.entity.User;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,12 +11,26 @@ import javax.persistence.*;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "User_ID")
-    private Long id;
+    @Column(name = "USER_ID")
+    private Long user_id;
 
+    @Column(unique = true, nullable = false)
     private String email;
+
+    @Column(nullable = true)
     private String password;
+
+    @Column(nullable = true)
     private String telephone;
+
+    @Column(nullable = true)
     private String name;
+
+    @Column(nullable = true)
     private char gender;
+
+    @OneToOne
+    @JoinColumn(name="USER_NICKNAME")
+    private UserProfile userProfile;
+
 }

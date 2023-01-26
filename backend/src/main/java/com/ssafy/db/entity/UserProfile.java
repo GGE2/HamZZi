@@ -1,23 +1,19 @@
-package com.ssafy.db.entity;
+package com.ssafy.db.entity.User;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
+
+@Getter
+@Setter
 @Entity
-@Table(name = "USERPROFILE")
-@Getter @Setter
 public class UserProfile {
 
     @Id
-    @Column(name = "User_Nickname")
-    private String user_nickname;
-
-    @Column(name = "User_ID")
-    private Long user_id;       // User.java의 User_ID와 FK관계
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "USER_NICKNAME")
+    private String nickname;
 
     private int point;
 }
