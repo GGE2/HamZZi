@@ -22,10 +22,6 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class UserController {
 
-    //오류발생시 1순위 주석처리대상 -> config.FirebaseInitializer 도 주석
-//    @Autowired
-//    FirebaseAuth firebaseAuth;
-
     @Autowired
     UserService userService;
 
