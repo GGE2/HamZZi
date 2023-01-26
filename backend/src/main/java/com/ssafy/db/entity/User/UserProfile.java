@@ -16,4 +16,6 @@ public class UserProfile {
     private String nickname;
 
     private int point;
+
+    private int ach_num;
 }
