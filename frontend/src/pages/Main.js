@@ -1,9 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Ham from "./mainpages/Ham";
 import Board from "./mainpages/Board";
 import "../styles/Main.css";
 
+import { FcSearch, FcWebcam, FcConferenceCall, FcCalendar, FcCollaboration, FcTodoList, FcRating } from "react-icons/fc";
+import { BiDotsHorizontalRounded, BiDotsVerticalRounded } from "react-icons/bi";
+import { GiAchievement} from "react-icons/gi";
+
+import { useDispatch } from "react-redux";
+import { setCredentials } from "../authSlice";
+
 const Main = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const email = localStorage.getItem("user");
+    if (email !== null) {
+      dispatch(
+        setCredentials({
+          user: email,
+        })
+      );
+    }
+  });
+
   return (
     <div className="app">
       <div className="Board">
@@ -13,13 +33,34 @@ const Main = () => {
           </div>
           <div className="Screen">
             <Board />
-            <div className="BoardButton">
-              <button>Todo</button>
-              <button>Quest</button>
-              <button>Guild</button>
-              <button>Friend</button>
-              <button style={{borderRadius :'50%'}}>My</button>
-            </div>
+          </div>
+          <div className="buttonflex">
+            <button>
+              <FcSearch size={"100%"} />
+            </button>
+            <button>
+              <FcWebcam size={"100%"} />
+            </button>
+            <button>
+              <FcConferenceCall size={"100%"} />
+            </button>
+            
+            <button>
+              <FcRating size={"100%"} />
+            </button>
+            
+            <button>
+              <FcTodoList size={"100%"} />
+            </button>
+            <button>
+              <FcCollaboration size={"100%"} />
+            </button>
+            <button>
+              <BiDotsHorizontalRounded size={"100%"} />
+            </button>
+            <button>
+              <BiDotsVerticalRounded size={"100%"} />
+            </button>
           </div>
         </div>
       </div>

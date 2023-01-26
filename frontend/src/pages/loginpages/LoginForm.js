@@ -26,9 +26,10 @@ export default function LoginForm() {
     try {
       const curUserInfo = await signInWithEmailAndPassword(auth, email, pw);
       console.log(curUserInfo);
+      localStorage.setItem("user", JSON.stringify(curUserInfo.user.email));
       dispatch(
         setCredentials({
-          user: curUserInfo.user.email,
+          user: localStorage.getItem("user"),
           token: curUserInfo.user.accessToken,
         })
       );

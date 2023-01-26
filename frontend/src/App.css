@@ -1,3 +1,10 @@
 body {
     margin: 0px
 }
+
+.Header {
+    border-bottom: 3px solid red;
+    display: flex;
+    justify-content: start;
+    padding-left: 30px;
+}

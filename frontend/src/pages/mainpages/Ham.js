@@ -1,13 +1,14 @@
 import React from "react";
-import HamAchieve from "./hampages/HamAchieve";
 import HamOutfit from "./hampages/HamOutfit";
 import HamStatus from "./hampages/HamStatus";
+import HamHeader from "./hampages/HamHeader";
+import "../../styles/Ham.css";
 
 const Ham = () => {
   return (
-    <div>
-      Ham
-      <HamAchieve />
+    <div className="Ham">
+      <HamHeader />
+
       <HamOutfit />
       <HamStatus />
     </div>

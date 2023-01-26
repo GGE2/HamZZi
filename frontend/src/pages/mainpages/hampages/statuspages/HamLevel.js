@@ -3,7 +3,7 @@ import React from 'react';
 const HamLevel = () => {
     return (
         <div>
-            HamLevel
+            <button className='button'>8</button>
         </div>
     );
 };

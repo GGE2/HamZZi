@@ -1,0 +1,113 @@
+
+@keyframes rotate_image{
+	100% {
+    	transform: rotate(360deg);
+    }
+}
+
+/* .img3 {
+width: 50%;
+animation: rotate_image 10s linear infinite;
+    transform-origin: 50% 50%;
+} */
+
+.img1 {
+    width: 50%;
+    animation: rotate_image 0.1s linear infinite;
+    transform-origin: 100% 100%;
+}
+
+.img2 {
+    width: 50%;
+    animation: rotate_image 5s linear infinite;
+    transform-origin: 200% 150%;
+}
+
+
+
+@keyframes rotate_image{
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.Ham {
+    height: 100%;
+}
+/* 햄 header 부분 : 업적  */
+.Hamheader {
+    /* border-bottom: 3px solid black; */
+    height: 10%;
+    /* display: flex; */
+}
+
+.Hamheader button{
+    background-color: #f9fbe7;
+    border: none;
+}
+
+.HamAchievement {
+    display: flex;
+    height: 100%;
+    /* border: 1px solid pink; */
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 1vw;
+}
+
+/* 햄 outfit 이height: 100%;미지 크기 설정 */
+.HamOutfit{
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.HamOutfit img {
+    width: 100%;
+}
+
+.Expbar {
+    display: flex;
+    /* justify-content: center; */
+    position: relative;
+    left: 5%;
+    margin-top: 0px;
+    /* margin-bottom: 10px; */
+}
+
+ .HamChart{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 30px;
+    /* padding-bottom: 30px; */
+ }
+
+/* .Level {
+    width: 40%;
+} */
+
+.button {
+    /* margin-left: 30px; */
+    height: 30px;
+    width: 30px;
+    border-radius: 100px;
+    background-color: pink;
+    position: absolute;
+    left: 5%;
+    /* bottom: 44%; */
+   }
+
+.Exp{
+    width: 100%;
+    margin-left: 10%;
+    position: absolute;
+}
+
+
+
+
+

@@ -75,7 +75,7 @@ function Kakao() {
   }, [user]);
 
   useEffect(() => {
-    console.log(isLogin);
+    // console.log(isLogin);
     if (isLogin) {
       setUser({
         email: localStorage.getItem("email"),
