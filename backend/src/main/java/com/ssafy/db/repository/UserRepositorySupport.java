@@ -40,8 +40,9 @@ public class UserRepositorySupport implements UserRepository {
         return em.find(User.class, user_id);
     }
     @Override
-    public User findByEmail(String email) {
-        return em.find(User.class, email);
+    public Long findIdByEmail(String email) {
+        return em.createQuery("select u.user_id from User u where u.email=:email", Long.class)
+                .setParameter("email", email).getSingleResult();
     }
 
     // 사용자의 게임 내 정보 리턴(ID, nickname)

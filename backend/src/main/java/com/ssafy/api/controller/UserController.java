@@ -38,25 +38,26 @@ public class UserController {
     public ResponseEntity<? extends BaseResponseBody> registerUser(
             @RequestBody @ApiParam(value="회원가입 정보", required = true) UserRegisterRequest registerInfo) {
 
+        //즉시 메인페이지로 보낼때 id 사용???
         Long user_id = userService.registerUser(registerInfo);
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
-//
-//    @GetMapping("/my")
-//    @ApiOperation(value = "회원 정보 조회", notes = "로그인한 회원의 프로필 정보 조회")
-//    @ApiResponses({
-//            @ApiResponse(code = 200, message = "성공"),
-//            @ApiResponse(code = 401, message = "인증 실패"),
-//            @ApiResponse(code = 404, message = "사용자 없음"),
-//            @ApiResponse(code = 500, message = "서버 오류")
-//    })
-//    public ResponseEntity<UserRes> getUserInfo() {
-//        String user_id; //현재 로그인한 사용자의 user_id(PK)를 가져와야 함
-//        UserProfile user = userService.loginUserData(user_id);
-//        return null;
-//    }
 
-//    @PutMapping("/update")
+    @GetMapping("/my/{email}")
+    @ApiOperation(value = "회원 정보 조회", notes = "로그인한 회원의 프로필 정보 조회")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<UserRes> getUserInfo(@PathVariable String email) {
+        UserProfile user = userService.loginUserData(email);
+        return null;
+    }
+
+    /* 수정할 정보 없어서 미사용 */
+//    @PutMapping()
 //    @ApiOperation(value = "회원 정보 업데이트", notes = "조회한 정보 업데이트")
 //    @ApiResponses({
 //            @ApiResponse(code = 200, message = "성공"),
