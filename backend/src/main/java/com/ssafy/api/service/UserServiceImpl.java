@@ -1,5 +1,6 @@
 package com.ssafy.api.service;
 
+import com.ssafy.api.request.UserNicknameRequest;
 import com.ssafy.api.request.UserRegisterRequest;
 import com.ssafy.db.entity.User.User;
 import com.ssafy.db.entity.User.UserProfile;
@@ -26,11 +27,16 @@ public class UserServiceImpl implements UserService{
         user.setPassword(registerInfo.getPassword());
         user.setTelephone(registerInfo.getTelephone());
         user.setName(registerInfo.getName());
-        user.setGender(registerInfo.getGender());
 
         userRepo.saveUser(user);
         return user.getUser_id();
     }
+
+//    @Override
+//    public Long registerNickname(UserNicknameRequest NicknameInfo) {
+//        User user =
+//    }
+
 
     @Override
     public UserProfile loginUserData(String email) {

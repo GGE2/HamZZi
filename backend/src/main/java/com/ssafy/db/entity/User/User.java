@@ -25,11 +25,8 @@ public class User {
     @Column(nullable = true)
     private String name;
 
-    @Column(nullable = true)
-    private char gender;
-
     @OneToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="nickname")
     private UserProfile userProfile;
 
 }
