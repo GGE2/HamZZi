@@ -38,7 +38,9 @@ public class UserController {
     public ResponseEntity<? extends BaseResponseBody> registerUser(
             @RequestBody @ApiParam(value="회원가입 정보", required = true) UserRegisterRequest registerInfo) {
 
+//        Long user_id = userService.registerUser(registerInfo);
         Long user_id = userService.registerUser(registerInfo);
+
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
     }
 //
