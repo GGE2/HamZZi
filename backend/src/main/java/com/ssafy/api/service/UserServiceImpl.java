@@ -32,11 +32,14 @@ public class UserServiceImpl implements UserService{
         return user.getUser_id();
     }
 
-//    @Override
-//    public Long registerNickname(UserNicknameRequest NicknameInfo) {
-//        User user =
-//    }
+    @Override
+    public String registerNickname(Long user_id, String nickname) {
+        UserProfile user = userRepo.findById(user_id).getUserProfile();
+        user.setNickname(nickname);
+        userRepo.saveUserProfile(user);
 
+        return user.getNickname();
+    }
 
     @Override
     public UserProfile loginUserData(String email) {

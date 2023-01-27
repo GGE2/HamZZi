@@ -11,6 +11,7 @@ import com.ssafy.db.entity.User.UserProfile;
 import com.ssafy.db.repository.UserRepository;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,10 +38,10 @@ public class UserController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     /* User-가입 API: 가입한 사용자의 PK를 리턴해준다 */
-    public Long registerUser(
+    public String registerUser(
             @RequestBody @ApiParam(value="회원가입 정보", required = true) UserRegisterRequest registerInfo) {
         Long user_id = userService.registerUser(registerInfo);
-        return user_id;
+        return user_id + " OK";
     }
 
     @PutMapping()
@@ -53,10 +54,10 @@ public class UserController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     /* UserProfile-닉네임 등록 API: (프롤로그시 최초1회 실행) */
-    public Long registerNickname(
-            @RequestBody @ApiParam(value="닉네임 등록", required = true) String Nickname, Long user_id) {
-        userService.registerNickname(user_id, NicknameInfo);
-        return user_id;
+    public String registerNickname(
+            @RequestBody @ApiParam(value="닉네임 등록", required = true) String nickname, Long user_id) {
+        String getNickname = userService.registerNickname(user_id, nickname);
+        return user_id + " : " + getNickname + " OK";
     }
 
 //    @GetMapping("/my/{email}")
