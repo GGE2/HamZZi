@@ -7,10 +7,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@ApiModel("UserRegisterRequest")
+@ApiModel("UserNicknameRequest")
 public class UserNicknameRequest {
+    @ApiModelProperty(name="유저 닉네임", example="hamjuin")
+    String nickname;
 
-//    @ApiModelProperty(name="유저 id", example="1")
-//    int user_id;
-    @ApiModelProperty(name="유저 닉네임", example="hamjuin") String Nickname;
+    @ApiModelProperty(name="유저 id", example="1")
+    Long user_id;
 }

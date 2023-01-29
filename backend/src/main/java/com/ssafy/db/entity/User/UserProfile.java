@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class UserProfile {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "nickname")
     private String nickname;
 

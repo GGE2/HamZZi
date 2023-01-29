@@ -33,18 +33,23 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public String registerNickname(Long user_id, String nickname) {
-        UserProfile user = userRepo.findById(user_id).getUserProfile();
-        user.setNickname(nickname);
-        userRepo.saveUserProfile(user);
+    public void registerNickname(UserNicknameRequest nicknameInfo) {
+        User user = userRepo.findById(nicknameInfo.getUser_id());
+        UserProfile userProfile = new UserProfile();
 
-        return user.getNickname();
+        userProfile.setNickname(nicknameInfo.getNickname());
+        user.setUserProfile(userProfile);
+
+        userRepo.saveUserProfile(userProfile);
+        userRepo.saveUser(user);
     }
+
 
     @Override
     public UserProfile loginUserData(String email) {
         Long user_id = userRepo.findIdByEmail(email);
-        return userRepo.findUserProfileById(user_id);
+        String nickname = userRepo.findNicknameById(user_id);
+        return userRepo.findByNickname(nickname);
     }
 
 //    // 수정할 수 없는 항목 주석처리 - UpdateReq에서도 수정필요
@@ -62,8 +67,10 @@ public class UserServiceImpl implements UserService{
 //    }
 
     @Override
-    public void deleteUser(Long user_id) {
+    public void deleteUser(String email) {
+        Long user_id = userRepo.findIdByEmail(email);
+
+        userRepo.removeUserProfile(user_id);
         userRepo.removeUser(user_id);
-        // 리턴타입 고민좀 해봐야함 스웨거 쓰려면 resentity ??
     }
 }

@@ -27,9 +27,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    UserRepository userRepo;
-
-    @PostMapping()
+    @PostMapping("/register")
     @ApiOperation(value = "회원 가입", notes = "필요한 정보를 전부 입력한다")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -44,9 +42,9 @@ public class UserController {
         return user_id + " OK";
     }
 
-    @PutMapping()
+    @PutMapping("/nickname")
     @ApiOperation(value = "닉네임 등록", notes = "닉네임을 입력해주세요")
-    @ApiImplicitParam(name = "유저 닉네임", value = "hamburger")
+//    @ApiImplicitParam(name = "유저 닉네임", value = "hamburger")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 401, message = "인증 실패"),
@@ -55,23 +53,24 @@ public class UserController {
     })
     /* UserProfile-닉네임 등록 API: (프롤로그시 최초1회 실행) */
     public String registerNickname(
-            @RequestBody @ApiParam(value="닉네임 등록", required = true) String nickname, Long user_id) {
-        String getNickname = userService.registerNickname(user_id, nickname);
-        return user_id + " : " + getNickname + " OK";
+            @RequestBody @ApiParam(value="닉네임 등록", required = true) UserNicknameRequest nicknameInfo) {
+        userService.registerNickname(nicknameInfo);
+        return nicknameInfo.getUser_id() + " registered " + nicknameInfo.getNickname() + " OK";
     }
 
-//    @GetMapping("/my/{email}")
-//    @ApiOperation(value = "회원 정보 조회", notes = "로그인한 회원의 프로필 정보 조회")
-//    @ApiResponses({
-//            @ApiResponse(code = 200, message = "성공"),
-//            @ApiResponse(code = 401, message = "인증 실패"),
-//            @ApiResponse(code = 404, message = "사용자 없음"),
-//            @ApiResponse(code = 500, message = "서버 오류")
-//    })
-//    public ResponseEntity<UserRes> getUserInfo(@PathVariable String email) {
-//        UserProfile user = userService.loginUserData(email);
-//        return null;
-//    }
+    @GetMapping("/my/{email}")
+    @ApiOperation(value = "회원 정보 조회", notes = "로그인한 회원의 프로필 정보 조회")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public String getUserInfo(@PathVariable String email) {
+        //오류 때문에 email을 id로 변환 후 넣어야 함(PK만 받을 수 있음)
+        UserProfile userProfile = userService.loginUserData(email);
+        return "email: " + userProfile.getUser().getEmail() + " /////nickname: " + userProfile.getNickname() + " OK";
+    }
 
     /* 수정할 정보 없어서 미사용 */
 //    @PutMapping()
@@ -84,7 +83,18 @@ public class UserController {
 //    })
 //    public ResponseEntity<? extends BaseResponseBody> updateUser() {}
 
-//    @DeleteMapping
+    @DeleteMapping("/delete/{email}")
+    @ApiOperation(value = "회원 탈퇴", notes = "로그인한 회원 정보 삭제")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public String deleteUser(@PathVariable String email) {
+        userService.deleteUser(email);
+        return email + " delete OK";
+    }
     // 체크할 것
     // 1 User를 삭제했을때 연결된 UserProfile도 삭제되는가?
     // 2 삭제된다면 RemoveUserProfile을 별도로 두지 않는다
