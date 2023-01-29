@@ -12,13 +12,25 @@ import java.time.LocalDateTime;
 public class Todo {
 
     @Id
-    private int todo_id;
+    private Long todo_id;
 
     @OneToOne
     @JoinColumn(name="USER_NICKNAME")
     private UserProfile userProfile;
 
+    @Column(nullable = false)
+    private String title;       // title 추가
+    @Column(nullable = false)
     private String content;
+    @Column(nullable = false)
     private boolean ischeck;
     private LocalDateTime datetime;
+
+    public Todo(){
+    }
+
+    public Todo(String title, String content){
+        this.title = title;
+        this.content = content;
+    }
 }
