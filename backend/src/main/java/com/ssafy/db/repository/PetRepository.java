@@ -17,6 +17,7 @@ public interface PetRepository {
     void savePetStat(PetStat petStat);
 
     Pet findById(Long pet_id);
+    Pet findByNickname(String nickname);
 
 //    void addStatPoint(@Param("typename") String typename, int point);
 }

@@ -26,6 +26,9 @@ public class PetRepositorySupport implements PetRepository {
     @Override
     public Pet findById(Long pet_id) { return em.find(Pet.class, pet_id); }
 
+    @Override
+    public Pet findByNickname(String nickname) { return em.find(Pet.class, nickname); }
+
 //    // 나중에 응답이 필요하면 OK 출력 or true 출력
 //    public void addStatPoint(@Param("typename") String typename, int point) {
 //        int stat = jpaQueryFactory.select(qPetStat.typename).from(qPetStat);
