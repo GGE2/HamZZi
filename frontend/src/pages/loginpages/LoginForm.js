@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../../authSlice";
-import axios from "axios";
 import "../../styles/LoginForm.css";
 
 // import Google from "./features/auth/Google";
@@ -40,7 +39,7 @@ export default function LoginForm() {
       dispatch(
         setCredentials({
           user: curUserInfo.user.displayName,
-          accessToken: curUserInfo.user.accessToken,
+          token: curUserInfo.user.accessToken,
         })
       );
 

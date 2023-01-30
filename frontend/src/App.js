@@ -15,9 +15,9 @@ function App() {
       <Route index element={<Login />} />
       <Route path="/kakaoLogin" element={<KakaoLogin />} />
 
-      <Route element={<RequireAuth />}>
-        <Route path="/main" element={<Main />} />
-      </Route>
+      {/* <Route element={<RequireAuth />}> */}
+      <Route path="/main" element={<Main />} />
+      {/* </Route> */}
     </Routes>
   );
 }
