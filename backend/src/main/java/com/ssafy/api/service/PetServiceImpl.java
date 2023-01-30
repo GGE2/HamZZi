@@ -1,6 +1,7 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.request.PetCreateRequest;
+import com.ssafy.api.request.PetStatRequest;
 import com.ssafy.db.entity.Pet.Pet;
 import com.ssafy.db.entity.Pet.PetInfo;
 import com.ssafy.db.entity.Pet.PetStat;
@@ -50,17 +51,47 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public Pet activePetData(String email) {
-        /* 임시니까 더러워도 참자... */
         String nickname = userRepo.findNicknameById(userRepo.findIdByEmail(email));
         Pet pet = petRepo.findByNickname(nickname);
         return pet;
     }
 
     @Override
-    public Pet expLevelLogic(Long pet_id) {
+    public Pet expLevelLogic(Long pet_id, int exp) {
         Pet pet = petRepo.findById(pet_id);
         int nowExp = pet.getExp();
+        int nowLevel = pet.getLevel();
 
+        int newExp = nowExp + exp;
+        int newLevel = nowLevel;
+
+        switch (newLevel) {
+            case 1: if(newExp >= 14) {newLevel++; newExp -= 14;} break;
+            case 2: if(newExp >= 30) {newLevel++; newExp -= 30;} break;
+            case 3: if(newExp >= 60) {newLevel++; newExp -= 60;} break;
+            case 4: if(newExp >= 66) {newLevel++; newExp -= 66;} break;
+            case 5: System.out.println("Max level"); break;
+        }
+
+        pet.setExp(newExp);
+        pet.setLevel(newLevel);
+
+        return pet;
+    }
+
+    @Override
+    public PetStat statLogic(PetStatRequest petStatRequest) {
+        PetStat petStat = petRepo.findStatById(petStatRequest.getPet_id());
+
+        petStat.setPhysical(petStat.getPhysical() + petStatRequest.getPhysical());
+        petStat.setArtistic(petStat.getArtistic() + petStatRequest.getArtistic());
+        petStat.setIntelligent(petStat.getIntelligent() + petStatRequest.getIntelligent());
+        petStat.setInactive(petStat.getInactive() + petStatRequest.getInactive());
+        petStat.setEnergetic(petStat.getEnergetic() + petStatRequest.getEnergetic());
+        petStat.setEtc(petStat.getEtc() + petStatRequest.getEtc());
+
+        petRepo.savePetStat(petStat);
+        return petStat;
     }
 
 

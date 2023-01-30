@@ -22,12 +22,12 @@ public class PetRepositorySupport implements PetRepository {
     public void savePetInfo(PetInfo petInfo) { em.persist(petInfo); }
     public void savePetStat(PetStat petStat) { em.persist(petStat); }
 
-
     @Override
     public Pet findById(Long pet_id) { return em.find(Pet.class, pet_id); }
-
     @Override
     public Pet findByNickname(String nickname) { return em.find(Pet.class, nickname); }
+
+    public PetStat findStatById(Long pet_id) { return em.find(PetStat.class, pet_id); }
 
 //    // 나중에 응답이 필요하면 OK 출력 or true 출력
 //    public void addStatPoint(@Param("typename") String typename, int point) {
@@ -35,27 +35,5 @@ public class PetRepositorySupport implements PetRepository {
 //        stat += point;
 //        stat.s
 //    }
-//
-//    // 수학적으로 뭔소린지 까먹음.../1.5 왜있더라
-//    public void addExp(int exp) {
-//        int nowExp = jpaQueryFactory.select(qPetOutfitData.exp).from(qPetOutfitData);
-//        int level = jpaQueryFactory.select(qPetOutfitData.level).from(qPetOutfitData);
-//
-//        int newExp = nowExp + exp;
-//        int newLevel = level;
-//
-//        switch (newLevel) {
-//            case 1: if(newExp >= 14) {newLevel++; newExp -= 14;} break;
-//            case 2: if(newExp >= 30) {newLevel++; newExp -= 30;} break;
-//            case 3: if(newExp >= 60) {newLevel++; newExp -= 60;} break;
-//            case 4: if(newExp >= 66) {newLevel++; newExp -= 66;} break;
-//            case 5: System.out.println("Max level"); break;
-//        }
-//
-//        jpaQueryFactory.update(qPetOutfitData).from(qPetOutfitData);
-//
-//    }
-
-
 
 }

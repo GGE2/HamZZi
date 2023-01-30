@@ -19,5 +19,6 @@ public interface PetRepository {
     Pet findById(Long pet_id);
     Pet findByNickname(String nickname);
 
+    PetStat findStatById(Long pet_id);
 //    void addStatPoint(@Param("typename") String typename, int point);
 }
