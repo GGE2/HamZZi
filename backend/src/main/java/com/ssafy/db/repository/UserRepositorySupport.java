@@ -31,7 +31,7 @@ public class UserRepositorySupport implements UserRepository {
     @Override
     public void removeUser(Long user_id) { em.remove(findById(user_id)); }
     @Override
-    public void removeUserProfile(Long user_id) { em.remove(findUserProfileById(user_id)); }
+    public void removeUserProfile(Long user_id) { em.remove(findByNickname(findNicknameById(user_id))); }
 
     // Read --------------------------------
     // 사용자의 개인정보(로그인 정보) 리턴(ID, email)
@@ -40,17 +40,20 @@ public class UserRepositorySupport implements UserRepository {
         return em.find(User.class, user_id);
     }
     @Override
-    public User findByEmail(String email) {
-        return em.find(User.class, email);
+    public Long findIdByEmail(String email) {
+        return em.createQuery("select u.user_id from User u where u.email=:email", Long.class)
+                .setParameter("email", email).getSingleResult();
+    }
+    @Override
+    public String findNicknameById(Long user_id) {
+        UserProfile userProfile = em.createQuery("select u.userProfile from User u where u.user_id=:user_id", UserProfile.class)
+                .setParameter("user_id", user_id).getSingleResult();
+        return userProfile.getNickname();
     }
 
     // 사용자의 게임 내 정보 리턴(ID, nickname)
     @Override
     public UserProfile findByNickname(String nickname) {
         return em.find(UserProfile.class, nickname);
-    }
-    @Override
-    public UserProfile findUserProfileById(Long user_id) {
-        return em.find(UserProfile.class, user_id);
     }
 }

@@ -18,9 +18,10 @@ public interface UserRepository {
     // Read --------------------------------
     // 사용자의 개인정보(로그인 정보) 리턴(ID, email)
     User findById(Long user_id);
-    User findByEmail(String email);
+    Long findIdByEmail(String email);
+
+    String findNicknameById(Long user_id);
 
     // 사용자의 게임 내 정보 리턴(ID, nickname)
     UserProfile findByNickname(String nickname);
-    UserProfile findUserProfileById(Long user_id);
 }

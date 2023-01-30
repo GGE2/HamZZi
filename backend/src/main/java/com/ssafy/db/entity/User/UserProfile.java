@@ -11,9 +11,13 @@ import javax.persistence.*;
 public class UserProfile {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "USER_NICKNAME")
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "user_nickname")
     private String nickname;
 
+    @OneToOne(mappedBy = "userProfile")
+    private User user;
+
+    @Column(nullable = false)
     private int point;
 }

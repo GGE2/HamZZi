@@ -11,7 +11,6 @@ import javax.persistence.*;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "USER_ID")
     private Long user_id;
 
     @Column(unique = true, nullable = false)
@@ -26,11 +25,8 @@ public class User {
     @Column(nullable = true)
     private String name;
 
-    @Column(nullable = true)
-    private char gender;
-
     @OneToOne
-    @JoinColumn(name="USER_NICKNAME")
+    @JoinColumn(name="user_nickname")
     private UserProfile userProfile;
 
 }
