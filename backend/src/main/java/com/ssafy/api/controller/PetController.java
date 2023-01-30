@@ -49,6 +49,7 @@ public class PetController {
     /* Pet-조회 API: 로그인한 사용자의 활성화된 펫을 조회한다 */
     public String getPetInfo(@PathVariable String email) {
         Pet pet = petService.activePetData(email);
+        // PetStat 과 PetInfo도 받아오자.
         return "pet owner : " + pet.getNickname() + "///// petname : " + pet.getPet_name();
     }
 
