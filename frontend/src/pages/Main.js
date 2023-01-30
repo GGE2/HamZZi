@@ -3,7 +3,14 @@ import Ham from "./mainpages/Ham";
 import Board from "./mainpages/Board";
 import "../styles/Main.css";
 
-import { FcSearch, FcWebcam, FcConferenceCall,  FcCollaboration, FcTodoList, FcRating } from "react-icons/fc";
+import {
+  FcSearch,
+  FcWebcam,
+  FcConferenceCall,
+  FcCollaboration,
+  FcTodoList,
+  FcRating,
+} from "react-icons/fc";
 import { BiDotsHorizontalRounded, BiDotsVerticalRounded } from "react-icons/bi";
 
 import { useDispatch } from "react-redux";
@@ -12,16 +19,16 @@ import { setCredentials } from "../authSlice";
 const Main = () => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const email = localStorage.getItem("user");
-    if (email !== null) {
-      dispatch(
-        setCredentials({
-          user: email,
-        })
-      );
-    }
-  });
+  // useEffect(() => {
+  //   const email = localStorage.getItem("user");
+  //   if (email !== null) {
+  //     dispatch(
+  //       setCredentials({
+  //         user: email,
+  //       })
+  //     );
+  //   }
+  // });
 
   return (
     <div className="app">
@@ -43,11 +50,11 @@ const Main = () => {
             <button>
               <FcConferenceCall size={"100%"} />
             </button>
-            
+
             <button>
               <FcRating size={"100%"} />
             </button>
-            
+
             <button>
               <FcTodoList size={"100%"} />
             </button>
