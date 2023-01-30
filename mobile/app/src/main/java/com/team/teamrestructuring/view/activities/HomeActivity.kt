@@ -18,6 +18,7 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.team.teamrestructuring.R
 import com.team.teamrestructuring.databinding.ActivityHomeBinding
 import com.team.teamrestructuring.view.adapters.ViewPagerAdapter
+import com.team.teamrestructuring.view.fragments.GuildFragment
 
 
 private const val TAG = "HomeActivity_지훈"
@@ -42,16 +43,19 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
         init()
+
     }
 
     /**
      * HomeActivity 초기화
      */
+
     @RequiresApi(Build.VERSION_CODES.O)
     private fun init(){
         getFCM()
         setViewPager()
         setFullScreen()
+        checkNotificationSelected()
     }
 
     /**
@@ -103,6 +107,17 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
         val notificationManager : NotificationManager
                 = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.createNotificationChannel(channel)
+    }
+
+    /**
+     * Noti를 클릭해서 들어온 경우 QuestFragment로 이동
+     */
+    private fun checkNotificationSelected(){
+        val intent_data = intent.getStringArrayExtra("clicknoti")
+        Log.d(TAG, "checkNotificationSelected: ${intent_data}")
+        if(intent_data!=null){
+            binding.viewpagerMainPager.currentItem = 2
+        }
     }
     /**
      * Home화면을 default로 한 bottomNavigation 설정

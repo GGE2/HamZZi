@@ -55,7 +55,7 @@ dependencies {
 
     // FCM 사용 위한 plugins
     implementation platform('com.google.firebase:firebase-bom:30.1.0')
-    implementation 'com.google.firebase:firebase-messaging-ktx'
+    implementation 'com.google.firebase:firebase-messaging-ktx:23.1.1'
 
 
     // https://github.com/square/retrofit

@@ -1,9 +1,12 @@
 package com.team.teamrestructuring.util
 
 import android.app.Application
+import android.util.Log
+import com.google.firebase.messaging.FirebaseMessaging
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+private val TAG ="Application_지훈"
 class ApplicationClass : Application(){
     //url must be end with "/"
     val BOARD_URL   = "http://3.35.88.23:8080/"

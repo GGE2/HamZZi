@@ -12,4 +12,8 @@
         <!-- Status bar color. -->
         <item name="android:backgroundDimEnabled">true</item>
     </style>
+
+    <style name="Widget.BottomNavigationView." parent="Widget.Design.BottomNavigationView">
+        <item name="fontFamily">@font/mine</item>
+    </style>
 </resources>

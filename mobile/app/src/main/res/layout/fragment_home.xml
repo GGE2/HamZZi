@@ -39,26 +39,27 @@
             android:layout_marginTop="50dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="parent"/>
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_home_friend"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:insetLeft="0dp"
-            android:insetBottom="0dp"
-            android:insetRight="0dp"
-            android:insetTop="0dp"
-            app:backgroundTintMode="add"
+            android:layout_marginTop="50dp"
+            android:layout_marginRight="10dp"
             android:background="@drawable/alert_radius_yellow"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            app:backgroundTintMode="add"
+            app:cornerRadius="50dp"
             app:icon="@drawable/ic_baseline_emoji_emotions_24"
             app:iconGravity="textStart"
-            app:cornerRadius="50dp"
             app:iconPadding="0dp"
             app:iconSize="30dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="50dp"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toLeftOf="@id/button_home_guild"
-            />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck" />
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_home_find"
             android:layout_width="40dp"

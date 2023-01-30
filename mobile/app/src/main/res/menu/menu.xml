@@ -7,10 +7,10 @@
         android:title="Todo"
         android:icon="@drawable/ic_baseline_playlist_add_check_24"/>
     <item android:id="@+id/menu_guild"
-        android:title="Guild"
+        android:title="Quest"
         android:icon="@drawable/ic_baseline_people_alt_24"/>
     <item android:id="@+id/menu_my_page"
-        android:title="MyPage"
+        android:title="Mypage"
         android:icon="@drawable/ic_baseline_account_circle_24"/>
 
 </menu>
