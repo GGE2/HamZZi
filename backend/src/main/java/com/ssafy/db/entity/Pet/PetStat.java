@@ -2,6 +2,7 @@ package com.ssafy.db.entity.Pet;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
@@ -12,6 +13,7 @@ import javax.persistence.*;
 public class PetStat {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pet_stat_id")
     private Long petStat_id;
 

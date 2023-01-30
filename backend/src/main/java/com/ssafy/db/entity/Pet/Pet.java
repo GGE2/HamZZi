@@ -23,6 +23,13 @@ public class Pet {
     // 펫 이름
     private String pet_name;
 
+    @Column(nullable = true)
+    private int exp;
+
+    @ColumnDefault("1")
+    @Column(nullable = false)
+    private int level;
+
     private LocalDate create_date;
 
     @ColumnDefault("false")
@@ -30,11 +37,4 @@ public class Pet {
 
     @Column(nullable = true)
     private LocalDate graduate_date;
-
-    @Column(nullable = true)
-    private int exp;
-
-    @ColumnDefault("1")
-    private int level;
-
 }

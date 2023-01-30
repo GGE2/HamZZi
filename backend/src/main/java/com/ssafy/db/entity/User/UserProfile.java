@@ -1,5 +1,6 @@
 package com.ssafy.db.entity.User;
 
+import com.ssafy.db.entity.Pet.Pet;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,6 +18,10 @@ public class UserProfile {
 
     @OneToOne(mappedBy = "userProfile")
     private User user;
+
+    @OneToOne
+    @JoinColumn(name="active_pet")
+    private Pet pet;
 
     @Column(nullable = false)
     private int point;

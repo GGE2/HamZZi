@@ -5,5 +5,5 @@ import com.ssafy.db.entity.Pet.Pet;
 
 public interface PetService {
 
-    Long createPet(PetCreateRequest createInfo);
+    Pet createPet(PetCreateRequest createInfo);
 }

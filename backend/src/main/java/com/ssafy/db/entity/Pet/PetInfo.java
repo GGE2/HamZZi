@@ -13,6 +13,7 @@ import javax.persistence.*;
 public class PetInfo {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pet_info_id")
     private Long petInfo_id;
 
@@ -25,10 +26,4 @@ public class PetInfo {
 
     //Pet이 지금 취하고 있는 동작(anim 호출 번호)
     private int behavior;
-
-    @Column(nullable = true)
-    private int exp;
-
-    @ColumnDefault("1")
-    private int level;
 }

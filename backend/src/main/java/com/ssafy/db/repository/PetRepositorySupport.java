@@ -2,6 +2,8 @@ package com.ssafy.db.repository;
 
 
 import com.ssafy.db.entity.Pet.Pet;
+import com.ssafy.db.entity.Pet.PetInfo;
+import com.ssafy.db.entity.Pet.PetStat;
 import com.ssafy.db.entity.User.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
@@ -17,6 +19,9 @@ public class PetRepositorySupport implements PetRepository {
 
     // Create, Update ----------------------
     public void savePet(Pet pet) { em.persist(pet); }
+    public void savePetInfo(PetInfo petInfo) { em.persist(petInfo); }
+    public void savePetStat(PetStat petStat) { em.persist(petStat); }
+
 
     @Override
     public Pet findById(Long pet_id) { return em.find(Pet.class, pet_id); }
