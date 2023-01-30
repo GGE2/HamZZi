@@ -17,30 +17,53 @@ const Login = () => {
 
   return (
     <div className="loginbody">
-      <div className="loginback">
-        <div className="selectlogin">
-          <div>
-            <button onClick={onClickSelectLogin}>로그인페이지</button>
-          </div>
-          <div>
-            <button onClick={onClickSelectSignup}>회원가입페이지</button>
-          </div>
-        </div>
+      {/* <div className="loginback"> */}
+        
         {loginflag ? (
-          <div>
+          <div className="loginback">
+            <div className="selectlogin">
+          <button
+            // className="selectBtn1"
+            style={{ borderRight: "1px solid black" }}
+            onClick={onClickSelectLogin}
+            className={loginflag ? 'selectBtn1' : 'selectBtn2'}
+          >
+            로그인
+          </button>
+
+          <button className={loginflag ? 'selectBtn2' : 'selectBtn1'} onClick={onClickSelectSignup}
+          >
+            회원가입
+          </button>
+        </div>
             <LoginForm />
             <Google />
             <Kakao />
           </div>
         ) : (
-          <div>
+          <div className="loginback">
+            <div className="selectlogin">
+          <button
+            // className="selectBtn1"
+            style={{ borderRight: "1px solid black" }}
+            onClick={onClickSelectLogin}
+            className={loginflag ? 'selectBtn1' : 'selectBtn2'}
+          >
+            로그인
+          </button>
+
+          <button className={loginflag ? 'selectBtn2' : 'selectBtn1'} onClick={onClickSelectSignup}
+          >
+            회원가입
+          </button>
+        </div>
             <Signup />
             <Google />
             <Kakao />
           </div>
         )}
       </div>
-    </div>
+    // </div>
   );
 };
 

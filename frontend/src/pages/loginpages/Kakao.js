@@ -1,9 +1,13 @@
 import React from "react";
 import { useEffect, useState } from "react";
+import axios from "axios";
+import {KAKAO_AUTH_URL} from './../../KakaoLoginData';
+
 
 function Kakao() {
   const [user, setUser] = useState(null);
   const [isLogin, setIsLogin] = useState(false);
+  // const [acctoken, setToken] = useState('');
   const { Kakao } = window;
 
   const initKakao = async () => {
@@ -17,11 +21,15 @@ function Kakao() {
   const kakaoLogin = async () => {
     await Kakao.Auth.loginForm({
       success(res) {
-        console.log("123");
+        // console.log("123");
         console.log(res);
         Kakao.Auth.setAccessToken(res.access_token);
+        // setToken(res.access_token)
         console.log("카카오 로그인 성공");
         console.log(Kakao.Auth.getAccessToken());
+        axios.post("http://3.35.88.23:8080/api/kakao/sign_in", {
+          authorize_code: res.access_token,
+        });
 
         Kakao.API.request({
           url: "/v2/user/me",
@@ -36,6 +44,8 @@ function Kakao() {
               kakaoAccount.profile.profile_image_url
             );
             localStorage.setItem("nickname", kakaoAccount.profile.nickname);
+
+            // console.log(test);
           },
           fail(error) {
             console.log(error);
@@ -46,6 +56,20 @@ function Kakao() {
         console.log(error);
       },
     });
+
+    // axios
+    //       .post("http://3.35.88.23:8080/api/kakao/sign_in", {
+    //         accessToken: res.id_token
+    //         // name: kakaoAccount.profile.nickname,
+    // email: kakaoAccount.email,
+    // name: kakaoAccount.profile.nickname,
+    //       })
+    //       .then((res) => {
+    //         console.log(res);
+    //       })
+    //       .catch((err) => {
+    //         console.log(err);
+    //       });
   };
 
   const kakaoLogout = () => {
@@ -75,7 +99,7 @@ function Kakao() {
   }, [user]);
 
   useEffect(() => {
-    console.log(isLogin);
+    // console.log(isLogin);
     if (isLogin) {
       setUser({
         email: localStorage.getItem("email"),
@@ -90,8 +114,8 @@ function Kakao() {
   };
 
   return (
-    <div>
-
+    <>
+      
       {user ? (
         <div>
           <button onClick={kakaoLogout}>로그아웃</button>
@@ -106,15 +130,18 @@ function Kakao() {
           {/* <div>{user}</div> */}
         </div>
       ) : (
-        <button onClick={kakaoLogin}>
-          <img
-            src="//k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg"
-            width="222"
-            alt="카카오 로그인 버튼"
-          />
-        </button>
+        // <button class='login_btn' onClick={kakaoLogin}>
+        <img
+          onClick={kakaoLogin}
+          className="login_btn"
+          src="kakao.png"
+          alt="카카오 로그인 버튼"
+        />
+        // </button>
       )}
-    </div>
+      <a href={KAKAO_AUTH_URL}>카카오로 로그인하기</a>
+    </>
+    
   );
 }
 export default Kakao;

@@ -1,3 +1,30 @@
 body {
     margin: 0px
 }
+
+.Header {
+    height: 10%;
+    border-bottom: 3px solid red;
+    /* display: flex; */
+    /* justify-content: start; */
+    /* padding-left: 5%; */
+    /* padding-bottom: 1%; */
+    /* padding-top: 1%; */
+    /* justify-content: space-between; */
+    /* align-items: center; */
+}
+
+.Header span {
+    /* justify-content: start; */
+    font-size: 50px;
+    font-weight: 20px;
+}
+
+.Header button {
+    /* justify-content: end; */
+    height: 3rem;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    background-color: #f9fbe7;
+}

@@ -15,37 +15,22 @@ function Google() {
 
   const [users, setUsers] = useState(null);
 
-  function handleGoogleLogin() {
-    const provider = new GoogleAuthProvider(); // provider 구글 설정
-    signInWithPopup(auth, provider) // 팝업창 띄워서 로그인
-      .then((data) => {
-        setUserData(data.user); // user data 설정
-        console.log(data); // console에 UserCredentialImpl 출력
-        // axios({
-        //   method: "post",
-        //   url: "/api/user",
-        //   data: {
-        //     firstName: "Fred",
-        //     lastName: "Flintstone",
-        //   },
-        // });
+  async function handleGoogleLogin() {
+    try {
+      const provider = new GoogleAuthProvider(); // provider 구글 설정
+      const data = await signInWithPopup(auth, provider); // 팝업창 띄워서 로그인
 
-        // axios.post("api/user").then((res) => {
-        //   console.log("api연결");
-        //   console.log(res);
-        // });
+      setUserData(data.user); // user data 설정
+      console.log(data); // console에 UserCredentialImpl 출력
 
-        // setUsers(null);
-        axios.get("https://jsonplaceholder.typicode.com/users").then((res) => {
-          console.log(res.data);
-          console.log(res);
-        });
-
-        // console.log(res.data)
-      })
-      .catch((err) => {
-        console.log(err);
+      const dummy = await axios.post("http://3.35.88.23:8080/api/user", {
+        email: data.user.email,
+        name: data.user.displayName,
       });
+      console.log(dummy)
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   // useEffect(() => {
@@ -83,17 +68,16 @@ function Google() {
   }
 
   return (
-    <div>
-      <button onClick={handleGoogleLogin}>
-        <img src="btn_google_signin_dark_normal_web.png" alt="" />
-      </button>
-      <div>
-        {userData
-          ? "당신의 이름은 : " + userData.displayName
-          : "로그인 버튼을 눌러주세요 :)"}
-      </div>
-      <button onClick={handleGoogleLogout}>로그아웃</button>
-    </div>
+    <>
+      <img
+        className="login_btn"
+        onClick={handleGoogleLogin}
+        src="google.png"
+        alt=""
+      />
+      <div>{userData ? "당신의 이름은 : " + userData.displayName : ""}</div>
+      {/* <button onClick={handleGoogleLogout}>로그아웃</button> */}
+    </>
   );
 }
 
