@@ -3,9 +3,7 @@ package com.ssafy.db.entity.Pet;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -14,8 +12,12 @@ import javax.persistence.Id;
 public class PetStat {
 
     @Id
-    @Column(name = "PET_ID")
-    private Long pet_id;
+    @Column(name = "pet_stat_id")
+    private Long petStat_id;
+
+    @OneToOne
+    @JoinColumn(name="pet_id")
+    private Pet pet;
 
     //TYPE 1
     private int physical;

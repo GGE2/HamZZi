@@ -2,10 +2,9 @@ package com.ssafy.db.entity.Pet;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -14,8 +13,12 @@ import javax.persistence.Id;
 public class PetInfo {
 
     @Id
-    @Column(name = "PET_ID")
-    private Long pet_id;
+    @Column(name = "pet_info_id")
+    private Long petInfo_id;
+
+    @OneToOne
+    @JoinColumn(name="pet_id")
+    private Pet pet;
 
     //스탯에 따라 변하는 외형
     private int type;
@@ -23,7 +26,9 @@ public class PetInfo {
     //Pet이 지금 취하고 있는 동작(anim 호출 번호)
     private int behavior;
 
+    @Column(nullable = true)
     private int exp;
 
+    @ColumnDefault("1")
     private int level;
 }

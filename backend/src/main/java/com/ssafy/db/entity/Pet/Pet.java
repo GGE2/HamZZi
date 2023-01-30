@@ -17,7 +17,7 @@ public class Pet {
     private Long pet_id;
 
     // 펫 주인의 닉네임
-    @Column(name = "USER_NICKNAME")
+    @Column(name = "nickname")
     private String nickname;
 
     // 펫 이름
@@ -25,10 +25,16 @@ public class Pet {
 
     private LocalDate create_date;
 
+    @ColumnDefault("false")
+    private boolean is_graduate;
+
     @Column(nullable = true)
     private LocalDate graduate_date;
 
-    @ColumnDefault("false")
-    private boolean is_graduate;
+    @Column(nullable = true)
+    private int exp;
+
+    @ColumnDefault("1")
+    private int level;
 
 }
