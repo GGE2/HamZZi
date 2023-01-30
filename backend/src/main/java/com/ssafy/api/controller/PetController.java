@@ -85,4 +85,8 @@ public class PetController {
                 + petStat.getInactive() +", "+ petStat.getEnergetic() +", "+ petStat.getEtc();
     }
 
+    //Pet 졸업로직 만들기
+
+    //PetInfo type은 그렇다치고... behavior는 뭘 기준으로 바꿔야 하나
+
 }
