@@ -87,6 +87,14 @@
       android:textAllCaps="false"
       tools:layout_editor_absoluteX="20dp"
       />
-
+  <ImageView
+      android:id="@+id/kakaoSignIn"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="10dp"
+      android:src="@drawable/kakao_login_large_wide"
+      app:layout_constraintTop_toBottomOf="@id/googleSignIn"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

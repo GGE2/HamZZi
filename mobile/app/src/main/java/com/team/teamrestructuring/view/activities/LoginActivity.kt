@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 
@@ -15,13 +16,22 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.kakao.auth.AuthType
+import com.kakao.auth.Session
+import com.kakao.sdk.common.util.Utility
 import com.team.teamrestructuring.databinding.ActivityLoginBinding
+import com.team.teamrestructuring.service.KakaoService
+import com.team.teamrestructuring.util.ApplicationClass
+import com.team.teamrestructuring.util.SessionCallback
+import retrofit2.Call
+import retrofit2.Callback
+import java.util.*
 
 
-
-
+private const val TAG: String = "LoginActivity_지훈"
 class LoginActivity : AppCompatActivity() {
     private lateinit var googleSignInClient: GoogleSignInClient
+    private lateinit var callback: SessionCallback
     private lateinit var auth: FirebaseAuth
 
     private lateinit var binding:ActivityLoginBinding
@@ -32,6 +42,11 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         auth = FirebaseAuth.getInstance()
+        callback = SessionCallback(this)
+
+        var te: TextView = binding.googleSignIn.getChildAt(0) as TextView
+        te.text = "구글 계정으로 로그인"
+
         //google sign in
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken("616408032515-pdlld4de1ettr6i8rd00qh8ofosf77ge.apps.googleusercontent.com")
@@ -42,7 +57,9 @@ class LoginActivity : AppCompatActivity() {
 
         binding.googleSignIn.setOnClickListener {
             signIn()
-
+        }
+        binding.kakaoSignIn.setOnClickListener {
+            kakaoLoginStart()
         }
 
         // signup
@@ -51,6 +68,18 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+
+
+    private fun kakaoLoginStart(){
+        /*val keyHash = Utility.getKeyHash(this) // keyHash 발급
+        //Log.d(TAG, "KEY_HASH : $keyHash")
+        Log.d(TAG, "kakaoLoginStart: ")*/
+        Session.getCurrentSession().addCallback(callback)
+        Session.getCurrentSession().open(AuthType.KAKAO_TALK, this)
+    }
+
+
 
 
     private fun signIn() {
@@ -67,6 +96,11 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
+        if(Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)){
+            Log.i(TAG, "Session get current session")
+            return
+        }
         if (requestCode == RC_Sign_in) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
@@ -100,6 +134,41 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+    override fun onDestroy() {
+        super.onDestroy()
+        Session.getCurrentSession().removeCallback(callback)
+    }
+
+    open fun getFirebaseJwt(code : String){
+        val client_state = UUID.randomUUID().toString()
+        /*val retrofit = Retrofit.Builder().baseUrl("https://kauth.kakao.com/")
+            .addConverterFactory(ScalarsConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
+            .build()*/
+        val service = ApplicationClass.retrofit.create(KakaoService::class.java)
+            .getFirebaseToken(code
+            )
+            .enqueue(object : Callback<String> {
+                override fun onResponse(
+                    call: Call<String>,
+                    response: retrofit2.Response<String>
+                ) {
+                    if(response.isSuccessful){
+                        Log.d(TAG, "onResponse: ${response.body()}")
+                        val firebaseToken = response.body()!!
+                        val auth = FirebaseAuth.getInstance()
+                        Log.d(TAG, "onSuccess: ${firebaseToken}")
+                        auth.signInWithCustomToken(firebaseToken)
+                    }
+                }
+
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    Log.d(TAG, "onFailure: ${t.message}")
+                }
+
+            })
+    }
+
 
     companion object{
         const val RC_Sign_in = 1001

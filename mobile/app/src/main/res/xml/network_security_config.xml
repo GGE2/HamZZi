@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- 전체 도메인 허용 -->
+    <!--<base-config cleartextTrafficPermitted="true" />-->
+
+<!-- 특정 도메인만 허용 -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">3.35.88.23</domain>
+        <domain includeSubdomains="true">192.168.0.64</domain>
+        <domain includeSubdomains="true">192.168.75.35</domain>
+        <domain includeSubdomains="true">10.0.0.2</domain>
+        <domain includeSubdomains="true">kauth.kakao.com</domain>
+    </domain-config>
+
+</network-security-config>
