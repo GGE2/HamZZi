@@ -124,10 +124,16 @@ public class PetController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    /* Pet-졸업 API: 펫을 졸업 상태로 만들어준다 */
+    /* Pet-졸업 API: 펫을 졸업 상태로 만들어준다(Activated pet의 id를 가져와야함) */
     public String graduatePet(Long pet_id) {
-        Pet pet = petService.graduate(pet_id);
-        return pet.getPet_name() + " graduated";
+        Pet pet = petService.petData(pet_id);
+        String petName = pet.getPet_name();
+
+        if( petService.graduate(pet_id) == null ) {
+            return "ERROR: CHECK level: \"5\"= " + pet.getLevel() + " OR is_graduate: \"False\"= " + pet.is_graduate();
+        }
+
+        return petName + " graduated";
     }
 
 

@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import java.util.List;
 
 @Repository @Primary
@@ -28,14 +29,18 @@ public class PetRepositorySupport implements PetRepository {
     public Pet findById(Long pet_id) { return em.find(Pet.class, pet_id); }
     @Override
     public Pet findByNickname(String nickname) {
-        return em.createQuery("select p from Pet p where p.nickname=:nickname", Pet.class)
-                .setParameter("nickname", nickname).getSingleResult();
+        try { return em.createQuery("select p from Pet p where p.nickname=:nickname and p.is_graduate=:is_graduate", Pet.class)
+                .setParameter("nickname", nickname)
+                .setParameter("is_graduate", false)
+                .getSingleResult();
+        } catch (NoResultException e) {return null;}
     }
     @Override
     public List<PetInfo> graduatePetList(String nickname) {
         return em.createQuery("select pi from PetInfo pi LEFT JOIN pi.pet p "
-            + "ON p.nickname=:nickname and p.is_graduate=?1", PetInfo.class)
+            + "ON p.nickname=:nickname where p.is_graduate=:is_graduate", PetInfo.class)
                 .setParameter("nickname", nickname)
+                .setParameter("is_graduate", true)
                 .getResultList();
     }
 

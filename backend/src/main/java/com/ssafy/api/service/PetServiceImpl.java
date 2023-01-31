@@ -32,9 +32,10 @@ public class PetServiceImpl implements PetService {
     @Override
     public Pet createPet(PetCreateRequest createInfo) {
 
-        /* 키우고 있는 펫이 있으면 생성 못함 */
+        /* 현재 메인페이지에 펫이 있으면 null */
         if(ActivatePet(createInfo.getUser_nickname()) != null) {return null;}
 
+        /* 없다면 펫 생성 */
         Pet pet = new Pet();
         PetInfo petInfo = new PetInfo();
         PetStat petStat = new PetStat();
@@ -69,10 +70,13 @@ public class PetServiceImpl implements PetService {
     @Override
     public Pet ActivatePet(String nickname) {
 
+        /* 현재 메인페이지에 펫이 없으면 null */
+        if(petRepo.findByNickname(nickname) == null) {return null;}
+
         Long pet_id = petRepo.findByNickname(nickname).getPet_id();
         Pet pet = petData(pet_id);
 
-        /* 졸업여부 체크 */
+        /* 불러온 펫의 졸업여부 체크 */
         if(pet.is_graduate()) {return null;}
 
         return pet;
@@ -92,7 +96,7 @@ public class PetServiceImpl implements PetService {
         Pet pet = petRepo.findById(pet_id);
 
         /* 졸업여부 체크 */
-        if(pet.is_graduate()) {return null;}
+        if(pet.is_graduate() == true) {return null;}
 
         int nowExp = pet.getExp();
         int nowLevel = pet.getLevel();
@@ -143,7 +147,7 @@ public class PetServiceImpl implements PetService {
         Pet pet = petRepo.findById(pet_id);
 
         /* 졸업가능여부 체크 : 레벨 5미만이거나 졸업했으면 null 리턴 */
-        if(pet.getLevel() < 5 || pet.is_graduate()) return null;
+        if(pet.getLevel() < 5 || pet.is_graduate()) { return null; }
 
         pet.setGraduate_date(LocalDate.now());
         pet.set_graduate(true);
