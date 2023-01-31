@@ -17,7 +17,7 @@ public class Pet {
     private Long pet_id;
 
     // 펫 주인의 닉네임
-    @Column(name = "nickname")
+    @Column(name = "user_nickname")
     private String nickname;
 
     // 펫 이름

@@ -5,13 +5,15 @@ import com.ssafy.api.request.PetStatRequest;
 import com.ssafy.api.service.PetService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.Pet.Pet;
+import com.ssafy.db.entity.Pet.PetInfo;
 import com.ssafy.db.entity.Pet.PetStat;
-import com.ssafy.db.entity.User.UserProfile;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Api(value = "pet API", tags = {"Pet"})
 @RestController
@@ -38,7 +40,7 @@ public class PetController {
         return pet.getPet_id() + " : " + pet.getPet_name() + " /// owner : " + pet.getNickname();
     }
 
-    @GetMapping("/{email}")
+    @GetMapping("/{nickname}")
     @ApiOperation(value = "펫 정보", notes = "펫의 정보를 출력한다")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -47,9 +49,13 @@ public class PetController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     /* Pet-조회 API: 로그인한 사용자의 활성화된 펫을 조회한다 */
-    public String getPetInfo(@PathVariable String email) {
-        Pet pet = petService.activePetData(email);
+    public String getPet(@PathVariable String nickname) {
+        Pet pet = petService.petData(nickname);
+        if(pet == null) {return "NO ACTIVATE PET";}
+
         // PetStat 과 PetInfo도 받아오자.
+        PetInfo petInfo = petService.petInfoData(nickname);
+        PetStat petStat = petService.petStatData(nickname);
         return "pet owner : " + pet.getNickname() + "///// petname : " + pet.getPet_name();
     }
 
@@ -61,7 +67,7 @@ public class PetController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    /* Pet-생성 API: 입력한 이름으로 로그인한 사용자의 펫을 생성한다 */
+    /* Pet-경험치 API: 펫을 조회하고 입력받은 경험치만큼 올려준다(레벨도!!) */
     public String increaseExpLevel(Long pet_id, int exp) {
         Pet pet = petService.expLevelLogic(pet_id, exp);
         return pet.getPet_name() + ": Lv" + pet.getLevel() + " Exp:" + pet.getExp();
@@ -75,7 +81,7 @@ public class PetController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    /* Pet-생성 API: 입력한 이름으로 로그인한 사용자의 펫을 생성한다 */
+    /* Pet-스탯 API: 기존 펫 스탯 + 새로 입력받은 스탯만큼 더해준다 */
     public String increaseStat(
             @RequestBody @ApiParam(value="펫 스탯 정보", required = true) PetStatRequest petStatRequest) {
         PetStat petStat = petService.statLogic(petStatRequest);
@@ -86,7 +92,35 @@ public class PetController {
     }
 
     //Pet 졸업로직 만들기
+    @PutMapping("/graduate")
+    @ApiOperation(value = "펫 졸업", notes = "해당 펫을 졸업시킨다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    /* Pet-졸업 API: 펫을 졸업 상태로 만들어준다 */
+    public String graduatePet(Long pet_id) {
+        Pet pet = petService.graduate(pet_id);
+        return pet.getPet_name() + " graduated";
+    }
 
-    //PetInfo type은 그렇다치고... behavior는 뭘 기준으로 바꿔야 하나
+    @GetMapping("gradpets/{nickname}")
+    @ApiOperation(value = "펫 정보", notes = "펫의 정보를 출력한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    /* Pet-조회 API: 로그인한 사용자의 졸업한 펫 목록을 조회한다 */
+    public String getGraduatedPet(@PathVariable String nickname) {
+        List<Pet> graduatedPetList = petService.graduatedPets(nickname);
+        // PetStat 과 PetInfo도 받아오자.
+        return null;
+    }
 
+    // PetInfo type 몇 이상&레벨 반영
+    // behavior 스킵/랜덤
 }

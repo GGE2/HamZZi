@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @Transactional
@@ -30,13 +31,19 @@ public class PetServiceImpl implements PetService {
     //User도 같은 방법으로 수정해야 하나......
     @Override
     public Pet createPet(PetCreateRequest createInfo) {
+        /* 키우고 있는 펫이 있으면 생성 못함 */
+        if(petData(createInfo.getUser_nickname()) != null) {return null;}
+
         Pet pet = new Pet();
         PetInfo petInfo = new PetInfo();
         PetStat petStat = new PetStat();
+        UserProfile userProfile = userRepo.findByNickname(createInfo.getUser_nickname());
 
         //fireBase에서 UserProfile 가져오기
-        pet.setNickname("tmp ham owner");
+        pet.setNickname(userProfile.getNickname());
         pet.setPet_name(createInfo.getName());
+        pet.setLevel(1);
+        pet.setExp(0);
         pet.setCreate_date(LocalDate.now());
 
         petInfo.setPet(pet);
@@ -49,16 +56,50 @@ public class PetServiceImpl implements PetService {
         return pet;
     }
 
+    /* 해당 사용자의 졸업하지 않은 펫 */
     @Override
-    public Pet activePetData(String email) {
-        String nickname = userRepo.findNicknameById(userRepo.findIdByEmail(email));
+    public Pet petData(String nickname) {
         Pet pet = petRepo.findByNickname(nickname);
+
+        /* 졸업여부 체크 */
+        if(pet.is_graduate()) {return null;}
+
         return pet;
     }
 
     @Override
+    public PetInfo petInfoData(String nickname) {
+        Long pet_id = petData(nickname).getPet_id();
+        PetInfo petInfo = petRepo.findInfoById(pet_id);
+
+        return petInfo;
+    }
+
+    @Override
+    public PetStat petStatData(String nickname) {
+        Long pet_id = petData(nickname).getPet_id();
+        PetStat petStat = petRepo.findStatById(pet_id);
+
+        return petStat;
+    }
+
+    @Override
+    public List<Pet> graduatedPets(String nickname) {
+        List<Pet> pets = petRepo.graduatePetList(nickname);
+
+        /* 졸업여부 체크 repo에서 수행됨 */
+
+        return pets;
+    }
+
+
+    @Override
     public Pet expLevelLogic(Long pet_id, int exp) {
         Pet pet = petRepo.findById(pet_id);
+
+        /* 졸업여부 체크 */
+        if(pet.is_graduate()) {return null;}
+
         int nowExp = pet.getExp();
         int nowLevel = pet.getLevel();
 
@@ -70,7 +111,7 @@ public class PetServiceImpl implements PetService {
             case 2: if(newExp >= 30) {newLevel++; newExp -= 30;} break;
             case 3: if(newExp >= 60) {newLevel++; newExp -= 60;} break;
             case 4: if(newExp >= 66) {newLevel++; newExp -= 66;} break;
-            case 5: System.out.println("Max level"); break;
+            case 5: newExp = 0; break;
         }
 
         pet.setExp(newExp);
@@ -81,7 +122,11 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public PetStat statLogic(PetStatRequest petStatRequest) {
+        Pet pet = petRepo.findById(petStatRequest.getPet_id());
         PetStat petStat = petRepo.findStatById(petStatRequest.getPet_id());
+
+        /* 졸업여부 체크 */
+        if(pet.is_graduate()) return null;
 
         petStat.setPhysical(petStat.getPhysical() + petStatRequest.getPhysical());
         petStat.setArtistic(petStat.getArtistic() + petStatRequest.getArtistic());
@@ -92,6 +137,20 @@ public class PetServiceImpl implements PetService {
 
         petRepo.savePetStat(petStat);
         return petStat;
+    }
+
+    @Override
+    public Pet graduate(Long pet_id) {
+        Pet pet = petRepo.findById(pet_id);
+
+        /* 졸업가능여부 체크 : 레벨 5가 아니거나 졸업했으면 null 리턴 */
+        if(pet.getLevel() != 5 || pet.is_graduate()) return null;
+
+        pet.setGraduate_date(LocalDate.now());
+        pet.set_graduate(true);
+
+        petRepo.savePet(pet);
+        return pet;
     }
 
 

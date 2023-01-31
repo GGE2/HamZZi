@@ -24,6 +24,6 @@ public class PetInfo {
     //스탯에 따라 변하는 외형
     private int type;
 
-    //Pet이 지금 취하고 있는 동작(anim 호출 번호)
-    private int behavior;
+//    //Pet이 지금 취하고 있는 동작(anim 호출 번호)
+//    private int behavior;
 }

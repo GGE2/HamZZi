@@ -7,18 +7,26 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface PetRepository {
 
+    // Create, Update ----------------------
     void savePet(Pet pet);
     void savePetInfo(PetInfo petInfo);
     void savePetStat(PetStat petStat);
 
+    // Read --------------------------------
+    /* Pet 엔티티 검색 */
     Pet findById(Long pet_id);
     Pet findByNickname(String nickname);
+    List<Pet> graduatePetList(String nickname);
 
+    /* PetStat 엔티티 검색 */
     PetStat findStatById(Long pet_id);
-//    void addStatPoint(@Param("typename") String typename, int point);
+
+    /* PetInfo 엔티티 검색 */
+    PetInfo findInfoById(Long pet_id);
 }

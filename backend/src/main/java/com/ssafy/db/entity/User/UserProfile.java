@@ -19,10 +19,6 @@ public class UserProfile {
     @OneToOne(mappedBy = "userProfile")
     private User user;
 
-    @OneToOne
-    @JoinColumn(name="active_pet")
-    private Pet pet;
-
     @Column(nullable = false)
     private int point;
 }
