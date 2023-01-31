@@ -1,0 +1,50 @@
+body {
+    margin: 0px
+}
+
+.Header {
+    height: 10%;
+    border-bottom: 3px solid red;
+    display: flex;
+    /* justify-content: start; */
+    padding-left: 2%;
+    /* padding-right: 3%; */
+    /* padding-bottom: 1%; */
+    /* padding-top: 1%; */
+    justify-content: space-between;
+    align-items: center;
+    font-size: 50px;
+    /* font: bold; */
+    /* font-weight: 50px; */
+}
+
+.Header span {
+    /* justify-content: start; */
+    
+}
+
+.Header button {
+    /* justify-content: end; */
+    height: 3rem;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    background-color: #f9fbe7;
+}
+
+.DiaryEditor {
+    border: 1px solid black;
+}
+
+.DiaryEditor textarea {
+    width: 80%;
+    height: 4em;
+    /* border: none; */
+    resize: none;
+}
+
+.DiaryItem {
+    background-color: rgba(69, 178, 93, 1);
+    padding-bottom: 10px;
+}
+

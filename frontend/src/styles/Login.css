@@ -1,0 +1,60 @@
+.loginback {
+  /* width: 50vw;
+  height: 50vh; */
+    /* height: 50%; */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0 20px;
+  
+    /* 블러 처리 해버리기 */
+    backdrop-filter: blur(10px);
+    box-shadow: 2px 7px 15px 8px rgba(0,0,0,0.3);
+    /* border-radius: 30px; */
+  
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+.loginbody {
+    background-image: url("../../public/login_background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    width: 100vw;
+    height: 100vh;
+  }
+
+.login_btn {
+  height: 8vh;
+  cursor: pointer;
+}
+
+.selectlogin {
+  margin-top: 20px ;
+  display: flex;
+  width: 100%;
+}
+
+.selectBtn1 {
+  height: 26px;
+  width: 50%;
+  background-color: rgba(26, 6, 247, 0.921);
+  color: black;
+  border: none;
+  cursor: pointer;
+}
+
+.selectBtn2 {
+  height: 26px;
+  width: 50%;
+  background-color: rgba(19, 157, 237, 0.921);
+  color: black;
+  border: none;
+  cursor: pointer;
+}
+
