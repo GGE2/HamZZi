@@ -32,9 +32,11 @@ public class PetRepositorySupport implements PetRepository {
                 .setParameter("nickname", nickname).getSingleResult();
     }
     @Override
-    public List<Pet> graduatePetList(String nickname) {
-        return em.createQuery("select p from Pet p where p.nickname=:nickname and p.is_graduate=:true", Pet.class)
-                .setParameter("nickname", nickname).getResultList();
+    public List<PetInfo> graduatePetList(String nickname) {
+        return em.createQuery("select pi from PetInfo pi LEFT JOIN pi.pet p "
+            + "ON p.nickname=:nickname and p.is_graduate=?1", PetInfo.class)
+                .setParameter("nickname", nickname)
+                .getResultList();
     }
 
     /* PetStat 엔티티 검색 */

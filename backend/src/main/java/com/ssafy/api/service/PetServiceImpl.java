@@ -31,8 +31,9 @@ public class PetServiceImpl implements PetService {
     //User도 같은 방법으로 수정해야 하나......
     @Override
     public Pet createPet(PetCreateRequest createInfo) {
+
         /* 키우고 있는 펫이 있으면 생성 못함 */
-        if(petData(createInfo.getUser_nickname()) != null) {return null;}
+        if(ActivatePet(createInfo.getUser_nickname()) != null) {return null;}
 
         Pet pet = new Pet();
         PetInfo petInfo = new PetInfo();
@@ -55,11 +56,21 @@ public class PetServiceImpl implements PetService {
 
         return pet;
     }
+    /* 그냥 펫 정보 조회 - 졸업여부 체크 X */
+    @Override
+    public Pet petData(Long pet_id) { Pet pet = petRepo.findById(pet_id); return pet; }
+    @Override
+    public PetInfo petInfoData(Long pet_id) { PetInfo petInfo = petRepo.findInfoById(pet_id); return petInfo; }
+
+    @Override
+    public PetStat petStatData(Long pet_id) { PetStat petStat = petRepo.findStatById(pet_id); return petStat; }
 
     /* 해당 사용자의 졸업하지 않은 펫 */
     @Override
-    public Pet petData(String nickname) {
-        Pet pet = petRepo.findByNickname(nickname);
+    public Pet ActivatePet(String nickname) {
+
+        Long pet_id = petRepo.findByNickname(nickname).getPet_id();
+        Pet pet = petData(pet_id);
 
         /* 졸업여부 체크 */
         if(pet.is_graduate()) {return null;}
@@ -67,28 +78,11 @@ public class PetServiceImpl implements PetService {
         return pet;
     }
 
+    /* 해당 사용자의 졸업한 펫 리스트 */
     @Override
-    public PetInfo petInfoData(String nickname) {
-        Long pet_id = petData(nickname).getPet_id();
-        PetInfo petInfo = petRepo.findInfoById(pet_id);
-
-        return petInfo;
-    }
-
-    @Override
-    public PetStat petStatData(String nickname) {
-        Long pet_id = petData(nickname).getPet_id();
-        PetStat petStat = petRepo.findStatById(pet_id);
-
-        return petStat;
-    }
-
-    @Override
-    public List<Pet> graduatedPets(String nickname) {
-        List<Pet> pets = petRepo.graduatePetList(nickname);
-
+    public List<PetInfo> graduatedPets(String nickname) {
         /* 졸업여부 체크 repo에서 수행됨 */
-
+        List<PetInfo> pets = petRepo.graduatePetList(nickname);
         return pets;
     }
 
@@ -121,6 +115,11 @@ public class PetServiceImpl implements PetService {
     }
 
     @Override
+    public PetInfo typeSettingLogic(PetStat petStat) {
+        return null;
+    }
+
+    @Override
     public PetStat statLogic(PetStatRequest petStatRequest) {
         Pet pet = petRepo.findById(petStatRequest.getPet_id());
         PetStat petStat = petRepo.findStatById(petStatRequest.getPet_id());
@@ -143,8 +142,8 @@ public class PetServiceImpl implements PetService {
     public Pet graduate(Long pet_id) {
         Pet pet = petRepo.findById(pet_id);
 
-        /* 졸업가능여부 체크 : 레벨 5가 아니거나 졸업했으면 null 리턴 */
-        if(pet.getLevel() != 5 || pet.is_graduate()) return null;
+        /* 졸업가능여부 체크 : 레벨 5미만이거나 졸업했으면 null 리턴 */
+        if(pet.getLevel() < 5 || pet.is_graduate()) return null;
 
         pet.setGraduate_date(LocalDate.now());
         pet.set_graduate(true);

@@ -25,6 +25,7 @@ public class PetController {
     @Autowired
     PetService petService;
 
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
     @PostMapping()
     @ApiOperation(value = "펫 생성", notes = "필요한 정보를 전부 입력한다")
     @ApiResponses({
@@ -36,10 +37,13 @@ public class PetController {
     /* Pet-생성 API: 입력한 이름으로 로그인한 사용자의 펫을 생성한다 */
     public String createPet(
             @RequestBody @ApiParam(value="펫 생성 정보", required = true) PetCreateRequest createInfo) {
-        Pet pet = petService.createPet(createInfo);
-        return pet.getPet_id() + " : " + pet.getPet_name() + " /// owner : " + pet.getNickname();
-    }
 
+        Pet pet = petService.createPet(createInfo);
+        if(petService.createPet(createInfo) == null) {return "ERROR: EXIST Activated Pet";}
+
+        return "ID: " + pet.getPet_id() + " NAME: " + pet.getPet_name() + " OWNER: " + pet.getNickname() ;
+    }
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
     @GetMapping("/{nickname}")
     @ApiOperation(value = "펫 정보", notes = "펫의 정보를 출력한다")
     @ApiResponses({
@@ -49,16 +53,36 @@ public class PetController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     /* Pet-조회 API: 로그인한 사용자의 활성화된 펫을 조회한다 */
-    public String getPet(@PathVariable String nickname) {
-        Pet pet = petService.petData(nickname);
-        if(pet == null) {return "NO ACTIVATE PET";}
+    public String getActivatePet(@PathVariable String nickname) {
+
+        Pet pet = petService.ActivatePet(nickname);
+        if(pet == null) {return "ERROR: NO Activated Pet";}
 
         // PetStat 과 PetInfo도 받아오자.
-        PetInfo petInfo = petService.petInfoData(nickname);
-        PetStat petStat = petService.petStatData(nickname);
-        return "pet owner : " + pet.getNickname() + "///// petname : " + pet.getPet_name();
+        Long pet_id = pet.getPet_id();
+        PetInfo petInfo = petService.petInfoData(pet_id);
+        PetStat petStat = petService.petStatData(pet_id);
+
+        return "NAME: " + pet.getPet_name() + " OWNER: " + pet.getNickname() ;
     }
 
+    @GetMapping("trophy/{nickname}")
+    @ApiOperation(value = "졸업 펫 정보", notes = "펫의 정보를 출력한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    /* Pet-조회 API: 로그인한 사용자의 졸업한 펫 목록을 조회한다 */
+    public List<PetInfo> getGraduatedPets(@PathVariable String nickname) {
+        // info의 type을 받아와서 출력함(외형정보. behavior: idle 고정)
+        List<PetInfo> graduatedPetList = petService.graduatedPets(nickname);
+        // 트로피 개수제한 추가예정
+
+        return graduatedPetList;
+    }
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
     @PutMapping("/exp")
     @ApiOperation(value = "펫 경험치 증가", notes = "입력받은 pet_id를 가진 펫의 경험치와 레벨을 증가시킨다")
     @ApiResponses({
@@ -106,20 +130,7 @@ public class PetController {
         return pet.getPet_name() + " graduated";
     }
 
-    @GetMapping("gradpets/{nickname}")
-    @ApiOperation(value = "펫 정보", notes = "펫의 정보를 출력한다")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "성공"),
-            @ApiResponse(code = 401, message = "인증 실패"),
-            @ApiResponse(code = 404, message = "사용자 없음"),
-            @ApiResponse(code = 500, message = "서버 오류")
-    })
-    /* Pet-조회 API: 로그인한 사용자의 졸업한 펫 목록을 조회한다 */
-    public String getGraduatedPet(@PathVariable String nickname) {
-        List<Pet> graduatedPetList = petService.graduatedPets(nickname);
-        // PetStat 과 PetInfo도 받아오자.
-        return null;
-    }
+
 
     // PetInfo type 몇 이상&레벨 반영
     // behavior 스킵/랜덤

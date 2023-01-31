@@ -22,7 +22,7 @@ public interface PetRepository {
     /* Pet 엔티티 검색 */
     Pet findById(Long pet_id);
     Pet findByNickname(String nickname);
-    List<Pet> graduatePetList(String nickname);
+    List<PetInfo> graduatePetList(String nickname);
 
     /* PetStat 엔티티 검색 */
     PetStat findStatById(Long pet_id);
