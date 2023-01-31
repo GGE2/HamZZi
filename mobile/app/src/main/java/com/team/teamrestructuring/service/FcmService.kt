@@ -1,5 +1,6 @@
 package com.team.teamrestructuring.service
 
+import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -33,6 +34,7 @@ class FcmService : FirebaseMessagingService() {
     /**
      * Foreground,Background 모두 처리
      */
+    @SuppressLint("SuspiciousIndentation")
     @RequiresApi(Build.VERSION_CODES.S)
     override fun onMessageReceived(message: RemoteMessage) { //Foreground 있는 경우
         super.onMessageReceived(message)
