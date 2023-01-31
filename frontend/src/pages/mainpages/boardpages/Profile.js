@@ -1,4 +1,5 @@
 import React from "react";
+<<<<<<< HEAD
 import Header from "./../../../components/Header";
 
 const Profile = () => {
@@ -49,6 +50,17 @@ const Profile = () => {
       </div>
     </>
   );
+=======
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../../authSlice";
+import Header from './../../../components/Header';
+
+const Profile = () => {
+  const user = useSelector(selectCurrentUser);
+  return <div>
+    <Header data={'User'} />
+    {user}'s Profile</div>;
+>>>>>>> 862d795ade2ac4e38d20670b3253c2f34ecca8e8
 };
 
 export default Profile;

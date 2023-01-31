@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import { useState } from "react";
 import { HiOutlineDotsCircleHorizontal } from "react-icons/hi";
@@ -31,3 +32,16 @@ const Header = ({ data, type }) => {
 };
 
 export default Header;
+=======
+import React from 'react';
+
+const Header = ({data}) => {
+    return (
+        <div className='Header'>
+            <h1>{data}</h1>
+        </div>
+    );
+};
+
+export default Header;
+>>>>>>> 862d795ade2ac4e38d20670b3253c2f34ecca8e8

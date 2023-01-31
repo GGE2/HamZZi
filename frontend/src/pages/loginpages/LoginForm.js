@@ -29,6 +29,7 @@ export default function LoginForm() {
       // 파이어베이스 인증 받아오기
       const curUserInfo = await signInWithEmailAndPassword(auth, email, pw);
       console.log(curUserInfo);
+<<<<<<< HEAD
 
       // cookie 저장으로 바꾸기
       localStorage.setItem("user", JSON.stringify(curUserInfo.user.email));
@@ -39,6 +40,12 @@ export default function LoginForm() {
       dispatch(
         setCredentials({
           user: curUserInfo.user.displayName,
+=======
+      localStorage.setItem("user", JSON.stringify(curUserInfo.user.email));
+      dispatch(
+        setCredentials({
+          user: localStorage.getItem("user"),
+>>>>>>> 862d795ade2ac4e38d20670b3253c2f34ecca8e8
           token: curUserInfo.user.accessToken,
         })
       );

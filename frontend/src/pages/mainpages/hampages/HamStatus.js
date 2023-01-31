@@ -5,7 +5,10 @@ import HamName from "./statuspages/HamName";
 import "../../../styles/HamStatus.css";
 import Chart from "react-apexcharts";
 
+import Chart from "react-apexcharts";
+
 const HamStatus = () => {
+<<<<<<< HEAD
   const [stat, setStat] = useState({
     physical: 10,
     artistic: 20,
@@ -15,6 +18,8 @@ const HamStatus = () => {
     etc: 0
   })
 
+=======
+>>>>>>> 862d795ade2ac4e38d20670b3253c2f34ecca8e8
   const state = {
     options: {
       colors:['#3f8744'],
@@ -34,8 +39,12 @@ const HamStatus = () => {
     ///////////////////////////////////////
     series: [
       {
+<<<<<<< HEAD
         id: 'stat',
         data: [stat.physical, stat.artistic, stat.intelligent, stat.inactive, stat.active, stat.etc],
+=======
+        data: [30, 40, 45, 50, 49, 60],
+>>>>>>> 862d795ade2ac4e38d20670b3253c2f34ecca8e8
       },
     ],
   };
@@ -56,7 +65,12 @@ const HamStatus = () => {
           options={state.options}
           series={state.series}
           type="radar"
+<<<<<<< HEAD
           height={"100%"}
+=======
+          width={"100%"}
+          // height={"100%"}
+>>>>>>> 862d795ade2ac4e38d20670b3253c2f34ecca8e8
         />
       </div>
     </div>

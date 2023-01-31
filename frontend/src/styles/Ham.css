@@ -79,6 +79,7 @@ animation: rotate_image 10s linear infinite;
 }
 
  .HamChart{
+<<<<<<< HEAD
     height: 100%;
     display: flex;
     justify-content: center;
@@ -89,6 +90,18 @@ animation: rotate_image 10s linear infinite;
  }
 
 
+=======
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 30px;
+    /* padding-bottom: 30px; */
+ }
+
+/* .Level {
+    width: 40%;
+} */
+>>>>>>> 862d795ade2ac4e38d20670b3253c2f34ecca8e8
 
 .button {
     /* margin-left: 30px; */

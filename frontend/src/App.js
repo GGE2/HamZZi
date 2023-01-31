@@ -9,7 +9,7 @@ function App() {
   return (
     // KakaoLogin
     // <div>
-    //   <Sendtest />
+    //   <Sendtesasdsadt />
     // </div>
     <Routes>
       <Route index element={<Login />} />

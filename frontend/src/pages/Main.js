@@ -3,6 +3,7 @@ import Ham from "./mainpages/Ham";
 import Board from "./mainpages/Board";
 import "../styles/Main.css";
 
+<<<<<<< HEAD
 import {
   FcSearch,
   FcWebcam,
@@ -12,6 +13,11 @@ import {
   FcRating,
 } from "react-icons/fc";
 import { BiDotsHorizontalRounded, BiDotsVerticalRounded } from "react-icons/bi";
+=======
+import { FcSearch, FcWebcam, FcConferenceCall, FcCalendar, FcCollaboration, FcTodoList, FcRating } from "react-icons/fc";
+import { BiDotsHorizontalRounded, BiDotsVerticalRounded } from "react-icons/bi";
+import { GiAchievement} from "react-icons/gi";
+>>>>>>> 862d795ade2ac4e38d20670b3253c2f34ecca8e8
 
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../authSlice";
@@ -19,6 +25,7 @@ import { setCredentials } from "../authSlice";
 const Main = () => {
   const dispatch = useDispatch();
 
+<<<<<<< HEAD
   // useEffect(() => {
   //   const email = localStorage.getItem("user");
   //   if (email !== null) {
@@ -29,6 +36,18 @@ const Main = () => {
   //     );
   //   }
   // });
+=======
+  useEffect(() => {
+    const email = localStorage.getItem("user");
+    if (email !== null) {
+      dispatch(
+        setCredentials({
+          user: email,
+        })
+      );
+    }
+  });
+>>>>>>> 862d795ade2ac4e38d20670b3253c2f34ecca8e8
 
   return (
     <div className="app">
@@ -50,11 +69,19 @@ const Main = () => {
             <button>
               <FcConferenceCall size={"100%"} />
             </button>
+<<<<<<< HEAD
 
             <button>
               <FcRating size={"100%"} />
             </button>
 
+=======
+            
+            <button>
+              <FcRating size={"100%"} />
+            </button>
+            
+>>>>>>> 862d795ade2ac4e38d20670b3253c2f34ecca8e8
             <button>
               <FcTodoList size={"100%"} />
             </button>
