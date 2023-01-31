@@ -39,6 +39,7 @@ android {
     }
 }
 
+
 dependencies {
 
     implementation "com.kakao.sdk:v2-user:2.12.0" // 카카오 로그인 // 카카오 로그인
