@@ -30,7 +30,7 @@ export default function LoginForm() {
       const curUserInfo = await signInWithEmailAndPassword(auth, email, pw);
       console.log(curUserInfo);
 
-      // cookie 저장으로 바꾸기
+      // localStorage 저장
       localStorage.setItem("user", JSON.stringify(curUserInfo.user.email));
       localStorage.setItem(
         "accessToken",

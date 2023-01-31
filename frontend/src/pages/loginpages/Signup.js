@@ -1,10 +1,19 @@
 import React, { useEffect, useState } from "react";
 import "../../styles/Signup.css";
 import { auth } from "../../Firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { setCredentials } from "../../authSlice";
 
 export default function Signup() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   // 회원가입 데이터(이메일, 비밀번호, 비밀번호확인, 닉네임, 이름, 성별, 전화번호)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -47,7 +56,7 @@ export default function Signup() {
         email,
         password
       );
-      console.log(createdUser);
+      // console.log(createdUser);
       // 우리 db에 정보 전달
       const dummy = await axios.post(
         "http://3.35.88.23:8080/api/user/register",
@@ -58,12 +67,33 @@ export default function Signup() {
           name: name,
         }
       );
-
       console.log(dummy);
       // console.log(createdUser);
       setEmail("");
       setPassword("");
-      // **Login 함수 작성하기**
+
+      // 로그인 로직
+      const curUserInfo = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      console.log(curUserInfo);
+
+      // localStorage 저장
+      localStorage.setItem("user", JSON.stringify(curUserInfo.user.email));
+      localStorage.setItem(
+        "accessToken",
+        JSON.stringify(curUserInfo.user.accessToken)
+      );
+      dispatch(
+        setCredentials({
+          user: curUserInfo.user.displayName,
+          token: curUserInfo.user.accessToken,
+        })
+      );
+
+      navigate("/main"); // 로그인하면 메인 페이지로 이동~
     } catch (err) {
       console.log(err.code);
       switch (err.code) {
@@ -109,7 +139,7 @@ export default function Signup() {
   const handleEmail = (e) => {
     const currentEmail = e.target.value;
     setEmail(currentEmail);
-    console.log(email);
+    // console.log(email);
     const regex =
       /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
     if (currentEmail === "") {
@@ -129,7 +159,7 @@ export default function Signup() {
     const currentPassword = e.target.value;
     setPassword(currentPassword);
     // console.log(1123123);
-    console.log(e.target.value);
+    // console.log(e.target.value);
     const regex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
     if (currentPassword === "") {
       setPasswordMessage("");
@@ -200,7 +230,7 @@ export default function Signup() {
     if (currentNumber.length == 3 || currentNumber.length == 8) {
       setPhone(currentNumber + "-");
       handlePhone(currentNumber + "-");
-      console.log(currentNumber);
+      // console.log(currentNumber);
     } else {
       handlePhone(currentNumber);
     }
@@ -226,7 +256,7 @@ export default function Signup() {
   const handleGender = (e) => {
     const currentGender = e.target.value;
     setGender(currentGender);
-    console.log(currentGender);
+    // console.log(currentGender);
   };
 
   // 중복 이메일 검사
