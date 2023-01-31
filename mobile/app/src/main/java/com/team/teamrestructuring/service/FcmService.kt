@@ -1,10 +1,7 @@
 package com.team.teamrestructuring.service
 
-<<<<<<< Updated upstream
 import android.app.Notification
-=======
 import android.annotation.SuppressLint
->>>>>>> Stashed changes
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.os.Build
@@ -29,63 +26,10 @@ class FcmService : FirebaseMessagingService() {
         //새로운 토큰 수신 시 서버 이동 추후 개발
     }
 
-    /**
-<<<<<<< Updated upstream
-     * Foreground,Background 모두 처리*/
-
-    /*@SuppressLint("SuspiciousIndentation")
-=======
+    /*
      * Foreground,Background 모두 처리
      */
     @SuppressLint("SuspiciousIndentation")
->>>>>>> Stashed changes
-    @RequiresApi(Build.VERSION_CODES.S)
-    override fun onMessageReceived(message: RemoteMessage) { //Foreground 있는 경우
-        super.onMessageReceived(message)
-        var messageTitle = ""
-        var messageContent = ""
-        Log.d(TAG, "onMessageReceived: noti1")
-        if (message.notification != null) {
-            messageTitle = message.notification!!.title!!
-            messageContent = message.notification!!.title!!
-            var intent = Intent(applicationContext, HomeActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP and Intent.FLAG_ACTIVITY_NEW_TASK
-                putExtra("data", message.notification!!.body!!)
-                putExtra("clicknoti","QuestFragment")
-            }
-            Log.d(TAG, "onMessageReceived: noti1")
-            startActivity(intent)
-        } else {  // background 에 있을경우 혹은 foreground에 있을경우 두 경우 모두
-            var data = message.data
-            messageTitle = data.get("title")!!
-            messageContent = data.get("body")!!
-            var intent = Intent(applicationContext, HomeActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK and Intent.FLAG_ACTIVITY_CLEAR_TOP
-                putExtra("data", data.get("body")!!)
-                putExtra("clicknoti","QuestFragment")
-            }
-            Log.d(TAG, "onMessageReceived: noti2")
-            startActivity(intent)
-        }
-        val mainIntent = Intent(this, HomeActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        }
-        val mainPendingIntent: PendingIntent
-        = PendingIntent.getActivity(this, 0, mainIntent, PendingIntent.FLAG_IMMUTABLE)
-        val defaultSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-        val builder1 = NotificationCompat.Builder(this, HomeActivity.channel_id)
-            .setSmallIcon(R.drawable.all_title)
-            .setContentTitle(messageTitle)
-            .setContentText(messageContent)
-            .setAutoCancel(true)
-            .setSound(defaultSound)
-            .setContentIntent(mainPendingIntent)
-
-            NotificationManagerCompat.from(this).apply {
-            notify(101, builder1.build())
-        }
-    }*/
-
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
         
