@@ -1,63 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/backgorund"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.activities.HomeActivity"
-    android:padding="15dp"
-    >
-    <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_height="match_parent">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="20dp"
-        >
-        <!-- TODO: Update blank fragment layout -->
-        <CalendarView
-            android:id="@+id/calender"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintVertical_bias="0.006"/>
-
-        <EditText
-            android:id="@+id/calenderText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/calender"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/CreateTodoButton"
-            android:layout_weight="1"
-            android:hint="오늘 할 일을 입력하세요"
-            />
-
-        <Button
-            android:id="@+id/CreateTodoButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/calender"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_weight="0"
-            android:text="입력" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview_todo_list"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/calenderText"
-            tools:layout_editor_absoluteX="20dp" />
-
-
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        android:text="TodoFragemnt" />
 
 </FrameLayout>
