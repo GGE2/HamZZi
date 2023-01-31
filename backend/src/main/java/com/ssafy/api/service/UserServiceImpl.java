@@ -1,5 +1,6 @@
 package com.ssafy.api.service;
 
+
 import com.ssafy.api.request.UserNicknameRequest;
 import com.ssafy.api.request.UserRegisterRequest;
 import com.ssafy.db.entity.User.User;
@@ -17,6 +18,7 @@ import javax.transaction.Transactional;
 public class UserServiceImpl implements UserService{
 
     @Autowired
+<<<<<<< HEAD
     UserRepository userRepo;
 
     @Override
@@ -72,5 +74,6 @@ public class UserServiceImpl implements UserService{
 
         userRepo.removeUserProfile(user_id);
         userRepo.removeUser(user_id);
+
     }
 }

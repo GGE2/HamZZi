@@ -3,4 +3,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="notification_channel_id">team9</string>
     <string name="default_notification_channel_name">구조조정</string>
+    <string name="NATIVE_APP_KEY">98207802012408560593bd7763f3bedd</string>
+    <string-array name="gender_array">
+        <item>남자</item>
+        <item>여자</item>
+    </string-array>
 </resources>

@@ -26,7 +26,6 @@ public class UserController {
 
     @Autowired
     UserService userService;
-
     @PostMapping("/register")
     @ApiOperation(value = "회원 가입", notes = "필요한 정보를 전부 입력한다")
     @ApiResponses({
@@ -35,6 +34,8 @@ public class UserController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
+
+
     /* User-가입 API: 가입한 사용자의 PK를 리턴해준다 */
     public String registerUser(
             @RequestBody @ApiParam(value="회원가입 정보", required = true) UserRegisterRequest registerInfo) {

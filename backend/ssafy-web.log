@@ -31,6 +31,7 @@
 2023-01-20 10:12:51.740 DEBUG 13712 --- [restartedMain] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
 2023-01-20 10:12:51.857  INFO 13712 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
 2023-01-20 10:12:51.979  INFO 13712 --- [restartedMain] com.ssafy.BackendApplication             : Started BackendApplication in 3.231 seconds (JVM running for 3.987)
+<<<<<<< HEAD
 2023-01-21 15:05:30.370  INFO 13744 --- [restartedMain] com.ssafy.BackendApplication             : Starting BackendApplication using Java 11 on AVOCADO with PID 13744 (D:\AVOCADO\SSAFY\workspace\S08P12D209\backend\build\classes\java\main started by AVOCADO in D:\AVOCADO\SSAFY\workspace\S08P12D209\backend)
 2023-01-21 15:05:30.393  INFO 13744 --- [restartedMain] com.ssafy.BackendApplication             : No active profile set, falling back to 1 default profile: "default"
 2023-01-21 15:05:30.471  INFO 13744 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
@@ -3449,3 +3450,5 @@ java.sql.SQLException: Field 'dtype' doesn't have a default value
 2023-01-30 09:27:30.452  INFO 632 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2023-01-30 09:27:30.454  INFO 632 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2023-01-30 09:27:30.460  INFO 632 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+=======
+>>>>>>> login

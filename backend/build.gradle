@@ -37,6 +37,19 @@ dependencies {
     implementation("io.springfox:springfox-data-rest:3.0.0")
     implementation("io.springfox:springfox-bean-validators:3.0.0")
     implementation("io.springfox:springfox-boot-starter:3.0.0")
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    implementation 'com.google.firebase:firebase-admin:9.1.1'
+
+    implementation("io.springfox:springfox-swagger2:3.0.0")
+    implementation("io.springfox:springfox-swagger-ui:3.0.0")
+    implementation("io.springfox:springfox-data-rest:3.0.0")
+    implementation("io.springfox:springfox-bean-validators:3.0.0")
+    implementation("io.springfox:springfox-boot-starter:3.0.0")
+=======
+>>>>>>> 54a8b5f (Init: Add backend setting files(7))
+>>>>>>> login
 
     runtimeOnly 'com.h2database:h2'
     //querydsl 추가
@@ -73,4 +86,12 @@ configurations {
     }
     querydsl.extendsFrom compileClasspath
 }
+<<<<<<< HEAD
 //querydsl 추가 끝
+=======
+<<<<<<< HEAD
+//querydsl 추가 끝
+=======
+//querydsl 추가 끝
+>>>>>>> 54a8b5f (Init: Add backend setting files(7))
+>>>>>>> login

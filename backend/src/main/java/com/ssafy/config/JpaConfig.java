@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 //package com.ssafy.config;
 //
 //import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -63,3 +64,4 @@
 //                .registerModule(new Jdk8Module());
 //    }
 //}
+

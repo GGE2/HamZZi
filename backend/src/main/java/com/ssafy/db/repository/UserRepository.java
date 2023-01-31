@@ -1,5 +1,6 @@
 package com.ssafy.db.repository;
 
+
 import com.ssafy.db.entity.User.User;
 import com.ssafy.db.entity.User.UserProfile;
 import org.springframework.stereotype.Repository;
@@ -24,4 +25,5 @@ public interface UserRepository {
 
     // 사용자의 게임 내 정보 리턴(ID, nickname)
     UserProfile findByNickname(String nickname);
+
 }

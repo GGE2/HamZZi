@@ -1,5 +1,6 @@
 package com.ssafy.db.repository;
 
+
 import com.ssafy.db.entity.User.*;
 
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,7 @@ import javax.persistence.EntityManager;
 /**
  * 유저 모델 관련 디비 쿼리 생성을 위한 구현 정의.
  */
+
 @Repository @Primary
 @RequiredArgsConstructor
 public class UserRepositorySupport implements UserRepository {
@@ -57,3 +59,4 @@ public class UserRepositorySupport implements UserRepository {
         return em.find(UserProfile.class, nickname);
     }
 }
+
