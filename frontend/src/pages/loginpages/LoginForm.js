@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../../authSlice";
+import axios from "axios";
 import "../../styles/LoginForm.css";
 
 // import Google from "./features/auth/Google";
@@ -29,7 +30,8 @@ export default function LoginForm() {
       // 파이어베이스 인증 받아오기
       const curUserInfo = await signInWithEmailAndPassword(auth, email, pw);
       console.log(curUserInfo);
-<<<<<<< HEAD
+
+      
 
       // cookie 저장으로 바꾸기
       localStorage.setItem("user", JSON.stringify(curUserInfo.user.email));
@@ -40,17 +42,15 @@ export default function LoginForm() {
       dispatch(
         setCredentials({
           user: curUserInfo.user.displayName,
-=======
-      localStorage.setItem("user", JSON.stringify(curUserInfo.user.email));
-      dispatch(
-        setCredentials({
-          user: localStorage.getItem("user"),
->>>>>>> 862d795ade2ac4e38d20670b3253c2f34ecca8e8
-          token: curUserInfo.user.accessToken,
+          accessToken: curUserInfo.user.accessToken,
         })
       );
+      
+      if (curUserInfo) {
+        navigate("/main"); // 로그인하면 메인 페이지로 이동~
+      }
 
-      navigate("/main"); // 로그인하면 메인 페이지로 이동~
+
     } catch (err) {
       console.log(err);
     }
@@ -84,13 +84,7 @@ export default function LoginForm() {
       setPwValid(false);
     }
   };
-  // const onClickConfirmButton = () => {
-  //   if (email === User.email && pw === User.pw) {
-  //     alert("로그인에 성공했습니다.");
-  //   } else {
-  //     alert("등록되지 않은 회원입니다.");
-  //   }
-  // };
+
 
   return (
     <>

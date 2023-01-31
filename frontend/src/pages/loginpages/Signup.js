@@ -47,8 +47,10 @@ export default function Signup() {
         email,
         password
       );
+      setEmail("");
+      setPassword("");
       // 우리 db에 정보 전달
-      const dummy = await axios.post("http://3.35.88.23:8080/api/user/register", {
+      const dummy = await axios.post("http://3.35.88.23:8080/api/user", {
         email: email,
         password: password,
         telephone: phone,
@@ -56,8 +58,7 @@ export default function Signup() {
       });
       console.log(dummy);
       // console.log(createdUser);
-      setEmail("");
-      setPassword("");
+      
       // **Login 함수 작성하기**
     } catch (err) {
       console.log(err.code);
