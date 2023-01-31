@@ -3,6 +3,7 @@ package com.team.teamrestructuring.view.activities
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -19,6 +20,7 @@ import com.team.teamrestructuring.R
 import com.team.teamrestructuring.databinding.ActivityHomeBinding
 import com.team.teamrestructuring.view.adapters.ViewPagerAdapter
 import com.team.teamrestructuring.view.fragments.GuildFragment
+import java.net.URLDecoder
 
 
 private const val TAG = "HomeActivity_지훈"
@@ -52,7 +54,8 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun init(){
-        getFCM()
+        //getFCM()
+        initFirebase()
         setViewPager()
         setFullScreen()
         checkNotificationSelected()
@@ -75,7 +78,7 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
     /**
      * 상태표시줄 , 하단 네비게이션 없애기기
     */
-    private fun setFullScreen(){
+     fun setFullScreen(){
         //Android 11(R) 대응
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.R){
             supportActionBar?.hide()
@@ -96,24 +99,27 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
                     or View.SYSTEM_UI_FLAG_FULLSCREEN)
         }
     }
-    /**
-     * Notification 수신을 위한 채널 추가
-     */
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun createNotificationChannel(id:String, name:String){
-        val importance = NotificationManager.IMPORTANCE_DEFAULT
-        val channel = NotificationChannel(id,name,importance)
 
-        val notificationManager : NotificationManager
-                = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.createNotificationChannel(channel)
+    override fun onNewIntent(intent: Intent?) {
+        
+        try{
+            Log.d(TAG, "onNewIntent: ")
+            binding.viewpagerMainPager.currentItem = 2
+        }catch(e:Exception){}
+        super.onNewIntent(intent)
     }
-
+    private fun initFirebase(){
+        FirebaseMessaging.getInstance().token.addOnCompleteListener {task->
+            if(task.isSuccessful){
+                Log.d(TAG, "initFirebase: ${task.result}")
+            }
+        }
+    }
     /**
      * Noti를 클릭해서 들어온 경우 QuestFragment로 이동
      */
     private fun checkNotificationSelected(){
-        val intent_data = intent.getStringArrayExtra("clicknoti")
+        val intent_data = intent.getStringArrayExtra("noti")
         Log.d(TAG, "checkNotificationSelected: ${intent_data}")
         if(intent_data!=null){
             binding.viewpagerMainPager.currentItem = 2
@@ -150,9 +156,9 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
 
 
 
-    /**
+  /*  *//**
      * FCM 토큰 수신
-     */
+     *//*
     @RequiresApi(Build.VERSION_CODES.O)
     private fun getFCM(){
         Log.d("token TAG", "getFCM: ")
@@ -165,6 +171,6 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
             Log.d("token TAG", "token 정보 : ${it.result?:"token is null"}")
         })
         createNotificationChannel(channel_id,"team9")
-    }
+    }*/
 
 }

@@ -7,15 +7,13 @@ import android.graphics.Point
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat.getSystemService
 import com.team.teamrestructuring.R
 import com.team.teamrestructuring.databinding.FragmentHomeBinding
+import com.team.teamrestructuring.view.activities.HomeActivity
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
