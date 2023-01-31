@@ -3,15 +3,21 @@ import Main from "./pages/Main";
 import Login from "./pages/Login";
 import { Route, Routes } from "react-router-dom";
 import KakaoLogin from "./pages/loginpages/KakaoLogin";
+import RequireAuth from "./pages/loginpages/RequireAuth";
 
 function App() {
   return (
+    // KakaoLogin
+    // <div>
+    //   <Sendtesasdsadt />
+    // </div>
     <Routes>
       <Route index element={<Login />} />
       <Route path="/kakaoLogin" element={<KakaoLogin />} />
 
-        <Route path="/main" element={<Main />} />
-
+      {/* <Route element={<RequireAuth />}> */}
+      <Route path="/main" element={<Main />} />
+      {/* </Route> */}
     </Routes>
   );
 }

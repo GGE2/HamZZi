@@ -3,24 +3,22 @@ body {
 }
 
 .Header {
+<<<<<<< HEAD
     height: 10%;
     border-bottom: 3px solid red;
-    display: flex;
+    /* display: flex; */
     /* justify-content: start; */
-    padding-left: 2%;
-    /* padding-right: 3%; */
+    /* padding-left: 5%; */
     /* padding-bottom: 1%; */
     /* padding-top: 1%; */
-    justify-content: space-between;
-    align-items: center;
-    font-size: 50px;
-    /* font: bold; */
-    /* font-weight: 50px; */
+    /* justify-content: space-between; */
+    /* align-items: center; */
 }
 
 .Header span {
     /* justify-content: start; */
-    
+    font-size: 50px;
+    font-weight: 20px;
 }
 
 .Header button {
@@ -30,21 +28,10 @@ body {
     border: none;
     cursor: pointer;
     background-color: #f9fbe7;
+=======
+    border-bottom: 3px solid red;
+    display: flex;
+    justify-content: start;
+    padding-left: 30px;
+>>>>>>> 862d795ade2ac4e38d20670b3253c2f34ecca8e8
 }
-
-.DiaryEditor {
-    border: 1px solid black;
-}
-
-.DiaryEditor textarea {
-    width: 80%;
-    height: 4em;
-    /* border: none; */
-    resize: none;
-}
-
-.DiaryItem {
-    background-color: rgba(69, 178, 93, 1);
-    padding-bottom: 10px;
-}
-
