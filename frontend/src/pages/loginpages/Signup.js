@@ -47,13 +47,18 @@ export default function Signup() {
         email,
         password
       );
+      console.log(createdUser);
       // 우리 db에 정보 전달
-      const dummy = await axios.post("http://3.35.88.23:8080/api/user/register", {
-        email: email,
-        password: password,
-        telephone: phone,
-        name: name
-      });
+      const dummy = await axios.post(
+        "http://3.35.88.23:8080/api/user/register",
+        {
+          email: email,
+          password: password,
+          telephone: phone,
+          name: name,
+        }
+      );
+
       console.log(dummy);
       // console.log(createdUser);
       setEmail("");
@@ -219,56 +224,51 @@ export default function Signup() {
   };
 
   const handleGender = (e) => {
-    const currentGender = e.target.value
-    setGender(currentGender)
-    console.log(currentGender)
-  }
+    const currentGender = e.target.value;
+    setGender(currentGender);
+    console.log(currentGender);
+  };
 
   // 중복 이메일 검사
 
   return (
     <>
-
-        
-
-        <div className="contentWrap">
+      <div className="contentWrap">
         <div className="siginup_titleWrap">HAMZZI</div>
-          <div className="siginup_inputTitle">이메일 주소</div>
-          <div className="siginup_inputWrap">
-            <input
-              className="siginup_input"
-              type="text"
-              value={email}
-              onChange={handleEmail}
-            />
-          </div>
-          <div className="siginup_errorMessageWrap">{emailMessage}</div>
+        <div className="siginup_inputTitle">이메일 주소</div>
+        <div className="siginup_inputWrap">
+          <input
+            className="siginup_input"
+            type="text"
+            value={email}
+            onChange={handleEmail}
+          />
+        </div>
+        <div className="siginup_errorMessageWrap">{emailMessage}</div>
 
-          <div className="siginup_inputTitle">비밀번호</div>
-          <div className="siginup_inputWrap">
-            <input
-              className="siginup_input"
-              type="password"
-              value={password}
-              onChange={handlePw}
-            />
-          </div>
-          <div className="siginup_errorMessageWrap">{passwordMessage}</div>
+        <div className="siginup_inputTitle">비밀번호</div>
+        <div className="siginup_inputWrap">
+          <input
+            className="siginup_input"
+            type="password"
+            value={password}
+            onChange={handlePw}
+          />
+        </div>
+        <div className="siginup_errorMessageWrap">{passwordMessage}</div>
 
-          <div>비밀번호 확인</div>
-          <div className="siginup_inputWrap">
-            <input
-              className="siginup_input"
-              type="password"
-              value={passwordConfirm}
-              onChange={handlePasswordConfirm}
-            />
-          </div>
-          <div className="siginup_errorMessageWrap">
-            {passwordConfirmMessage}
-          </div>
+        <div>비밀번호 확인</div>
+        <div className="siginup_inputWrap">
+          <input
+            className="siginup_input"
+            type="password"
+            value={passwordConfirm}
+            onChange={handlePasswordConfirm}
+          />
+        </div>
+        <div className="siginup_errorMessageWrap">{passwordConfirmMessage}</div>
 
-          {/* <div>닉네임</div>
+        {/* <div>닉네임</div>
           <div className="siginup_inputWrap">
             <input
               className="siginup_input"
@@ -279,48 +279,48 @@ export default function Signup() {
           </div>
           <div className="siginup_errorMessageWrap">{nicknameMessage}</div> */}
 
-          <div>이름</div>
-          <div className="siginup_inputWrap">
-            <input
-              className="siginup_input"
-              type="text"
-              value={name}
-              onChange={handleName}
-            />
-          </div>
-          <div className="siginup_errorMessageWrap">{nameMessage}</div>
-
-          <div>성별</div>
-          {/* <div className="siginup_inputWrap"> */}
-            <select className="siginup_pick_gender" onChange={(e) => handleGender(e)}>
-              <option value="null">선택 안함</option>
-              <option value="m">남</option>
-              <option value="f">여</option>
-            </select>
-          {/* </div> */}
-
-          <div>전화번호</div>
-          <div className="siginup_inputWrap">
-            <input
-              className="siginup_input"
-              type="text"
-              placeholder="010-0000-0000"
-              onChange={addHyphen}
-            />
-          </div>
-          <div className="siginup_errorMessageWrap">{phoneMessage}</div>
+        <div>이름</div>
+        <div className="siginup_inputWrap">
+          <input
+            className="siginup_input"
+            type="text"
+            value={name}
+            onChange={handleName}
+          />
         </div>
+        <div className="siginup_errorMessageWrap">{nameMessage}</div>
 
-     
-          <button
-            onClick={register}
-            disabled={notAllow}
-            className="siginup_bottomButton"
-          >
-            가입하기
-          </button>
-       
-   
+        <div>성별</div>
+        {/* <div className="siginup_inputWrap"> */}
+        <select
+          className="siginup_pick_gender"
+          onChange={(e) => handleGender(e)}
+        >
+          <option value="null">선택 안함</option>
+          <option value="m">남</option>
+          <option value="f">여</option>
+        </select>
+        {/* </div> */}
+
+        <div>전화번호</div>
+        <div className="siginup_inputWrap">
+          <input
+            className="siginup_input"
+            type="text"
+            placeholder="010-0000-0000"
+            onChange={addHyphen}
+          />
+        </div>
+        <div className="siginup_errorMessageWrap">{phoneMessage}</div>
+      </div>
+
+      <button
+        onClick={register}
+        disabled={notAllow}
+        className="siginup_bottomButton"
+      >
+        가입하기
+      </button>
     </>
   );
 }

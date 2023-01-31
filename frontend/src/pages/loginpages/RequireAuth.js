@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { selectCurrentToken } from "./../../authSlice";
 
 const RequireAuth = () => {
-  const token = useSelector(selectCurrentToken);
+  const token = localStorage.getItem("accessToken");
   const location = useLocation();
 
   return token ? (

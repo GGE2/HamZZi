@@ -27,7 +27,9 @@ function Google() {
         email: data.user.email,
         name: data.user.displayName,
       });
-      console.log(dummy)
+
+      // Backend에서 중복된 이메일이 있다면 응답을 다르게 줄 예정임
+      // 응답에 따라 바로 메인 페이지로 이동(navigate('/main')) OR 프롤로그 페이지 띄워주기 (navigate('/nickname))
     } catch (err) {
       console.log(err);
     }
