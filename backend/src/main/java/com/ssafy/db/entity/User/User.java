@@ -15,14 +15,16 @@ public class User {
     private Long user_id;
 
     /* for Firebase */
+
+    @Column(unique = true, nullable = false)
+    private String email;
+
     @Column(nullable = false)
     private String uid;
 
     @Column(nullable = true)
     private String loginToken;
 
-    @Column(unique = true, nullable = false)
-    private String email;
 
     @OneToOne
     @JoinColumn(name="user_nickname")

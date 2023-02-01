@@ -9,6 +9,7 @@ import com.kakao.sdk.common.KakaoSdk
 import com.team.teamrestructuring.R
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 
 private const val TAG="ApplicationClass_지훈"
 class ApplicationClass : Application(){
@@ -39,6 +40,7 @@ class ApplicationClass : Application(){
         // 앱이 처음 생성되는 순간, retrofit 인스턴스를 생성
         retrofit = Retrofit.Builder()
             .baseUrl(BOARD_URL)
+            .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
         //KakaoSdk.init(this,getString(R.string.NATIVE_APP_KEY))
