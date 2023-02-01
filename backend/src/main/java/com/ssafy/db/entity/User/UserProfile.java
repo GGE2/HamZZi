@@ -24,4 +24,6 @@ public class UserProfile {
 
     @Column(nullable = false)
     private int point;
+
+    private int rest_point;
 }

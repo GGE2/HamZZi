@@ -1,12 +1,12 @@
-{
-  "type": "service_account",
-  "project_id": "teamrestructuring-8b91c",
-  "private_key_id": "72698f4895994b6de55066bbf4256ccb82f51cb2",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCurPZfe+2k4Ly9\ntDXzoqbv5NouLZLCIxgRYov5buQr+MBL5JES0lLAO3q94XDLWY3kKOW356PFJ2Nr\n2pjU5T+gFcsz6iz0/f+QmpsKkpCA38vAp9EcBOZvb3TBL8EIqT9Y292ukyOQYa0W\ns3gDRwiynqjBkddvlSYg0Rl6sI+MBiougDWoeljaF80p9CCJGmmb8Wtg4QjvNRK5\n91X2zBCkSklMOJpj4p43/vKNTo8JdlSe5M63E7rir8VS6t1biTvn6Ft7lxSwXEoN\nvoihWqqtjTaj8dFAh8x4teiqaEZXaV9PVo4MNvY0/KiucQbi3a6ozmBTQ9kkPnTw\nLqMKT/hlAgMBAAECggEAID5SPj7wl6JahMQav23zVc4PTj3gXNDAlRj1UKZdHRbO\nXFQFSY2kc9Km7h0Kxqaxz/+So/dw3ihOrG6ODqKAs6rCN0OPZ+vo/IblfraeUQO+\np0HzEjJ/XOuciDqp7dDcHil7ysljY7f8DPg0+5nlq58o9I5Yz8Ke5qjihKjJ3qVI\nW2Ir2ihVwJYIFsEefTwNRGjuMIbPOzCmVPoscEMAKTqrDICCe6yEsq8yD+ejsh3q\nt5ILOkwFsQvZ0X4m6C2BLGhA3ZVEMigUOyVaglZ/3v2qz7q5hvXD3CdgOq3vLamI\naWqcdLnGrqnvBTRiisiPhY34bNCyBTc+umo/UQRe0QKBgQDlDm5ix7BjszV14TBD\ntiKKDV5ig7w8looDPe5Uo3YdyF9L1cBm9fGHo/3VT2MDnBIGvQhCqlgqtTQsv07f\nEEq9jSFoOOgb/assWG0LXj9lavVVOxRQBChPJOwHBJM62HumT31W65kR/t4FdQNK\nF1G9lcacs5Nc7VN853qm6nT3iQKBgQDDOPclEpPkZMvf2pV4vo6l720G0pr6qy3T\nrgH4hhUBh5UyJqst1BEOIWV/qVIMXm2mhxLXRXNUOdnJym23KdpyFTXqMj+1o6E0\nfo0DVjGk8QwKIw2T/dMGJeUmfsZ/3Dw9jjNjAk8JE2mbyH4Gyv6I56kDscejppIB\n7yP/cPEm/QKBgQCGRu55I90IpV76qrdTims3CN1C3T01O37OpbiYj3bHwNX0q+rt\nsNIVlRJRwQcnb4+1uY0lH50t9CoQ7Vl8NJ3L/vcNlQakmhGFnpTWLDr35jrJ6yde\nPQGwW9Gtz4XL4mqiNUkh8l06inF3O4BhJ8h4XlwfMrp5qHrf5wck4J8PGQKBgGvJ\n0yOD+2Y6hRqnHKpbRHW4GZGPzQQkaZwb0ni+x3BdxPG4ygD2uyf7JohzG5s6s/4j\nTDLR5NiXTHmPLD7afANLVMZnUiffHc3XJdK2z5hLgyNBsWiJ1+7oE3rKupy0JAq0\nrgi3qJ3ROxlJfNQRVrKOfhJNIXZpLOqmeFC8slmdAoGBAJjiWB5FeqS7QUHMD1Q0\n1JoePROy2QMzOQggVn8kQeVCXI4F51WbPAd3nUMyQEclKy3FDma9acWvKZluuXAW\nghR8Tm7AngQ6zi3pxT7ZIXsM6FyX1TRiWgA5RSpg0LTiKFqofG0dBheNV+24ZDgg\nLiDwCi0VeIpN087ZHH3fzC8P\n-----END PRIVATE KEY-----\n",
-  "client_email": "firebase-adminsdk-rrd6a@teamrestructuring-8b91c.iam.gserviceaccount.com",
-  "client_id": "109082467531904214100",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-rrd6a%40teamrestructuring-8b91c.iam.gserviceaccount.com"
-}
+//{
+//  "type": "service_account",
+//  "project_id": "teamrestructuring-8b91c",
+//  "private_key_id": "72698f4895994b6de55066bbf4256ccb82f51cb2",
+//  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCurPZfe+2k4Ly9\ntDXzoqbv5NouLZLCIxgRYov5buQr+MBL5JES0lLAO3q94XDLWY3kKOW356PFJ2Nr\n2pjU5T+gFcsz6iz0/f+QmpsKkpCA38vAp9EcBOZvb3TBL8EIqT9Y292ukyOQYa0W\ns3gDRwiynqjBkddvlSYg0Rl6sI+MBiougDWoeljaF80p9CCJGmmb8Wtg4QjvNRK5\n91X2zBCkSklMOJpj4p43/vKNTo8JdlSe5M63E7rir8VS6t1biTvn6Ft7lxSwXEoN\nvoihWqqtjTaj8dFAh8x4teiqaEZXaV9PVo4MNvY0/KiucQbi3a6ozmBTQ9kkPnTw\nLqMKT/hlAgMBAAECggEAID5SPj7wl6JahMQav23zVc4PTj3gXNDAlRj1UKZdHRbO\nXFQFSY2kc9Km7h0Kxqaxz/+So/dw3ihOrG6ODqKAs6rCN0OPZ+vo/IblfraeUQO+\np0HzEjJ/XOuciDqp7dDcHil7ysljY7f8DPg0+5nlq58o9I5Yz8Ke5qjihKjJ3qVI\nW2Ir2ihVwJYIFsEefTwNRGjuMIbPOzCmVPoscEMAKTqrDICCe6yEsq8yD+ejsh3q\nt5ILOkwFsQvZ0X4m6C2BLGhA3ZVEMigUOyVaglZ/3v2qz7q5hvXD3CdgOq3vLamI\naWqcdLnGrqnvBTRiisiPhY34bNCyBTc+umo/UQRe0QKBgQDlDm5ix7BjszV14TBD\ntiKKDV5ig7w8looDPe5Uo3YdyF9L1cBm9fGHo/3VT2MDnBIGvQhCqlgqtTQsv07f\nEEq9jSFoOOgb/assWG0LXj9lavVVOxRQBChPJOwHBJM62HumT31W65kR/t4FdQNK\nF1G9lcacs5Nc7VN853qm6nT3iQKBgQDDOPclEpPkZMvf2pV4vo6l720G0pr6qy3T\nrgH4hhUBh5UyJqst1BEOIWV/qVIMXm2mhxLXRXNUOdnJym23KdpyFTXqMj+1o6E0\nfo0DVjGk8QwKIw2T/dMGJeUmfsZ/3Dw9jjNjAk8JE2mbyH4Gyv6I56kDscejppIB\n7yP/cPEm/QKBgQCGRu55I90IpV76qrdTims3CN1C3T01O37OpbiYj3bHwNX0q+rt\nsNIVlRJRwQcnb4+1uY0lH50t9CoQ7Vl8NJ3L/vcNlQakmhGFnpTWLDr35jrJ6yde\nPQGwW9Gtz4XL4mqiNUkh8l06inF3O4BhJ8h4XlwfMrp5qHrf5wck4J8PGQKBgGvJ\n0yOD+2Y6hRqnHKpbRHW4GZGPzQQkaZwb0ni+x3BdxPG4ygD2uyf7JohzG5s6s/4j\nTDLR5NiXTHmPLD7afANLVMZnUiffHc3XJdK2z5hLgyNBsWiJ1+7oE3rKupy0JAq0\nrgi3qJ3ROxlJfNQRVrKOfhJNIXZpLOqmeFC8slmdAoGBAJjiWB5FeqS7QUHMD1Q0\n1JoePROy2QMzOQggVn8kQeVCXI4F51WbPAd3nUMyQEclKy3FDma9acWvKZluuXAW\nghR8Tm7AngQ6zi3pxT7ZIXsM6FyX1TRiWgA5RSpg0LTiKFqofG0dBheNV+24ZDgg\nLiDwCi0VeIpN087ZHH3fzC8P\n-----END PRIVATE KEY-----\n",
+//  "client_email": "firebase-adminsdk-rrd6a@teamrestructuring-8b91c.iam.gserviceaccount.com",
+//  "client_id": "109082467531904214100",
+//  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+//  "token_uri": "https://oauth2.googleapis.com/token",
+//  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+//  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-rrd6a%40teamrestructuring-8b91c.iam.gserviceaccount.com"
+//}
