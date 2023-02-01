@@ -111,10 +111,10 @@ class LoginActivity : AppCompatActivity() {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 val account = task.getResult(ApiException::class.java)!!
-                Log.d(ContentValues.TAG, "firebaseAuthWithGoogle" + account.id)
+                Log.d(TAG, "firebaseAuthWithGoogle" + account.id)
                 firebaseAuthWithGoogle(account.idToken.toString())
             } catch (e: ApiException) {
-                Log.w(ContentValues.TAG, "Google sign in failed")
+                Log.w(TAG, "Google sign in failed")
             }
         }
     }
@@ -130,7 +130,7 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this){ task ->
                 if (task.isSuccessful) {
                     Log.d(ContentValues.TAG, "signInWithCredential:success")
-                    val user = auth.currentUser
+                    val user = FirebaseAuth.getInstance().currentUser!!.uid
                     loginandhome()
                 } else {
                     Log.w(ContentValues.TAG, "signInWithCredential:failure", task.exception)
@@ -148,10 +148,6 @@ class LoginActivity : AppCompatActivity() {
      */
     open fun getFirebaseJwt(code : String){
         val client_state = UUID.randomUUID().toString()
-        /*val retrofit = Retrofit.Builder().baseUrl("https://kauth.kakao.com/")
-            .addConverterFactory(ScalarsConverterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
-            .build()*/
         val service = ApplicationClass.retrofit.create(KakaoService::class.java)
             .getFirebaseToken(code
             )

@@ -71,13 +71,12 @@
         <activity
             android:name=".view.activities.LoginActivity"
             android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-                <data
-                    android:host="oauth"
-                    android:scheme="kakao2065e8fbc25a7213173d769c456d15ed"/>
             </intent-filter>
+
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -87,6 +86,7 @@
             android:name=".view.activities.HomeActivity"
             android:exported="true"
             android:immersive="true">
+
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
