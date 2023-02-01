@@ -100,7 +100,6 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
     }
 
     override fun onNewIntent(intent: Intent?) {
-        
         try{
             Log.d(TAG, "onNewIntent: ")
             binding.viewpagerMainPager.currentItem = 2
@@ -114,6 +113,7 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
             }
         }
     }
+
     /**
      * Noti를 클릭해서 들어온 경우 QuestFragment로 이동
      */

@@ -37,6 +37,8 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding:ActivityLoginBinding
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -48,8 +50,6 @@ class LoginActivity : AppCompatActivity() {
         googleSign.text = "구글 계정으로 로그인"
         googleSign.textSize = 16f
         googleSign.typeface = typeFacefont
-
-
         //google sign in
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken("616408032515-pdlld4de1ettr6i8rd00qh8ofosf77ge.apps.googleusercontent.com")
@@ -67,7 +67,6 @@ class LoginActivity : AppCompatActivity() {
 
 
     }
-
     private fun kakaoLoginStart(){
         /*val keyHash = Utility.getKeyHash(this) // keyHash 발급
         //Log.d(TAG, "KEY_HASH : $keyHash")
