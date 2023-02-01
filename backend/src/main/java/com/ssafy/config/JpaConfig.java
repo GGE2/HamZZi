@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+//<<<<<<< HEAD
 //package com.ssafy.config;
 //
 //import com.fasterxml.jackson.databind.DeserializationFeature;
