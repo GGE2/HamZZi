@@ -11,6 +11,7 @@ import javax.persistence.OneToOne;
 @Getter @Setter
 public class GuildUser {
 
+    /* UserProfile로 이관예정 */
     @OneToOne
     @JoinColumn(name="USER_NICKNAME")
     private UserProfile userProfile;
