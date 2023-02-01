@@ -4,6 +4,7 @@ package com.ssafy.db.entity.User;
 import com.ssafy.db.entity.Pet.Pet;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,10 +23,8 @@ public class UserProfile {
     @OneToOne(mappedBy = "userProfile")
     private User user;
 
-    @Column(nullable = false)
+    @ColumnDefault("0")
     private int point;
-
-    @Column(nullable = false)
     private int rest_point;
 
 }
