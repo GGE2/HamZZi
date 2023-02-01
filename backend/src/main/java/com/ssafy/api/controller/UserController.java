@@ -53,7 +53,7 @@ public class UserController {
         return nicknameInfo.getUser_id() + " registered " + nicknameInfo.getNickname() + " OK";
     }
 
-    @GetMapping("/my/{email}")
+    @GetMapping("/mypage")
     @ApiOperation(value = "회원 정보 조회", notes = "로그인한 회원의 프로필 정보 조회")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
