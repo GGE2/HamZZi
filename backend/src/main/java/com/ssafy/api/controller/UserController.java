@@ -61,7 +61,7 @@ public class UserController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public String getUserInfo(@PathVariable String email) {
+    public String getUserInfo(@RequestParam String email) {
         //오류 때문에 email을 id로 변환 후 넣어야 함(PK만 받을 수 있음)
         UserProfile userProfile = userService.loginUserData(email);
         return "email: " + userProfile.getUser().getEmail() + " /////nickname: " + userProfile.getNickname() + " OK";
@@ -78,7 +78,7 @@ public class UserController {
 //    })
 //    public ResponseEntity<? extends BaseResponseBody> updateUser() {}
 
-    @DeleteMapping("/delete/{email}")
+    @DeleteMapping("/delete")
     @ApiOperation(value = "회원 탈퇴", notes = "로그인한 회원 정보 삭제")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -86,7 +86,7 @@ public class UserController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public String deleteUser(@PathVariable String email) {
+    public String deleteUser(@RequestParam String email) {
         userService.deleteUser(email);
         return email + " delete OK";
     }

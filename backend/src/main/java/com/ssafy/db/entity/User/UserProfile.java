@@ -16,7 +16,6 @@ import javax.persistence.OneToOne;
 public class UserProfile {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_nickname")
     private String nickname;
 

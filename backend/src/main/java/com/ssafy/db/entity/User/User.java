@@ -26,6 +26,9 @@ public class User {
     @Column(nullable = true)
     private String name;
 
+    @Column(nullable = true)
+    private String loginToken;
+
     @OneToOne
     @JoinColumn(name="user_nickname")
     private UserProfile userProfile;
