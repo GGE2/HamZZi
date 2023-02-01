@@ -1,5 +1,6 @@
 package com.ssafy.db.entity.User;
 
+
 import com.ssafy.db.entity.Pet.Pet;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,4 +25,5 @@ public class UserProfile {
 
     @Column(nullable = false)
     private int point;
+
 }

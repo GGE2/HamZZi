@@ -1,8 +1,13 @@
+<<<<<<< HEAD
 import React, { useState } from "react";
+=======
+import React from "react";
+>>>>>>> feature/mobile/homepage
 import HamExp from "./statuspages/HamExp";
 import HamLevel from "./statuspages/HamLevel";
 import HamName from "./statuspages/HamName";
 import "../../../styles/HamStatus.css";
+<<<<<<< HEAD
 import Chart from "react-apexcharts";
 
 const HamStatus = () => {
@@ -59,6 +64,16 @@ const HamStatus = () => {
           height={"100%"}
         />
       </div>
+=======
+
+const HamStatus = () => {
+  return (
+    <div className="HamStatus">
+      HamStatus
+      <HamExp />
+      <HamLevel />
+      <HamName />
+>>>>>>> feature/mobile/homepage
     </div>
   );
 };

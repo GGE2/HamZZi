@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useRef, useState } from "react";
 import TodoList from "../../../components/TodoList";
 import TodoInput from "../../../components/TodoInput";
@@ -71,6 +72,12 @@ const Todos = () => {
       </div>
     </>
   );
+=======
+import React from "react";
+
+const Todos = () => {
+  return <div>Todos</div>;
+>>>>>>> feature/mobile/homepage
 };
 
 export default Todos;

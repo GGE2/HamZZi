@@ -1,4 +1,5 @@
 .app {
+<<<<<<< HEAD
   text-align: center;
   min-width: 100%;
   min-height: 100%;
@@ -105,4 +106,91 @@ background-color: #f9fbe7;
 height: auto;
 width: 20%;
 /* border: 1px solid black; */
+=======
+    text-align: center;
+    min-width: 100%;
+    min-height: 100%;
+    position: fixed;
+    background: repeating-linear-gradient(150deg, #7cac54, #7cac54 20px, #3f8744 0, #3f8744 40px);
+    /* board를 가운데 정렬 */
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.Board {
+  min-width: 80%;
+  min-height: 100%;
+  position: relative;
+  background-color: rgba(63, 131, 84, 0.8);
+  /* Back을 가운데 정렬 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Back {
+  background-color: #f9fbe7;
+  /* padding: 10px; */
+  min-width: 60%;
+  min-height: 80%;
+  position: fixed;
+  border: solid 3px black;
+  /* box-shadow: 0 0 0 3px #000 inset;  */
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  /* flex-grow: 1; */
+}
+
+.Back .Hamster {
+  /* border: solid 5px pink; */
+  padding: 10px;
+  text-align: center;
+  width: 30%;
+  margin: 0px;
+  /* padding: 0px; */
+}
+
+.Back .Screen {
+  /* padding: 10px; */
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 70%;
+  border-left: solid 3px black;
+  margin: 0px;
+  /* padding: 0px; */
+ /* justify-content: end; */
+ position: relative;
+}
+
+
+/* 보드 페이지에 하단 버튼 리스트 */
+.BoardButton {
+  /* background-color: red; */
+  width: 100%;
+  /* margin-right: 10px; */
+  /* border-top: 5px solid red; */
+  position: absolute;
+  bottom: 0;
+  border-top: 3px solid red;
+  padding-bottom: 3px;
+}
+
+.BoardButton button{
+  white-space: pre;
+  cursor: pointer;
+  border: none;
+  /* border-top: 5px solid red; */
+  /* border-right: 1px solid black;
+  border-left: 1px solid black; */
+  /* border-bottom: 1px solid red; */
+  padding-right: 5px;
+  background-color: #f9fbe7;
+  height: auto;
+  width: 20%;
+  /* border: 1px solid black; */
+>>>>>>> feature/mobile/homepage
 }

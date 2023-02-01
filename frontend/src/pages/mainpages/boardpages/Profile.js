@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../../authSlice";
+<<<<<<< HEAD
 import Header from "./../../../components/Header";
 
 const Profile = () => {
@@ -34,6 +35,12 @@ const Profile = () => {
       </div>
     </>
   );
+=======
+
+const Profile = () => {
+  const user = useSelector(selectCurrentUser);
+  return <div>{user}'s Profile</div>;
+>>>>>>> feature/mobile/homepage
 };
 
 export default Profile;

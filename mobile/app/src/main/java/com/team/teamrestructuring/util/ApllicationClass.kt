@@ -1,3 +1,4 @@
+
 package com.team.teamrestructuring.util
 
 import android.app.Application
@@ -55,5 +56,7 @@ class ApplicationClass : Application(){
         }
         return instance!!
     }
+
+
 
 }
