@@ -162,6 +162,7 @@ class LoginActivity : AppCompatActivity() {
                         val auth = FirebaseAuth.getInstance()
                         Log.d(TAG, "onSuccess: ${firebaseToken}")
                         auth.signInWithCustomToken(firebaseToken)
+                        Log.d(TAG, "onResponse: ")
                         loginandhome()
                     }
                 }

@@ -1,21 +1,22 @@
 package com.ssafy.api.controller;
 
 import com.ssafy.api.service.KakaoService;
+import com.ssafy.api.service.KakaoServiceForAndroid;
+import com.ssafy.api.service.KakaoServiceForWeb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 
 import java.util.Map;
 
-@Controller
+@RestController
 @RequestMapping("api/kakao")
 public class MainController {
     @Autowired
-    KakaoService kakaoService;
+    KakaoServiceForAndroid kakaoServiceForAndroid;
+    @Autowired
+    KakaoServiceForWeb kakaoServiceForWeb;
 
 //
 //    @ResponseBody
@@ -23,9 +24,16 @@ public class MainController {
     public String testConnect() {
         return "연결성공";
     }
-    @RequestMapping("kakao/sign_in")
+    @GetMapping("/app")
+    public String kakao(@RequestParam("code") String code){
+        Map<String,Object> result = kakaoServiceForAndroid.execKakaoLogin(code);
+        System.out.println(result.toString());
+        return result.get("customToken").toString();
+    }
+    @RequestMapping("/web")
     public String kakaoSignIn(@RequestParam("code") String code) {
-        Map<String,Object> result = kakaoService.execKakaoLogin(code);
-        return "redirect:webauthcallback://success?customToken="+result.get("customToken").toString();
+        Map<String,Object> result = kakaoServiceForWeb.execKakaoLogin(code);
+        System.out.println(result.toString());
+        return "redirect:98207802012408560593bd7763f3bedd://ouath?customToken="+result.get("customToken").toString();
     }
 }

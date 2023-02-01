@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface KakaoService {
 
-    @GET("kakao_login/app")
+    @GET("api/kakao/app")
     fun getFirebaseToken(
         @Query("code") code : String
     ): Call<String>
