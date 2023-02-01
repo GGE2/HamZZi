@@ -4,20 +4,28 @@ import HamLevel from "./statuspages/HamLevel";
 import HamName from "./statuspages/HamName";
 import "../../../styles/HamStatus.css";
 import Chart from "react-apexcharts";
+import StatCtrl from "./statuspages/StatCtrl";
+import { Link } from "react-router-dom";
+import { selectCurrentHamStat } from "./../../../hamStatSlice";
+import { useSelector } from "react-redux";
 
 const HamStatus = () => {
-  const [stat, setStat] = useState({
-    physical: 10,
-    artistic: 20,
-    intelligent: 30,
-    inactive: 20,
-    active:10,
-    etc: 0
-  })
+  const hamStat = useSelector(selectCurrentHamStat);
+  // const [stat, setStat] = useState({
+  //   physical: 10,
+  //   artistic: 20,
+  //   intelligent: 30,
+  //   inactive: 20,
+  //   active: 10,
+  //   etc: 0,
+  // });
+  // const hamStat = selectCurrentHamStat();
+
+  // console.log(stat);
 
   const state = {
     options: {
-      colors:['#3f8744'],
+      colors: ["#3f8744"],
       chart: {
         // id: "basic-bar",
         toolbar: {
@@ -25,7 +33,14 @@ const HamStatus = () => {
         },
       },
       xaxis: {
-        categories: ["육체적", "예술적", "지능적", "비활동적", "활동적", "기타"],
+        categories: [
+          "육체적",
+          "예술적",
+          "지능적",
+          "비활동적",
+          "활동적",
+          "기타",
+        ],
       },
       yaxis: {
         show: false,
@@ -35,7 +50,20 @@ const HamStatus = () => {
     series: [
       {
         // id: 'stat',
-        data: [stat.physical, stat.artistic, stat.intelligent, stat.inactive, stat.active, stat.etc],
+        data: [
+          // stat.physical,
+          // stat.artistic,
+          // stat.intelligent,
+          // stat.inactive,
+          // stat.active,
+          // stat.etc,
+          hamStat.physical,
+          hamStat.artistic,
+          hamStat.intelligent,
+          hamStat.inactive,
+          hamStat.active,
+          hamStat.etc,
+        ],
       },
     ],
   };
@@ -50,8 +78,14 @@ const HamStatus = () => {
           <HamLevel />
         </div>
       </div>
-
       <div className="HamChart">
+        <Link
+          to={{
+            pathname: "/statctrl",
+          }}
+        >
+          스탯 관리
+        </Link>
         <Chart
           options={state.options}
           series={state.series}
