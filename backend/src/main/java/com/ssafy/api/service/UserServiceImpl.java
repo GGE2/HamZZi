@@ -18,7 +18,7 @@ import javax.transaction.Transactional;
 public class UserServiceImpl implements UserService{
 
     @Autowired
-<<<<<<< HEAD
+//<<<<<<< HEAD
     UserRepository userRepo;
 
     @Override

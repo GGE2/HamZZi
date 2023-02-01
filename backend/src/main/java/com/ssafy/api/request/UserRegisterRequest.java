@@ -10,7 +10,6 @@ import lombok.Setter;
 @ApiModel("UserRegisterRequest")
 public class UserRegisterRequest {
 
-
     //    @ApiModelProperty(name="유저 id", example="1")
 //    int user_id;
     @ApiModelProperty(name="유저 이메일", example="ssafy@email.com")
@@ -21,6 +20,5 @@ public class UserRegisterRequest {
     String name;
     @ApiModelProperty(name="유저 전화번호", example="010-0000-1234")
     String telephone;
-
 
 }
