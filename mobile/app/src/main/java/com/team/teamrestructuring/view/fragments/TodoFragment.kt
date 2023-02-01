@@ -1,5 +1,6 @@
 package com.team.teamrestructuring.view.fragments
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +8,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.team.teamrestructuring.databinding.FragmentTodoBinding
+import com.team.teamrestructuring.service.TodoService
+import com.team.teamrestructuring.util.ApplicationClass
 import com.team.teamrestructuring.util.TodoAdapter
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.create
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -64,6 +71,34 @@ class TodoFragment : Fragment() {
         initRecyclerView()
         initDate()
         initInput()
+    }
+
+
+    // Todo를 비동기로 가져오는 것 인자를 안넣어서 미완성 날짜를 넘겨줘야함함
+
+   /* private fun callService(){
+        val service = ApplicationClass.retrofit.create(TodoService::class.java)
+            .gettodo().enqueue(object:Callback<MutableList<String>>{
+                override fun onResponse(
+                    call: Call<MutableList<String>>,
+                    response: Response<MutableList<String>>
+                ) {
+                    if(response.isSuccessful){
+                        Log.d(TAG, "onResponse: ${response.body()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<MutableList<String>>, t: Throwable) {
+                    Log.d(TAG, "onFailure: ${t.message}")
+                }
+
+            })
+
+    }*/
+    private fun deleteTodoService(){
+        /*val service = ApplicationClass.retrofit.create(TodoService::class.java)
+            .deletetodo().enqueue(object:Callback<String>)*/
+
     }
 
     private fun initDate() {

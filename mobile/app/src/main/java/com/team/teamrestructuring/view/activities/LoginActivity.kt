@@ -87,9 +87,11 @@ class LoginActivity : AppCompatActivity() {
         startActivityForResult(signInIntent, RC_Sign_in)
         loginandhome()
     }
-    // 구글 로그인 이후 홈으로 가기
+    // 구`글 로그인 이후 홈으로 가기`
     private fun loginandhome() {
-        val intent = Intent(this, HomeActivity::class.java)
+        val intent = Intent(this, HomeActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        }
         startActivity(intent)
     }
 
