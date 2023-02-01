@@ -19,7 +19,9 @@ public class TodoController {
 
     private final TodoService todoService;
 
-    //전체 조회
+    // 전체 조회
+    // 여기서 userProfile의 point랑 rest_point가 잡히면 point줄 수 있음
+    // 안뜨면 userController에서 해야함
     @GetMapping
     public ResponseEntity<?> getTodos() throws Exception {
         List<TodoDto> dtoList = todoService.getTodos();
@@ -40,9 +42,14 @@ public class TodoController {
         TodoDto todoDto = todoService.findTodoById(id);
         Boolean ischeck = todoDto.getIscheck();
         todoDto.setIscheck(!ischeck);
-
+// 여기서 userProfile의 데이터가 안가져와짐
 //        // rest_point 1--, point 1++
 //        int rest_point = todoDto.getUserProfile().getRest_point();
+//        int point = todoDto.getUserProfile().getPoint();
+//        if(rest_point > 0){
+//            rest_point -= 1;
+//            point += 1;
+//        }
         todoService.postTodo(todoDto);
         return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
     }
