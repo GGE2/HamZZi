@@ -2,6 +2,7 @@ package com.team.teamrestructuring.view.fragments
 
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Point
 import android.graphics.drawable.ColorDrawable
@@ -13,6 +14,7 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat.getSystemService
 import com.team.teamrestructuring.R
 import com.team.teamrestructuring.databinding.FragmentHomeBinding
+import com.team.teamrestructuring.view.activities.GuildActivity
 import com.team.teamrestructuring.view.activities.HomeActivity
 
 // TODO: Rename parameter arguments, choose names that match
@@ -51,8 +53,27 @@ class HomeFragment : Fragment() {
         binding.buttonHomeFind.setOnClickListener {
             showDialog()
         }
-
+        init()
     }
+    private fun init(){
+        createIntent()
+    }
+
+    /**
+     * Intent 생성 모음
+     */
+    private fun createIntent(){
+
+        /**
+         * Guild 버튼 클릭시 GuildActivity로 이동
+         */
+        binding.buttonHomeGuild.setOnClickListener {
+            val intent = Intent(activity,GuildActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+
     /**
      * 친구추가 버튼 클릭시 Dialog 창 생성
      */

@@ -45,7 +45,6 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
         init()
-
     }
 
     /**
