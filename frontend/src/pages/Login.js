@@ -17,6 +17,7 @@ const Login = () => {
 
   return (
     <div className="loginbody">
+<<<<<<< HEAD
       {/* <div className="loginback"> */}
         
         {loginflag ? (
@@ -36,11 +37,25 @@ const Login = () => {
             회원가입
           </button>
         </div>
+=======
+      <div className="loginback">
+        <div className="selectlogin">
+          <div>
+            <button onClick={onClickSelectLogin}>로그인페이지</button>
+          </div>
+          <div>
+            <button onClick={onClickSelectSignup}>회원가입페이지</button>
+          </div>
+        </div>
+        {loginflag ? (
+          <div>
+>>>>>>> feature/mobile/homepage
             <LoginForm />
             <Google />
             <Kakao />
           </div>
         ) : (
+<<<<<<< HEAD
           <div className="loginback">
             <div className="selectlogin">
           <button
@@ -57,13 +72,20 @@ const Login = () => {
             회원가입
           </button>
         </div>
+=======
+          <div>
+>>>>>>> feature/mobile/homepage
             <Signup />
             <Google />
             <Kakao />
           </div>
         )}
       </div>
+<<<<<<< HEAD
     // </div>
+=======
+    </div>
+>>>>>>> feature/mobile/homepage
   );
 };
 

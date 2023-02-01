@@ -14,20 +14,19 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long user_id;
 
+    /* for Firebase */
+    @Column(nullable = false)
+    private String uid;
+
+    @Column(nullable = true)
+    private String loginToken;
+
     @Column(unique = true, nullable = false)
     private String email;
-
-    @Column(nullable = true)
-    private String password;
-
-    @Column(nullable = true)
-    private String telephone;
-
-    @Column(nullable = true)
-    private String name;
 
     @OneToOne
     @JoinColumn(name="user_nickname")
     private UserProfile userProfile;
+
 
 }

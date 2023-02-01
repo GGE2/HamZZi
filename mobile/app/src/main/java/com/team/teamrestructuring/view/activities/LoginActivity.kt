@@ -2,6 +2,7 @@ package com.team.teamrestructuring.view.activities
 
 import android.content.ContentValues
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
@@ -36,17 +37,19 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding:ActivityLoginBinding
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         auth = FirebaseAuth.getInstance()
         callback = SessionCallback(this)
-
-        var te: TextView = binding.googleSignIn.getChildAt(0) as TextView
-        te.text = "구글 계정으로 로그인"
-
+        val typeFacefont:Typeface = Typeface.createFromAsset(assets,"font/maple.ttf")
+        var googleSign: TextView = binding.googleSignIn.getChildAt(0) as TextView
+        googleSign.text = "구글 계정으로 로그인"
+        googleSign.textSize = 16f
+        googleSign.typeface = typeFacefont
         //google sign in
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken("616408032515-pdlld4de1ettr6i8rd00qh8ofosf77ge.apps.googleusercontent.com")
@@ -62,15 +65,8 @@ class LoginActivity : AppCompatActivity() {
             kakaoLoginStart()
         }
 
-        // signup
-        binding.signup.setOnClickListener{
-            val intent = Intent(this, SignupActivity::class.java)
-            startActivity(intent)
-        }
+
     }
-
-
-
     private fun kakaoLoginStart(){
         /*val keyHash = Utility.getKeyHash(this) // keyHash 발급
         //Log.d(TAG, "KEY_HASH : $keyHash")
@@ -85,15 +81,25 @@ class LoginActivity : AppCompatActivity() {
     private fun signIn() {
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_Sign_in)
-        loginandhome()
     }
-    // 구글 로그인 이후 홈으로 가기
+
+    /**
+     * 메인 액티비티로 이동하는 Intent 생성
+     *
+     */
     private fun loginandhome() {
-        val intent = Intent(this, HomeActivity::class.java)
+        val intent = Intent(this, HomeActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        Log.d(TAG, "loginandhome: ")
         startActivity(intent)
     }
 
-
+    /**
+     * 구글 로그인 세션 생성
+     * Success = firebase 유저 생성
+     * Fail = 토스트 생성
+  성  */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -112,6 +118,12 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
+
+    /**
+     * 파이어베이스 사용자 등록
+     * Success : 유저 등록후 메인 페이지로 이동
+     * Fail : 실패 토스트 생성
+     */
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential)
@@ -119,26 +131,21 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     Log.d(ContentValues.TAG, "signInWithCredential:success")
                     val user = auth.currentUser
-
-                    updateUi(user)
+                    loginandhome()
                 } else {
                     Log.w(ContentValues.TAG, "signInWithCredential:failure", task.exception)
-                    updateUi(null)
                 }
             }
-    }
-    private fun updateUi(user: FirebaseUser?) {
-        if (user != null) {
-            val intent = Intent(applicationContext, GoogleSignInActivity::class.java)
-            intent.putExtra(EXTRA_NAME, user.displayName)
-            startActivity(intent)
-        }
     }
     override fun onDestroy() {
         super.onDestroy()
         Session.getCurrentSession().removeCallback(callback)
     }
 
+    /**
+     * 카카오톡 로그인 세션 종료시 CustomFirebaseToken 발급 요청
+     *
+     */
     open fun getFirebaseJwt(code : String){
         val client_state = UUID.randomUUID().toString()
         /*val retrofit = Retrofit.Builder().baseUrl("https://kauth.kakao.com/")
@@ -159,16 +166,14 @@ class LoginActivity : AppCompatActivity() {
                         val auth = FirebaseAuth.getInstance()
                         Log.d(TAG, "onSuccess: ${firebaseToken}")
                         auth.signInWithCustomToken(firebaseToken)
+                        loginandhome()
                     }
                 }
-
                 override fun onFailure(call: Call<String>, t: Throwable) {
                     Log.d(TAG, "onFailure: ${t.message}")
                 }
-
             })
     }
-
 
     companion object{
         const val RC_Sign_in = 1001

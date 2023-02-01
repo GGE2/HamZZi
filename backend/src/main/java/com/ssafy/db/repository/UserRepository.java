@@ -26,4 +26,5 @@ public interface UserRepository {
     // 사용자의 게임 내 정보 리턴(ID, nickname)
     UserProfile findByNickname(String nickname);
 
+
 }

@@ -1,5 +1,6 @@
 package com.ssafy.db.entity.User;
 
+
 import com.ssafy.db.entity.Pet.Pet;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,7 +16,6 @@ import javax.persistence.OneToOne;
 public class UserProfile {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_nickname")
     private String nickname;
 
@@ -25,5 +25,7 @@ public class UserProfile {
     @Column(nullable = false)
     private int point;
 
+    @Column(nullable = false)
     private int rest_point;
+
 }

@@ -1,13 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/backgorund">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="HomeFragment" />
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageview_home_hamster"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/all_title"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_home_guild"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:insetLeft="0dp"
+            android:insetBottom="0dp"
+            android:insetRight="0dp"
+            android:insetTop="0dp"
+            app:backgroundTintMode="add"
+            android:background="@drawable/alert_radius_yellow"
+            app:icon="@drawable/people"
+            app:iconGravity="textStart"
+            app:cornerRadius="50dp"
+            app:iconPadding="0dp"
+            app:iconSize="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="50dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_home_friend"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/alert_radius_yellow"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            app:backgroundTintMode="add"
+            app:cornerRadius="50dp"
+            app:icon="@drawable/ic_baseline_emoji_emotions_24"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconSize="30dp"
+            app:layout_constraintRight_toLeftOf="@id/button_home_guild"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_home_find"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:insetLeft="0dp"
+            android:insetBottom="0dp"
+            android:insetRight="0dp"
+            android:insetTop="0dp"
+            app:backgroundTintMode="add"
+            android:background="@drawable/alert_radius_yellow"
+            app:icon="@drawable/ic_baseline_search_24"
+            app:iconGravity="textStart"
+            app:cornerRadius="50dp"
+            app:iconPadding="0dp"
+            app:iconSize="30dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="50dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/button_home_friend"
+            />
+
+        <TextView
+            android:id="@+id/textview_home_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="150dp"
+            android:fontFamily="@font/nexon_gothic_bold"
+            android:text="HAMZI"
+            android:textStyle="bold"
+            android:textSize="40sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_home_stat"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginBottom="3dp"
+            android:layout_marginRight="30dp"
+            app:backgroundTintMode="add"
+            android:text="5"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:background="@drawable/alert_radius_yellow"
+            app:layout_constraintBottom_toBottomOf="@id/textview_home_name"
+            app:icon="@drawable/ic_baseline_more_horiz_24"
+            app:layout_constraintTop_toTopOf="@id/textview_home_name"
+            app:layout_constraintRight_toRightOf="parent"
+            app:iconGravity="textStart"
+            app:cornerRadius="50dp"
+            app:iconPadding="0dp"
+            app:iconSize="30dp" />
+
+
+        <FrameLayout
+            android:id="@+id/framelayout_main_statframe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/textview_home_name"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_home_level"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="3dp"
+                android:clickable="false"
+                app:backgroundTintMode="add"
+                android:layout_marginLeft="40dp"
+                android:text="5"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:background="@drawable/alert_radius_yellow"
+                app:iconGravity="textStart"
+                app:cornerRadius="50dp"
+                app:iconPadding="0dp"
+                app:iconSize="30dp" />
+
+            <ProgressBar
+                android:id="@+id/progressbar_main_stat"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:scaleY="6"
+                android:progress="100"
+                android:max="250"
+                android:layout_marginLeft="70dp"
+                android:layout_marginRight="30dp"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/relativelayout_main_stattext"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/textview_main_stat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="false"
+                    android:fontFamily="@font/nexon_gothic_bold"
+                    android:text="100/150"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </FrameLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

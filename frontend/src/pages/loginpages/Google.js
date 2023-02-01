@@ -15,6 +15,7 @@ function Google() {
 
   const [users, setUsers] = useState(null);
 
+<<<<<<< HEAD
   async function handleGoogleLogin() {
     try {
       const provider = new GoogleAuthProvider(); // provider 구글 설정
@@ -31,6 +32,39 @@ function Google() {
     } catch (err) {
       console.log(err);
     }
+=======
+  function handleGoogleLogin() {
+    const provider = new GoogleAuthProvider(); // provider 구글 설정
+    signInWithPopup(auth, provider) // 팝업창 띄워서 로그인
+      .then((data) => {
+        setUserData(data.user); // user data 설정
+        console.log(data); // console에 UserCredentialImpl 출력
+        // axios({
+        //   method: "post",
+        //   url: "/api/user",
+        //   data: {
+        //     firstName: "Fred",
+        //     lastName: "Flintstone",
+        //   },
+        // });
+
+        // axios.post("api/user").then((res) => {
+        //   console.log("api연결");
+        //   console.log(res);
+        // });
+
+        // setUsers(null);
+        axios.get("https://jsonplaceholder.typicode.com/users").then((res) => {
+          console.log(res.data);
+          console.log(res);
+        });
+
+        // console.log(res.data)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+>>>>>>> feature/mobile/homepage
   }
 
   // useEffect(() => {
@@ -68,6 +102,7 @@ function Google() {
   }
 
   return (
+<<<<<<< HEAD
     <>
       <img
         className="login_btn"
@@ -78,6 +113,19 @@ function Google() {
       <div>{userData ? "당신의 이름은 : " + userData.displayName : ""}</div>
       {/* <button onClick={handleGoogleLogout}>로그아웃</button> */}
     </>
+=======
+    <div>
+      <button onClick={handleGoogleLogin}>
+        <img src="btn_google_signin_dark_normal_web.png" alt="" />
+      </button>
+      <div>
+        {userData
+          ? "당신의 이름은 : " + userData.displayName
+          : "로그인 버튼을 눌러주세요 :)"}
+      </div>
+      <button onClick={handleGoogleLogout}>로그아웃</button>
+    </div>
+>>>>>>> feature/mobile/homepage
   );
 }
 
