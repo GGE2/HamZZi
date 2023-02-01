@@ -17,18 +17,24 @@ public class Pet {
     private Long pet_id;
 
     // 펫 주인의 닉네임
-    @Column(name = "USER_NICKNAME")
+    @Column(name = "user_nickname")
     private String nickname;
 
     // 펫 이름
     private String pet_name;
 
-    private LocalDate create_date;
-
     @Column(nullable = true)
-    private LocalDate graduate_date;
+    private int exp;
+
+    @ColumnDefault("1")
+    @Column(nullable = false)
+    private int level;
+
+    private LocalDate create_date;
 
     @ColumnDefault("false")
     private boolean is_graduate;
 
+    @Column(nullable = true)
+    private LocalDate graduate_date;
 }
