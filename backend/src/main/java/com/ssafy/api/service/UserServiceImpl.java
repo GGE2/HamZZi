@@ -2,6 +2,7 @@ package com.ssafy.api.service;
 
 
 
+import com.ssafy.api.request.UserFcmTokenRequest;
 import com.ssafy.api.request.UserNicknameRequest;
 import com.ssafy.api.request.UserRegisterRequest;
 import com.ssafy.db.entity.User.User;
@@ -24,13 +25,20 @@ public class UserServiceImpl implements UserService{
     @Override
     public Long registerUser(UserRegisterRequest registerInfo) {
         User user = new User();
-
+        user.setDtype("User");
         user.setEmail(registerInfo.getEmail());
         user.setUid(registerInfo.getUid());
 
         System.out.println(user.toString());
         userRepo.saveUser(user);
         return user.getUser_id();
+    }
+
+    @Override
+    public void regiserFcmToken(UserFcmTokenRequest fcmTokenRequest) {
+
+        userRepo.insertFcmToken(fcmTokenRequest.getEmail(),fcmTokenRequest.getToken());
+
     }
 
     @Override

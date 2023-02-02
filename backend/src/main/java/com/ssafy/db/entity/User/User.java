@@ -15,6 +15,8 @@ public class User {
     private Long user_id;
 
     /* for Firebase */
+    @Column(nullable = false)
+    private String dtype;
 
     @Column(unique = true, nullable = false)
     private String email;
@@ -23,8 +25,13 @@ public class User {
     private String uid;
 
     @Column(nullable = true)
-    private String loginToken;
+    private String fcmToken;
 
+    public User(String email, String uid) {
+        this.email = email;
+        this.uid = uid;
+    }
+    public User(){}
 
     @OneToOne
     @JoinColumn(name="user_nickname")

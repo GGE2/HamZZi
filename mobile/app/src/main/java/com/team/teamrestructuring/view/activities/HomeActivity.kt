@@ -18,13 +18,21 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.messaging.FirebaseMessaging
 import com.team.teamrestructuring.R
 import com.team.teamrestructuring.databinding.ActivityHomeBinding
+import com.team.teamrestructuring.dto.User
+import com.team.teamrestructuring.service.HomeService
+import com.team.teamrestructuring.service.LoginService
+import com.team.teamrestructuring.util.ApplicationClass
+import com.team.teamrestructuring.util.ConfirmDialog
 import com.team.teamrestructuring.view.adapters.ViewPagerAdapter
 import com.team.teamrestructuring.view.fragments.GuildFragment
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.net.URLDecoder
 
 
 private const val TAG = "HomeActivity_지훈"
-class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSelectedListener{
+class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSelectedListener,ConfirmDialog.ConfirmDialogInterface{
 
     companion object{
         const val channel_id = "team_channel"
@@ -47,6 +55,7 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
         init()
     }
 
+
     /**
      * HomeActivity 초기화
      */
@@ -57,6 +66,16 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
         initFirebase()
         setViewPager()
         setFullScreen()
+    }
+
+    private fun showRegisterPetDialog(){
+        val dialog = ConfirmDialog(this)
+        dialog.isCancelable = false
+        dialog.show(this.supportFragmentManager,"ConfirmDialog")
+    }
+
+    override fun onYesButtonClick() {
+        finish()
     }
 
     /**
@@ -98,6 +117,7 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
         }
     }
 
+
     override fun onNewIntent(intent: Intent?) {
         try{
             Log.d(TAG, "onNewIntent: ")
@@ -108,7 +128,16 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
     private fun initFirebase(){
         FirebaseMessaging.getInstance().token.addOnCompleteListener {task->
             if(task.isSuccessful){
-                Log.d(TAG, "initFirebase: ${task.result}")
+                ApplicationClass.currentUser.fcmToken = task.result
+                val currentUser = ApplicationClass.currentUser
+                val fcmUser:User = User(currentUser.email,currentUser.uid,currentUser.fcmToken)
+                sendToServerFcmData(fcmUser)
+                Log.d(TAG, "initFirebase: ${ApplicationClass.currentUser.toString()}")
+                //신규 접속자인 경우 닉네임 생성
+                if(ApplicationClass.currentUser.userProfile==null) {
+                    showRegisterPetDialog()
+                    sendToServerNickname("abc", "asd")
+                }
             }
         }
     }
@@ -141,24 +170,40 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
 
     }
 
+    private fun sendToServerNickname(nickname:String,email:String){
+        val service = ApplicationClass.retrofit.create(HomeService::class.java)
+            .createNickName(nickname,email).enqueue(object : Callback<String>{
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    if(response.isSuccessful){
+                        Log.d(TAG, "유저 닉네임 서버 전송 완료}")
+                    }
+                }
+
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    Log.d(TAG, "onFailure: ${t.message}")
+                }
+
+            })
+
+    }
+
+    private fun sendToServerFcmData(user: User){
+        val service = ApplicationClass.retrofit.create(HomeService::class.java)
+            .insertFCM(user).enqueue(object:Callback<String>{
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    if(response.isSuccessful){
+                        Log.d(TAG, "유저 토큰 서버 전송 완료")
+                    }
+                }
+
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    Log.d(TAG, "onFailure: ${t.message}")
+                }
+
+            })
+    }
 
 
 
-  /*  *//**
-     * FCM 토큰 수신
-     *//*
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun getFCM(){
-        Log.d("token TAG", "getFCM: ")
-        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener{
-            if(!it.isSuccessful){
-                Log.d("token TAG", "FCM 토큰 얻기에 실패하였습니다",it.exception)
-                return@OnCompleteListener
-            }
-            //token 정보 남기기
-            Log.d("token TAG", "token 정보 : ${it.result?:"token is null"}")
-        })
-        createNotificationChannel(channel_id,"team9")
-    }*/
 
 }

@@ -10,11 +10,15 @@ public interface UserRepository {
 
     // Create, Update ----------------------
     void saveUser(User user);
+
+
     void saveUserProfile(UserProfile userProfile);
 
     // Delete ------------------------------
     void removeUser(Long user_id);
     void removeUserProfile(Long user_id);
+
+    void insertFcmToken(String email,String token);
 
     // Read --------------------------------
     // 사용자의 개인정보(로그인 정보) 리턴(ID, email)

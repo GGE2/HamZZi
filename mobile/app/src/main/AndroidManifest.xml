@@ -23,20 +23,7 @@
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/NATIVE_APP_KEY" />
 
-        <activity
-            android:name=".view.activities.SignupActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".view.activities.GoogleSignInActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">

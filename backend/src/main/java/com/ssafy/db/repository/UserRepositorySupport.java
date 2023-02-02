@@ -4,6 +4,8 @@ import com.ssafy.db.entity.User.*;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -23,6 +25,7 @@ public class UserRepositorySupport implements UserRepository {
     public void saveUser(User user) {
         em.persist(user);
     }
+
     @Override
     public void saveUserProfile(UserProfile userProfile) {
         em.persist(userProfile);
@@ -34,12 +37,22 @@ public class UserRepositorySupport implements UserRepository {
     @Override
     public void removeUserProfile(Long user_id) { em.remove(findByNickname(findNicknameById(user_id))); }
 
+    @Modifying(clearAutomatically = true)
+    @Override
+    public void insertFcmToken(@Param(value="email")String email,@Param(value="fcm_token")String token) {
+        System.out.println(email+" "+token);
+        em.createQuery(
+                "update User u SET u.fcmToken =:token where u.email=:email");
+
+    }
+
     // Read --------------------------------
     // 사용자의 개인정보(로그인 정보) 리턴(ID, email)
     @Override
     public User findById(Long user_id) {
         return em.find(User.class, user_id);
     }
+
     @Override
     public Long findIdByEmail(String email) {
         return em.createQuery("select u.user_id from User u where u.email=:email", Long.class)

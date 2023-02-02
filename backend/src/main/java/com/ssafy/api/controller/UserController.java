@@ -1,5 +1,6 @@
 package com.ssafy.api.controller;
 
+import com.ssafy.api.request.UserFcmTokenRequest;
 import com.ssafy.api.request.UserNicknameRequest;
 import com.ssafy.api.request.UserRegisterRequest;
 import com.ssafy.api.service.UserService;
@@ -9,6 +10,8 @@ import com.ssafy.db.entity.User.UserProfile;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Api(value = "user API", tags = {"User"})
@@ -36,6 +39,25 @@ public class UserController {
         Long user_id = userService.registerUser(registerInfo);
         return user_id + " OK";
     }
+
+    @PutMapping("/push_token")
+    @ApiOperation(value="FCM 토큰 등록",notes="토큰 값을 입력해주세요")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<?> regierFcmToken(
+            @RequestBody @ApiParam(value="FCM 토큰 등록", required = true)
+            UserFcmTokenRequest userFcmTokenRequest
+            ){
+        System.out.println(userFcmTokenRequest.getEmail());
+        System.out.println(userFcmTokenRequest.getToken());
+        userService.regiserFcmToken(userFcmTokenRequest);
+        return new ResponseEntity<>("test", HttpStatus.OK);
+    }
+
 
     @PutMapping("/nickname")
     @ApiOperation(value = "닉네임 등록", notes = "닉네임을 입력해주세요")

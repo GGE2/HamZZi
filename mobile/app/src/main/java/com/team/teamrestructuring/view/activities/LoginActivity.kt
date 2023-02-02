@@ -23,7 +23,6 @@ import com.kakao.sdk.common.util.Utility
 import com.team.teamrestructuring.databinding.ActivityLoginBinding
 import com.team.teamrestructuring.dto.User
 import com.team.teamrestructuring.dto.UserInfo
-import com.team.teamrestructuring.service.KakaoService
 import com.team.teamrestructuring.service.LoginService
 import com.team.teamrestructuring.util.ApplicationClass
 import com.team.teamrestructuring.util.SessionCallback
@@ -60,7 +59,6 @@ class LoginActivity : AppCompatActivity() {
             .requestIdToken("616408032515-pdlld4de1ettr6i8rd00qh8ofosf77ge.apps.googleusercontent.com")
             .requestEmail()
             .build()
-
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
         binding.googleSignIn.setOnClickListener {
@@ -69,7 +67,6 @@ class LoginActivity : AppCompatActivity() {
         binding.kakaoSignIn.setOnClickListener {
             kakaoLoginStart()
         }
-
 
     }
     private fun kakaoLoginStart(){
@@ -96,7 +93,6 @@ class LoginActivity : AppCompatActivity() {
         val intent = Intent(this, HomeActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
-        Log.d(TAG, "loginandhome: ")
         startActivity(intent)
     }
 
@@ -116,7 +112,6 @@ class LoginActivity : AppCompatActivity() {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 val account = task.getResult(ApiException::class.java)!!
-                Log.d(TAG, "firebaseAuthWithGoogle" + account.id)
                 firebaseAuthWithGoogle(account.idToken.toString())
             } catch (e: ApiException) {
                 Log.w(TAG, "Google sign in failed")
@@ -137,39 +132,92 @@ class LoginActivity : AppCompatActivity() {
                     Log.d(ContentValues.TAG, "signInWithCredential:success")
                     val uid = FirebaseAuth.getInstance().currentUser!!.uid
                     val email = FirebaseAuth.getInstance().currentUser!!.email
-                    val user:User = User(email!!,uid)
-                    sendToServerUserData(user)
-                    loginandhome()
+                    ApplicationClass.currentUser.email = email!!
+                    ApplicationClass.currentUser.uid = uid
+                    val userData:User = User(email!!,uid)
+                    sendToServcerRequestSignInUser(email)
+                    sendToServerUserData(userData)
                 } else {
                     Log.w(ContentValues.TAG, "signInWithCredential:failure", task.exception)
                 }
             }
     }
+
+
+    /**
+     * 현재 접속한 유저가 기존 사용자인지 아닌지 확인
+     * true = 기존 사용자
+     * falsg = 신규 사용자
+     */
+    private fun sendToServcerRequestSignInUser(email:String){
+        val service = ApplicationClass.retrofit.create(LoginService::class.java)
+            .isSignUser(email).enqueue(object : Callback<User>{
+                override fun onResponse(call: Call<User>, response: Response<User>) {
+                    if(response.isSuccessful){
+                        val data = response.body()
+                        Log.d(TAG, "onResponse: ${data.toString()}")
+                        if(data!=null){
+                            Log.d(TAG, "기존 사용자 접속")
+                            ApplicationClass.currentUser = data
+                            loginandhome()
+                        }else{
+                            Log.d(TAG, "신규 사용자 접속")
+                            sendToServerUserData(User(ApplicationClass.currentUser.email,ApplicationClass.currentUser.uid))
+                        }
+
+                    }
+                }
+                override fun onFailure(call: Call<User>, t: Throwable) {
+                    Log.d(TAG, "onFailure: ${t.message}")
+                }
+            })
+    }
+    /*private fun sendToServcerRequestSignInUser(email:String){
+        val service = ApplicationClass.retrofit.create(LoginService::class.java)
+            .isSignUser(email).enqueue(object:Callback<Boolean>{
+                override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
+                    if(response.isSuccessful){
+                        if(response.body()!!){  //기존 사용자의 : 바로 Home으로 이동
+                            loginandhome()
+                        }else{  //신규 사용자 : 서버에 데이터 전송후 Home으로 이동
+                            sendToServerUserData(User(ApplicationClass.currentUser.email,ApplicationClass.currentUser.uid))
+                            loginandhome()
+                        }
+                    }
+                }
+                override fun onFailure(call: Call<Boolean>, t: Throwable) {
+                    Log.d(TAG, "onFailure: ${t.message}")
+                }
+
+            })
+    }*/
+
+    /**
+     * 사용자의 정보 서버에 전송(email,uid)
+     *
+     */
     private fun sendToServerUserData(user:User){
         val service = ApplicationClass.retrofit.create(LoginService::class.java)
             .insertUser(user).enqueue(object:Callback<String>{
                 override fun onResponse(call: Call<String>, response: Response<String>) {
-                    Log.d(TAG, "onResponse: ${response.body()}")
+                    if(response.isSuccessful){
+                        Log.d(TAG, "Server에 유저 데이터 전송 완료")
+                        loginandhome()
+                    }
                 }
 
                 override fun onFailure(call: Call<String>, t: Throwable) {
                     Log.d(TAG, "onFailure: ${t.message}")
                 }
-
             })
-
-
     }
     override fun onDestroy() {
         super.onDestroy()
         Session.getCurrentSession().removeCallback(callback)
     }
-
     /**
      * 카카오톡 로그인 세션 종료시 CustomFirebaseToken 발급 요청
-     *
      */
-
     open fun getFirebaseJwt(code:String){
         val service = ApplicationClass.retrofit.create(LoginService::class.java)
             .selectKakaoUser(code).enqueue(object:Callback<Map<String,Any>>{
@@ -184,42 +232,19 @@ class LoginActivity : AppCompatActivity() {
                     val uid = "kakao"+userInfo.get("id")
                     val email = userInfo.get("email") as String
                     val user:User = User(email,uid)
+
+                    ApplicationClass.currentUser.email = email
+                    ApplicationClass.currentUser.uid = uid
                     FirebaseAuth.getInstance().signInWithCustomToken(firebaseToken)
                     sendToServerUserData(user)
                     loginandhome()
                 }
-
                 override fun onFailure(call: Call<Map<String, Any>>, t: Throwable) {
                     Log.d(TAG, "onFailure: ${t.message}")
                 }
 
             })
     }
-    /*open fun getFirebaseJwt(code : String){
-        val client_state = UUID.randomUUID().toString()
-        val service = ApplicationClass.retrofit.create(KakaoService::class.java)
-            .getFirebaseToken(code
-            )
-            .enqueue(object : Callback<String> {
-                override fun onResponse(
-                    call: Call<String>,
-                    response: retrofit2.Response<String>
-                ) {
-                    if(response.isSuccessful){
-                        Log.d(TAG, "onResponse: ${response.body()}")
-                        val datas = response.body()!!
-                        val auth = FirebaseAuth.getInstance()
-                        Log.d(TAG, "onSuccess: ${}")
-                        auth.signInWithCustomToken(firebaseToken)
-                        sendToServerUserData()
-                        loginandhome()
-                    }
-                }
-                override fun onFailure(call: Call<String>, t: Throwable) {
-                    Log.d(TAG, "onFailure: ${t.message}")
-                }
-            })
-    }*/
 
     companion object{
         const val RC_Sign_in = 1001
