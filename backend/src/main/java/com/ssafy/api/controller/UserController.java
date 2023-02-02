@@ -3,6 +3,7 @@ package com.ssafy.api.controller;
 import com.ssafy.api.request.UserRegisterRequest;
 import com.ssafy.api.request.UserTokenRequest;
 import com.ssafy.api.response.UserProfileRes;
+import com.ssafy.api.response.UserRes;
 import com.ssafy.api.service.UserService;
 import com.ssafy.db.entity.User.User;
 import com.ssafy.db.entity.User.UserProfile;
@@ -32,8 +33,10 @@ public class UserController {
     /* Uid의 존재 여부로 검증 */
     @GetMapping("/uid/{email}")
     @ApiOperation(value = "UID 체크", notes = "기존 사용자라면 true를 리턴한다")
-    public String CheckUid(@PathVariable String email) {
-        return userService.CheckUid(email) + "";
+    public ResponseEntity<UserRes> CheckUid(@PathVariable String email) {
+//        return userService.CheckUid(email) + "";
+        User user = userService.CheckUid(email);
+        return ResponseEntity.status(200).body(UserRes.of(user));
     }
 
     /* CREATE UPDATE */ ////////////////////////////////////////////////////////////////////////////
