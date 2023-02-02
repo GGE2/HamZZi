@@ -15,7 +15,7 @@ public class Guild {
     @Column(name = "guild_id")
     private Long guild_id;
 
-    @Column(name = "guild_name")
+    @Column(unique = true, name = "guild_name")
     private String guild_name;
 
 }

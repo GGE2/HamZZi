@@ -27,19 +27,16 @@ public class GuildController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
 
-    /* Guild-생성 API: 길드를 생성한다 */
-    public String foundGuild(@RequestBody String guild_name, UserProfile userProfile) {
-        //유저프로필을 받아서 이 사람이 길드에 속해 있는지 확인한다.
-        //만약 생성에 추가 조건(돈이나 업적점수...?)이 필요하면 그것도 체크
-        //이미 길드가 있다 or 추가 조건에 부합하지 않는다면 오류메세지, 없다면 닉네임 추출
-        String founderName = userProfile.getNickname();
+    /* Guild-생성 API: 길드를 생성한다 */ //userProfile은 이메일, 닉네임 등으로 변경될 수 있음
+    public String foundGuild(@RequestBody String guild_name, @RequestBody UserProfile userProfile) {
+
+        if(!guildService.canJoinGuild(userProfile)) { return "ERROR: " + userProfile.getNickname() + "already joind a guild"; }
 
         Guild guild = guildService.foundGuild(guild_name);
-        //길드명 중복체크 해 말아? <---impl
 
-        guildService.grantAdmin(founderName);
-        //길드 생성 후 유저에게 길드id 할당, 어드민 권한 true로 변경
-        return guild.getGuild_name() + "found OK";
+        guildService.grantAdmin(nickname);
+
+        return guild.getGuild_name() + "FOUND OK";
     }
 
 }

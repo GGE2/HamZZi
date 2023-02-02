@@ -1,6 +1,7 @@
 package com.ssafy.api.service;
 
 import com.ssafy.db.entity.Guild.Guild;
+import com.ssafy.db.entity.User.UserProfile;
 import com.ssafy.db.repository.GuildRepository;
 import com.ssafy.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,10 +17,23 @@ public class GuildServiceImpl implements GuildService {
     private final UserRepository userRepo;
 
     @Override
+    public boolean checkAdmin(UserProfile userProfile) {
+        boolean admin = userProfile.is_admin();
+        if(admin) { return true; }
+        else { return false; }
+    }
+
+    @Override
+    public boolean canJoinGuild(UserProfile userProfile) {
+        Guild guild = userProfile.getGuild();
+        if(guild == null) { return true; }
+        else { return false; }
+    }
+
+    @Override
     public Guild foundGuild(String guildName) {
         Guild guild = new Guild();
 
-        //길드명 중복체크 해 말아?
         guild.setGuild_name(guildName);
         guildRepo.saveGuild(guild);
 
