@@ -19,10 +19,10 @@ class CreatePetDialog(
 
     private var _binding: DialogCreatePetBinding? = null
     private val binding get() = _binding!!
-    private var confirmDialogInterface : CreatePetDialogInterface? = null
+    private var createPetDialogInterface : CreatePetDialogInterface? = null
 
     init{
-        this.confirmDialogInterface = confirmDialogInterface
+        this.createPetDialogInterface= createPetDialogInterface
     }
 
     override fun onCreateView(
@@ -36,10 +36,12 @@ class CreatePetDialog(
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         setFullScreen()
 
+
         binding.buttonPetCreate.setOnClickListener {
-            this.confirmDialogInterface?.onYesButtonClick()
+            createPetDialogInterface?.onYesButtonClick()
             ApplicationClass.currentUser.userProfile.user_nickname = binding.edittextDialogFind.text.toString()
             sendToServerNickname(binding.edittextDialogFind.text.toString(),ApplicationClass.currentUser.email)
+            dismiss()
         }
 
         return view
@@ -87,5 +89,7 @@ class CreatePetDialog(
             })
 
     }
+
+
 
 }

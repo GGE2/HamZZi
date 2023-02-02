@@ -67,11 +67,7 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
         setFullScreen()
     }
 
-    private fun showRegisterPetDialog(){
-        val dialog = CreatePetDialog(this)
-        dialog.isCancelable = false
-        dialog.show(this.supportFragmentManager,"ConfirmDialog")
-    }
+
 
     override fun onYesButtonClick() {
         finish()
@@ -131,11 +127,6 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
                 val currentUser = ApplicationClass.currentUser
                 val fcmUser:User = User(currentUser.email,currentUser.uid,currentUser.fcmToken)
                 sendToServerFcmData(fcmUser)
-
-                //신규 접속자인 경우 닉네임 생성
-                if(!ApplicationClass.isNew) {
-                    showRegisterPetDialog()
-                }
             }
         }
     }

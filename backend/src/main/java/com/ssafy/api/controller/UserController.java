@@ -73,6 +73,13 @@ public class UserController {
         return ResponseEntity.status(200).body(UserProfileRes.of(userProfile));
     }
 
+    @GetMapping("/info/{uid}")
+    @ApiOperation(value = "유저 정보 조회",notes = "사용자 정보 조회")
+    public ResponseEntity<User> selectuserInfo(@PathVariable String uid){
+
+        return ResponseEntity.status(200).body(userService.selectUser(uid));
+    }
+
     /* DELETE */ ///////////////////////////////////////////////////////////////////////////////////
     /* UserProfile 회원 정보 조회 */
     @DeleteMapping("/delete")

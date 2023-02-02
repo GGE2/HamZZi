@@ -17,12 +17,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TeamRestructuring"
         tools:targetApi="31">
-
+        <activity
+            android:name=".view.activities.CreatePetActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/NATIVE_APP_KEY" />
-
 
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"

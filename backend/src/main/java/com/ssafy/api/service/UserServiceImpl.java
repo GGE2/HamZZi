@@ -61,6 +61,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User selectUser(String uid) {
+        User user = userRepo.findByUid(uid);
+
+        return user;
+    }
+
+    @Override
     public boolean CheckUid(String email) {
         List<String> emailList = userRepo.findEmailList();
         Map<String, Object> map = new HashMap<>();

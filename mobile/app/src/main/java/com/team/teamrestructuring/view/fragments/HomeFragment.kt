@@ -14,18 +14,25 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat.getSystemService
 import com.team.teamrestructuring.R
 import com.team.teamrestructuring.databinding.FragmentHomeBinding
+import com.team.teamrestructuring.dto.User
+import com.team.teamrestructuring.service.LoginService
+import com.team.teamrestructuring.util.ApplicationClass
 import com.team.teamrestructuring.view.activities.GuildActivity
 import com.team.teamrestructuring.view.activities.HomeActivity
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+private const val TAG = "HomeFragment_지"
 
 /**
  * A simple [Fragment] subclass.
  * Use the [HomeFragment.newInstance] factory method to
- * create an instance of this fragment.
+ *훈
  */
 class HomeFragment : Fragment() {
     // TODO: Rename and change types of parameters
@@ -57,6 +64,29 @@ class HomeFragment : Fragment() {
     }
     private fun init(){
         createIntent()
+        getCurrentUserInfo()
+    }
+    
+    private fun getCurrentUserInfo(){
+        val service = ApplicationClass.retrofit.create(LoginService::class.java)
+            .getUserInfo(ApplicationClass.currentUser.uid).enqueue(object:Callback<User>{
+                override fun onResponse(call: Call<User>, response: Response<User>) {
+                    if(response.isSuccessful){
+                        val data = response.body()!!
+                        ApplicationClass.currentUser = data
+                        setPetStat()
+                    }
+                }
+
+                override fun onFailure(call: Call<User>, t: Throwable) {
+                    Log.d(TAG, "onFailure: ${t.message}")
+                }
+
+            })
+    }
+    
+    private fun setPetStat(){
+        binding.textviewHomeName.text = ApplicationClass.currentUser.userProfile.user_nickname
     }
 
     /**

@@ -94,7 +94,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     /**
-     * 메인 액티비티로 이동하는 Intent 생성
+     * 기존 사용자 : 메인 액티비티로 이동하는 Intent 생성
      *
      */
     private fun loginandhome() {
@@ -103,6 +103,13 @@ class LoginActivity : AppCompatActivity() {
         }
         startActivity(intent)
     }
+    private fun loginAndCreatePet(){
+        val intent = Intent(this,CreatePetActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        Log.d(TAG, "loginAndCreatePet: ")
+        startActivity(intent)
+}
 
     /**
      * 구글 로그인 세션 생성
@@ -144,7 +151,6 @@ class LoginActivity : AppCompatActivity() {
                     ApplicationClass.currentUser.uid = uid
                     val userData:User = User(email!!,uid)
                     sendToServerRequestSignInUser(email)
-                    sendToServerUserData(userData)
                 } else {
                     Log.w(ContentValues.TAG, "signInWithCredential:failure", task.exception)
                 }
@@ -173,7 +179,6 @@ class LoginActivity : AppCompatActivity() {
                             sendToServerUserData(
                                 User(ApplicationClass.currentUser.email,ApplicationClass.currentUser.uid)
                             )
-                            loginandhome()
                         }
                     }
                 }
@@ -198,7 +203,7 @@ class LoginActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     if(response.isSuccessful){
                         Log.d(TAG, "Server에 유저 데이터 전송 완료")
-                        loginandhome()
+                        loginAndCreatePet()
                     }
                 }
 
