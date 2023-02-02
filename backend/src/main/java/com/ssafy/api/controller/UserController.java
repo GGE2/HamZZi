@@ -12,6 +12,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
 @Api(value = "user API", tags = {"User"})
 @RestController
 //임시 주소...
@@ -33,10 +37,10 @@ public class UserController {
     /* Uid의 존재 여부로 검증 */
     @GetMapping("/uid/{email}")
     @ApiOperation(value = "UID 체크", notes = "기존 사용자라면 true를 리턴한다")
-    public ResponseEntity<UserRes> CheckUid(@PathVariable String email) {
+    public ResponseEntity<Map<String, Object>> CheckUid(@PathVariable String email) {
 //        return userService.CheckUid(email) + "";
-        User user = userService.CheckUid(email);
-        return ResponseEntity.status(200).body(UserRes.of(user));
+        Map<String, Object> map = userService.CheckUid(email);
+        return ResponseEntity.status(200).body(map);
     }
 
     /* CREATE UPDATE */ ////////////////////////////////////////////////////////////////////////////

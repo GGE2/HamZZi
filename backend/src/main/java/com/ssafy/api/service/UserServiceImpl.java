@@ -11,7 +11,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -60,19 +62,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User CheckUid(String email) {
+    public Map<String, Object> CheckUid(String email) {
         List<String> emailList = userRepo.findEmailList();
+        Map<String, Object> map = new HashMap<>();
 
         for (int i = 0; i < emailList.size(); i++) {
             if(email.equals(emailList.get(i))) {
                 User user = userRepo.findById(userRepo.findIdByEmail(email));
-                return user;
+                map.put("result", user);
+                return map;
             }
         }
 //        String uid = userRepo.findById(userRepo.findIdByEmail(email)).getUid();
 //        if(userRepo.findByUid(uid) == null) {return false;}
-
-        return null;
+        map.put("result", false);
+        return map;
     }
 
 
