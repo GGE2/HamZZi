@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service @Transactional
 @RequiredArgsConstructor
@@ -29,6 +30,17 @@ public class GuildServiceImpl implements GuildService {
         if(guild == null) { return true; }
         else { return false; }
     }
+
+    @Override
+    public List<Guild> findGuildList() { return guildRepo.findGuildList(); }
+    @Override
+    public List<Guild> findGuildListByName(String guild_name) { return guildRepo.findListByName(guild_name); }
+    public Guild findGuild(Long guild_id) { return guildRepo.findById(guild_id); }
+
+    @Override
+    public List<UserProfile> findGuildUser(Long guild_id) { return guildRepo.findGuildUser(guild_id); }
+    @Override
+    public List<UserProfile> findGuildAdmin(Long guild_id) { return guildRepo.findGuildAdmin(guild_id); }
 
     @Override
     public Guild foundGuild(String guildName) {
