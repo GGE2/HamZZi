@@ -4,6 +4,8 @@ import com.ssafy.db.entity.User.*;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -25,6 +27,7 @@ public class UserRepositorySupport implements UserRepository {
     public void saveUser(User user) {
         em.persist(user);
     }
+
     @Override
     public void saveUserProfile(UserProfile userProfile) {
         em.persist(userProfile);
@@ -35,6 +38,7 @@ public class UserRepositorySupport implements UserRepository {
     public void removeUser(Long user_id) { em.remove(findById(user_id)); }
     @Override
     public void removeUserProfile(Long user_id) { em.remove(findByNickname(findNicknameById(user_id))); }
+
 
     // Read --------------------------------
     // 사용자의 개인정보(로그인 정보) 리턴(ID, email)
@@ -50,7 +54,6 @@ public class UserRepositorySupport implements UserRepository {
                     .setParameter("uid", uid).getSingleResult();
         } catch (NoResultException e) { return null; }
     }
-
     @Override
     public Long findIdByEmail(String email) {
         return em.createQuery("select u.user_id from User u where u.email=:email", Long.class)

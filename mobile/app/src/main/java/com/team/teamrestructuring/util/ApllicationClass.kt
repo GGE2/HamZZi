@@ -7,6 +7,8 @@ import com.google.gson.GsonBuilder
 import com.kakao.auth.KakaoSDK
 import com.kakao.sdk.common.KakaoSdk
 import com.team.teamrestructuring.R
+import com.team.teamrestructuring.dto.User
+import com.team.teamrestructuring.dto.UserProfile
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
@@ -23,6 +25,7 @@ class ApplicationClass : Application(){
         lateinit var retrofit: Retrofit
         //lateinit var sharedPreferencesUtil:SharedPreferencesUtil
         var instance : ApplicationClass? = null
+        lateinit var currentUser : User
 
     }
 
@@ -34,7 +37,7 @@ class ApplicationClass : Application(){
         if(KakaoSDK.getAdapter()==null){
             KakaoSDK.init(KakaoSDKAdapter(getApplicationClassContext()))
         }
-
+        currentUser = User("","")
 
         val gson = GsonBuilder().setLenient().create()
         // 앱이 처음 생성되는 순간, retrofit 인스턴스를 생성

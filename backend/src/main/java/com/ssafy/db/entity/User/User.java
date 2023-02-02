@@ -14,6 +14,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long user_id;
 
+
     /* for Firebase */
     @Column(unique = true, nullable = false)
     private String email;
@@ -21,7 +22,6 @@ public class User {
     private String uid;
     @Column(nullable = true)
     private String fcm_token;
-
     @OneToOne
     @JoinColumn(name="user_nickname")
     private UserProfile userProfile;

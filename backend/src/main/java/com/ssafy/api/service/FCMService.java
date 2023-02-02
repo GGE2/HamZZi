@@ -55,6 +55,7 @@ public class FCMService {
 
         log.info(response.body().string());
     }
+
     public String makeMessage(String targetToken,String title,String body) throws JsonParseException, JsonProcessingException {
         FCMMessage fcmMessage = FCMMessage.builder()
                 .message(FCMMessage.Message.builder()

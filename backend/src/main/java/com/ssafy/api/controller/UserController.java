@@ -52,7 +52,9 @@ public class UserController {
         User user = userService.registerUser(registerInfo);
         return user.getEmail() + " REGISTER " + user.getUser_id() + " OK";
     }
+
     /* UserProfile 닉네임 등록 API: 프롤로그시 최초 1회 실행 */
+
     @PutMapping("/nickname")
     @ApiOperation(value = "닉네임 등록", notes = "닉네임 등록")
     public String registerNickname(@RequestParam String nickname, @RequestParam String email) {
