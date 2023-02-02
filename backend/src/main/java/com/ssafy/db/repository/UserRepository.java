@@ -19,6 +19,9 @@ public interface UserRepository {
     // Read --------------------------------
     // 사용자의 개인정보(로그인 정보) 리턴(ID, email)
     User findById(Long user_id);
+
+    User findByUid(String uid);
+
     Long findIdByEmail(String email);
 
     String findNicknameById(Long user_id);

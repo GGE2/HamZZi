@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 
 
 /**
@@ -40,6 +41,15 @@ public class UserRepositorySupport implements UserRepository {
     public User findById(Long user_id) {
         return em.find(User.class, user_id);
     }
+
+    @Override
+    public User findByUid(String uid) {
+        try {
+            return em.createQuery("select u from User u where u.uid=:uid", User.class)
+                    .setParameter("uid", uid).getSingleResult();
+        } catch (NoResultException e) { return null; }
+    }
+
     @Override
     public Long findIdByEmail(String email) {
         return em.createQuery("select u.user_id from User u where u.email=:email", Long.class)

@@ -1,9 +1,8 @@
 package com.ssafy.api.controller;
 
-import com.ssafy.api.request.UserNicknameRequest;
 import com.ssafy.api.request.UserRegisterRequest;
+import com.ssafy.api.request.UserTokenRequest;
 import com.ssafy.api.service.UserService;
-import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.User.User;
 import com.ssafy.db.entity.User.UserProfile;
 import io.swagger.annotations.*;
@@ -29,16 +28,44 @@ public class UserController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-
     /* User-가입 API: 가입한 사용자의 PK를 리턴해준다 */
     public String registerUser(
             @RequestBody @ApiParam(value="회원가입 정보", required = true) UserRegisterRequest registerInfo) {
         Long user_id = userService.registerUser(registerInfo);
-        return user_id + " OK";
+        return user_id + " REGISTERED OK";
+    }
+
+    @PutMapping("/uid")
+    @ApiOperation(value = "UID 체크", notes = "기존 사용자라면 true를 리턴한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    /* Uid의 존재 여부로 검증 */
+    public String CheckUid(
+            @RequestBody @ApiParam(value="검증 관련 정보", required = true) UserTokenRequest tokenInfo) {
+        return userService.CheckUid(tokenInfo) + "";
+    }
+
+    @PutMapping("/fcm")
+    @ApiOperation(value = "FCM 토큰", notes = "FCM 토큰을 입력받는다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    /* 단순히 DB에 FCM 토큰 전달 */
+    public String registerFcm(
+            @RequestBody @ApiParam(value="token 등록", required = true) UserTokenRequest tokenInfo) {
+        User user = userService.registerFcm(tokenInfo);
+        return user.getEmail() + " Register FCM Token";
     }
 
     @PutMapping("/nickname")
-    @ApiOperation(value = "닉네임 등록", notes = "닉네임을 입력해주세요")
+    @ApiOperation(value = "닉네임 등록", notes = "신규유저인지 확인 후 닉네임 등록")
 //    @ApiImplicitParam(name = "유저 닉네임", value = "hamburger")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -48,9 +75,11 @@ public class UserController {
     })
     /* UserProfile-닉네임 등록 API: (프롤로그시 최초1회 실행) */
     public String registerNickname(
-            @RequestBody @ApiParam(value="닉네임 등록", required = true) UserNicknameRequest nicknameInfo) {
-        userService.registerNickname(nicknameInfo);
-        return nicknameInfo.getUser_id() + " registered " + nicknameInfo.getNickname() + " OK";
+            @RequestParam String nickname,
+            @RequestBody @ApiParam(value="닉네임 등록", required = true) UserTokenRequest tokenInfo) {
+
+        userService.registerNickname(tokenInfo, nickname);
+        return tokenInfo.getEmail() + " registered " + nickname + " OK";
     }
 
     @GetMapping("/mypage")
