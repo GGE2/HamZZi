@@ -33,8 +33,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserProfile registerNickname(UserTokenRequest tokenInfo, String nickname) {
-        User user = userRepo.findById(userRepo.findIdByEmail(tokenInfo.getEmail()));
+    public User registerNickname(String email, String nickname) {
+        User user = userRepo.findById(userRepo.findIdByEmail(email));
         UserProfile userProfile = new UserProfile();
 
         userProfile.setNickname(nickname);
@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
         userRepo.saveUserProfile(userProfile);
         userRepo.saveUser(user);
 
-        return userProfile;
+        return user;
     }
 
     @Override

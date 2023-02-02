@@ -2,12 +2,13 @@ package com.ssafy.api.controller;
 
 import com.ssafy.api.request.UserRegisterRequest;
 import com.ssafy.api.request.UserTokenRequest;
+import com.ssafy.api.response.UserProfileRes;
 import com.ssafy.api.service.UserService;
 import com.ssafy.db.entity.User.User;
 import com.ssafy.db.entity.User.UserProfile;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Api(value = "user API", tags = {"User"})
@@ -46,23 +47,21 @@ public class UserController {
     }
     /* UserProfile 닉네임 등록 API: 프롤로그시 최초 1회 실행 */
     @PutMapping("/nickname")
-    @ApiOperation(value = "닉네임 등록", notes = "신규유저인지 확인 후 닉네임 등록")
-    public String registerNickname(
-            @RequestParam String nickname,
-            @RequestBody @ApiParam(value="닉네임 등록", required = true) UserTokenRequest tokenInfo) {
-
-        userService.registerNickname(tokenInfo, nickname);
-        return tokenInfo.getEmail() + " REGISTER " + nickname + " OK";
+    @ApiOperation(value = "닉네임 등록", notes = "닉네임 등록")
+    public String registerNickname(@RequestParam String nickname, @RequestParam String email) {
+        // 페이지에 임의 접근시 닉네임 변경 가능한 문제(좀 중요함...)
+        User user = userService.registerNickname(email, nickname);
+        return user.getEmail() + " REGISTER " + user.getUserProfile().getNickname() + " OK";
     }
 
     /* GET */ //////////////////////////////////////////////////////////////////////////////////////
     /* UserProfile 회원 정보 조회 */
     @GetMapping("/mypage")
     @ApiOperation(value = "회원 정보 조회", notes = "로그인한 회원의 프로필 정보 조회")
-    public String getUserInfo(@RequestParam String email) {
+    public ResponseEntity<UserProfileRes> getUserInfo(@RequestParam String email) {
         //오류 때문에 email을 id로 변환 후 넣어야 함(PK만 받을 수 있음)
         UserProfile userProfile = userService.loginUserData(email);
-        return "email: " + userProfile.getUser().getEmail() + " /////nickname: " + userProfile.getNickname() + " OK";
+        return ResponseEntity.status(200).body(UserProfileRes.of(userProfile));
     }
 
     /* DELETE */ ///////////////////////////////////////////////////////////////////////////////////

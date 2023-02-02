@@ -18,20 +18,17 @@ public class UserProfile {
     @Column(name = "user_nickname")
     private String nickname;
 
-    @OneToOne(mappedBy = "userProfile")
-    private User user;
-
+    /* About Todo/Quest Point */
     @ColumnDefault("0")
     private int point;
     @ColumnDefault("3")
     private int rest_point;
 
-//    /* About Todo/Quest Point */
-//    /* About Guild */ //이제 Guild User 삭제가능
-//    @ManyToOne
-//    @JoinColumn(name = "guild_id")
-//    private Guild guild;
-//
-//    private boolean is_admin;
+    /* About Guild */ //이제 Guild User 삭제가능
+    @ManyToOne
+    @JoinColumn(name = "guild_id")
+    private Guild guild;
+
+    private boolean is_admin;
 
 }

@@ -15,7 +15,7 @@ public interface UserService {
     boolean CheckUid(String email);
 
     User registerUser(UserRegisterRequest registerInfo);
-    UserProfile registerNickname(UserTokenRequest tokenInfo, String nickname);
+    User registerNickname(String email, String nickname);
 
     UserProfile loginUserData(String email);
     void deleteUser(String email);
