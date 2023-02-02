@@ -24,24 +24,27 @@ public class GuildRepositorySupport implements GuildRepository {
     // Read --------------------------------
     @Override
     public Guild findById(Long guild_id) { return em.find(Guild.class, guild_id); }
+
     @Override
-    public Guild findByName(String guild_name) {
-        return em.createQuery("select g from Guild g where g.guild_name=:guild_name", Guild.class)
-                .setParameter("guild_name", guild_name).getSingleResult();
+    public List<Guild> findGuildList() {
+        return em.createQuery("select g from Guild g", Guild.class).getResultList();
     }
+
     @Override
     public List<Guild> findListByName(String guild_name) {
-        return em.createQuery("select g from Guild g where g.guild_name=:guild_name", Guild.class)
-                .setParameter("guild_name", guild_name).getResultList();
+        return em.createQuery("select g from Guild g where g.guild_name like :guild_name", Guild.class)
+                .setParameter("guild_name", "%"+guild_name+"%").getResultList();
     }
 
     @Override
     public List<UserProfile> findGuildAdmin(Long guild_id) {
-        return em.createQuery("select g from Guild g left join UserProfile u");
-                //isadmin UserProfile로 이관 후
+        return em.createQuery("select u from UserProfile u left join Guild g where g.guild_id=:guild_id and u.is_admin=:is_admin", UserProfile.class)
+                .setParameter("guild_id", guild_id)
+                .setParameter("is_admin", true).getResultList();
     }
     @Override
     public List<UserProfile> findGuildUser(Long guild_id) {
-        return null;
+        return em.createQuery("select u from UserProfile u left join Guild g where g.guild_id=:guild_id", UserProfile.class)
+                .setParameter("guild_id", guild_id).getResultList();
     }
 }

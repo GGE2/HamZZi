@@ -41,9 +41,31 @@ public class GuildServiceImpl implements GuildService {
     }
 
     @Override
-    public void grantAdmin(String founderName) {
-        //길드 소속여부와 어드민여부 체크
-        //소속 안되어있거나 이미 어드민이면 오류발생
-        //소속OK -> 어드민부여 후 저장
+    public void grantAdmin(UserProfile userProfile) {
+        if(!(checkAdmin(userProfile)) && !(canJoinGuild(userProfile))) {
+            userProfile.set_admin(true);
+            userRepo.saveUserProfile(userProfile);
+        }
     }
+
+    @Override
+    public Guild joinGuild(Long guild_id, UserProfile userProfile) {
+
+        Guild guild = guildRepo.findById(guild_id);
+        userProfile.setGuild(guild);
+        userRepo.saveUserProfile(userProfile);
+
+        return guild;
+    }
+
+    @Override
+    public UserProfile leaveGuild(Long guild_id, UserProfile userProfile) {
+        if(userProfile.getGuild().getGuild_id() == guild_id) {
+            userProfile.setGuild(null);
+            userRepo.saveUserProfile(userProfile);
+        }
+        return userProfile;
+    }
+
+
 }

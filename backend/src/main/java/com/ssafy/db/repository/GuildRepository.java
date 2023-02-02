@@ -17,8 +17,10 @@ public interface GuildRepository {
 
     // Read --------------------------------
     Guild findById(Long guild_id);
-    Guild findByName(String guild_name);
+
+    List<Guild> findGuildList();
     List<Guild> findListByName(String guild_name);
+
 
     List<UserProfile> findGuildAdmin(Long guild_id);
     List<UserProfile> findGuildUser(Long guild_id);
