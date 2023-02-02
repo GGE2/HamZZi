@@ -12,7 +12,7 @@ import com.ssafy.db.entity.User.UserProfile;
 public interface UserService {
 
     User registerFcm(UserTokenRequest tokenInfo);
-    boolean CheckUid(String email);
+    User CheckUid(String email);
 
     User registerUser(UserRegisterRequest registerInfo);
     User registerNickname(String email, String nickname);

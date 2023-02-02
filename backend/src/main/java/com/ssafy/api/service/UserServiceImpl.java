@@ -60,18 +60,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean CheckUid(String email) {
+    public User CheckUid(String email) {
         List<String> emailList = userRepo.findEmailList();
 
         for (int i = 0; i < emailList.size(); i++) {
             if(email.equals(emailList.get(i))) {
-                return true;
+                User user = userRepo.findById(userRepo.findIdByEmail(email));
+                return user;
             }
         }
 //        String uid = userRepo.findById(userRepo.findIdByEmail(email)).getUid();
 //        if(userRepo.findByUid(uid) == null) {return false;}
 
-        return false;
+        return null;
     }
 
 
