@@ -11,13 +11,11 @@ import com.ssafy.db.entity.User.UserProfile;
 
 public interface UserService {
 
-
-
-    Long registerUser(UserRegisterRequest registerInfo);
-    void registerNickname(UserTokenRequest tokenInfo, String nickname);
-
     User registerFcm(UserTokenRequest tokenInfo);
-    boolean CheckUid(UserTokenRequest tokenInfo);
+    boolean CheckUid(String email);
+
+    User registerUser(UserRegisterRequest registerInfo);
+    UserProfile registerNickname(UserTokenRequest tokenInfo, String nickname);
 
     UserProfile loginUserData(String email);
     void deleteUser(String email);

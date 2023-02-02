@@ -17,112 +17,61 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class UserController {
 
-    @Autowired
-    UserService userService;
+    private final UserService userService;
 
-    @PostMapping("/register")
-    @ApiOperation(value = "회원 가입", notes = "필요한 정보를 전부 입력한다")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "성공"),
-            @ApiResponse(code = 401, message = "인증 실패"),
-            @ApiResponse(code = 404, message = "사용자 없음"),
-            @ApiResponse(code = 500, message = "서버 오류")
-    })
-    /* User-가입 API: 가입한 사용자의 PK를 리턴해준다 */
-    public String registerUser(
-            @RequestBody @ApiParam(value="회원가입 정보", required = true) UserRegisterRequest registerInfo) {
-        Long user_id = userService.registerUser(registerInfo);
-        return user_id + " REGISTERED OK";
-    }
-
-    @PutMapping("/uid")
-    @ApiOperation(value = "UID 체크", notes = "기존 사용자라면 true를 리턴한다")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "성공"),
-            @ApiResponse(code = 401, message = "인증 실패"),
-            @ApiResponse(code = 404, message = "사용자 없음"),
-            @ApiResponse(code = 500, message = "서버 오류")
-    })
-    /* Uid의 존재 여부로 검증 */
-    public String CheckUid(
-            @RequestBody @ApiParam(value="검증 관련 정보", required = true) UserTokenRequest tokenInfo) {
-        return userService.CheckUid(tokenInfo) + "";
-    }
-
+    /* FireBase */ /////////////////////////////////////////////////////////////////////////////////
+    /* 단순히 DB에 FCM 토큰 전달 */
     @PutMapping("/fcm")
     @ApiOperation(value = "FCM 토큰", notes = "FCM 토큰을 입력받는다")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "성공"),
-            @ApiResponse(code = 401, message = "인증 실패"),
-            @ApiResponse(code = 404, message = "사용자 없음"),
-            @ApiResponse(code = 500, message = "서버 오류")
-    })
-    /* 단순히 DB에 FCM 토큰 전달 */
     public String registerFcm(
             @RequestBody @ApiParam(value="token 등록", required = true) UserTokenRequest tokenInfo) {
         User user = userService.registerFcm(tokenInfo);
         return user.getEmail() + " Register FCM Token";
     }
+    /* Uid의 존재 여부로 검증 */
+    @GetMapping("/uid/{email}")
+    @ApiOperation(value = "UID 체크", notes = "기존 사용자라면 true를 리턴한다")
+    public String CheckUid(@PathVariable String email) {
+        return userService.CheckUid(email) + "";
+    }
 
+    /* CREATE UPDATE */ ////////////////////////////////////////////////////////////////////////////
+    /* User 가입 API: 가입한 사용자의 PK를 리턴해준다 */
+    @PostMapping("/register")
+    @ApiOperation(value = "회원 가입", notes = "필요한 정보를 전부 입력한다")
+    public String registerUser(
+            @RequestBody @ApiParam(value="회원가입 정보", required = true) UserRegisterRequest registerInfo) {
+        User user = userService.registerUser(registerInfo);
+        return user.getEmail() + " REGISTER " + user.getUser_id() + " OK";
+    }
+    /* UserProfile 닉네임 등록 API: 프롤로그시 최초 1회 실행 */
     @PutMapping("/nickname")
     @ApiOperation(value = "닉네임 등록", notes = "신규유저인지 확인 후 닉네임 등록")
-//    @ApiImplicitParam(name = "유저 닉네임", value = "hamburger")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "성공"),
-            @ApiResponse(code = 401, message = "인증 실패"),
-            @ApiResponse(code = 404, message = "사용자 없음"),
-            @ApiResponse(code = 500, message = "서버 오류")
-    })
-    /* UserProfile-닉네임 등록 API: (프롤로그시 최초1회 실행) */
     public String registerNickname(
             @RequestParam String nickname,
             @RequestBody @ApiParam(value="닉네임 등록", required = true) UserTokenRequest tokenInfo) {
 
         userService.registerNickname(tokenInfo, nickname);
-        return tokenInfo.getEmail() + " registered " + nickname + " OK";
+        return tokenInfo.getEmail() + " REGISTER " + nickname + " OK";
     }
 
+    /* GET */ //////////////////////////////////////////////////////////////////////////////////////
+    /* UserProfile 회원 정보 조회 */
     @GetMapping("/mypage")
     @ApiOperation(value = "회원 정보 조회", notes = "로그인한 회원의 프로필 정보 조회")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "성공"),
-            @ApiResponse(code = 401, message = "인증 실패"),
-            @ApiResponse(code = 404, message = "사용자 없음"),
-            @ApiResponse(code = 500, message = "서버 오류")
-    })
     public String getUserInfo(@RequestParam String email) {
         //오류 때문에 email을 id로 변환 후 넣어야 함(PK만 받을 수 있음)
         UserProfile userProfile = userService.loginUserData(email);
         return "email: " + userProfile.getUser().getEmail() + " /////nickname: " + userProfile.getNickname() + " OK";
     }
 
-    /* 수정할 정보 없어서 미사용 */
-//    @PutMapping()
-//    @ApiOperation(value = "회원 정보 업데이트", notes = "조회한 정보 업데이트")
-//    @ApiResponses({
-//            @ApiResponse(code = 200, message = "성공"),
-//            @ApiResponse(code = 401, message = "인증 실패"),
-//            @ApiResponse(code = 404, message = "사용자 없음"),
-//            @ApiResponse(code = 500, message = "서버 오류")
-//    })
-//    public ResponseEntity<? extends BaseResponseBody> updateUser() {}
-
+    /* DELETE */ ///////////////////////////////////////////////////////////////////////////////////
+    /* UserProfile 회원 정보 조회 */
     @DeleteMapping("/delete")
     @ApiOperation(value = "회원 탈퇴", notes = "로그인한 회원 정보 삭제")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "성공"),
-            @ApiResponse(code = 401, message = "인증 실패"),
-            @ApiResponse(code = 404, message = "사용자 없음"),
-            @ApiResponse(code = 500, message = "서버 오류")
-    })
     public String deleteUser(@RequestParam String email) {
         userService.deleteUser(email);
-        return email + " delete OK";
+        return email + " DELETE OK";
     }
-    // 체크할 것
-    // 1 User를 삭제했을때 연결된 UserProfile도 삭제되는가?
-    // 2 삭제된다면 RemoveUserProfile을 별도로 두지 않는다
-    // 3 삭제되지 않고, 오류가 발생하지 않는다면 remove로 별도실행해준다
-    // 4 참조 오류가 발생...하지는 않을 것 같다 Profile에서 조회하는게 아니니깐...
 
 }

@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -20,7 +21,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepo;
 
     @Override
-    public Long registerUser(UserRegisterRequest registerInfo) {
+    public User registerUser(UserRegisterRequest registerInfo) {
         User user = new User();
 
         user.setEmail(registerInfo.getEmail());
@@ -28,11 +29,11 @@ public class UserServiceImpl implements UserService {
 
         System.out.println(user.toString());
         userRepo.saveUser(user);
-        return user.getUser_id();
+        return user;
     }
 
     @Override
-    public void registerNickname(UserTokenRequest tokenInfo, String nickname) {
+    public UserProfile registerNickname(UserTokenRequest tokenInfo, String nickname) {
         User user = userRepo.findById(userRepo.findIdByEmail(tokenInfo.getEmail()));
         UserProfile userProfile = new UserProfile();
 
@@ -41,6 +42,8 @@ public class UserServiceImpl implements UserService {
 
         userRepo.saveUserProfile(userProfile);
         userRepo.saveUser(user);
+
+        return userProfile;
     }
 
     @Override
@@ -57,11 +60,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean CheckUid(UserTokenRequest tokenInfo) {
-        String uid = tokenInfo.getUid();
-        if(userRepo.findByUid(uid) == null) {return false;}
+    public boolean CheckUid(String email) {
+        List<String> emailList = userRepo.findEmailList();
 
-        return true;
+        for (int i = 0; i < emailList.size(); i++) {
+            if(email.equals(emailList.get(i))) {
+                return true;
+            }
+        }
+//        String uid = userRepo.findById(userRepo.findIdByEmail(email)).getUid();
+//        if(userRepo.findByUid(uid) == null) {return false;}
+
+        return false;
     }
 
 

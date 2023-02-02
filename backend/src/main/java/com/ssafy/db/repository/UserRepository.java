@@ -5,6 +5,8 @@ import com.ssafy.db.entity.User.User;
 import com.ssafy.db.entity.User.UserProfile;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface UserRepository {
 
@@ -28,6 +30,9 @@ public interface UserRepository {
 
     // 사용자의 게임 내 정보 리턴(ID, nickname)
     UserProfile findByNickname(String nickname);
+
+    // 모든 사용자의 이메일 리스트
+    List<String> findEmailList();
 
 
 }
