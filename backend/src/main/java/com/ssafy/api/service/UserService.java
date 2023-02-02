@@ -1,8 +1,8 @@
 package com.ssafy.api.service;
 
 
-import com.ssafy.api.request.UserNicknameRequest;
 import com.ssafy.api.request.UserRegisterRequest;
+import com.ssafy.api.request.UserTokenRequest;
 import com.ssafy.db.entity.User.User;
 import com.ssafy.db.entity.User.UserProfile;
 
@@ -11,10 +11,12 @@ import com.ssafy.db.entity.User.UserProfile;
 
 public interface UserService {
 
+    User registerFcm(UserTokenRequest tokenInfo);
+    boolean CheckUid(String email);
 
+    User registerUser(UserRegisterRequest registerInfo);
+    User registerNickname(String email, String nickname);
 
-    Long registerUser(UserRegisterRequest registerInfo);
-    void registerNickname(UserNicknameRequest nicknameInfo);
     UserProfile loginUserData(String email);
     void deleteUser(String email);
 

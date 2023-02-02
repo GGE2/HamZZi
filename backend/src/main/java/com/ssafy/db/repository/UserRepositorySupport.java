@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import java.util.List;
 
 
 /**
@@ -40,11 +42,24 @@ public class UserRepositorySupport implements UserRepository {
     public User findById(Long user_id) {
         return em.find(User.class, user_id);
     }
+
+    @Override
+    public User findByUid(String uid) {
+        try {
+            return em.createQuery("select u from User u where u.uid=:uid", User.class)
+                    .setParameter("uid", uid).getSingleResult();
+        } catch (NoResultException e) { return null; }
+    }
+
     @Override
     public Long findIdByEmail(String email) {
         return em.createQuery("select u.user_id from User u where u.email=:email", Long.class)
                 .setParameter("email", email).getSingleResult();
     }
+
+
+
+
     @Override
     public String findNicknameById(Long user_id) {
         UserProfile userProfile = em.createQuery("select u.userProfile from User u where u.user_id=:user_id", UserProfile.class)
@@ -56,6 +71,11 @@ public class UserRepositorySupport implements UserRepository {
     @Override
     public UserProfile findByNickname(String nickname) {
         return em.find(UserProfile.class, nickname);
+    }
+
+    @Override
+    public List<String> findEmailList() {
+        return em.createQuery("select u.email from User u", String.class).getResultList();
     }
 }
 
