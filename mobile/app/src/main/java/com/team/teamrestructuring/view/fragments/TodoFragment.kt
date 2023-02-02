@@ -6,15 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.team.teamrestructuring.databinding.FragmentTodoBinding
+import com.team.teamrestructuring.dto.Todo
 import com.team.teamrestructuring.service.TodoService
 import com.team.teamrestructuring.util.ApplicationClass
 import com.team.teamrestructuring.util.TodoAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.create
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -29,21 +30,24 @@ class TodoFragment : Fragment() {
     private var param2: String? = null
 
     private lateinit var binding : FragmentTodoBinding
+    //초기 시간 받아와야함 지금은 임의로 넣어줌
 
-    // 테스트용 데이터
-    lateinit var oddList: MutableList<String>
-    lateinit var evenList: MutableList<String>
+
+    // 날짜 저장
+    lateinit var dateStr: String
 
     //  리사이클러뷰에서 쓸 녀석, 전역 해야지
     lateinit var stringList: MutableList<String>
 
     private lateinit var todoAdapter: TodoAdapter
-    lateinit var nowDate: Date
+    // 클릭한 날짜
+    private var nowDate = Date()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = FragmentTodoBinding.inflate(layoutInflater)
         val calendar: Calendar = Calendar.getInstance()
+        Log.d("제발", "${calendar.timeInMillis}")
 
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
@@ -55,19 +59,6 @@ class TodoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         stringList = mutableListOf<String>()
-        oddList = mutableListOf<String>()
-        evenList = mutableListOf<String>()
-
-        oddList.apply {
-            add("a")
-            add("b")
-        }
-
-        evenList.apply {
-            add("c")
-            add("d")
-        }
-
         initRecyclerView()
         initDate()
         initInput()
@@ -75,26 +66,51 @@ class TodoFragment : Fragment() {
 
 
     // Todo를 비동기로 가져오는 것 인자를 안넣어서 미완성 날짜를 넘겨줘야함함
-
-   /* private fun callService(){
+    private fun callService(){
         val service = ApplicationClass.retrofit.create(TodoService::class.java)
-            .gettodo().enqueue(object:Callback<MutableList<String>>{
+            .getTodo().enqueue(object : Callback<MutableList<Todo>>{
                 override fun onResponse(
-                    call: Call<MutableList<String>>,
-                    response: Response<MutableList<String>>
+                    call: Call<MutableList<Todo>>,
+                    response: Response<MutableList<Todo>>
+
                 ) {
                     if(response.isSuccessful){
                         Log.d(TAG, "onResponse: ${response.body()}")
+                        val todoList = response.body() ?: mutableListOf()
+                        binding.apply {
+                            todoAdapter.items = todoList
+                            todoAdapter.notifyDataSetChanged()
+                        }
+
+
+
+                        Log.w(TAG, "${todoList}")
                     }
                 }
 
-                override fun onFailure(call: Call<MutableList<String>>, t: Throwable) {
+                override fun onFailure(call: Call<MutableList<Todo>>, t: Throwable) {
                     Log.d(TAG, "onFailure: ${t.message}")
                 }
 
             })
 
-    }*/
+    }
+    // 투두를 만드는 서비스
+    private fun createService(Todo: Todo){
+        val service = ApplicationClass.retrofit.create(TodoService::class.java)
+            .createTodo(Todo).enqueue(object: Callback<Todo>{
+                override fun onResponse(call: Call<Todo>, response: Response<Todo>) {
+                    if(response.isSuccessful){
+                        Log.d(TAG, "입력된 투두 입니다 ${Todo}")
+                    }
+                }
+
+                override fun onFailure(call: Call<Todo>, t: Throwable) {
+                    Log.d(TAG, "입력 실패 ${t.message}")
+                }
+
+            })
+    }
     private fun deleteTodoService(){
         /*val service = ApplicationClass.retrofit.create(TodoService::class.java)
             .deletetodo().enqueue(object:Callback<String>)*/
@@ -102,61 +118,80 @@ class TodoFragment : Fragment() {
     }
 
     private fun initDate() {
-        val dateFormat = SimpleDateFormat("yyyyMMdd")
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+
 
         binding.apply {
-            // 처음 초기 리스트 생성하기 위한 로직
+//            // 처음 초기 리스트 생성하기 위한 로직
             nowDate = Date(calender.date)
+            Toast.makeText(requireContext(), nowDate.toString(), Toast.LENGTH_LONG).show()
             var nowDateDay = nowDate.day
-            if (nowDateDay % 2  == 0) {
-                stringList.clear()
-                stringList.addAll(evenList)
-
-                todoAdapter.items = stringList
-                todoAdapter.notifyDataSetChanged()
-            } else {
-                stringList.clear()
-                stringList.addAll(oddList)
-
-                todoAdapter.items = stringList
-                todoAdapter.notifyDataSetChanged()
+//            if (nowDateDay % 2  == 0) {
+//                stringList.clear()
+//                stringList.addAll(evenList)
+//
+//                todoAdapter.items = stringList
+//                todoAdapter.notifyDataSetChanged()
+//            } else {
+//                stringList.clear()
+//                stringList.addAll(oddList)
+//
+//                todoAdapter.items = stringList
+//                todoAdapter.notifyDataSetChanged()
+//            }
+            if (Calendar.MONTH + 1 < 10 && Calendar.DAY_OF_MONTH < 10){
+                dateStr = "${Calendar.YEAR+2022}-0${Calendar.MONTH+1}-0${Calendar.DAY_OF_MONTH}"
+            } else if (Calendar.MONTH + 1 < 10){
+                dateStr = "${Calendar.YEAR+2022}-0${Calendar.MONTH+1}-${Calendar.DAY_OF_MONTH}"
+            } else if (Calendar.DAY_OF_MONTH < 10) {
+                dateStr = "${Calendar.YEAR+2022}-${Calendar.MONTH+1}-0${Calendar.DAY_OF_MONTH}"
+            } else{
+                dateStr = "${Calendar.YEAR}-${Calendar.MONTH+1}-${Calendar.DAY_OF_MONTH}"
             }
-
 
             // 클릭할때마다 날짜 바뀌면 리스트 다시 받아오는 로직
             calender.setOnDateChangeListener { calendarView, year, month, dayOfMonth ->
-                if (dayOfMonth % 2  == 0) {
-                    stringList.clear()
-                    stringList.addAll(evenList)
-
-                    todoAdapter.items = stringList
-                    todoAdapter.notifyDataSetChanged()
-                } else {
-                    stringList.clear()
-                    stringList.addAll(oddList)
-
-                    todoAdapter.items = stringList
-                    todoAdapter.notifyDataSetChanged()
+                // 달력 표준으로 변환
+                if (month.toInt() + 1 < 10 && dayOfMonth.toInt() < 10){
+                    dateStr =  "${year}-0${month+1}-0${dayOfMonth}"
+                } else if (month.toInt() + 1 < 10){
+                    dateStr =  "${year}-0${month+1}-${dayOfMonth}"
+                } else if (dayOfMonth.toInt() < 10) {
+                    dateStr =  "${year}-${month+1}-0${dayOfMonth}"
+                }   else{
+                    dateStr =  "${year}-${month+1}-${dayOfMonth}"
                 }
+                Log.i(TAG, dateStr)
+
+                // 클릭시 마다 post 요청을 보내서 받아온다
+                callService()
             }
         }
     }
-
+    // 옵저버 뷰 예시예시
+    private val todoObserver = Observer<Todo> { todo ->
+        // update UI with the todo data
+        Log.d(TAG, "initInput: ${todo.toString()}")
+        createService(todo)
+        callService()
+    }
+    // 캘린더뷰
     private fun initInput() {
         binding.apply {
             CreateTodoButton.apply {
                 setOnClickListener {
                     val nowInput = calenderText.text.toString()
+                    Log.d(TAG, "initInput: ${nowInput}")
+                    // 입력 값이 없을 때
                     if (nowInput.trim().isEmpty()) {
                         Toast.makeText(requireContext(), "값을 입력해주세요", Toast.LENGTH_SHORT).show()
                         return@setOnClickListener
                     }
+                    Log.d(TAG, "initInput22222: ${nowInput}")
+                    val todo = Todo(nowInput, dateStr)
+                    createService(todo)
+                    callService()
 
-                    stringList.add(nowInput.trim())
-                    calenderText.setText("")
-
-                    todoAdapter.items = stringList
-                    todoAdapter.notifyDataSetChanged()
                 }
             }
         }
@@ -164,21 +199,20 @@ class TodoFragment : Fragment() {
 
     private  fun initRecyclerView() {
         binding.apply {
-            todoAdapter = TodoAdapter(stringList)
+            todoAdapter = TodoAdapter(mutableListOf())
             todoAdapter.itemClick = object: TodoAdapter.ItemClick {
                 override fun onClick(view: View, position: Int) {
-                    // 클릭시 완료처리
-
-
-                    Toast.makeText(requireContext(), stringList.get(position), Toast.LENGTH_SHORT).show()
+                    // 리사이클러뷰 개별 리스트의 위치 정보를 담는 변수
+                    val itemPosition = position
+                    Toast.makeText(view.context, itemPosition.toString(), Toast.LENGTH_LONG).show()
                 }
             }
-
             recyclerviewTodoList.apply {
                 adapter = todoAdapter
                 layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
             }
         }
+        callService()
     }
 
     override fun onCreateView(
@@ -210,3 +244,5 @@ class TodoFragment : Fragment() {
             }
     }
 }
+
+

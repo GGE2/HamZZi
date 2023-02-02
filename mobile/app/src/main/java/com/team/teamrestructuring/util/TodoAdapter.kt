@@ -6,12 +6,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.team.teamrestructuring.R
+import com.team.teamrestructuring.dto.Todo
 
-class TodoAdapter (var items: MutableList<String>) :  RecyclerView.Adapter<TodoAdapter.ViewHolder>(){
+class TodoAdapter (var items: MutableList<Todo>) :  RecyclerView.Adapter<TodoAdapter.ViewHolder>(){
+
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        fun bindItems(item : String){
+        fun bindItems(item : Todo){
             val todo_text = itemView.findViewById<TextView>(R.id.recycler_item)
-            todo_text.text = item
+            todo_text.text = item.content
         }
     }
     interface ItemClick {
