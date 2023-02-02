@@ -61,21 +61,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Map<String, Object> CheckUid(String email) {
+    public boolean CheckUid(String email) {
         List<String> emailList = userRepo.findEmailList();
         Map<String, Object> map = new HashMap<>();
 
         for (int i = 0; i < emailList.size(); i++) {
             if(email.equals(emailList.get(i))) {
-                User user = userRepo.findById(userRepo.findIdByEmail(email));
-                map.put("result", user);
-                return map;
+                return true;
             }
         }
 //        String uid = userRepo.findById(userRepo.findIdByEmail(email)).getUid();
 //        if(userRepo.findByUid(uid) == null) {return false;}
-        map.put("result", false);
-        return map;
+        return false;
     }
 
 

@@ -17,19 +17,21 @@ public class UserProfileRes {
     String nickname;
     @ApiModelProperty(name="point")
     int point;
-    @ApiModelProperty(name="guild")
+    @ApiModelProperty(name="rest_point")
+    int rest_point;
+   /* @ApiModelProperty(name="guild")
     Guild guild;
     @ApiModelProperty(name="is_admin")
     boolean is_admin;
-//    @ApiModelProperty(name="guild_id")
-//    Long guild_id;
+    @ApiModelProperty(name="guild_id")
+    Long guild_id;*/
 
 	public static UserProfileRes of(UserProfile userProfile) {
 		UserProfileRes res = new UserProfileRes();
 		res.setNickname(userProfile.getNickname());
-        res.setGuild(userProfile.getGuild());
+        //res.setGuild(userProfile.getGuild());
         res.setPoint(userProfile.getPoint());
-        res.set_admin(userProfile.is_admin());
+        //res.set_admin(userProfile.is_admin());
 		return res;
 	}
 }

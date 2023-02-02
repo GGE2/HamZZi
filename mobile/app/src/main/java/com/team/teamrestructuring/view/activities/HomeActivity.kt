@@ -22,7 +22,7 @@ import com.team.teamrestructuring.dto.User
 import com.team.teamrestructuring.service.HomeService
 import com.team.teamrestructuring.service.LoginService
 import com.team.teamrestructuring.util.ApplicationClass
-import com.team.teamrestructuring.util.ConfirmDialog
+import com.team.teamrestructuring.util.CreatePetDialog
 import com.team.teamrestructuring.view.adapters.ViewPagerAdapter
 import com.team.teamrestructuring.view.fragments.GuildFragment
 import retrofit2.Call
@@ -32,7 +32,7 @@ import java.net.URLDecoder
 
 
 private const val TAG = "HomeActivity_지훈"
-class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSelectedListener,ConfirmDialog.ConfirmDialogInterface{
+class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSelectedListener,CreatePetDialog.CreatePetDialogInterface{
 
     companion object{
         const val channel_id = "team_channel"
@@ -62,14 +62,13 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun init(){
-        //getFCM()
         initFirebase()
         setViewPager()
         setFullScreen()
     }
 
     private fun showRegisterPetDialog(){
-        val dialog = ConfirmDialog(this)
+        val dialog = CreatePetDialog(this)
         dialog.isCancelable = false
         dialog.show(this.supportFragmentManager,"ConfirmDialog")
     }
@@ -132,11 +131,10 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
                 val currentUser = ApplicationClass.currentUser
                 val fcmUser:User = User(currentUser.email,currentUser.uid,currentUser.fcmToken)
                 sendToServerFcmData(fcmUser)
-                Log.d(TAG, "initFirebase: ${ApplicationClass.currentUser.toString()}")
+
                 //신규 접속자인 경우 닉네임 생성
-                if(ApplicationClass.currentUser.userProfile==null) {
+                if(!ApplicationClass.isNew) {
                     showRegisterPetDialog()
-                    sendToServerNickname("abc", "asd")
                 }
             }
         }
@@ -170,23 +168,11 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
 
     }
 
-    private fun sendToServerNickname(nickname:String,email:String){
-        val service = ApplicationClass.retrofit.create(HomeService::class.java)
-            .createNickName(nickname,email).enqueue(object : Callback<String>{
-                override fun onResponse(call: Call<String>, response: Response<String>) {
-                    if(response.isSuccessful){
-                        Log.d(TAG, "유저 닉네임 서버 전송 완료}")
-                    }
-                }
+    
 
-                override fun onFailure(call: Call<String>, t: Throwable) {
-                    Log.d(TAG, "onFailure: ${t.message}")
-                }
-
-            })
-
-    }
-
+    /**
+     * 유저 FCM 토큰 서버에 전송
+     */
     private fun sendToServerFcmData(user: User){
         val service = ApplicationClass.retrofit.create(HomeService::class.java)
             .insertFCM(user).enqueue(object:Callback<String>{

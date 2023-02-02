@@ -2,7 +2,6 @@ package com.team.teamrestructuring.util
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -14,13 +13,13 @@ import retrofit2.Callback
 import retrofit2.Response
 
 private const val TAG="ConfirmDialog_지훈"
-class ConfirmDialog(
-    confirmDialogInterface : ConfirmDialogInterface,
+class CreatePetDialog(
+    createPetDialogInterface: CreatePetDialogInterface
 ) : DialogFragment(){
 
     private var _binding: DialogCreatePetBinding? = null
     private val binding get() = _binding!!
-    private var confirmDialogInterface : ConfirmDialogInterface? = null
+    private var confirmDialogInterface : CreatePetDialogInterface? = null
 
     init{
         this.confirmDialogInterface = confirmDialogInterface
@@ -39,6 +38,7 @@ class ConfirmDialog(
 
         binding.buttonPetCreate.setOnClickListener {
             this.confirmDialogInterface?.onYesButtonClick()
+            ApplicationClass.currentUser.userProfile.user_nickname = binding.edittextDialogFind.text.toString()
             sendToServerNickname(binding.edittextDialogFind.text.toString(),ApplicationClass.currentUser.email)
         }
 
@@ -52,7 +52,7 @@ class ConfirmDialog(
 
 
 
-    interface ConfirmDialogInterface{
+    interface CreatePetDialogInterface{
         fun onYesButtonClick()
     }
 
