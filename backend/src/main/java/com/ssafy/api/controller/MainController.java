@@ -25,10 +25,10 @@ public class MainController {
         return "연결성공";
     }
     @GetMapping("/app")
-    public String kakao(@RequestParam("code") String code){
+    public Map<String,Object> kakao(@RequestParam("code") String code){
         Map<String,Object> result = kakaoServiceForAndroid.execKakaoLogin(code);
         System.out.println(result.toString());
-        return result.get("customToken").toString();
+        return result;
     }
     @RequestMapping("/web")
     public String kakaoSignIn(@RequestParam("code") String code) {

@@ -21,11 +21,16 @@ import com.kakao.auth.AuthType
 import com.kakao.auth.Session
 import com.kakao.sdk.common.util.Utility
 import com.team.teamrestructuring.databinding.ActivityLoginBinding
+import com.team.teamrestructuring.dto.User
+import com.team.teamrestructuring.dto.UserInfo
 import com.team.teamrestructuring.service.KakaoService
+import com.team.teamrestructuring.service.LoginService
 import com.team.teamrestructuring.util.ApplicationClass
 import com.team.teamrestructuring.util.SessionCallback
 import retrofit2.Call
 import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.create
 import java.util.*
 
 
@@ -130,12 +135,30 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this){ task ->
                 if (task.isSuccessful) {
                     Log.d(ContentValues.TAG, "signInWithCredential:success")
-                    val user = FirebaseAuth.getInstance().currentUser!!.uid
+                    val uid = FirebaseAuth.getInstance().currentUser!!.uid
+                    val email = FirebaseAuth.getInstance().currentUser!!.email
+                    val user:User = User(email!!,uid)
+                    sendToServerUserData(user)
                     loginandhome()
                 } else {
                     Log.w(ContentValues.TAG, "signInWithCredential:failure", task.exception)
                 }
             }
+    }
+    private fun sendToServerUserData(user:User){
+        val service = ApplicationClass.retrofit.create(LoginService::class.java)
+            .insertUser(user).enqueue(object:Callback<String>{
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    Log.d(TAG, "onResponse: ${response.body()}")
+                }
+
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    Log.d(TAG, "onFailure: ${t.message}")
+                }
+
+            })
+
+
     }
     override fun onDestroy() {
         super.onDestroy()
@@ -146,7 +169,33 @@ class LoginActivity : AppCompatActivity() {
      * 카카오톡 로그인 세션 종료시 CustomFirebaseToken 발급 요청
      *
      */
-    open fun getFirebaseJwt(code : String){
+
+    open fun getFirebaseJwt(code:String){
+        val service = ApplicationClass.retrofit.create(LoginService::class.java)
+            .selectKakaoUser(code).enqueue(object:Callback<Map<String,Any>>{
+                override fun onResponse(
+                    call: Call<Map<String, Any>>,
+                    response: Response<Map<String, Any>>
+                ) {
+                    val datas = response.body()
+                    val auth = FirebaseAuth.getInstance()
+                    val firebaseToken = datas?.get("customToken") as String
+                    val userInfo : Map<String,Any> = datas?.get("userInfo") as Map<String,Any>
+                    val uid = "kakao"+userInfo.get("id")
+                    val email = userInfo.get("email") as String
+                    val user:User = User(email,uid)
+                    FirebaseAuth.getInstance().signInWithCustomToken(firebaseToken)
+                    sendToServerUserData(user)
+                    loginandhome()
+                }
+
+                override fun onFailure(call: Call<Map<String, Any>>, t: Throwable) {
+                    Log.d(TAG, "onFailure: ${t.message}")
+                }
+
+            })
+    }
+    /*open fun getFirebaseJwt(code : String){
         val client_state = UUID.randomUUID().toString()
         val service = ApplicationClass.retrofit.create(KakaoService::class.java)
             .getFirebaseToken(code
@@ -158,11 +207,11 @@ class LoginActivity : AppCompatActivity() {
                 ) {
                     if(response.isSuccessful){
                         Log.d(TAG, "onResponse: ${response.body()}")
-                        val firebaseToken = response.body()!!
+                        val datas = response.body()!!
                         val auth = FirebaseAuth.getInstance()
-                        Log.d(TAG, "onSuccess: ${firebaseToken}")
+                        Log.d(TAG, "onSuccess: ${}")
                         auth.signInWithCustomToken(firebaseToken)
-                        Log.d(TAG, "onResponse: ")
+                        sendToServerUserData()
                         loginandhome()
                     }
                 }
@@ -170,7 +219,7 @@ class LoginActivity : AppCompatActivity() {
                     Log.d(TAG, "onFailure: ${t.message}")
                 }
             })
-    }
+    }*/
 
     companion object{
         const val RC_Sign_in = 1001

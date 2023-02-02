@@ -57,7 +57,6 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
         initFirebase()
         setViewPager()
         setFullScreen()
-        checkNotificationSelected()
     }
 
     /**
@@ -114,16 +113,6 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
         }
     }
 
-    /**
-     * Noti를 클릭해서 들어온 경우 QuestFragment로 이동
-     */
-    private fun checkNotificationSelected(){
-        val intent_data = intent.getStringArrayExtra("noti")
-        Log.d(TAG, "checkNotificationSelected: ${intent_data}")
-        if(intent_data!=null){
-            binding.viewpagerMainPager.currentItem = 2
-        }
-    }
     /**
      * Home화면을 default로 한 bottomNavigation 설정
      * setOnNavigationItemSelectedListener is Deprecated

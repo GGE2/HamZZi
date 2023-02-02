@@ -2,46 +2,76 @@ package com.ssafy.api.service;
 
 
 
-import com.ssafy.api.request.UserNicknameRequest;
 import com.ssafy.api.request.UserRegisterRequest;
+import com.ssafy.api.request.UserTokenRequest;
 import com.ssafy.db.entity.User.User;
 import com.ssafy.db.entity.User.UserProfile;
 import com.ssafy.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
-    @Autowired
-    UserRepository userRepo;
+    private final UserRepository userRepo;
 
     @Override
-    public Long registerUser(UserRegisterRequest registerInfo) {
+    public User registerUser(UserRegisterRequest registerInfo) {
         User user = new User();
 
         user.setEmail(registerInfo.getEmail());
+        user.setUid(registerInfo.getUid());
 
-
+        System.out.println(user.toString());
         userRepo.saveUser(user);
-        return user.getUser_id();
+        return user;
     }
 
     @Override
-    public void registerNickname(UserNicknameRequest nicknameInfo) {
-        User user = userRepo.findById(nicknameInfo.getUser_id());
+    public User registerNickname(String email, String nickname) {
+        User user = userRepo.findById(userRepo.findIdByEmail(email));
         UserProfile userProfile = new UserProfile();
 
-        userProfile.setNickname(nicknameInfo.getNickname());
+        userProfile.setNickname(nickname);
         user.setUserProfile(userProfile);
 
         userRepo.saveUserProfile(userProfile);
         userRepo.saveUser(user);
+
+        return user;
+    }
+
+    @Override
+    public User registerFcm(UserTokenRequest tokenInfo) {
+        String email = tokenInfo.getEmail();
+        String token = tokenInfo.getFcmToken();
+
+        User user = userRepo.findById(userRepo.findIdByEmail(email));
+
+        user.setFcm_token(token);
+        userRepo.saveUser(user);
+
+        return user;
+    }
+
+    @Override
+    public boolean CheckUid(String email) {
+        List<String> emailList = userRepo.findEmailList();
+
+        for (int i = 0; i < emailList.size(); i++) {
+            if(email.equals(emailList.get(i))) {
+                return true;
+            }
+        }
+//        String uid = userRepo.findById(userRepo.findIdByEmail(email)).getUid();
+//        if(userRepo.findByUid(uid) == null) {return false;}
+
+        return false;
     }
 
 
