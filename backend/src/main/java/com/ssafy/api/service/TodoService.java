@@ -1,6 +1,7 @@
 package com.ssafy.api.service;
 
 import com.ssafy.db.entity.Todo.TodoDto;
+import com.ssafy.db.entity.User.UserProfile;
 
 import java.util.List;
 
@@ -14,4 +15,6 @@ public interface TodoService {
     void deleteTodo(Long id) throws Exception;
 
     TodoDto findTodoById(Long id) throws Exception;
+
+    UserProfile findUserProfileByNickname(String nickname) throws Exception;
 }

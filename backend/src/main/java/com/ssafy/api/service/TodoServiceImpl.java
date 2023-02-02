@@ -24,13 +24,26 @@ public class TodoServiceImpl implements TodoService{
 
     private final TodoRepository repository;
 
+//    @Override
+//    public List<TodoDto> getTodos() throws Exception {
+//        List<TodoEntity> entityList = repository.findAll();
+//        List<TodoDto> dtoList = new ArrayList<>();
+//        // user_nickname과 로그인한 유저 확인 if문으로 하면 될듯
+//        for (TodoEntity entity : entityList) {
+//            dtoList.add(entity.toDto());
+//        }
+//        return dtoList;
+//    }
     @Override
     public List<TodoDto> getTodos() throws Exception {
-        List<TodoEntity> entityList = repository.findAll();
+        List<TodoEntity> entityList = repository.findUserProfileByNickname();
         List<TodoDto> dtoList = new ArrayList<>();
         // user_nickname과 로그인한 유저 확인 if문으로 하면 될듯
         for (TodoEntity entity : entityList) {
             dtoList.add(entity.toDto());
+//            if (entity.getUserProfile().getNickname().equals(repository.findUserProfileByNickname)){
+//                dtoList.add(entity.toDto());
+//            }
         }
         return dtoList;
     }
