@@ -2,23 +2,30 @@ import React from "react";
 import TodoItem from "./TodoItem";
 // import './TodoList.css';
 
-const TodoList = ({ Caldate, todos, onDel, onToggle }) => {
-
+const TodoList = ({ Caldate, todos, onDel, onEdit, onToggle }) => {
+  // console.log(todos)
   return (
-    <div>
+    <>
       {Caldate}
-      <ul className="TodoList">
-        {todos.filter((todos)=> todos.created_date === Caldate).map((todos) => (
+      <div className="TodoList">
+        {todos.filter((todos)=> todos.datetime === Caldate).map((todos) => (
           <TodoItem
-            key={todos.id}
+            key={todos.todo_id}
             todos={todos}
             onDel={onDel}
             onToggle={onToggle}
+            onEdit={onEdit}
           />
         ))}
-        {/* {todos.map} */}
-      </ul>
-    </div>
+        {/* {todos.map((todos) => (
+          <TodoItem
+            key={todos.todo_id}
+            todos={todos}
+            onDel={onDel}
+            onToggle={onToggle}
+          />))} */}
+      </div>
+    </>
   );
 };
 

@@ -1,16 +1,20 @@
-import React, {useState, useRef} from "react";
+import React, { useEffect, useState, useRef } from "react";
+import { BiDotsVerticalRounded } from "react-icons/bi";
+import DropdownMenu from "./DropdownMenu";
 
 const DiaryItem = ({ onDelete, onEdit, id, author, content, created_date }) => {
   const localContentInput = useRef();
   const [localContent, setLocalContent] = useState(content);
   const [isEdit, setIsEdit] = useState(false);
   const toggleIsEdit = () => setIsEdit(!isEdit);
-  
+
+
+
   const handleClickRemove = () => {
-    if (window.confirm(`${id}번째 일기를 정말 삭제함?`)){
-      onDelete(id)
+    if (window.confirm(`${id}번째 일기를 정말 삭제함?`)) {
+      onDelete(id);
     }
-  }
+  };
 
   const handleQuitEdit = () => {
     setIsEdit(false);
@@ -28,16 +32,18 @@ const DiaryItem = ({ onDelete, onEdit, id, author, content, created_date }) => {
       toggleIsEdit();
     }
   };
-    return (
-      <div className="DiaryItem">
-        <div className="info">
-          <span className="author_info">
-            | 작성자 : {author} |
-          </span>
-          <br />
-          <span className="date">{new Date(created_date).toLocaleString()}</span>
+
+  return (
+    <div className="DiaryItem">
+      <div className="info">
+        <div className="author">{author}</div>
+        <div>
+        <div className="created_date">{created_date}</div>
+        <button>삭제</button>
         </div>
-        <div className="content">
+        {/* <BiDotsVerticalRounded /> */}
+      </div>
+      <div className="DiaryItemContent">
         {isEdit ? (
           <textarea
             ref={localContentInput}
@@ -48,7 +54,9 @@ const DiaryItem = ({ onDelete, onEdit, id, author, content, created_date }) => {
           content
         )}
       </div>
-      {isEdit ? (
+      
+          {/* <DropdownMenu /> */}
+      {/* {isEdit ? (
         <>
           <button onClick={handleQuitEdit}>수정 취소</button>
           <button onClick={handleEdit}>수정 완료</button>
@@ -58,7 +66,7 @@ const DiaryItem = ({ onDelete, onEdit, id, author, content, created_date }) => {
           <button onClick={handleClickRemove}>삭제하기</button>
           <button onClick={toggleIsEdit}>수정하기</button>
         </>
-      )}
+      )} */}
     </div>
   );
 };

@@ -13,6 +13,7 @@ const DiaryEditor = ({onCreate}) => {
     })
 
     const handleChangeState= (e) => {
+        console.log(e.target.value)
         setState({
             ...state,
             [e.target.name] : e.target.value
@@ -34,7 +35,7 @@ const DiaryEditor = ({onCreate}) => {
         onCreate(state.author, state.content)
         setState({
             author: "",
-        content: "",
+            content: "",
         })
     }
     

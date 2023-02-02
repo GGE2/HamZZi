@@ -5,11 +5,8 @@ const KakaoLogin = () => {
   const PARAMS = new URL(document.location).searchParams;
   const KAKAO_CODE = PARAMS.get("code");
 
-
-
-
   useEffect(() => {
-    axios.post("http://3.35.88.23:8080/api/kakao/sign_in", {
+    axios.post("http://3.35.88.23:8001/kakao_login/web", {
         authorize_code: KAKAO_CODE,
       })
       .then(res => console.log(res))

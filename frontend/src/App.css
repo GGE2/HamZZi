@@ -32,19 +32,3 @@ body {
     background-color: #f9fbe7;
 }
 
-.DiaryEditor {
-    border: 1px solid black;
-}
-
-.DiaryEditor textarea {
-    width: 80%;
-    height: 4em;
-    /* border: none; */
-    resize: none;
-}
-
-.DiaryItem {
-    background-color: rgba(69, 178, 93, 1);
-    padding-bottom: 10px;
-}
-

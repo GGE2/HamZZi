@@ -104,7 +104,7 @@ const Board = () => {
         >
           Friend
         </button>
-        <button onClick={onClickProfile} style={{ borderRadius: "50%" }}>
+        <button onClick={onClickProfile}>
           Profile
         </button>
       </div>

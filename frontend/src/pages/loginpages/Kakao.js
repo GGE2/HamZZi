@@ -1,50 +1,52 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { KAKAO_AUTH_URL } from './../../KakaoLoginData';
+// im
 
 function Kakao() {
   const [user, setUser] = useState(null);
   const [isLogin, setIsLogin] = useState(false);
   const { Kakao } = window;
 
-  const redirectUri = "http://3.35.88.23:8001/kakao_login/web";
+   const redirectUri = "http://3.35.88.23:8001/kakao_login/web";
   const onClickToAuthorize = () => {
     Kakao.Auth.authorize({
       redirectUri: redirectUri,
     });
   };
 
-  useEffect(() => {
-    const authorizeCodeFromKakao = window.location.search.split("=")[1];
-    if (authorizeCodeFromKakao !== undefined) {
-      console.log(`authorizeCodeFromKakao : ${authorizeCodeFromKakao}`);
+  // useEffect(() => {
+  //   const authorizeCodeFromKakao = window.location.search.split("=")[1];
+  //   if (authorizeCodeFromKakao !== undefined) {
+  //     console.log(`authorizeCodeFromKakao : ${authorizeCodeFromKakao}`);
 
-      const body = {
-        grant_type: "authorization_code",
-        client_id: "ee31ee0a2e88cca397f0fded9f02b392",
-        redirect_uri: redirectUri,
-        code: authorizeCodeFromKakao,
-      };
+  //     const body = {
+  //       grant_type: "authorization_code",
+  //       client_id: "ee31ee0a2e88cca397f0fded9f02b392",
+  //       redirect_uri: redirectUri,
+  //       code: authorizeCodeFromKakao,
+  //     };
 
-      const queryStringBody = Object.keys(body)
-        .map((k) => encodeURIComponent(k) + "=" + encodeURI(body[k]))
-        .join("&");
+  //     const queryStringBody = Object.keys(body)
+  //       .map((k) => encodeURIComponent(k) + "=" + encodeURI(body[k]))
+  //       .join("&");
 
-      fetch("https://kauth.kakao.com/oauth/token", {
-        method: "POST",
-        headers: {
-          "content-type": "application/x-www-form-urlencoded;charset=utf-8",
-        },
-        body: queryStringBody,
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-        });
-    } else {
-      console.log("No AuthorizeCodeFromKakao");
-    }
-  }, []);
+  //     fetch("https://kauth.kakao.com/oauth/token", {
+  //       method: "POST",
+  //       headers: {
+  //         "content-type": "application/x-www-form-urlencoded;charset=utf-8",
+  //       },
+  //       body: queryStringBody,
+  //     })
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         console.log(data);
+  //       });
+  //   } else {
+  //     console.log("No AuthorizeCodeFromKakao");
+  //   }
+  // }, []);
 
   // const initKakao = async () => {
   //   const jsKey = "e595889459eeb8a91530f0a20e725351";
@@ -157,7 +159,7 @@ function Kakao() {
         />
         // </button>
       )}
-      {/* <a href={KAKAO_AUTH_URL}>카카오로 로그인하기</a> */}
+      <a href={KAKAO_AUTH_URL}>카카오로 로그인하기</a>
     </>
   );
 }

@@ -13,7 +13,7 @@ const HamExp = () => {
         </div> */}
       <div className="Exp">
         <ProgressBar
-          completed={80}
+          completed={50}
           // className="wrapper"
           // barContainerClassName="container"
           // completedClassName="barCompleted"

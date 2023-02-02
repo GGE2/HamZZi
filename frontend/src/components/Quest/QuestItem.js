@@ -1,16 +1,29 @@
-import React from 'react';
-import { RiCheckboxBlankCircleLine, RiCheckboxCircleLine} from "react-icons/ri";
+import React, { useState } from "react";
+import {
+  RiCheckboxBlankCircleLine,
+  RiCheckboxCircleLine,
+} from "react-icons/ri";
 
-const QuestItem = ({content, isCheck}) => {
-    return (
-        <div>
+const QuestItem = ({ content }) => {
+  const [isCheck, setCheck] = useState(false);
 
-            <RiCheckboxBlankCircleLine size={"10%"} />
-            <RiCheckboxCircleLine size={"10%"} />
-            {content}
-            <hr />
-        </div>
-    );
+  const onclickQcheck = () => {
+    setCheck(!isCheck);
+  };
+
+  return (
+    <div className="QuestItem">
+      <div className="QuestItemButton">
+        {isCheck ? (
+          <RiCheckboxCircleLine  color="pink"  size={"100%"} onClick={onclickQcheck} />
+        ) : (
+          <RiCheckboxBlankCircleLine  size={"100%"} onClick={onclickQcheck} />
+        )}
+      </div>
+      <textarea defaultValue={content} disabled={isCheck} />
+    </div>
+  );
 };
+
 
 export default QuestItem;

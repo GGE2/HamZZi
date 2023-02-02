@@ -2,10 +2,9 @@ import React, { useRef, useState } from "react";
 // import "./TodoInput.css";
 import { FcAddRow } from "react-icons/fc";
 
-
 const TodoInput = ({ onAdd }) => {
   const textRef = useRef();
-  const [text, setText] = useState();
+  const [text, setText] = useState('');
 
   const changeInput = (evt) => {
     const { value } = evt.target;
@@ -22,15 +21,16 @@ const TodoInput = ({ onAdd }) => {
     setText("");
     textRef.current.focus();
   };
-  return <div>
-    <form className="TodoInput" onClick={onSubmit}>
-        <input type="text" value={text} onChange={changeInput} ref={textRef} />
+  return (
+    <div>
+      <form className="TodoInput" onClick={onSubmit}>
+        <input type="text" value={text} placeholder="할 일을 입력하세요" onChange={changeInput} ref={textRef} />
         <button>
-                <FcAddRow className='icon' size='50'>
-                </FcAddRow>
-            </button>
-    </form>
-  </div>;
+          <FcAddRow className="icon" size="50"></FcAddRow>
+        </button>
+      </form>
+    </div>
+  );
 };
 
 export default TodoInput;
