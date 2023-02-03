@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.transaction.Transactional;
 import java.util.List;
 
 
@@ -16,6 +17,7 @@ import java.util.List;
  */
 @Repository @Primary
 @RequiredArgsConstructor
+@Transactional
 public class UserRepositorySupport implements UserRepository {
 
     private final EntityManager em;

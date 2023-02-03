@@ -20,7 +20,7 @@ public interface GuildService {
     List<UserProfile> findGuildUser(Long guild_id);
     List<UserProfile> findGuildAdmin(Long guild_id);
 
-    Guild foundGuild(String guildName);
+    Guild foundGuild(String guildName, String nickname);
 
     boolean joinGuild(Long guild_id, String nickname);
     boolean leaveGuild(Long guild_id, String nickname);

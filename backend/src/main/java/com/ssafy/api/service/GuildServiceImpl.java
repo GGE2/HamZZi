@@ -53,11 +53,14 @@ public class GuildServiceImpl implements GuildService {
     public List<UserProfile> findGuildAdmin(Long guild_id) { return guildRepo.findGuildAdmin(guild_id); }
 
     @Override
-    public Guild foundGuild(String guildName) {
+    public Guild foundGuild(String guildName, String nickname) {
         Guild guild = new Guild();
+        UserProfile userProfile = userRepo.findByNickname(nickname);
 
         guild.setGuild_name(guildName);
         guildRepo.saveGuild(guild);
+        userProfile.setGuild(guild);
+        userRepo.saveUserProfile(userProfile);
 
         return guild;
     }

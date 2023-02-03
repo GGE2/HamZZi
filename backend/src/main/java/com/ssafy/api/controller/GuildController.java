@@ -3,6 +3,7 @@ package com.ssafy.api.controller;
 import com.ssafy.api.service.GuildService;
 import com.ssafy.db.entity.Guild.Guild;
 import com.ssafy.db.entity.User.UserProfile;
+import com.ssafy.db.repository.UserRepository;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,9 @@ public class GuildController {
 
     private final GuildService guildService;
 
+    //tmp
+    private final UserRepository userRepo;
+
     /* NO ADMIN */ /////////////////////////////////////////////////////////////////////////////////
     /* Guild 생성 API: 길드를 생성하고 생성한 유저에게 admin 권한을 준다 */ // admin 권한이 필요하지 않음
     @PostMapping("/found")
@@ -26,13 +30,19 @@ public class GuildController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public String foundGuild(@RequestBody String guild_name, @RequestBody String nickname) {
+    public String foundGuild(@RequestParam String guild_name, @RequestParam String nickname) {
         if(!guildService.canJoinGuild(nickname)) { return "ERROR: " + nickname + "already joind a guild"; }
 
-        Guild guild = guildService.foundGuild(guild_name);
-        guildService.grantAdmin(nickname);
+        Guild guild = guildService.foundGuild(guild_name, nickname);
+        boolean check = guildService.grantAdmin(nickname);
 
-        return guild.getGuild_name() + "FOUND OK\nGRANT admin: " + nickname;
+
+        UserProfile userProfile = userRepo.findByNickname(nickname);
+        userProfile.set_admin(true);
+        userRepo.saveUserProfile(userProfile);
+
+//        if(!check) {return "ERROR: NO ADMIN GRANTED!!";}
+        return guild.getGuild_name() + "FOUND OK\nGRANT admin: " + nickname + " " + check;
     }
     /* Guild 가입 API: 아이디(guild_id)에 해당하는 길드에 가입한다 */
     @PutMapping("/join")
@@ -43,7 +53,7 @@ public class GuildController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public String joinGuild(@RequestBody Long guild_id, @RequestBody String nickname) {
+    public String joinGuild(@RequestParam Long guild_id, @RequestParam String nickname) {
         boolean check = guildService.joinGuild(guild_id, nickname);
         if(!check) { return "ERROR: " + nickname + "already joind a guild"; }
         return nickname + "JOIN guild\nGUILD ID: " + guild_id ;
@@ -57,7 +67,7 @@ public class GuildController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public String leaveGuild(@RequestBody Long guild_id, @RequestBody String nickname) {
+    public String leaveGuild(@RequestParam Long guild_id, @RequestParam String nickname) {
         boolean check = guildService.leaveGuild(guild_id, nickname);
         if(!check) { return "ERROR: CHECK admin or " + nickname + "'s guild_id IS NOT " + guild_id; }
         return nickname + "LEAVE guild\nGUILD ID: " + guild_id ;
