@@ -1,23 +1,33 @@
 body {
-    margin: 0px
+    margin: 0px;
+
+    /* 드래그 방지 */
+    -webkit-touch-callout: none;
+     user-select: none;
+     -moz-user-select: none;
+     -ms-user-select: none;
+     -webkit-user-select: none;
 }
 
 .Header {
     height: 10%;
     border-bottom: 3px solid red;
-    /* display: flex; */
+    display: flex;
     /* justify-content: start; */
-    /* padding-left: 5%; */
+    padding-left: 2%;
+    /* padding-right: 3%; */
     /* padding-bottom: 1%; */
     /* padding-top: 1%; */
-    /* justify-content: space-between; */
-    /* align-items: center; */
+    justify-content: space-between;
+    align-items: center;
+    font-size: 50px;
+    /* font: bold; */
+    /* font-weight: 50px; */
 }
 
 .Header span {
     /* justify-content: start; */
-    font-size: 50px;
-    font-weight: 20px;
+    
 }
 
 .Header button {
@@ -28,3 +38,4 @@ body {
     cursor: pointer;
     background-color: #f9fbe7;
 }
+

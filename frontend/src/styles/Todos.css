@@ -1,25 +1,64 @@
-.Todos {
-    overflow-y: scroll;
-    margin-bottom:30px;  
+.TodoList {
+    overflow: scroll;
+    /* margin-bottom:30px;   */
+    border-top: 3px solid black;
 }
 
-.Todos::-webkit-scrollbar {
-    width: 8px;  /* 스크롤바의 너비 */
-}
+.TodoList::-webkit-scrollbar {
+display: none;}
 
-.Todos::-webkit-scrollbar-thumb {
-    height: 30%; /* 스크롤바의 길이 */
-    background: green; /* 스크롤바의 색상 */
-    
+/* .TodoList::-webkit-scrollbar-thumb {
+    height: 30%; 
+    background: green;
     border-radius: 10px;
 }
 
-.Todos::-webkit-scrollbar-track {
-    background: rgba(87, 248, 1, 0.325);  /*스크롤바 뒷 배경 색상*/
-}
+.TodoList::-webkit-scrollbar-track {
+    background: rgba(87, 248, 1, 0.325);  
+} */
 
-.Todobutton {
-    background-color: #f9fbe7;
+.Calbutton {
+    background-color: transparent;
     border: none;
     cursor: pointer;
+}
+
+.TodoItem {
+    display: flex;
+    justify-content: start;
+    height: 5rem;
+    padding-left: 5%;
+    align-items: center;
+    border-bottom: 1px solid black;
+}
+
+.CheckTodo {
+    /* position: relative; */
+    width: 6vh;
+    height: 6vh;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.TodoSetting {
+    width: 6vh;
+    height: 6vh;
+    background-color: transparent;
+    margin-left: 0.77777777777777rem;
+    cursor: pointer;
+}
+
+.content {
+    margin-left: 1rem; 
+}
+
+p:disabled {
+    color: #ced4da;
+    text-decoration: line-through ;
+    /* background-color: pink; */
+}
+
+.todoline{
+    border: 1px solid black;
+    height: 15px;
 }

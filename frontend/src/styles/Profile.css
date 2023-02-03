@@ -1,0 +1,117 @@
+.UserName {
+    border-bottom: 3px solid black;
+    display: flex;
+    justify-content: start;
+    padding-left: 10px;
+    height: 0px;
+    align-items: center;
+}
+
+.MyBody2 {
+    height: 100%;
+    display: flex;
+}
+
+.HamGrad {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    border-right: 3px solid black;
+    
+}
+
+.HamSlot {
+    display: flex;
+    height: 33%;
+    border-bottom: 3px solid black;
+}
+
+.HamSlot2 {
+    display: flex;
+    height: 33%;
+    /* border-bottom: 3px solid black; */
+}
+
+.HamSlotSlot {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 33%;
+    /* border-right: 3px solid black; */
+    transition: all 3 linear ;
+}
+
+.HamSlotSlot:hover {
+    transform: scale(1.1, 1.1);
+}
+
+
+/* 여기는 방명록 CSS */
+.GuestBook {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.DiaryEditor {
+    border: 1px solid black;
+}
+
+.DiaryEditor textarea {
+    width: 80%;
+    height: 4em;
+    /* border: none; */
+    resize: none;
+}
+
+/* 방명록 아이템  */
+.DiaryItem {
+    /* background-color: rgba(69, 178, 93, 1); */
+    padding-bottom: 10px;
+    border-bottom: 3px solid black;
+    
+}
+
+/* 방명록 작성자 정보(이름,날짜,수정버튼) */
+.info {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 1rem;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    /* background-color: pink; */
+    margin-left: 1rem;
+    margin-right: 1rem;
+   
+}
+.author{
+
+}
+.created_date{
+
+}
+/* 방명록 수정 버튼 */
+
+
+.DiaryItemContent {
+    /* border: 3px solid black; */
+    border-radius: 8px;
+    /* background-color: pink; */
+    /* margin-top: 1rem; */
+    margin-left: 1rem;
+    margin-right: 1rem;
+    text-decoration: underline;
+    
+}
+
+.DiaryList {
+    overflow: scroll;
+}
+
+.DiaryList::-webkit-scrollbar {
+    display: none;
+}
+
+
+
+

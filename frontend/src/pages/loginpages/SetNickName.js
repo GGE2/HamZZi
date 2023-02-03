@@ -5,10 +5,12 @@ import "../../styles/Modal.css";
 
 const SetNickName = () => {
   const [nickName, SetNickName] = useState("");
+  const [text, setText] = useState("");
   const navigate = useNavigate();
   const email = JSON.parse(localStorage.getItem("user"));
   console.log(typeof nickName, nickName);
   const handleChange = (e) => {
+    setText(e.target.value);
     SetNickName(e.target.value);
   };
 
@@ -27,6 +29,7 @@ const SetNickName = () => {
       .catch((err) => {
         console.log(err);
         SetNickName("");
+        setText("");
         alert("사용할 수 없는 이름입니다!");
       });
   };
@@ -41,6 +44,7 @@ const SetNickName = () => {
             name="nickname"
             placeholder="닉네임입력"
             onChange={handleChange}
+            value={text}
           />
           <button type="submit"> 설정하기</button>
         </form>

@@ -10,8 +10,10 @@ import {
   FcCollaboration,
   FcTodoList,
   FcRating,
+  FcBookmark,
 } from "react-icons/fc";
-import { BiDotsHorizontalRounded, BiDotsVerticalRounded } from "react-icons/bi";
+import { BiDotsHorizontalRounded } from "react-icons/bi";
+import { BsBookmarkStar, BsBookmarkStarFill } from "react-icons/bs";
 
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../authSlice";
@@ -19,16 +21,16 @@ import { setCredentials } from "../authSlice";
 const Main = () => {
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   const email = localStorage.getItem("user");
-  //   if (email !== null) {
-  //     dispatch(
-  //       setCredentials({
-  //         user: email,
-  //       })
-  //     );
-  //   }
-  // });
+  useEffect(() => {
+    const email = localStorage.getItem("user");
+    if (email !== null) {
+      dispatch(
+        setCredentials({
+          user: email,
+        })
+      );
+    }
+  });
 
   return (
     <div className="app">
@@ -40,19 +42,23 @@ const Main = () => {
           <div className="Screen">
             <Board />
           </div>
+
           <div className="buttonflex">
             <button>
               <FcSearch size={"100%"} />
             </button>
             <button>
-              <FcWebcam size={"100%"} />
+              <BsBookmarkStarFill color={'orange'} size={"100%"} />
             </button>
             <button>
+              <FcWebcam size={"100%"} />
+            </button>
+            {/* <button>
               <FcConferenceCall size={"100%"} />
             </button>
 
             <button>
-              <FcRating size={"100%"} />
+              <FcBookmark size={"100%"} />
             </button>
 
             <button>
@@ -60,13 +66,11 @@ const Main = () => {
             </button>
             <button>
               <FcCollaboration size={"100%"} />
-            </button>
-            <button>
-              <BiDotsHorizontalRounded size={"100%"} />
-            </button>
-            <button>
-              <BiDotsVerticalRounded size={"100%"} />
-            </button>
+            </button> */}
+            {/* <button>
+              <BsBookmarkStar color={'orange'} size={"100%"} />
+            </button> */}
+            
           </div>
         </div>
       </div>

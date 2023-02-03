@@ -52,7 +52,7 @@ flex-direction: column;
 text-align: center;
 width: 65%;
 border: solid 3px black;
-border-bottom-right-radius: 15px;
+/* border-bottom-right-radius: 15px; */
 margin: 0px;
 position: relative;
 }
@@ -105,4 +105,11 @@ background-color: #f9fbe7;
 height: auto;
 width: 20%;
 /* border: 1px solid black; */
+
+transition-property: color, background-color;
+}
+
+.BoardButton button:hover {
+  color: pink;
+  background-color: black;
 }
