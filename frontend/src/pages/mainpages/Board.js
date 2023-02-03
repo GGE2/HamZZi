@@ -4,6 +4,7 @@ import Profile from "./boardpages/Profile";
 import Quests from "./boardpages/Quests";
 import Todos from "./boardpages/Todos";
 import Guild from "./boardpages/Guild";
+import axios from "axios";
 import "../../styles/Board.css";
 
 const Board = () => {
@@ -14,6 +15,7 @@ const Board = () => {
     friendShow: false,
     profileShow: false,
   });
+  const email = JSON.parse(localStorage.getItem("user"));
 
   const onClickTodo = () => {
     setShow({
@@ -67,12 +69,24 @@ const Board = () => {
       profileShow: true,
     });
   };
-
-  
+  const getProfile = () => {
+    axios
+      .get(`http://3.35.88.23:8080/api/user/mypage?email=${email}`)
+      .then((res) => {
+        console.log(res.data.nickname);
+        localStorage.setItem("nickname", res.data.nickname);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  useEffect(() => {
+    getProfile();
+  }, []);
 
   return (
     <>
-      {show.todoShow && <Todos/>}
+      {show.todoShow && <Todos />}
       {show.questShow && <Quests />}
       {show.guildShow && <Guild />}
       {show.friendShow && <Friends />}

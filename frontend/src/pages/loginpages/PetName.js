@@ -17,8 +17,8 @@ const PetName = () => {
     e.preventDefault();
     axios
       .post("http://3.35.88.23:8080/api/pet", {
-        name: petName,
-        user_name: nickname,
+        pet_name: petName,
+        // user_name: nickname,
       })
       .then(() => {
         navigate("/main");
