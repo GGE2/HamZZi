@@ -1,20 +1,24 @@
 package com.ssafy.api.service;
 
-import com.ssafy.db.entity.Todo.TodoDto;
+import com.ssafy.api.request.TodoRequest;
+import com.ssafy.db.entity.Todo.Todo;
 import com.ssafy.db.entity.User.UserProfile;
 
 import java.util.List;
 
 public interface TodoService {
-    List<TodoDto> getTodos() throws Exception;
+    
+    // todo 가지고 오기
+    List<Todo> getTodos(String nickname);
+    
+    // todo 생성
+    Todo createTodo(TodoRequest todoReq);
 
-    Long postTodo(TodoDto todoDto) throws Exception;
+    Long updateTodo(Todo todo);
 
-    Long updateTodo(TodoDto todoDto) throws Exception;
+    void deleteTodo(Long id);
 
-    void deleteTodo(Long id) throws Exception;
-
-    TodoDto findTodoById(Long id) throws Exception;
-
-    UserProfile findUserProfileByNickname(String nickname) throws Exception;
+    
+    // point 계산
+    UserProfile pointAssignment(int point, int rest_point);
 }

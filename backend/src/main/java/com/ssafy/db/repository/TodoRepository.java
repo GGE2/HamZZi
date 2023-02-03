@@ -1,12 +1,32 @@
 package com.ssafy.db.repository;
 
-import com.ssafy.db.entity.Todo.TodoEntity;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.ssafy.db.entity.Pet.PetInfo;
+import com.ssafy.db.entity.Todo.Todo;
+import com.ssafy.db.entity.User.UserProfile;
+import org.springframework.stereotype.Repository;
 
-public interface TodoRepository extends JpaRepository<TodoEntity, Long> {
+import java.util.List;
+
+@Repository
+public interface TodoRepository {
+    // Create, Update
+    void saveTodo(Todo todo);
+
+    // Delete
+    void removeTodo(Long todo_id);
+
+    // Read
+    Todo findById(Long todo_id);
+
+    // 사용자의 nickname 리턴
+    UserProfile findByNickname(String nickname);
+
+    List<Todo> getTodos(String nickname);
+
+    // content 받아오기
+    Todo findByContent(String content);
+
+    // 포인트 계산을 위해 받아 오기
+    UserProfile findByPoint(int point);
+    UserProfile findByRestPoint(int rest_point);
 }
-/*
-SpringBoot에서 Entity의 기본적인 CRUD가 가능하도록
-JpaRepository Interface를 제공하는데 이를 상속하여 만든 인터페이스
-JpaRepository<Entity 클래스 이름, Id 필드 타입> 으로 작성하여 생성
- */

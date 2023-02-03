@@ -5,11 +5,9 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 @Getter @Setter
-@ApiModel("TodoRegisterRequest")        // swagger에서 잡아달라고 쓰는 거
-public class TodoRegisterRequest {
+@ApiModel("TodoRequest")        // swagger에서 잡아달라고 쓰는 거
+public class TodoRequest {
     @ApiModelProperty(name = "Todo내용", example = "content")
     String content;
 
