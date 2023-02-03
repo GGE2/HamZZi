@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import java.util.List;
 
 @Repository @Primary
@@ -23,7 +24,10 @@ public class GuildRepositorySupport implements GuildRepository {
     public void removeGuild(Long guild_id) { em.remove(findById(guild_id)); }
     // Read --------------------------------
     @Override
-    public Guild findById(Long guild_id) { return em.find(Guild.class, guild_id); }
+    public Guild findById(Long guild_id) {
+        try { return em.find(Guild.class, guild_id); }
+        catch (NoResultException e) { return null; }
+    }
 
     @Override
     public List<Guild> findGuildList() {
