@@ -17,6 +17,7 @@ function Google() {
       const data = await signInWithPopup(auth, provider); // 팝업창 띄워서 로그인
 
       setUserData(data.user); // user data 설정
+      const email = data.user.email;
       console.log(data); // console에 UserCredentialImpl 출력
       localStorage.setItem("user", JSON.stringify(data.user.email));
       localStorage.setItem(
@@ -25,18 +26,25 @@ function Google() {
       );
 
       // uid 보내기
-      const dummy = await axios.post(
-        // 주소 수정 필요
-        "http://3.35.88.23:8080/api/user/register",
-        {
-          email: data.user.email,
-          uid: data.user.uid,
-        }
+      const dummy = await axios.get(
+        `http://3.35.88.23:8080/api/user/uid/${email}`
       );
-      console.log(dummy);
+      console.log(dummy.data);
       // dummy가 true -> 기존 사용자 -> 메인페이지 이동
       // false -> 신규 사용자 -> 닉네임 설정 페이지 이동
-      dummy ? navigate("/main") : navigate("/nickname");
+      dummy.data.result
+        ? navigate("/main")
+        : axios
+            .post("http://3.35.88.23:8080/api/user/register", {
+              email: email,
+              uid: data.user.uid,
+            })
+            .then(() => {
+              navigate("/nickname");
+            })
+            .catch((err) => {
+              console.log(err);
+            });
     } catch (err) {
       console.log(err);
     }

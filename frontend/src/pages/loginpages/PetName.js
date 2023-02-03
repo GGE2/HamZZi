@@ -7,6 +7,8 @@ import "../../styles/Modal.css";
 const PetName = () => {
   const [petName, setPetName] = useState("");
   const navigate = useNavigate();
+  const nickname = localStorage.getItem("nickname");
+  // console.log(nickname);
 
   const handleChange = (e) => {
     setPetName(e.target.value);
@@ -14,8 +16,9 @@ const PetName = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("/api/pet/name", {
+      .post("http://3.35.88.23:8080/api/pet", {
         name: petName,
+        user_name: nickname,
       })
       .then(() => {
         navigate("/main");

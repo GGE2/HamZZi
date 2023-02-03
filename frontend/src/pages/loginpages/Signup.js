@@ -76,6 +76,14 @@ export default function Signup() {
           token: curUserInfo.user.accessToken,
         })
       );
+      // uid 보내기
+      const dummy = await axios.post(
+        "http://3.35.88.23:8080/api/user/register",
+        {
+          email: curUserInfo.user.email,
+          uid: curUserInfo.user.uid,
+        }
+      );
       navigate("/nickname");
     } catch (err) {
       console.log(err.code);

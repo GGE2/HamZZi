@@ -6,7 +6,8 @@ import "../../styles/Modal.css";
 const SetNickName = () => {
   const [nickName, SetNickName] = useState("");
   const navigate = useNavigate();
-
+  const email = JSON.parse(localStorage.getItem("user"));
+  console.log(typeof nickName, nickName);
   const handleChange = (e) => {
     SetNickName(e.target.value);
   };
@@ -15,11 +16,12 @@ const SetNickName = () => {
     e.preventDefault();
     axios
       // 요청 주소 수정 예정
-      .post("http://3.35.88.23:8080/api/user/nickname", {
-        user_nickname: nickName,
-      })
+      .put(
+        `http://3.35.88.23:8080/api/user/nickname?nickname=${nickName}&email=${email}`
+      )
       .then((res) => {
         console.log(res);
+        localStorage.setItem("nickname", nickName);
         navigate("/petName");
       })
       .catch((err) => {
