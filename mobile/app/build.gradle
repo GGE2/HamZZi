@@ -37,6 +37,9 @@ android {
     viewBinding{
         enabled = true
     }
+    dataBinding{
+        enabled = true
+    }
 }
 
 
@@ -67,6 +70,8 @@ dependencies {
     implementation 'com.android.volley:volley:1.2.1'
     implementation "com.firebaseui:firebase-ui-auth:7.2.0"
     implementation 'com.google.android.gms:play-services-auth:20.2.0'
+
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
 // FCM 사용 위한 plugins
     implementation 'com.google.firebase:firebase-messaging-ktx'
