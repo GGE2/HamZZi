@@ -21,6 +21,7 @@ class TodoAdapter (var items: MutableList<Todo>) :  RecyclerView.Adapter<TodoAda
     }
     var itemClick : ItemClick? = null
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.todorecycleview_item, parent, false)
         return ViewHolder(view)

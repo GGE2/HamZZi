@@ -63,8 +63,10 @@ class TodoFragment : Fragment() {
         initDate()
         initInput()
     }
+    //
+    interface TodoListner{
 
-
+    }
     // Todo를 비동기로 가져오는 것 인자를 안넣어서 미완성 날짜를 넘겨줘야함함
     private fun callService(){
         val service = ApplicationClass.retrofit.create(TodoService::class.java)
@@ -139,6 +141,8 @@ class TodoFragment : Fragment() {
 //                todoAdapter.items = stringList
 //                todoAdapter.notifyDataSetChanged()
 //            }
+
+            // 초기 날짜 설정하는 날짜
             if (Calendar.MONTH + 1 < 10 && Calendar.DAY_OF_MONTH < 10){
                 dateStr = "${Calendar.YEAR+2022}-0${Calendar.MONTH+1}-0${Calendar.DAY_OF_MONTH}"
             } else if (Calendar.MONTH + 1 < 10){
@@ -176,6 +180,7 @@ class TodoFragment : Fragment() {
         callService()
     }
     // 캘린더뷰
+    // 투두리스트 작성
     private fun initInput() {
         binding.apply {
             CreateTodoButton.apply {
