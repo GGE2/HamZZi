@@ -73,7 +73,6 @@ public class TodoServiceImpl implements TodoService{
     // todo check
     @Override
     public Todo checkUpdateTodo(Long id) {
-//        Todo todo = todoData(id);
         Todo todo = todoRepo.findById(id);
         Boolean ischeck = todo.getIscheck();
         todo.setIscheck(!ischeck);

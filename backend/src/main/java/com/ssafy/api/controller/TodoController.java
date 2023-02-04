@@ -58,7 +58,7 @@ public class TodoController {
         return "ID: " + todo.getTodo_id() + " OWNER: " + todo.getNickname() + " CONTENT: " + todo.getContent() ;
     }
 
-    // Todo ischeck 바꾸기(왜 안됨?)
+    // Todo ischeck 바꾸기(완료)
     @PutMapping("/check/{id}")
     @ApiOperation(value = "Todo 완료", notes = "해당 Todo를 완료한다.")
     @ApiResponses({
