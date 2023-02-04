@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import ProgressBar from "@ramonak/react-progress-bar";
 
@@ -30,3 +31,16 @@ const HamExp = () => {
 };
 
 export default HamExp;
+=======
+import React from 'react';
+
+const HamExp = () => {
+    return (
+        <div>
+            HamExp
+        </div>
+    );
+};
+
+export default HamExp;
+>>>>>>> feature/mobile/homepage

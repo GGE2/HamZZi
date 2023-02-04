@@ -1,8 +1,13 @@
+<<<<<<< HEAD
 import React, { useState, useEffect, useRef } from "react";
+=======
+import React from "react";
+>>>>>>> feature/mobile/homepage
 import Friends from "./boardpages/Friends";
 import Profile from "./boardpages/Profile";
 import Quests from "./boardpages/Quests";
 import Todos from "./boardpages/Todos";
+<<<<<<< HEAD
 import Guild from "./boardpages/Guild";
 import "../../styles/Board.css";
 
@@ -109,6 +114,21 @@ const Board = () => {
         </button>
       </div>
     </>
+=======
+import "../../styles/Board.css"
+
+
+const Board = () => {
+  return (
+    <div>
+      Board
+      <Friends />
+      <Profile />
+      <Quests />
+      <Todos />
+      
+    </div>
+>>>>>>> feature/mobile/homepage
   );
 };
 

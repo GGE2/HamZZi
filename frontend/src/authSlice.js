@@ -1,7 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+
+<<<<<<< HEAD
 // createSlice()
 // 리덕스 모듈 하나를 한번에 만들게 해줌.
-
+=======
+>>>>>>> feature/mobile/homepage
 const authSlice = createSlice({
   name: "auth",
   initialState: { user: null, token: null },

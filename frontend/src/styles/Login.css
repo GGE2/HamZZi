@@ -1,7 +1,11 @@
 .loginback {
+<<<<<<< HEAD
   /* width: 50vw;
   height: 50vh; */
     /* height: 50%; */
+=======
+    height: 80%;
+>>>>>>> feature/mobile/homepage
     position: absolute;
     top: 50%;
     left: 50%;
@@ -16,8 +20,11 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
+<<<<<<< HEAD
     justify-content: center;
     align-items: center;
+=======
+>>>>>>> feature/mobile/homepage
   }
 
 .loginbody {
@@ -27,6 +34,7 @@
     background-attachment: fixed;
     width: 100vw;
     height: 100vh;
+<<<<<<< HEAD
   }
 
 .login_btn {
@@ -57,3 +65,7 @@
   border: none;
   cursor: pointer;
 }
+
+=======
+  }
+>>>>>>> feature/mobile/homepage
