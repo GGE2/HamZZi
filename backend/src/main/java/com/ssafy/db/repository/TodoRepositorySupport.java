@@ -1,12 +1,14 @@
 package com.ssafy.db.repository;
 
+import com.ssafy.api.request.TodoRequest;
 import com.ssafy.db.entity.Todo.Todo;
-import com.ssafy.db.entity.User.UserProfile;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import java.util.List;
 
 @Repository @Primary
 @RequiredArgsConstructor
@@ -16,7 +18,7 @@ public class TodoRepositorySupport implements TodoRepository {
 
     @Override
     public void saveTodo(Todo todo){
-        em.persist(todo);
+        em.persist(todo);       // persist : 데이터 삽입
     }
 
     @Override
@@ -24,35 +26,31 @@ public class TodoRepositorySupport implements TodoRepository {
         em.remove(findById(todo_id));
     }
     
-    // id 찾기
+    // Read
     @Override
     public Todo findById(Long todo_id) {
         return em.find(Todo.class, todo_id);
     }
 
-    // 사용자의 ID, 닉네임 리턴
     @Override
-    public UserProfile findByNickname(String nickname){
-        return em.find(UserProfile.class, nickname);
-    }
-
-    // content 수정을 위한 content 받아 오기
-    @Override
-    public Todo findByContent(String content) {
-        return em.find(Todo.class, content);
-    }
-
-    // point, rest_point
-    @Override
-    public UserProfile findByPoint(int point) {
-        return em.find(UserProfile.class, point);
+    public Todo findByNickname(String nickname) {
+        try {
+            return em.createQuery("select t from Todo t where t.nickname=:nickname", Todo.class)
+                    .setParameter("nickname", nickname)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
     @Override
-    public UserProfile findByRestPoint(int rest_point) {
-        return em.find(UserProfile.class, rest_point);
+    public List<Todo> todoList(String nickname) {
+        try {
+            return em.createQuery("select t from Todo t Where t.nickname=:nickname", Todo.class)
+                    .setParameter("nickname", nickname)
+                    .getResultList();
+        } catch (NoResultException e){
+            return null;
+        }
     }
-
-
-
 }
