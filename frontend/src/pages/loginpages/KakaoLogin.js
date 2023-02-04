@@ -7,7 +7,7 @@ const KakaoLogin = () => {
 
   const kakaologin = async () => {
     try {
-      const res = await axios.post("http://3.35.88.23:8080/api/kakao/sign_in", {
+      const res = await axios.post("http://3.35.88.23:8001/kakao_login/web", {
         authorize_code: KAKAO_CODE,
       });
       console.log(res);
@@ -16,13 +16,16 @@ const KakaoLogin = () => {
     }
   };
 
-
   // useEffect() {
 
   // }
 
-  return <div>{KAKAO_CODE}
-  기다려 로그인 중임~</div>;
+  return (
+    <div>
+      {KAKAO_CODE}
+      기다려 로그인 중임~
+    </div>
+  );
 };
 
 export default KakaoLogin;

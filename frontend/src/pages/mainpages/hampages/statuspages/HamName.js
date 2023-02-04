@@ -3,7 +3,7 @@ import { BsPencil} from "react-icons/bs";
 
 const HamName = () => {
   return <div>
-    <BsPencil />Hamzzi</div>;
+    <BsPencil color={'red'}/>Hamzzi</div>;
 };
 
 export default HamName;

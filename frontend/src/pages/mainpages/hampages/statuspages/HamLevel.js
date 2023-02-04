@@ -5,7 +5,7 @@ const HamLevel = () => {
     return (
         <div>
             
-            <button className='button'>8</button>
+            <button className='HamLevel'>8</button>
         </div>
     );
 };

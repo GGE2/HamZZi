@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../../authSlice";
-import axios from "axios";
 import "../../styles/LoginForm.css";
 
 // import Google from "./features/auth/Google";
@@ -30,22 +29,19 @@ export default function LoginForm() {
       // 파이어베이스 인증 받아오기
       const curUserInfo = await signInWithEmailAndPassword(auth, email, pw);
       console.log(curUserInfo);
-      // 우리 db로 이메일과 비밀번호 보내버리고 인증 받아오기
-      const dummy = await axios.post("http://3.35.88.23:8080/api/user/my", {
-        email: email,
-        password: pw,
-      });
-      console.log(dummy);
-      if (curUserInfo && dummy) {
-        // 둘 다 인증 성공하면 기분이가 좋아요
-        localStorage.setItem("user", JSON.stringify(curUserInfo.user.email));
-        dispatch(
-          setCredentials({
-            user: localStorage.getItem("user"),
-            token: curUserInfo.user.accessToken,
-          })
-        );
-      }
+
+      // localStorage 저장
+      localStorage.setItem("user", JSON.stringify(curUserInfo.user.email));
+      localStorage.setItem(
+        "accessToken",
+        JSON.stringify(curUserInfo.user.accessToken)
+      );
+      dispatch(
+        setCredentials({
+          user: curUserInfo.user.displayName,
+          token: curUserInfo.user.accessToken,
+        })
+      );
 
       navigate("/main"); // 로그인하면 메인 페이지로 이동~
     } catch (err) {
@@ -92,33 +88,31 @@ export default function LoginForm() {
   return (
     <>
       <>
-      
-          <div className="contentWrap">
-            {/* <div className="inputTitle">e메일</div> */}
-            <div className="inputWrap">
-              <input
-                className="input"
-                type="text"
-                placeholder="email"
-                // placeholder="test@gmail.com"
-                value={email}
-                onChange={handleEmail}
-              />
-            </div>
-
-            {/* <div className="inputTitle">비밀번호</div> */}
-            <div className="inputWrap">
-              <input
-                className="input"
-                type="password"
-                placeholder="password"
-                // placeholder="영문, 숫자, 특수문자 포함 8자 이상"
-                value={pw}
-                onChange={handlePw}
-              />
-            </div>
+        <div className="contentWrap">
+          {/* <div className="inputTitle">e메일</div> */}
+          <div className="inputWrap">
+            <input
+              className="input"
+              type="text"
+              placeholder="email"
+              // placeholder="test@gmail.com"
+              value={email}
+              onChange={handleEmail}
+            />
           </div>
 
+          {/* <div className="inputTitle">비밀번호</div> */}
+          <div className="inputWrap">
+            <input
+              className="input"
+              type="password"
+              placeholder="password"
+              // placeholder="영문, 숫자, 특수문자 포함 8자 이상"
+              value={pw}
+              onChange={handlePw}
+            />
+          </div>
+        </div>
 
         {/* <div className="login_forgot">
           <div>
@@ -129,9 +123,9 @@ export default function LoginForm() {
         </div> */}
 
         {/* <div style={{padding:"5px"}}> */}
-          <button onClick={login} disabled={notAllow} className="bottomButton">
-            로그인
-          </button>
+        <button onClick={login} disabled={notAllow} className="bottomButton">
+          로그인
+        </button>
         {/* </div> */}
       </>
     </>

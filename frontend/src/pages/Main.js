@@ -3,8 +3,17 @@ import Ham from "./mainpages/Ham";
 import Board from "./mainpages/Board";
 import "../styles/Main.css";
 
-import { FcSearch, FcWebcam, FcConferenceCall,  FcCollaboration, FcTodoList, FcRating } from "react-icons/fc";
-import { BiDotsHorizontalRounded, BiDotsVerticalRounded } from "react-icons/bi";
+import {
+  FcSearch,
+  FcWebcam,
+  FcConferenceCall,
+  FcCollaboration,
+  FcTodoList,
+  FcRating,
+  FcBookmark,
+} from "react-icons/fc";
+import { BiDotsHorizontalRounded } from "react-icons/bi";
+import { BsBookmarkStar, BsBookmarkStarFill } from "react-icons/bs";
 
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../authSlice";
@@ -33,33 +42,35 @@ const Main = () => {
           <div className="Screen">
             <Board />
           </div>
+
           <div className="buttonflex">
             <button>
               <FcSearch size={"100%"} />
             </button>
             <button>
+              <BsBookmarkStarFill color={'orange'} size={"100%"} />
+            </button>
+            <button>
               <FcWebcam size={"100%"} />
             </button>
-            <button>
+            {/* <button>
               <FcConferenceCall size={"100%"} />
             </button>
-            
+
             <button>
-              <FcRating size={"100%"} />
+              <FcBookmark size={"100%"} />
             </button>
-            
+
             <button>
               <FcTodoList size={"100%"} />
             </button>
             <button>
               <FcCollaboration size={"100%"} />
-            </button>
-            <button>
-              <BiDotsHorizontalRounded size={"100%"} />
-            </button>
-            <button>
-              <BiDotsVerticalRounded size={"100%"} />
-            </button>
+            </button> */}
+            {/* <button>
+              <BsBookmarkStar color={'orange'} size={"100%"} />
+            </button> */}
+            
           </div>
         </div>
       </div>

@@ -13,16 +13,19 @@ const HamExp = () => {
         </div> */}
       <div className="Exp">
         <ProgressBar
-          completed={80}
+          completed={50}
+          customLabel={" "}
           // className="wrapper"
           // barContainerClassName="container"
           // completedClassName="barCompleted"
           // labelClassName="label"
-          bgColor="green"
+          bgColor="yellow"
+          height="10px"
           width="70%"
           margin="5px"
-          labelColor="#fff"
+          labelColor="#000"
           baseBgColor="#000"
+          
         />
       </div>
     </div>

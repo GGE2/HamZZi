@@ -1,7 +1,8 @@
 import React from "react";
 import { useState } from "react";
-import { HiOutlineDotsCircleHorizontal } from "react-icons/hi";
+import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { useEffect } from "react";
+import DropdownMenu from './GuestBook/DropdownMenu';
 
 const Header = ({ data, type }) => {
   const [menu, setMenu] = useState("");
@@ -17,9 +18,13 @@ const Header = ({ data, type }) => {
       {menu ? (
         <div className="Header">
           {data}
-          <button>
+          {/* <button>
             <HiOutlineDotsCircleHorizontal size={"100%"} />
-          </button>
+          </button> */}
+          {/* <button>
+              <BiDotsHorizontalRounded size={"100%"} />
+            </button> */}
+            <DropdownMenu />
         </div>
       ) : (
         <div className="Header">

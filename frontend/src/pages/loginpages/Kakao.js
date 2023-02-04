@@ -1,8 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import {KAKAO_AUTH_URL} from './../../KakaoLoginData';
-
+import { KAKAO_AUTH_URL } from "./../../KakaoLoginData";
 
 function Kakao() {
   const [user, setUser] = useState(null);
@@ -11,7 +10,7 @@ function Kakao() {
   const { Kakao } = window;
 
   const initKakao = async () => {
-    const jsKey = "b04032665604a78bb091be183ecca878";
+    const jsKey = "e595889459eeb8a91530f0a20e725351";
     if (Kakao && !Kakao.isInitialized()) {
       await Kakao.init(jsKey);
       console.log(`kakao 초기화 ${Kakao.isInitialized()}`);
@@ -27,7 +26,7 @@ function Kakao() {
         // setToken(res.access_token)
         console.log("카카오 로그인 성공");
         console.log(Kakao.Auth.getAccessToken());
-        axios.post("http://3.35.88.23:8080/api/kakao/sign_in", {
+        axios.post("http://3.35.88.23:8001/kakao_login", {
           authorize_code: res.access_token,
         });
 
@@ -115,7 +114,6 @@ function Kakao() {
 
   return (
     <>
-      
       {user ? (
         <div>
           <button onClick={kakaoLogout}>로그아웃</button>
@@ -141,7 +139,6 @@ function Kakao() {
       )}
       <a href={KAKAO_AUTH_URL}>카카오로 로그인하기</a>
     </>
-    
   );
 }
 export default Kakao;

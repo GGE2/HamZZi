@@ -2,18 +2,14 @@ import { auth } from "../../Firebase";
 import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "../../authSlice";
 
 function Google() {
   const [userData, setUserData] = useState(null);
-  // const [realData, setrealData] = useState({
-  //   email: "",
-  //   password: "",
-  //   telephone: "",
-  //   name: "",
-  //   gender: "",
-  // });
-
-  const [users, setUsers] = useState(null);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   async function handleGoogleLogin() {
     try {
@@ -21,45 +17,44 @@ function Google() {
       const data = await signInWithPopup(auth, provider); // 팝업창 띄워서 로그인
 
       setUserData(data.user); // user data 설정
+      const email = data.user.email;
       console.log(data); // console에 UserCredentialImpl 출력
+      localStorage.setItem("user", JSON.stringify(data.user.email));
+      localStorage.setItem(
+        "accessToken",
+        JSON.stringify(data.user.accessToken)
+      );
 
-      const dummy = await axios.post("http://3.35.88.23:8080/api/user", {
-        email: data.user.email,
-        name: data.user.displayName,
-      });
-      console.log(dummy)
+      // uid 보내기
+      const dummy = await axios.get(
+        `http://3.35.88.23:8080/api/user/uid/${email}`
+      );
+      console.log(dummy.data);
+      // dummy가 true -> 기존 사용자 -> 메인페이지 이동
+      // false -> 신규 사용자 -> 닉네임 설정 페이지 이동
+      dummy.data.result
+        ? navigate("/main")
+        : axios
+            .post("http://3.35.88.23:8080/api/user/register", {
+              email: email,
+              uid: data.user.uid,
+            })
+            .then(() => {
+              navigate("/nickname");
+            })
+            .catch((err) => {
+              console.log(err);
+            });
     } catch (err) {
       console.log(err);
     }
   }
 
-  // useEffect(() => {
-  //   const fetchUsers = async () => {
-  //     try {
-  //       // 요청이 시작 할 때에는 error 와 users 를 초기화하고
-  //       // setError(null);
-  //       console.log('google')
-  //       setUsers(null);
-  //       // loading 상태를 true 로 바꿉니다.
-  //       // setLoading(true);
-  //       const response = await axios.get(
-  //         'https://jsonplaceholder.typicode.com/users'
-  //       );
-  //       console.log(response.data)
-  //       setUsers(response.data); // 데이터는 response.data 안에 들어있습니다.
-  //     } catch (e) {
-  //       // setError(e);
-  //     }
-  //     // setLoading(false);
-  //   };
-
-  //   fetchUsers();
-  // }, []);
-
   function handleGoogleLogout() {
     signOut(auth)
       .then(() => {
         console.log(userData);
+        localStorage.clear();
         console.log("로그아웃");
       })
       .catch((err) => {

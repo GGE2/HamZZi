@@ -5,6 +5,7 @@ import Quests from "./boardpages/Quests";
 import Todos from "./boardpages/Todos";
 import Guild from "./boardpages/Guild";
 import "../../styles/Board.css";
+import axios from "axios";
 
 const Board = () => {
   const [show, setShow] = useState({
@@ -67,13 +68,30 @@ const Board = () => {
       profileShow: true,
     });
   };
+  const email = JSON.parse(localStorage.getItem("user"));
+
+
+  const getProfile = () => {
+    axios
+      .get(`http://3.35.88.23:8080/api/user/mypage?email=${email}`)
+      .then((res) => {
+        console.log(res.data.nickname);
+        localStorage.setItem("nickname", res.data.nickname);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  useEffect(() => {
+    getProfile();
+  }, []);
 
   
 
   return (
     <>
       {show.todoShow && <Todos/>}
-      {show.questShow && <Quests />}
+      {/* {show.questShow && <Quests />} */}
       {show.guildShow && <Guild />}
       {show.friendShow && <Friends />}
       {show.profileShow && <Profile />}
@@ -86,12 +104,12 @@ const Board = () => {
         >
           Todo
         </button>
-        <button
+        {/* <button
           onClick={onClickQuest}
           style={{ borderRight: "3px solid black" }}
         >
           Quest
-        </button>
+        </button> */}
         <button
           onClick={onClickGuild}
           style={{ borderRight: "3px solid black" }}
@@ -104,7 +122,7 @@ const Board = () => {
         >
           Friend
         </button>
-        <button onClick={onClickProfile} style={{ borderRadius: "50%" }}>
+        <button onClick={onClickProfile}>
           Profile
         </button>
       </div>
