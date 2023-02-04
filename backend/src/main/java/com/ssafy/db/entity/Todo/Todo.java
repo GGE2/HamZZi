@@ -27,12 +27,11 @@ public class Todo {
     @Column(nullable = false)
     private String datetime;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     @ColumnDefault("false")
     private Boolean ischeck;
 
-    @ManyToOne
-    @JoinColumn(name="user_nickname")
-    private UserProfile userProfile;
+    @Column(name="user_nickname")
+    private String nickname;
 
 }
