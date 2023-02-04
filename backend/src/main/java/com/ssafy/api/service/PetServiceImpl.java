@@ -33,7 +33,9 @@ public class PetServiceImpl implements PetService {
     public Pet createPet(PetCreateRequest createInfo) {
 
         /* 현재 메인페이지에 펫이 있으면 null */
-        if(ActivatePet(createInfo.getUser_nickname()) != null) {return null;}
+        if(ActivatePet(createInfo.getUser_nickname()) != null) {
+            return petRepo.findByNickname(createInfo.getUser_nickname());
+        }
 
         /* 없다면 펫 생성 */
         Pet pet = new Pet();

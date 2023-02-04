@@ -24,11 +24,4 @@ public class UserProfile {
     @ColumnDefault("3")
     private int rest_point;
 
-    /* About Guild */ //이제 Guild User 삭제가능
-    @ManyToOne
-    @JoinColumn(name = "guild_id")
-    private Guild guild;
-
-    private boolean is_admin;
-
 }
