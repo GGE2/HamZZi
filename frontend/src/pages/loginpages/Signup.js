@@ -1,40 +1,23 @@
 import React, { useEffect, useState } from "react";
-<<<<<<< HEAD
 import "../../styles/Signup.css";
 import { auth } from "../../Firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import axios from "axios";
-=======
-// import "../../css/Signup.css";
-import { auth } from "../../Firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
->>>>>>> feature/mobile/homepage
-
 export default function Signup() {
   // 회원가입 데이터(이메일, 비밀번호, 비밀번호확인, 닉네임, 이름, 성별, 전화번호)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
-<<<<<<< HEAD
   // const [nickname, setNickname] = useState("");
   const [name, setName] = useState("");
   const [gender, setGender] = useState(null);
-=======
-  const [nickname, setNickname] = useState("");
-  const [name, setName] = useState("");
-  const [gender, setGender] = useState("");
->>>>>>> feature/mobile/homepage
   const [phone, setPhone] = useState("");
 
   // 오류메세지 상태 저장
   const [emailMessage, setEmailMessage] = useState("");
   const [passwordMessage, setPasswordMessage] = useState("");
   const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
-<<<<<<< HEAD
   // const [nicknameMessage, setNicknameMessage] = useState("");
-=======
-  const [nicknameMessage, setNicknameMessage] = useState("");
->>>>>>> feature/mobile/homepage
   const [nameMessage, setNameMessage] = useState("");
   const [phoneMessage, setPhoneMessage] = React.useState("");
 
@@ -42,11 +25,7 @@ export default function Signup() {
   const [emailValid, setEmailValid] = useState(false); // 이메일 유효성 검사
   const [passwordValid, setPasswordValid] = useState(false); // 비밀번호 유효성 검사
   const [passwordConfirmValid, setPasswordConfirmValid] = useState(false);
-<<<<<<< HEAD
   // const [nicknameValid, setNicknameValid] = useState(false); // 닉네임 유효성 검사
-=======
-  const [nicknameValid, setNicknameValid] = useState(false); // 닉네임 유효성 검사
->>>>>>> feature/mobile/homepage
   const [nameValid, setNameValid] = useState(false); // 이름 유효성 검사
   const [phoneValid, setPhoneValid] = useState(false); // 전화번호 유효성 검사
 
@@ -61,16 +40,12 @@ export default function Signup() {
   const register = async () => {
     try {
       setErrorMsg(" ");
-<<<<<<< HEAD
       // 파이어 베이스에 가입하기
-=======
->>>>>>> feature/mobile/homepage
       const createdUser = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
-<<<<<<< HEAD
       // 우리 db에 정보 전달
       const dummy = await axios.post("http://3.35.88.23:8080/api/user/register", {
         email: email,
@@ -79,8 +54,6 @@ export default function Signup() {
         name: name
       });
       console.log(dummy);
-=======
->>>>>>> feature/mobile/homepage
       // console.log(createdUser);
       setEmail("");
       setPassword("");
@@ -109,11 +82,7 @@ export default function Signup() {
       emailValid &&
       passwordValid &&
       passwordConfirmValid &&
-<<<<<<< HEAD
       // nicknameValid &&
-=======
-      nicknameValid &&
->>>>>>> feature/mobile/homepage
       nameValid &&
       phoneValid
     ) {
@@ -125,11 +94,7 @@ export default function Signup() {
     emailValid,
     passwordValid,
     passwordConfirmValid,
-<<<<<<< HEAD
     // nicknameValid,
-=======
-    nicknameValid,
->>>>>>> feature/mobile/homepage
     nameValid,
     phoneValid,
   ]);
@@ -191,7 +156,6 @@ export default function Signup() {
   };
 
   // 닉네임 유효성 검사
-<<<<<<< HEAD
   // const handleNickname = (e) => {
   //   const currentName = e.target.value;
   //   setNickname(currentName);
@@ -207,23 +171,6 @@ export default function Signup() {
   //     setNicknameValid(true);
   //   }
   // };
-=======
-  const handleNickname = (e) => {
-    const currentName = e.target.value;
-    setNickname(currentName);
-    console.log(nickname);
-    if (currentName === "") {
-      setNicknameMessage("");
-      setNicknameValid(true);
-    } else if (currentName.length < 2 || currentName.length > 5) {
-      setNicknameMessage("닉네임은 2글자 이상 5글자 이하로 입력해주세요!");
-      setNicknameValid(false);
-    } else {
-      setNicknameMessage("사용가능한 닉네임 입니다.");
-      setNicknameValid(true);
-    }
-  };
->>>>>>> feature/mobile/homepage
   // 전화번호 유효성 검사
   const handlePhone = (e) => {
     const currentPhone = e;
@@ -269,8 +216,6 @@ export default function Signup() {
       setNameValid(true);
     }
   };
-
-<<<<<<< HEAD
   const handleGender = (e) => {
     const currentGender = e.target.value
     setGender(currentGender)
@@ -281,21 +226,8 @@ export default function Signup() {
 
   return (
     <>
-
-        
-
-        <div className="contentWrap">
+      <div className="contentWrap">
         <div className="siginup_titleWrap">HAMZZI</div>
-=======
-  // 중복 이메일 검사
-
-  return (
-    <div style={{ margin: "auto" }}>
-      <div className="signuppage">
-        <div className="siginup_titleWrap">HAMZZI</div>
-
-        <div className="siginup_contentWrap">
->>>>>>> feature/mobile/homepage
           <div className="siginup_inputTitle">이메일 주소</div>
           <div className="siginup_inputWrap">
             <input
@@ -306,12 +238,7 @@ export default function Signup() {
             />
           </div>
           <div className="siginup_errorMessageWrap">{emailMessage}</div>
-
-<<<<<<< HEAD
           <div className="siginup_inputTitle">비밀번호</div>
-=======
-          <div className="inputTitle">비밀번호</div>
->>>>>>> feature/mobile/homepage
           <div className="siginup_inputWrap">
             <input
               className="siginup_input"
@@ -334,12 +261,8 @@ export default function Signup() {
           <div className="siginup_errorMessageWrap">
             {passwordConfirmMessage}
           </div>
-
-<<<<<<< HEAD
           {/* <div>닉네임</div>
-=======
-          <div>닉네임</div>
->>>>>>> feature/mobile/homepage
+
           <div className="siginup_inputWrap">
             <input
               className="siginup_input"
@@ -348,11 +271,8 @@ export default function Signup() {
               onChange={handleNickname}
             />
           </div>
-<<<<<<< HEAD
           <div className="siginup_errorMessageWrap">{nicknameMessage}</div> */}
-=======
-          <div className="siginup_errorMessageWrap">{nicknameMessage}</div>
->>>>>>> feature/mobile/homepage
+
 
           <div>이름</div>
           <div className="siginup_inputWrap">
@@ -366,7 +286,6 @@ export default function Signup() {
           <div className="siginup_errorMessageWrap">{nameMessage}</div>
 
           <div>성별</div>
-<<<<<<< HEAD
           {/* <div className="siginup_inputWrap"> */}
             <select className="siginup_pick_gender" onChange={(e) => handleGender(e)}>
               <option value="null">선택 안함</option>
@@ -374,15 +293,6 @@ export default function Signup() {
               <option value="f">여</option>
             </select>
           {/* </div> */}
-=======
-          <div className="siginup_inputWrap">
-            <select className="siginup_pick_gender">
-              <option value="제3의성">선택 안함</option>
-              <option value="남">남</option>
-              <option value="여">여</option>
-            </select>
-          </div>
->>>>>>> feature/mobile/homepage
 
           <div>전화번호</div>
           <div className="siginup_inputWrap">
@@ -396,26 +306,13 @@ export default function Signup() {
           <div className="siginup_errorMessageWrap">{phoneMessage}</div>
         </div>
 
-<<<<<<< HEAD
-     
-=======
-        <div>
->>>>>>> feature/mobile/homepage
           <button
             onClick={register}
             disabled={notAllow}
             className="siginup_bottomButton"
           >
             가입하기
-          </button>
-<<<<<<< HEAD
-       
-   
+          </button>     
     </>
-=======
-        </div>
-      </div>
-    </div>
->>>>>>> feature/mobile/homepage
   );
 }

@@ -1,5 +1,4 @@
 .HamStatus {
-<<<<<<< HEAD
     /* border-top: 3px solid black; */
     position: absolute;
     bottom: 0;
@@ -10,8 +9,3 @@
 .bar {
     color: green
 }
-
-=======
-    border: 1px solid black;
-}
->>>>>>> feature/mobile/homepage

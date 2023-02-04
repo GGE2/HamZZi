@@ -4,18 +4,13 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../../authSlice";
-<<<<<<< HEAD
 import axios from "axios";
 import "../../styles/LoginForm.css";
 
 // import Google from "./features/auth/Google";
 // import Kakaopop from "./features/auth/Kakaopop";
 // import LoginForm from './LoginForm';
-=======
 
-// import Google from "./features/auth/Google";
-// import Kakaopop from "./features/auth/Kakaopop";
->>>>>>> feature/mobile/homepage
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
@@ -33,7 +28,6 @@ export default function LoginForm() {
   // 로그인
   const login = async () => {
     try {
-<<<<<<< HEAD
       // 파이어베이스 인증 받아오기
       const curUserInfo = await signInWithEmailAndPassword(auth, email, pw);
       console.log(curUserInfo);
@@ -53,17 +47,6 @@ export default function LoginForm() {
           })
         );
       }
-
-=======
-      const curUserInfo = await signInWithEmailAndPassword(auth, email, pw);
-      console.log(curUserInfo);
-      dispatch(
-        setCredentials({
-          user: curUserInfo.user.email,
-          token: curUserInfo.user.accessToken,
-        })
-      );
->>>>>>> feature/mobile/homepage
       navigate("/main"); // 로그인하면 메인 페이지로 이동~
     } catch (err) {
       console.log(err);
@@ -107,15 +90,8 @@ export default function LoginForm() {
   // };
 
   return (
-<<<<<<< HEAD
     <>
       <>
-      
-=======
-    <div className="page">
-      <div>
-        <div className="loginform">
->>>>>>> feature/mobile/homepage
           <div className="contentWrap">
             {/* <div className="inputTitle">e메일</div> */}
             <div className="inputWrap">
@@ -141,9 +117,6 @@ export default function LoginForm() {
               />
             </div>
           </div>
-<<<<<<< HEAD
-
-
         {/* <div className="login_forgot">
           <div>
             <input type="checkbox" />
@@ -159,23 +132,5 @@ export default function LoginForm() {
         {/* </div> */}
       </>
     </>
-=======
-        </div>
-
-        <div className="login_forgot">
-          <div>
-            <input type="checkbox" />
-            <a href="">Remember me</a>
-          </div>
-          <a href="">비번 찾기</a>
-        </div>
-        <div>
-          <button onClick={login} disabled={notAllow} className="bottomButton">
-            로그인
-          </button>
-        </div>
-      </div>
-    </div>
->>>>>>> feature/mobile/homepage
   );
 }
