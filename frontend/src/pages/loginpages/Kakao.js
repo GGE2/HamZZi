@@ -1,19 +1,13 @@
 import React from "react";
 import { useEffect, useState } from "react";
-<<<<<<< HEAD
 import axios from "axios";
 import {KAKAO_AUTH_URL} from './../../KakaoLoginData';
 
-=======
->>>>>>> feature/mobile/homepage
 
 function Kakao() {
   const [user, setUser] = useState(null);
   const [isLogin, setIsLogin] = useState(false);
-<<<<<<< HEAD
   // const [acctoken, setToken] = useState('');
-=======
->>>>>>> feature/mobile/homepage
   const { Kakao } = window;
 
   const initKakao = async () => {
@@ -27,7 +21,6 @@ function Kakao() {
   const kakaoLogin = async () => {
     await Kakao.Auth.loginForm({
       success(res) {
-<<<<<<< HEAD
         // console.log("123");
         console.log(res);
         Kakao.Auth.setAccessToken(res.access_token);
@@ -37,13 +30,6 @@ function Kakao() {
         axios.post("http://3.35.88.23:8080/api/kakao/sign_in", {
           authorize_code: res.access_token,
         });
-=======
-        console.log("123");
-        console.log(res);
-        Kakao.Auth.setAccessToken(res.access_token);
-        console.log("카카오 로그인 성공");
-        console.log(Kakao.Auth.getAccessToken());
->>>>>>> feature/mobile/homepage
 
         Kakao.API.request({
           url: "/v2/user/me",
@@ -58,11 +44,8 @@ function Kakao() {
               kakaoAccount.profile.profile_image_url
             );
             localStorage.setItem("nickname", kakaoAccount.profile.nickname);
-<<<<<<< HEAD
 
             // console.log(test);
-=======
->>>>>>> feature/mobile/homepage
           },
           fail(error) {
             console.log(error);
@@ -73,7 +56,6 @@ function Kakao() {
         console.log(error);
       },
     });
-<<<<<<< HEAD
 
     // axios
     //       .post("http://3.35.88.23:8080/api/kakao/sign_in", {
@@ -88,8 +70,6 @@ function Kakao() {
     //       .catch((err) => {
     //         console.log(err);
     //       });
-=======
->>>>>>> feature/mobile/homepage
   };
 
   const kakaoLogout = () => {
@@ -119,11 +99,7 @@ function Kakao() {
   }, [user]);
 
   useEffect(() => {
-<<<<<<< HEAD
     // console.log(isLogin);
-=======
-    console.log(isLogin);
->>>>>>> feature/mobile/homepage
     if (isLogin) {
       setUser({
         email: localStorage.getItem("email"),
@@ -138,13 +114,8 @@ function Kakao() {
   };
 
   return (
-<<<<<<< HEAD
     <>
       
-=======
-    <div>
-
->>>>>>> feature/mobile/homepage
       {user ? (
         <div>
           <button onClick={kakaoLogout}>로그아웃</button>
@@ -159,7 +130,6 @@ function Kakao() {
           {/* <div>{user}</div> */}
         </div>
       ) : (
-<<<<<<< HEAD
         // <button class='login_btn' onClick={kakaoLogin}>
         <img
           onClick={kakaoLogin}
@@ -172,17 +142,6 @@ function Kakao() {
       <a href={KAKAO_AUTH_URL}>카카오로 로그인하기</a>
     </>
     
-=======
-        <button onClick={kakaoLogin}>
-          <img
-            src="//k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg"
-            width="222"
-            alt="카카오 로그인 버튼"
-          />
-        </button>
-      )}
-    </div>
->>>>>>> feature/mobile/homepage
   );
 }
 export default Kakao;

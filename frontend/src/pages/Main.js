@@ -1,13 +1,8 @@
-<<<<<<< HEAD
 import React, { useEffect } from "react";
-=======
-import React from "react";
->>>>>>> feature/mobile/homepage
 import Ham from "./mainpages/Ham";
 import Board from "./mainpages/Board";
 import "../styles/Main.css";
 
-<<<<<<< HEAD
 import { FcSearch, FcWebcam, FcConferenceCall,  FcCollaboration, FcTodoList, FcRating } from "react-icons/fc";
 import { BiDotsHorizontalRounded, BiDotsVerticalRounded } from "react-icons/bi";
 
@@ -28,9 +23,6 @@ const Main = () => {
     }
   });
 
-=======
-const Main = () => {
->>>>>>> feature/mobile/homepage
   return (
     <div className="app">
       <div className="Board">
@@ -40,7 +32,6 @@ const Main = () => {
           </div>
           <div className="Screen">
             <Board />
-<<<<<<< HEAD
           </div>
           <div className="buttonflex">
             <button>
@@ -69,15 +60,6 @@ const Main = () => {
             <button>
               <BiDotsVerticalRounded size={"100%"} />
             </button>
-=======
-            <div className="BoardButton">
-              <button>Todo</button>
-              <button>Quest</button>
-              <button>Guild</button>
-              <button>Friend</button>
-              <button style={{borderRadius :'50%'}}>My</button>
-            </div>
->>>>>>> feature/mobile/homepage
           </div>
         </div>
       </div>

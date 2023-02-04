@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 
@@ -12,12 +11,6 @@ const Quests = () => {
     <div className="MyBody"></div></>
     
   );
-=======
-import React from "react";
-
-const Quests = () => {
-  return <div>Quests</div>;
->>>>>>> feature/mobile/homepage
 };
 
 export default Quests;
