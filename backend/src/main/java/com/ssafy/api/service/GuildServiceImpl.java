@@ -1,6 +1,7 @@
 package com.ssafy.api.service;
 
 import com.ssafy.db.entity.Guild.Guild;
+import com.ssafy.db.entity.Guild.GuildUser;
 import com.ssafy.db.entity.User.UserProfile;
 import com.ssafy.db.repository.GuildRepository;
 import com.ssafy.db.repository.UserRepository;
@@ -19,24 +20,24 @@ public class GuildServiceImpl implements GuildService {
 
     @Override
     public boolean checkAdmin(String nickname) {
-        boolean admin = userRepo.findByNickname(nickname).is_admin();
-        if(admin) { return true; }
-        else { return false; }
+        GuildUser guildUser = guildRepo.findByNickname(nickname);
+        if(guildUser.isAdmin()) { return true; }
+        return false;
     }
-
     @Override
     public boolean canJoinGuild(String nickname) {
-        Guild guild = userRepo.findByNickname(nickname).getGuild();
-        if(guild == null) { return true; }
+        UserProfile userProfile = userRepo.findByNickname(nickname);
+        GuildUser guildUser = guildRepo.findByNickname(nickname);
+        if( guildUser == null ) { return true; }
         else { return false; }
     }
     @Override
     public boolean grantAdmin(String nickname) {
         if(checkAdmin(nickname) || canJoinGuild(nickname)) {return false;}
 
-        UserProfile userProfile = userRepo.findByNickname(nickname);
-        userProfile.set_admin(true);
-        userRepo.saveUserProfile(userProfile);
+        GuildUser guildUser = guildRepo.findByNickname(nickname);
+        guildUser.setAdmin(true);
+        guildRepo.saveGuildUser(guildUser);
 
         return true;
     }
@@ -48,19 +49,21 @@ public class GuildServiceImpl implements GuildService {
     public Guild findGuild(Long guild_id) { return guildRepo.findById(guild_id); }
 
     @Override
-    public List<UserProfile> findGuildUser(Long guild_id) { return guildRepo.findGuildUser(guild_id); }
+    public List<GuildUser> findGuildUser(Long guild_id) { return guildRepo.findGuildUser(guild_id); }
     @Override
-    public List<UserProfile> findGuildAdmin(Long guild_id) { return guildRepo.findGuildAdmin(guild_id); }
+    public List<GuildUser> findGuildAdmin(Long guild_id) { return guildRepo.findGuildAdmin(guild_id); }
 
     @Override
     public Guild foundGuild(String guildName, String nickname) {
         Guild guild = new Guild();
-        UserProfile userProfile = userRepo.findByNickname(nickname);
+        GuildUser guildUser = new GuildUser();
 
         guild.setGuild_name(guildName);
         guildRepo.saveGuild(guild);
-        userProfile.setGuild(guild);
-        userRepo.saveUserProfile(userProfile);
+
+        guildUser.setNickname(nickname);
+        guildUser.setGuild(guild);
+        guildRepo.saveGuildUser(guildUser);
 
         return guild;
     }
@@ -68,60 +71,69 @@ public class GuildServiceImpl implements GuildService {
     @Override
     public boolean joinGuild(Long guild_id, String nickname) {
         Guild guild = guildRepo.findById(guild_id);
-        UserProfile userProfile = userRepo.findByNickname(nickname);
+        GuildUser guildUser = new GuildUser();
+
+        String user_nickname = userRepo.findByNickname(nickname).getNickname();
 
         if(!canJoinGuild(nickname)) {return false;}
 
-        userProfile.setGuild(guild);
-        userRepo.saveUserProfile(userProfile);
+        guildUser.setNickname(user_nickname);
+        guildUser.setGuild(guild);
+        guildRepo.saveGuildUser(guildUser);
 
         return true;
     }
 
     @Override
     public boolean leaveGuild(Long guild_id, String nickname) {
-        UserProfile userProfile = userRepo.findByNickname(nickname);
+        GuildUser guildUser = guildRepo.findByNickname(nickname);
 
-        if(userProfile.is_admin() || userProfile.getGuild().getGuild_id() == guild_id) {return false;}
-
-        userProfile.setGuild(null);
-        userRepo.saveUserProfile(userProfile);
+        if(checkAdmin(nickname) || guildUser.getGuild().getGuild_id() != guild_id) {return false;}
+        guildRepo.removeGuildUser(nickname);
 
         return true;
     }
 
     @Override
-    public Long belongingGuild(String nickname) {
-        UserProfile userProfile = userRepo.findByNickname(nickname);
-        return userProfile.getGuild().getGuild_id();
+    public Long getUserGuild(String nickname) {
+        GuildUser guildUser = guildRepo.findByNickname(nickname);
+        return guildUser.getGuild().getGuild_id();
     }
 
     @Override
     public boolean quitAdmin(String nickname) {
         if(canJoinGuild(nickname) || !checkAdmin(nickname)) { return false; }
 
-        UserProfile userProfile = userRepo.findByNickname(nickname);
-        userProfile.set_admin(false);
-        userRepo.saveUserProfile(userProfile);
+        GuildUser guildUser = guildRepo.findByNickname(nickname);
+        guildUser.setAdmin(false);
+        guildRepo.saveGuildUser(guildUser);
 
         return true;
     }
 
     @Override
     public boolean kickUser(String nickname) {
+        /* 어드민이나 길드 미소속 유저는 강퇴 불가능 */
         if(canJoinGuild(nickname) || checkAdmin(nickname)) { return false; }
 
-        UserProfile userProfile = userRepo.findByNickname(nickname);
-        userProfile.setGuild(null);
-        userRepo.saveUserProfile(userProfile);
+        guildRepo.removeGuildUser(nickname);
 
         return true;
     }
 
     @Override
-    public boolean deleteGuild(Long guildId) {
-        return false;
+    public void deleteGuild(Long guildId) {
+        List<GuildUser> userList = guildRepo.findGuildUser(guildId);
+        for(int i = 0; i < userList.size(); i++) {
+            GuildUser guildUser = userList.get(i);
+            guildRepo.removeGuildUser(guildUser.getNickname());
+        }
+
+        List<GuildUser> adminList = guildRepo.findGuildAdmin(guildId);
+        for (int i = 0; i < adminList.size(); i++) {
+            GuildUser guildUser = adminList.get(i);
+            guildRepo.removeGuildUser(guildUser.getNickname());
+        }
+        guildRepo.removeGuild(guildId);
     }
-
-
 }

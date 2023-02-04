@@ -2,8 +2,7 @@ package com.ssafy.api.controller;
 
 import com.ssafy.api.service.GuildService;
 import com.ssafy.db.entity.Guild.Guild;
-import com.ssafy.db.entity.User.UserProfile;
-import com.ssafy.db.repository.UserRepository;
+import com.ssafy.db.entity.Guild.GuildUser;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +16,6 @@ public class GuildController {
 
     private final GuildService guildService;
 
-    //tmp
-    private final UserRepository userRepo;
-
     /* NO ADMIN */ /////////////////////////////////////////////////////////////////////////////////
     /* Guild 생성 API: 길드를 생성하고 생성한 유저에게 admin 권한을 준다 */ // admin 권한이 필요하지 않음
     @PostMapping("/found")
@@ -31,18 +27,13 @@ public class GuildController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public String foundGuild(@RequestParam String guild_name, @RequestParam String nickname) {
-        if(!guildService.canJoinGuild(nickname)) { return "ERROR: " + nickname + "already joind a guild"; }
+        if(!guildService.canJoinGuild(nickname)) { return "ERROR: " + nickname + " already joind a guild"; }
 
         Guild guild = guildService.foundGuild(guild_name, nickname);
         boolean check = guildService.grantAdmin(nickname);
 
-
-        UserProfile userProfile = userRepo.findByNickname(nickname);
-        userProfile.set_admin(true);
-        userRepo.saveUserProfile(userProfile);
-
-//        if(!check) {return "ERROR: NO ADMIN GRANTED!!";}
-        return guild.getGuild_name() + "FOUND OK\nGRANT admin: " + nickname + " " + check;
+        if(!check) {return "ERROR: NO ADMIN GRANTED!!";}
+        return guild.getGuild_name() + " FOUND OK\nGRANT admin: " + nickname;
     }
     /* Guild 가입 API: 아이디(guild_id)에 해당하는 길드에 가입한다 */
     @PutMapping("/join")
@@ -55,8 +46,8 @@ public class GuildController {
     })
     public String joinGuild(@RequestParam Long guild_id, @RequestParam String nickname) {
         boolean check = guildService.joinGuild(guild_id, nickname);
-        if(!check) { return "ERROR: " + nickname + "already joind a guild"; }
-        return nickname + "JOIN guild\nGUILD ID: " + guild_id ;
+        if(!check) { return "ERROR: " + nickname + " already joind a guild"; }
+        return nickname + " JOIN guild\nGUILD ID: " + guild_id ;
     }
     /* Guild 탈퇴 API: 사용자가 소속된 길드를 탈퇴한다 */
     @GetMapping("/leave")
@@ -70,7 +61,7 @@ public class GuildController {
     public String leaveGuild(@RequestParam Long guild_id, @RequestParam String nickname) {
         boolean check = guildService.leaveGuild(guild_id, nickname);
         if(!check) { return "ERROR: CHECK admin or " + nickname + "'s guild_id IS NOT " + guild_id; }
-        return nickname + "LEAVE guild\nGUILD ID: " + guild_id ;
+        return nickname + " LEAVE guild\nGUILD ID: " + guild_id ;
     }
 
     //list들 Res 타입으로 응답시킬까...?
@@ -125,8 +116,8 @@ public class GuildController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public List<UserProfile> findGuildUser(@RequestParam Long guild_id) {
-        List<UserProfile> list = guildService.findGuildUser(guild_id);
+    public List<GuildUser> findGuildUser(@RequestParam Long guild_id) {
+        List<GuildUser> list = guildService.findGuildUser(guild_id);
         int listSize = list.size();
         return list;
     }
@@ -139,8 +130,8 @@ public class GuildController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public List<UserProfile> findGuildAdmin(@RequestParam Long guild_id) {
-        List<UserProfile> list = guildService.findGuildAdmin(guild_id);
+    public List<GuildUser> findGuildAdmin(@RequestParam Long guild_id) {
+        List<GuildUser> list = guildService.findGuildAdmin(guild_id);
         int listSize = list.size();
         return list;
     }
@@ -158,8 +149,8 @@ public class GuildController {
     })
     public String grantAdmin(@RequestParam String nickname_admin, @RequestParam String nickname_granted) {
         //A의 소속 길드와 B의 소속 길드가 같은지 체크
-        Long guildA = guildService.belongingGuild(nickname_admin);
-        Long guildB = guildService.belongingGuild(nickname_granted);
+        Long guildA = guildService.getUserGuild(nickname_admin);
+        Long guildB = guildService.getUserGuild(nickname_granted);
         if(guildA != guildB) { return "ERROR: NO USER: " + nickname_granted + " IN THIS GUILD"; }
 
         //A가 B를 관리자에 임명한다고 했을 때, A의 권한 체크
@@ -167,7 +158,7 @@ public class GuildController {
         boolean check = guildService.grantAdmin(nickname_granted);
         //B에게 권한부여 실패 - B가 이미 어드민이거나 길드 미소속이면 false
         if(!check) { return "FAIL TO GRANT ADMIN: " + nickname_granted; }
-        return nickname_admin + "GRANT " + nickname_granted + "ADMIN";
+        return nickname_admin + " GRANT " + nickname_granted + " ADMIN";
     }
 
     /* ADMIN 그만두기: 자신의 is_admin을 false로 만든다 */
@@ -195,8 +186,8 @@ public class GuildController {
     })
     public String kickGuildUser(@RequestParam String nickname_admin, @RequestParam String nickname_user) {
         //A의 소속 길드와 B의 소속 길드가 같은지 체크
-        Long guildA = guildService.belongingGuild(nickname_admin);
-        Long guildB = guildService.belongingGuild(nickname_user);
+        Long guildA = guildService.getUserGuild(nickname_admin);
+        Long guildB = guildService.getUserGuild(nickname_user);
         if(guildA != guildB) { return "ERROR: NO USER: " + nickname_user + " IN THIS GUILD"; }
 
         //A가 B를 강퇴한다고 했을 때, A의 권한 체크
@@ -204,7 +195,7 @@ public class GuildController {
         boolean check = guildService.kickUser(nickname_user);
         // 어드민이면 강퇴할 수 없음
         if(!check) { return "FAIL TO KICK: " + nickname_user; }
-        return nickname_user + "KICKED BY" + nickname_admin;
+        return nickname_user + " KICKED BY " + nickname_admin;
     }
     /* GUILD 삭제: 길드를 삭제한다 */
     @DeleteMapping("/delete")
@@ -217,14 +208,12 @@ public class GuildController {
     })
     public String deleteGuild(@RequestParam Long guild_id, @RequestParam String nickname) {
         if(!guildService.checkAdmin(nickname)) { return "ERROR: DELETE GUILD - CAN'T ACCESS GENERAL USER"; }
-
         String guild_name = guildService.findGuild(guild_id).getGuild_name();
 
-        boolean check = guildService.deleteGuild(guild_id);
-        if(!check) { return "FAIL TO DELETE GUILD"; }
-
+        guildService.deleteGuild(guild_id);
         Guild guild = guildService.findGuild(guild_id);
+
         //now STATUS null 이 정상!!
-        return guild_name + "DELETE\nNOW STATUS:" + guild;
+        return guild_name + " DELETE\nNOW STATUS: " + guild;
     }
 }

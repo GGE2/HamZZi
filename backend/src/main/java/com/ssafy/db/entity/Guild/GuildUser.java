@@ -1,24 +1,26 @@
 package com.ssafy.db.entity.Guild;
 
-import com.ssafy.db.entity.User.UserProfile;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
-@Getter @Setter
+@Entity
+@Getter
+@Setter
 public class GuildUser {
 
-    @OneToOne
-    @JoinColumn(name="user_nickname")
-    private UserProfile userProfile;
+    /*fk 없이 처리함*/
+    @Id
+    @Column(name = "user_nickname")
+    private String nickname;
 
     @ManyToOne
     @JoinColumn(name = "guild_id")
     private Guild guild;
 
     // char로 바꿔도 됨
-    private boolean isadmin;
+    @ColumnDefault("false")
+    private boolean admin;
 }

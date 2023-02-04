@@ -1,7 +1,7 @@
 package com.ssafy.api.service;
 
 import com.ssafy.db.entity.Guild.Guild;
-import com.ssafy.db.entity.User.UserProfile;
+import com.ssafy.db.entity.Guild.GuildUser;
 
 import java.util.List;
 
@@ -17,19 +17,19 @@ public interface GuildService {
     List<Guild> findGuildListByName(String guild_name);
     Guild findGuild(Long guild_id);
 
-    List<UserProfile> findGuildUser(Long guild_id);
-    List<UserProfile> findGuildAdmin(Long guild_id);
+    List<GuildUser> findGuildUser(Long guild_id);
+    List<GuildUser> findGuildAdmin(Long guild_id);
 
     Guild foundGuild(String guildName, String nickname);
 
     boolean joinGuild(Long guild_id, String nickname);
     boolean leaveGuild(Long guild_id, String nickname);
 
-    Long belongingGuild(String nickname);
+    Long getUserGuild(String nickname);
 
     boolean quitAdmin(String nickname);
 
     boolean kickUser(String nickname);
 
-    boolean deleteGuild(Long guildId);
+    void deleteGuild(Long guildId);
 }

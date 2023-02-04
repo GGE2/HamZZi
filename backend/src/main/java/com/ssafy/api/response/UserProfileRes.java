@@ -27,9 +27,7 @@ public class UserProfileRes {
 	public static UserProfileRes of(UserProfile userProfile) {
 		UserProfileRes res = new UserProfileRes();
 		res.setNickname(userProfile.getNickname());
-        res.setGuild(userProfile.getGuild());
         res.setPoint(userProfile.getPoint());
-        res.set_admin(userProfile.is_admin());
 		return res;
 	}
 }
