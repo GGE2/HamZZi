@@ -45,6 +45,8 @@ class TodoFragment : Fragment() {
     lateinit var stringList: MutableList<String>
 
     private lateinit var todoAdapter: TodoAdapter
+    // Todo 정보 저장
+    lateinit var todoList: MutableList<Todo>
     // 클릭한 날짜
     private var nowDate = Date()
 
@@ -85,7 +87,7 @@ class TodoFragment : Fragment() {
                 ) {
                     if(response.isSuccessful){
                         Log.d(TAG, "onResponse: ${response.body()}")
-                        val todoList = response.body() ?: mutableListOf()
+                        todoList = response.body() ?: mutableListOf()
                         binding.apply {
                             todoAdapter.items = todoList
                             todoAdapter.notifyDataSetChanged()
@@ -253,7 +255,9 @@ class TodoFragment : Fragment() {
                 override fun onClick(view: View, position: Int) {
                     // 리사이클러뷰 개별 리스트의 위치 정보를 담는 변수
                     val itemPosition = position
+//                    val todo_id =
                     Toast.makeText(view.context, itemPosition.toString(), Toast.LENGTH_LONG).show()
+                    Log.d("리", todoList.toString())
                 }
             }
             recyclerviewTodoList.apply {

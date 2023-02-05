@@ -14,6 +14,7 @@ class TodoAdapter (var items: MutableList<Todo>) :  RecyclerView.Adapter<TodoAda
         fun bindItems(item : Todo){
             val todo_text = itemView.findViewById<TextView>(R.id.recycler_item)
             todo_text.text = item.content
+//            todo_text.id = item.todo_id.toInt()
         }
     }
     interface ItemClick {
