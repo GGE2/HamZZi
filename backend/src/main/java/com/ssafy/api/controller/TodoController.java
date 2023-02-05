@@ -59,7 +59,7 @@ public class TodoController {
         return "ID: " + todo.getTodo_id() + " OWNER: " + todo.getNickname() + " CONTENT: " + todo.getContent() ;
     }
 
-    // Todo ischeck 바꾸기(완료) / 계산식 추가해야함
+    // Todo ischeck 바꾸기(완료) / 계산식 (완료)
     @PutMapping("/check/{nickname}/{id}")
     @ApiOperation(value = "Todo 완료", notes = "해당 Todo를 완료한다.")
     @ApiResponses({
@@ -70,7 +70,7 @@ public class TodoController {
     })
     public String checkTodo(@PathVariable String nickname, @PathVariable Long id){
         Todo todo = todoService.checkUpdateTodo(nickname, id);
-        return "ischeck: " + todo.getIscheck() ;
+        return "IsCheck: " + todo.getIscheck() ;
     }
 
     // todo content 수정(완료)

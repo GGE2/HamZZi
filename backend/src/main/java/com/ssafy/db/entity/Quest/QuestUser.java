@@ -3,21 +3,38 @@ package com.ssafy.db.entity.Quest;
 import com.ssafy.db.entity.User.UserProfile;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Getter @Setter
+@Entity
 public class QuestUser {
 
-    @Column(name = "QUEST_ID")
-    private Long quest_id;                  // Quest.java의 Quest_ID와 FK관계
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long questUser_id;
 
-    @OneToOne
-    @JoinColumn(name="USER_NICKNAME")
-    private UserProfile userProfile;
+    @Column(name="quest_id")
+    private Long quest_id;      // 이걸로 quest id 뽑아오기
 
-    private boolean ischeck;
+    @Column(name="user_nicknema")
+    private String nickname;
+
+    // 완료 여부
+    @ColumnDefault("false")
+    @Column(nullable = false)
+    private Boolean ischeck;
+
+//    // 위도
+//    private int latitude;
+//
+//    // 경도
+//    private int longitude;
+
+    // 완료 시간
+    private String datetime;
+    
+    // 완료해야하는 시간
+    private String finish_datetime;
 }

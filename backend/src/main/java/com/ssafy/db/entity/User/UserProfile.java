@@ -24,4 +24,9 @@ public class UserProfile {
     @ColumnDefault("3")
     private int rest_point;
 
+    // 위도
+    private int latitude;
+
+    // 경도
+    private int longitude;
 }
