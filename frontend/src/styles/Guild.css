@@ -22,7 +22,11 @@
 }
 
 /* body 1 */
+<<<<<<< HEAD
 .GuildHeaderButton {
+=======
+.FriendHeaderButton {
+>>>>>>> d71fbd50837b97bd096f25692dba0e251672d352
     height: 10%;
     display: flex;
     justify-content: start;
@@ -33,7 +37,11 @@
     /* border: 3px solid pink; */
 }
 
+<<<<<<< HEAD
 .GuildHeaderButton button {
+=======
+.FriendHeaderButton button {
+>>>>>>> d71fbd50837b97bd096f25692dba0e251672d352
     cursor: pointer;
     border-radius: 8px;
     background-color:transparent;

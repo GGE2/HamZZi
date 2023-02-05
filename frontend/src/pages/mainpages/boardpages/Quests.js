@@ -24,8 +24,12 @@ const Quests = () => {
       <Header data={"Quests"} type={"Quests"} />
       <div className="MyBody">
         {/* <div className="Quests"> */}
+<<<<<<< HEAD
         
           <div className="QuestHeaderButton">
+=======
+          <div className="QuestButton">
+>>>>>>> d71fbd50837b97bd096f25692dba0e251672d352
             <button >DAILY</button>
             <button>WEEKLY</button>
           </div>

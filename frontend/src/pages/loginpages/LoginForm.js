@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../../authSlice";
+import axios from "axios";
 import "../../styles/LoginForm.css";
 
 // import Google from "./features/auth/Google";
@@ -30,7 +31,13 @@ export default function LoginForm() {
       const curUserInfo = await signInWithEmailAndPassword(auth, email, pw);
       console.log(curUserInfo);
 
+<<<<<<< HEAD
       // localStorage 저장
+=======
+      
+
+      // cookie 저장으로 바꾸기
+>>>>>>> d71fbd50837b97bd096f25692dba0e251672d352
       localStorage.setItem("user", JSON.stringify(curUserInfo.user.email));
       localStorage.setItem(
         "accessToken",
@@ -39,11 +46,15 @@ export default function LoginForm() {
       dispatch(
         setCredentials({
           user: curUserInfo.user.displayName,
-          token: curUserInfo.user.accessToken,
+          accessToken: curUserInfo.user.accessToken,
         })
       );
+      
+      if (curUserInfo) {
+        navigate("/main"); // 로그인하면 메인 페이지로 이동~
+      }
 
-      navigate("/main"); // 로그인하면 메인 페이지로 이동~
+
     } catch (err) {
       console.log(err);
     }
@@ -77,13 +88,7 @@ export default function LoginForm() {
       setPwValid(false);
     }
   };
-  // const onClickConfirmButton = () => {
-  //   if (email === User.email && pw === User.pw) {
-  //     alert("로그인에 성공했습니다.");
-  //   } else {
-  //     alert("등록되지 않은 회원입니다.");
-  //   }
-  // };
+
 
   return (
     <>

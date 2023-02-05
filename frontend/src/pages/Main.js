@@ -12,8 +12,12 @@ import {
   FcRating,
   FcBookmark,
 } from "react-icons/fc";
+<<<<<<< HEAD
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { BsBookmarkStar, BsBookmarkStarFill } from "react-icons/bs";
+=======
+import { BiDotsHorizontalRounded} from "react-icons/bi";
+>>>>>>> d71fbd50837b97bd096f25692dba0e251672d352
 
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../authSlice";
@@ -66,10 +70,14 @@ const Main = () => {
             </button>
             <button>
               <FcCollaboration size={"100%"} />
+<<<<<<< HEAD
             </button> */}
             {/* <button>
               <BsBookmarkStar color={'orange'} size={"100%"} />
             </button> */}
+=======
+            </button>
+>>>>>>> d71fbd50837b97bd096f25692dba0e251672d352
             
           </div>
         </div>

@@ -41,6 +41,7 @@ const Todos = () => {
     console.log(todos)
   }, []);
 
+<<<<<<< HEAD
   // useEffect(() => {
   //   getTodo();
   //   console.log(todos)
@@ -51,6 +52,14 @@ const Todos = () => {
   useEffect(() => {
     setCaldate(new Date(+d + TIME_ZONE).toISOString().split("T")[0]);
   }, [startDate]);
+=======
+
+  // 달력 날짜가 바뀔 때마다 실행
+  useEffect(() => {
+    getTodo();
+    setCaldate(new Date(+d + TIME_ZONE).toISOString().split("T")[0]);
+  }, [todos, startDate]);
+>>>>>>> d71fbd50837b97bd096f25692dba0e251672d352
 
 
   // function getToday() {
@@ -64,9 +73,14 @@ const Todos = () => {
 
 
    // db에서 todolist 가져오기
+<<<<<<< HEAD
    const getTodo = () => {
       axios.get("http://3.35.88.23:8080/api/todo").then((res) => {
         console.log(res)
+=======
+   const getTodo =  () => {
+     axios.get("http://3.35.88.23:8080/api/todo").then((res) => {
+>>>>>>> d71fbd50837b97bd096f25692dba0e251672d352
         console.log(res.data);
         setTodos(res.data);
       });
@@ -74,11 +88,18 @@ const Todos = () => {
 
   const onAdd = (text) => {
     setCaldate(new Date(+d + TIME_ZONE).toISOString().split("T")[0]);
+<<<<<<< HEAD
     axios.post("http://3.35.88.23:8080/api/todo", {
       content: text,
       datetime: calDate,
     }).then((res)=>console.log(res))
     // console.log(dummy)
+=======
+    const dummy = axios.post("http://3.35.88.23:8080/api/todo", {
+      content: text,
+      datetime: calDate,
+    })
+>>>>>>> d71fbd50837b97bd096f25692dba0e251672d352
     getTodo()
   };
 
@@ -89,7 +110,11 @@ const Todos = () => {
 
   const onToggle = (id) => {
     axios.put(`http://3.35.88.23:8080/api/todo/check/${id}`);
+<<<<<<< HEAD
     getTodo()
+=======
+    // getTodo()
+>>>>>>> d71fbd50837b97bd096f25692dba0e251672d352
     setTodos(
       todos.map((todo) =>
         todo.todo_id === id
@@ -128,7 +153,11 @@ const Todos = () => {
         <button onClick={handleClick} className="Calbutton">
           <FcCalendar />
         </button>
+<<<<<<< HEAD
         {/* {startDate} */}
+=======
+
+>>>>>>> d71fbd50837b97bd096f25692dba0e251672d352
         {isOpen && (
           <DatePicker selected={startDate} onChange={handleChange} inline />
         )}

@@ -43,6 +43,7 @@ const HamStatus = () => {
     series: [
       {
         // id: 'stat',
+<<<<<<< HEAD
         data: [
           stat.physical,
           stat.artistic,
@@ -51,6 +52,9 @@ const HamStatus = () => {
           stat.active,
           stat.etc,
         ],
+=======
+        data: [stat.physical, stat.artistic, stat.intelligent, stat.inactive, stat.active, stat.etc],
+>>>>>>> d71fbd50837b97bd096f25692dba0e251672d352
       },
     ],
   };

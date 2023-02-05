@@ -2,6 +2,7 @@ import React from "react";
 import styled, { css } from "styled-components";
 import useDetectClose from "../useDetectClose";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
+<<<<<<< HEAD
 import { useNavigate } from "react-router";
 
 const DropdownMenu = () => {
@@ -11,18 +12,32 @@ const DropdownMenu = () => {
     localStorage.clear();
     navigate("/");
   };
+=======
+
+const DropdownMenu = () => {
+  const [myPageIsOpen, myPageRef, myPageHandler] = useDetectClose(false);
+
+>>>>>>> d71fbd50837b97bd096f25692dba0e251672d352
   return (
     <>
       <DropdownContainer>
         <DropdownButton onClick={myPageHandler} ref={myPageRef}>
+<<<<<<< HEAD
           <BiDotsHorizontalRounded />
+=======
+          <BiDotsHorizontalRounded/>
+>>>>>>> d71fbd50837b97bd096f25692dba0e251672d352
         </DropdownButton>
         <Menu isDropped={myPageIsOpen}>
           <Ul>
             <Li>
+<<<<<<< HEAD
               <LinkWrapper onClick={LogoutAuth} href="#1-2">
                 로그아웃
               </LinkWrapper>
+=======
+              <LinkWrapper href="#1-2">로그아웃</LinkWrapper>
+>>>>>>> d71fbd50837b97bd096f25692dba0e251672d352
             </Li>
             <Li>
               <LinkWrapper2 href="#1-3">정보수정</LinkWrapper2>
@@ -42,9 +57,15 @@ export default DropdownMenu;
 const DropdownContainer = styled.div`
   position: relative;
   text-align: center;
+<<<<<<< HEAD
   display: flex;
   align-items: center;
   padding-top: 10px;
+=======
+  display:flex;
+  align-items: center;
+  padding-top:10px
+>>>>>>> d71fbd50837b97bd096f25692dba0e251672d352
 `;
 
 const DropdownButton = styled.div`
@@ -114,6 +135,10 @@ const LinkWrapper = styled.div`
   text-decoration: none;
   color: white;
   cursor: pointer;
+<<<<<<< HEAD
+=======
+  
+>>>>>>> d71fbd50837b97bd096f25692dba0e251672d352
 
   &:hover {
     background-color: red;
@@ -142,4 +167,8 @@ const LinkWrapper2 = styled.div`
     border-top-width: 0;
     border-bottom-color: gray;
   }
+<<<<<<< HEAD
 `;
+=======
+`;
+>>>>>>> d71fbd50837b97bd096f25692dba0e251672d352
