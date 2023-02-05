@@ -6,10 +6,9 @@ import com.google.gson.annotations.SerializedName
 data class Todo(
     @Expose @SerializedName("content") var content:String,
     @Expose @SerializedName("datetime")var dateTime:String,
+    @Expose @SerializedName("todo_id") var todo_id : Long= -1
     ){
-    @Expose
-    @SerializedName("todo_id")
-    var todo_id : Long= -1
+
 
     @Expose
     @SerializedName("ischeck")
@@ -19,8 +18,7 @@ data class Todo(
     @SerializedName("userProfile")
     var userProfile:UserProfile? = null
 
-    constructor(todo_id:Long , content:String, dateTime:String,is_check:Boolean,userProfile: UserProfile):this(content, dateTime){
-        this.todo_id = todo_id
+    constructor(todo_id:Long , content:String, dateTime:String,is_check:Boolean,userProfile: UserProfile):this(content, dateTime, todo_id){
         this.is_check = is_check
         this.userProfile = userProfile
     }
