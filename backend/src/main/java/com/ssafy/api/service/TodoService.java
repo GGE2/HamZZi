@@ -20,7 +20,7 @@ public interface TodoService {
     Todo updateTodo(TodoRequest todoInfo, Long id);
 
     // todo check
-    Todo checkUpdateTodo(Long id);
+    Todo checkUpdateTodo(String nickname, Long id);
 
     // todo 삭제
     void deleteTodo(Long id);

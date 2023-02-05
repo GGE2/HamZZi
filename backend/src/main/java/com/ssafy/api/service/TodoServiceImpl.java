@@ -72,10 +72,11 @@ public class TodoServiceImpl implements TodoService{
 
     // todo check
     @Override
-    public Todo checkUpdateTodo(Long id) {
+    public Todo checkUpdateTodo(String nickname, Long id) {
         Todo todo = todoRepo.findById(id);
         Boolean ischeck = todo.getIscheck();
         todo.setIscheck(!ischeck);
+        pointAssignment(nickname);      // point 계산(현재 rest_point가 1이상이면 계산 잘됨)
         todoRepo.saveTodo(todo);
         return todo;
     }
@@ -86,7 +87,7 @@ public class TodoServiceImpl implements TodoService{
         todoRepo.removeTodo(id);
     }
 
-    // todo 완료 시 rest_point가 3이상이면 point에 1을 더해줌
+    // todo 완료 시 rest_point가 0이상이면 point에 1을 더해줌
     @Override
     public UserProfile pointAssignment(String nickname) {
         UserProfile userProfile = userRepo.findByNickname(nickname);

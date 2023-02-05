@@ -3,6 +3,7 @@ package com.ssafy.api.controller;
 import com.ssafy.api.request.TodoRequest;
 import com.ssafy.api.service.TodoService;
 import com.ssafy.db.entity.Todo.Todo;
+import com.ssafy.db.entity.User.UserProfile;
 import com.ssafy.db.repository.TodoRepository;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -59,7 +60,7 @@ public class TodoController {
     }
 
     // Todo ischeck 바꾸기(완료) / 계산식 추가해야함
-    @PutMapping("/check/{id}")
+    @PutMapping("/check/{nickname}/{id}")
     @ApiOperation(value = "Todo 완료", notes = "해당 Todo를 완료한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -67,8 +68,8 @@ public class TodoController {
             @ApiResponse(code = 404, message = "Todo 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public String checkTodo(@PathVariable Long id){
-        Todo todo = todoService.checkUpdateTodo(id);
+    public String checkTodo(@PathVariable String nickname, @PathVariable Long id){
+        Todo todo = todoService.checkUpdateTodo(nickname, id);
         return "ischeck: " + todo.getIscheck() ;
     }
 
