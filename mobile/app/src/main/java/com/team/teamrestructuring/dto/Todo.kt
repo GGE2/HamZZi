@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class Todo(
     @Expose @SerializedName("content") var content:String,
-    @Expose @SerializedName("datetime")var dateTime:String
+    @Expose @SerializedName("datetime")var dateTime:String,
     ){
     @Expose
     @SerializedName("todo_id")

@@ -16,9 +16,10 @@ import com.team.teamrestructuring.util.TodoAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.create
 import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Date
+import java.util.*
+
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -30,11 +31,15 @@ class TodoFragment : Fragment() {
     private var param2: String? = null
 
     private lateinit var binding : FragmentTodoBinding
-    //초기 시간 받아와야함 지금은 임의로 넣어줌
+
+    //현재 시간
+    val calendar = Calendar.getInstance()
+    val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    val now = format.format(calendar.time)
 
 
     // 날짜 저장
-    lateinit var dateStr: String
+    var dateStr = now
 
     //  리사이클러뷰에서 쓸 녀석, 전역 해야지
     lateinit var stringList: MutableList<String>
@@ -43,11 +48,13 @@ class TodoFragment : Fragment() {
     // 클릭한 날짜
     private var nowDate = Date()
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = FragmentTodoBinding.inflate(layoutInflater)
         val calendar: Calendar = Calendar.getInstance()
-        Log.d("제발", "${calendar.timeInMillis}")
+        Log.d("제발", "${now}")
 
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
@@ -67,10 +74,10 @@ class TodoFragment : Fragment() {
     interface TodoListner{
 
     }
-    // Todo를 비동기로 가져오는 것 인자를 안넣어서 미완성 날짜를 넘겨줘야함함
-    private fun callService(){
+    // Todo를 가져오는 서비스
+    private fun callService(nickName: String, dateTime: String){
         val service = ApplicationClass.retrofit.create(TodoService::class.java)
-            .getTodo().enqueue(object : Callback<MutableList<Todo>>{
+            .getTodo(nickName, dateTime).enqueue(object : Callback<MutableList<Todo>>{
                 override fun onResponse(
                     call: Call<MutableList<Todo>>,
                     response: Response<MutableList<Todo>>
@@ -113,11 +120,59 @@ class TodoFragment : Fragment() {
 
             })
     }
-    private fun deleteTodoService(){
-        /*val service = ApplicationClass.retrofit.create(TodoService::class.java)
-            .deletetodo().enqueue(object:Callback<String>)*/
+
+    // 투두를 지우는 서비스
+    private fun deleteTodoService(id: String){
+        val service = ApplicationClass.retrofit.create(TodoService:: class.java)
+            .deleteTodo(id).enqueue(object : Callback<String>{
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    if(response.isSuccessful){
+                        Log.d(TAG, "성공적으로 삭제 되었습니다.")
+                    }
+                }
+
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    Log.d(TAG, "삭제에 실패하였습니다.")
+                }
+            })
 
     }
+
+    //투두를 수정하는 서비스
+    private fun modifyTodoService(id: String, Todo: Todo){
+        val service = ApplicationClass.retrofit.create(TodoService::class.java)
+            .modifyTodo(id, Todo).enqueue(object :Callback<Todo>{
+                override fun onResponse(call: Call<Todo>, response: Response<Todo>) {
+                    if(response.isSuccessful){
+                        Log.d(TAG, "수정된 투두 입니다 ${Todo}")
+                    }
+                }
+
+                override fun onFailure(call: Call<Todo>, t: Throwable) {
+                    Log.d(TAG, "수정 실패 ${t.message}")
+                }
+
+            })
+
+    }
+
+
+    //투두를 체크(완료했는 지)하는 서비스
+    private fun checkTodo(id: String){
+        val service = ApplicationClass.retrofit.create(TodoService::class.java)
+            .checkTodo(id).enqueue(object : Callback<String>{
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    if (response.isSuccessful){
+                        Log.d(TAG,"투두 완료 되었습니다.")
+                    }
+                }
+
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    Log.d(TAG, "투두 완료에 실패했습니다.")
+                }
+            })
+    }
+
 
     private fun initDate() {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd")
@@ -127,21 +182,6 @@ class TodoFragment : Fragment() {
 //            // 처음 초기 리스트 생성하기 위한 로직
             nowDate = Date(calender.date)
             Toast.makeText(requireContext(), nowDate.toString(), Toast.LENGTH_LONG).show()
-            var nowDateDay = nowDate.day
-//            if (nowDateDay % 2  == 0) {
-//                stringList.clear()
-//                stringList.addAll(evenList)
-//
-//                todoAdapter.items = stringList
-//                todoAdapter.notifyDataSetChanged()
-//            } else {
-//                stringList.clear()
-//                stringList.addAll(oddList)
-//
-//                todoAdapter.items = stringList
-//                todoAdapter.notifyDataSetChanged()
-//            }
-
             // 초기 날짜 설정하는 날짜
             if (Calendar.MONTH + 1 < 10 && Calendar.DAY_OF_MONTH < 10){
                 dateStr = "${Calendar.YEAR+2022}-0${Calendar.MONTH+1}-0${Calendar.DAY_OF_MONTH}"
@@ -168,34 +208,38 @@ class TodoFragment : Fragment() {
                 Log.i(TAG, dateStr)
 
                 // 클릭시 마다 post 요청을 보내서 받아온다
-                callService()
+                // 더미 값인 리진성을 넣었다.
+                callService(nickName = "리진성", dateStr)
             }
         }
     }
     // 옵저버 뷰 예시예시
-    private val todoObserver = Observer<Todo> { todo ->
-        // update UI with the todo data
-        Log.d(TAG, "initInput: ${todo.toString()}")
-        createService(todo)
-        callService()
-    }
+//    private val todoObserver = Observer<Todo> { todo ->
+//        // update UI with the todo data
+//        Log.d(TAG, "initInput: ${todo.toString()}")
+//        createService(todo)
+//        callService()
+//    }
     // 캘린더뷰
     // 투두리스트 작성
     private fun initInput() {
         binding.apply {
             CreateTodoButton.apply {
                 setOnClickListener {
-                    val nowInput = calenderText.text.toString()
+                    var nowInput = calenderText.text.toString().trim()
                     Log.d(TAG, "initInput: ${nowInput}")
                     // 입력 값이 없을 때
                     if (nowInput.trim().isEmpty()) {
                         Toast.makeText(requireContext(), "값을 입력해주세요", Toast.LENGTH_SHORT).show()
                         return@setOnClickListener
                     }
-                    Log.d(TAG, "initInput22222: ${nowInput}")
+                    Log.d(TAG, "initInput2: ${nowInput}")
                     val todo = Todo(nowInput, dateStr)
+                    // 바에 있는 값 초기화
+                    calenderText.text.clear()
                     createService(todo)
-                    callService()
+                    // 더미 데이터 리진성을 넣었다.
+                    callService(nickName = "리진성", dateStr)
 
                 }
             }
@@ -217,7 +261,8 @@ class TodoFragment : Fragment() {
                 layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
             }
         }
-        callService()
+        // 더미 데이터인 리진성을 넣었다.
+        callService(nickName = "리진성", dateStr)
     }
 
     override fun onCreateView(
@@ -226,6 +271,7 @@ class TodoFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentTodoBinding.inflate(layoutInflater)
+
         return binding.root!!
     }
 
