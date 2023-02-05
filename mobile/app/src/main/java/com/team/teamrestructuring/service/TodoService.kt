@@ -18,15 +18,15 @@ interface TodoService {
 
     // 투두 클리어
     @PUT("api/todo/check/{id}")
-    fun checkTodo(@Path("id") id: String): Call<String>
+    fun checkTodo(@Path("id") id: Long): Call<String>
 
     // 투두 수정
     @PUT("api/todo/{id}")
-    fun modifyTodo(@Path("id") id:String , @Body todo: Todo): Call<Todo>
+    fun modifyTodo(@Path("id") id:Long, @Body todo: Todo): Call<Todo>
 
 
     // 투두 삭제
     @DELETE("api/todo/{id}")
-    fun deleteTodo(@Path("id") id: String): Call<String>
+    fun deleteTodo(@Path("id") id: Long): Call<String>
 
 }

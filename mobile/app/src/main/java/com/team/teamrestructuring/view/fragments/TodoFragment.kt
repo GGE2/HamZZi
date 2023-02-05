@@ -43,10 +43,11 @@ class TodoFragment : Fragment() {
 
     //  리사이클러뷰에서 쓸 녀석, 전역 해야지
     lateinit var stringList: MutableList<String>
-
+    var todo_id : Long = -1
     private lateinit var todoAdapter: TodoAdapter
     // Todo 정보 저장
     lateinit var todoList: MutableList<Todo>
+
     // 클릭한 날짜
     private var nowDate = Date()
 
@@ -124,7 +125,7 @@ class TodoFragment : Fragment() {
     }
 
     // 투두를 지우는 서비스
-    private fun deleteTodoService(id: String){
+    private fun deleteTodoService(id: Long){
         val service = ApplicationClass.retrofit.create(TodoService:: class.java)
             .deleteTodo(id).enqueue(object : Callback<String>{
                 override fun onResponse(call: Call<String>, response: Response<String>) {
@@ -141,7 +142,7 @@ class TodoFragment : Fragment() {
     }
 
     //투두를 수정하는 서비스
-    private fun modifyTodoService(id: String, Todo: Todo){
+    private fun modifyTodoService(id: Long, Todo: Todo){
         val service = ApplicationClass.retrofit.create(TodoService::class.java)
             .modifyTodo(id, Todo).enqueue(object :Callback<Todo>{
                 override fun onResponse(call: Call<Todo>, response: Response<Todo>) {
@@ -160,7 +161,7 @@ class TodoFragment : Fragment() {
 
 
     //투두를 체크(완료했는 지)하는 서비스
-    private fun checkTodo(id: String){
+    private fun checkTodo(id: Long){
         val service = ApplicationClass.retrofit.create(TodoService::class.java)
             .checkTodo(id).enqueue(object : Callback<String>{
                 override fun onResponse(call: Call<String>, response: Response<String>) {
@@ -255,9 +256,9 @@ class TodoFragment : Fragment() {
                 override fun onClick(view: View, position: Int) {
                     // 리사이클러뷰 개별 리스트의 위치 정보를 담는 변수
                     val itemPosition = position
-//                    val todo_id =
                     Toast.makeText(view.context, itemPosition.toString(), Toast.LENGTH_LONG).show()
-                    Log.d("리", todoList.toString())
+                    Log.d("리", todoList[position].todo_id.toString())
+                    todo_id = todoList[position].todo_id
                 }
             }
             recyclerviewTodoList.apply {
