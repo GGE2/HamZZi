@@ -13,8 +13,8 @@ public class Friend {
     @Id
     private char relation;
 
-    @OneToOne
-    @JoinColumn(name="USER_NICKNAME")
+    @ManyToOne
+    @JoinColumn(name="user_nickname")
     private UserProfile userProfile;      // UserProfile.java의 User_Nickname와 FK관계
 
 //    @OneToOne

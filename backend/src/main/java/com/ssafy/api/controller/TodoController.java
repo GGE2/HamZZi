@@ -1,78 +1,99 @@
 package com.ssafy.api.controller;
 
+import com.ssafy.api.request.TodoRequest;
 import com.ssafy.api.service.TodoService;
-import com.ssafy.api.service.TodoServiceImpl;
-import com.ssafy.db.entity.Todo.TodoDto;
+import com.ssafy.db.entity.Todo.Todo;
+import com.ssafy.db.entity.User.UserProfile;
+import com.ssafy.db.repository.TodoRepository;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-@RequiredArgsConstructor
 @RestController
 @RequestMapping("api/todo")
+@RequiredArgsConstructor
 public class TodoController {
 
-    private final TodoService todoService;
+    @Autowired
+    TodoService todoService;
 
-    // 전체 조회
-    // 여기서 userProfile의 point랑 rest_point가 잡히면 point줄 수 있음
-    // 안뜨면 userController에서 해야함
-    @GetMapping
-    public ResponseEntity<?> getTodos() throws Exception {
-        List<TodoDto> dtoList = todoService.getTodos();
-        return ResponseEntity.ok(dtoList);
+    @Autowired
+    TodoRepository todoRepository;
+
+    // 작성자와 날짜가 맞는 Todo리스트 조회(완료)
+    @GetMapping("/{nickname}/{datetime}")
+    @ApiOperation(value = "Todo 조회", notes = "Todo 정보를 출력한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<?> getTodos(@PathVariable String nickname, @PathVariable String datetime){
+        List<Todo> todo = todoService.getTodos(nickname, datetime);
+
+        return ResponseEntity.status(200).body(todo);
     }
 
-    //등록
+    // Todo 생성 API(완료)
     @PostMapping
-    public ResponseEntity<String> postTodo(@RequestBody TodoDto todoDto) throws Exception {
-        todoDto.setIscheck(false);
-        todoService.postTodo(todoDto);
-        return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+    @ApiOperation(value = "Todo 생성", notes = "필요한 정보를 전부 입력한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public String createTodo(
+            @RequestBody @ApiParam(value = "todo 생성", required = true) TodoRequest todoInfo) {
+        Todo todo = todoService.createTodo(todoInfo);
+
+        return "ID: " + todo.getTodo_id() + " OWNER: " + todo.getNickname() + " CONTENT: " + todo.getContent() ;
     }
 
-    @PutMapping("/check/{id}")
-    public ResponseEntity<String> putTodo(@PathVariable("id") Long id) throws Exception {
-        // ischeck 바꾸기
-        TodoDto todoDto = todoService.findTodoById(id);
-        Boolean ischeck = todoDto.getIscheck();
-        todoDto.setIscheck(!ischeck);
-// 여기서 userProfile의 데이터가 안가져와짐
-//        // rest_point 1--, point 1++
-//        int rest_point = todoDto.getUserProfile().getRest_point();
-//        int point = todoDto.getUserProfile().getPoint();
-//        if(rest_point > 0){
-//            rest_point -= 1;
-//            point += 1;
-//        }
-        todoService.postTodo(todoDto);
-        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+    // Todo ischeck 바꾸기(완료) / 계산식 추가해야함
+    @PutMapping("/check/{nickname}/{id}")
+    @ApiOperation(value = "Todo 완료", notes = "해당 Todo를 완료한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "Todo 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public String checkTodo(@PathVariable String nickname, @PathVariable Long id){
+        Todo todo = todoService.checkUpdateTodo(nickname, id);
+        return "ischeck: " + todo.getIscheck() ;
     }
 
-    // content 수정
+    // todo content 수정(완료)
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateTodo(@RequestBody TodoDto updateTodo, @PathVariable("id") Long id) throws Exception {
-        updateTodo.setContent(updateTodo.getContent());
-        todoService.updateTodo(updateTodo);
-        return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+    @ApiOperation(value = "Todo 수정", notes = "해당 Todo를 수정한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "Todo 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public String updateTodo(@PathVariable Long id, @RequestBody TodoRequest todoInfo) {
+        Todo todo = todoService.updateTodo(todoInfo, id);
+
+        return "Content : " + todo.getContent() ;
     }
 
-    //삭제
+    // todo 삭제(완료)
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteTodo(@PathVariable("id") Long id) throws Exception {
+    @ApiOperation(value = "Todo 삭제", notes = "해당 Todo를 삭제한다.")
+    public String deleteTodo(@PathVariable Long id) {
         todoService.deleteTodo(id);
-        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+        return "ID: " + id;
     }
 
-    //단일 조회
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<?> getTodo(@PathVariable("id") Long id) throws Exception {
-        TodoDto todo = todoService.findTodoById(id);
-        return ResponseEntity.ok(todo);
-    }
 }

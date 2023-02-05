@@ -1,60 +1,111 @@
 package com.ssafy.api.service;
 
-import com.ssafy.db.entity.Todo.TodoDto;
-import com.ssafy.db.entity.Todo.TodoEntity;
+import com.ssafy.api.request.TodoRequest;
+import com.ssafy.db.entity.Todo.Todo;
+import com.ssafy.db.entity.User.UserProfile;
 import com.ssafy.db.repository.TodoRepository;
+import com.ssafy.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
-@Transactional이 수행되는 계층이다.
-@RequiredArgsConstructor를 사용하는 이유는
-@Autowired로 Repository를 생성자 주입(필드 주입방식)을 하는 것은
-권장하지 않는 방법이라하여 이를 해결하고자 final 필드를 자동으로
-주입해주는 @RequiredArgsConstructor를 사용하였다.
- */
-
-@RequiredArgsConstructor
 @Service
+@Transactional
+@RequiredArgsConstructor
 public class TodoServiceImpl implements TodoService{
 
-    private final TodoRepository repository;
+    @Autowired
+    TodoRepository todoRepo;
+
+    @Autowired
+    UserRepository userRepo;
 
     @Override
-    public List<TodoDto> getTodos() throws Exception {
-        List<TodoEntity> entityList = repository.findAll();
-        List<TodoDto> dtoList = new ArrayList<>();
-        // user_nickname과 로그인한 유저 확인 if문으로 하면 될듯
-        for (TodoEntity entity : entityList) {
-            dtoList.add(entity.toDto());
+    public Todo todoData(Long todo_id) {
+        Todo todo = todoRepo.findById(todo_id);
+
+        return todo;
+    }
+
+    // todo 리스트 가져오기(작성자와 날짜가 동일할 때)
+    @Override
+    public List<Todo> getTodos(String nickname, String datetime) {
+        List<Todo> todos = todoRepo.todoList(nickname, datetime);
+        List<Todo> todoList = new ArrayList<>();
+        todoList.addAll(todos);
+
+        return todoList;
+    }
+
+    // todo 생성
+    @Override
+    public Todo createTodo(TodoRequest todoInfo) {
+        Todo todo = new Todo();
+        UserProfile userProfile = userRepo.findByNickname(todoInfo.getUser_nickname());
+
+        //fireBase에서 UserProfile 가져오기
+        todo.setNickname(userProfile.getNickname());
+        todo.setContent(todoInfo.getContent());
+        todo.setDatetime(todoInfo.getDatetime());
+        todo.setIscheck(false);
+
+        todoRepo.saveTodo(todo);
+
+        return todo;
+    }
+    
+    // todo 수정
+    @Override
+    public Todo updateTodo(TodoRequest todoInfo, Long id) {
+        Todo updatetodo = todoRepo.findById(id);
+        String content = todoInfo.getContent();
+        updatetodo.setContent(content);
+
+        System.out.println(updatetodo.toString());
+        todoRepo.saveTodo(updatetodo);
+        return updatetodo;
+    }
+
+    // todo check
+    @Override
+    public Todo checkUpdateTodo(String nickname, Long id) {
+        Todo todo = todoRepo.findById(id);
+        Boolean ischeck = todo.getIscheck();
+        todo.setIscheck(!ischeck);
+        pointAssignment(nickname);      // point 계산(현재 rest_point가 1이상이면 계산 잘됨)
+        todoRepo.saveTodo(todo);
+        return todo;
+    }
+
+    // todo 삭제
+    @Override
+    public void deleteTodo(Long id) {
+        todoRepo.removeTodo(id);
+    }
+
+    // todo 완료 시 rest_point가 0이상이면 point에 1을 더해줌
+    @Override
+    public UserProfile pointAssignment(String nickname) {
+        UserProfile userProfile = userRepo.findByNickname(nickname);
+
+        int nowPoint = userProfile.getPoint();
+        int nowRestPoint = userProfile.getRest_point();
+
+        if (userProfile.getRest_point() > 0){
+            nowPoint++;
+            nowRestPoint--;
         }
-        return dtoList;
+        userProfile.setPoint(nowPoint);
+        userProfile.setRest_point(nowRestPoint);
+
+        return userProfile;
     }
 
-    @Override
-    @Transactional
-    public Long postTodo(TodoDto todoDto) throws Exception {
-        return repository.save(todoDto.toEntity()).getTodo_id();
-    }
 
-    @Override
-    @Transactional
-    public Long updateTodo(TodoDto updateTodo) throws Exception {
-        return repository.save(updateTodo.toEntity()).getTodo_id();
-    }
-
-    @Override
-    @Transactional
-    public void deleteTodo(Long id) throws Exception {
-        repository.deleteById(id);
-    }
-
-    @Override
-    public TodoDto findTodoById(Long id) throws Exception {
-        return repository.findById(id).orElseThrow().toDto();
-    }
 }
+
+

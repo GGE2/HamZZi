@@ -5,7 +5,6 @@ import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 /*
 DB와 도메인 클래스(Entity)를 연결
@@ -15,12 +14,8 @@ DB와 도메인 클래스(Entity)를 연결
 */
 
 @Entity
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-@Table(name = "Todo")
-public class TodoEntity {
+@Getter @Setter
+public class Todo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,21 +27,11 @@ public class TodoEntity {
     @Column(nullable = false)
     private String datetime;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     @ColumnDefault("false")
     private Boolean ischeck;
 
-    @ManyToOne
-    @JoinColumn(name="user_nickname")
-    private UserProfile userProfile;
+    @Column(name="user_nickname")
+    private String nickname;
 
-    public TodoDto toDto() {        //toDto() 메소드는 Entity -> Dto로 변환
-        return TodoDto.builder()
-                .todo_id(todo_id)
-                .content(content)
-                .datetime(datetime)
-                .ischeck(ischeck)
-                .userProfile(userProfile)
-                .build();
-    }
 }
