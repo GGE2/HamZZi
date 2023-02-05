@@ -60,9 +60,9 @@ public class TodoServiceImpl implements TodoService{
     
     // todo 수정
     @Override
-    public Todo updateTodo(Long id) {
+    public Todo updateTodo(TodoRequest todoInfo, Long id) {
         Todo updatetodo = todoRepo.findById(id);
-        String content = updatetodo.getContent();
+        String content = todoInfo.getContent();
         updatetodo.setContent(content);
 
         System.out.println(updatetodo.toString());

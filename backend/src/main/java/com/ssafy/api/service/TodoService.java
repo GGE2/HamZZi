@@ -17,7 +17,7 @@ public interface TodoService {
     Todo createTodo(TodoRequest todoInfo);
 
     // todo 수정
-    Todo updateTodo(Long id);
+    Todo updateTodo(TodoRequest todoInfo, Long id);
 
     // todo check
     Todo checkUpdateTodo(Long id);

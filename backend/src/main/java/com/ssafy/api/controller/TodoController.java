@@ -27,7 +27,7 @@ public class TodoController {
     @Autowired
     TodoRepository todoRepository;
 
-    // 작성자와 날짜가 맞는 Todo리스트 조회(작성자는 완료 / 날짜만 맞추면 됨)
+    // 작성자와 날짜가 맞는 Todo리스트 조회(완료)
     @GetMapping("/{nickname}/{datetime}")
     @ApiOperation(value = "Todo 조회", notes = "Todo 정보를 출력한다.")
     @ApiResponses({
@@ -58,7 +58,7 @@ public class TodoController {
         return "ID: " + todo.getTodo_id() + " OWNER: " + todo.getNickname() + " CONTENT: " + todo.getContent() ;
     }
 
-    // Todo ischeck 바꾸기(완료)
+    // Todo ischeck 바꾸기(완료) / 계산식 추가해야함
     @PutMapping("/check/{id}")
     @ApiOperation(value = "Todo 완료", notes = "해당 Todo를 완료한다.")
     @ApiResponses({
@@ -72,7 +72,7 @@ public class TodoController {
         return "ischeck: " + todo.getIscheck() ;
     }
 
-    // todo content 수정(이거도 안됨)
+    // todo content 수정(완료)
     @PutMapping("/{id}")
     @ApiOperation(value = "Todo 수정", notes = "해당 Todo를 수정한다.")
     @ApiResponses({
@@ -81,13 +81,13 @@ public class TodoController {
             @ApiResponse(code = 404, message = "Todo 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public String updateTodo(@PathVariable Long id, @RequestBody Todo content) {
-        Todo todo = todoService.updateTodo(id);
+    public String updateTodo(@PathVariable Long id, @RequestBody TodoRequest todoInfo) {
+        Todo todo = todoService.updateTodo(todoInfo, id);
 
         return "Content : " + todo.getContent() ;
     }
 
-    // todo 삭제
+    // todo 삭제(완료)
     @DeleteMapping("/{id}")
     @ApiOperation(value = "Todo 삭제", notes = "해당 Todo를 삭제한다.")
     public String deleteTodo(@PathVariable Long id) {
