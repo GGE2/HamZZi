@@ -18,6 +18,6 @@ public interface TodoRepository {
     Todo findById(Long todo_id);
 
     Todo findByNickname(String nickname);
-    List<Todo> todoList(String nickname);
+    List<Todo> todoList(String nickname, String datetime);
 
 }

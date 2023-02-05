@@ -11,7 +11,7 @@ public interface TodoService {
     Todo todoData(Long id);
 
     // todo 가지고 오기
-    List<Todo> getTodos(String nickname);
+    List<Todo> getTodos(String nickname, String datetime);
     
     // todo 생성
     Todo createTodo(TodoRequest todoInfo);

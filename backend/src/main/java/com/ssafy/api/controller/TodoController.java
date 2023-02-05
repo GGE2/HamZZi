@@ -28,7 +28,7 @@ public class TodoController {
     TodoRepository todoRepository;
 
     // 작성자와 날짜가 맞는 Todo리스트 조회(작성자는 완료 / 날짜만 맞추면 됨)
-    @GetMapping("/{nickname}")
+    @GetMapping("/{nickname}/{datetime}")
     @ApiOperation(value = "Todo 조회", notes = "Todo 정보를 출력한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -36,8 +36,8 @@ public class TodoController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<?> getTodos(@PathVariable String nickname){
-        List<Todo> todo = todoService.getTodos(nickname);
+    public ResponseEntity<?> getTodos(@PathVariable String nickname, @PathVariable String datetime){
+        List<Todo> todo = todoService.getTodos(nickname, datetime);
 
         return ResponseEntity.status(200).body(todo);
     }

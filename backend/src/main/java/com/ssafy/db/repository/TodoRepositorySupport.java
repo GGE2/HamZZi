@@ -44,13 +44,15 @@ public class TodoRepositorySupport implements TodoRepository {
     }
 
     @Override
-    public List<Todo> todoList(String nickname) {
+    public List<Todo> todoList(String nickname, String datetime) {
         try {
-            return em.createQuery("select t from Todo t Where t.nickname=:nickname", Todo.class)
+            return em.createQuery("select t from Todo t Where t.nickname=:nickname and t.datetime=:datetime", Todo.class)
                     .setParameter("nickname", nickname)
+                    .setParameter("datetime", datetime)
                     .getResultList();
         } catch (NoResultException e){
             return null;
         }
     }
+
 }

@@ -33,8 +33,8 @@ public class TodoServiceImpl implements TodoService{
 
     // todo 리스트 가져오기(작성자와 날짜가 동일할 때)
     @Override
-    public List<Todo> getTodos(String nickname) {
-        List<Todo> todos = todoRepo.todoList(nickname);
+    public List<Todo> getTodos(String nickname, String datetime) {
+        List<Todo> todos = todoRepo.todoList(nickname, datetime);
         List<Todo> todoList = new ArrayList<>();
         todoList.addAll(todos);
 
