@@ -20,7 +20,7 @@ class ApplicationClass : Application(){
 
 
     //url must be end with "/"
-    val BOARD_URL   = "http://3.35.88.23:8001/"
+    val BOARD_URL   = "http://3.35.88.23:8080/"
 
     companion object {
         // 전역변수 문법을 통해 Retrofit 인스턴스를 앱 실행 시 1번만 생성하여 사용 (싱글톤 객체)
