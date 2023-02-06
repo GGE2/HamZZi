@@ -1,12 +1,9 @@
 package com.ssafy.api.service;
 
-import com.ssafy.api.request.QuestFinishDatetimeRequest;
 import com.ssafy.api.request.QuestRequest;
-import com.ssafy.api.request.QuestUserLocationRequest;
 import com.ssafy.api.request.QuestUserRequest;
 import com.ssafy.db.entity.Quest.Quest;
 import com.ssafy.db.entity.Quest.QuestUser;
-import com.ssafy.db.entity.User.User;
 import com.ssafy.db.entity.User.UserProfile;
 import com.ssafy.db.repository.QuestRepository;
 import com.ssafy.db.repository.UserRepository;
@@ -31,12 +28,17 @@ public class QuestServiceImpl implements QuestService {
     
     // quest 생성
     @Override
-    public Quest createQuest(QuestRequest questInfo) {
+    public Quest createQuest(QuestRequest questInfo, int key) {
         Quest quest = new Quest();
 
         quest.setContent(questInfo.getContent());
         quest.setPoint(questInfo.getPoint());
-        quest.setType("daily");
+        if (key == 1) {
+            quest.setType("daily");
+        } else {
+            quest.setType("weekly");
+        }
+
 
         questRepo.saveQuest(quest);
 
@@ -45,18 +47,17 @@ public class QuestServiceImpl implements QuestService {
     
     // questUser 생성
     @Override
-    public QuestUser createQuestUser(QuestUserRequest questUserReq, Long quest_id) {
-        QuestUser questUser = new QuestUser();
-        UserProfile userProfile = userRepo.findByNickname(questUserReq.getUser_nickname());
+    public void createQuestUser(QuestUserRequest questUserReq) {
+        List<Long> quest_ids = getQuestId();
+        for (Long quest_id:quest_ids) {
+            QuestUser questUser = new QuestUser();
+            UserProfile userProfile = userRepo.findByNickname(questUserReq.getUser_nickname());
 
-        //fireBase에서 UserProfile 가져오기
-        questUser.setNickname(userProfile.getNickname());
-        questUser.setQuest_id(quest_id);
-        questUser.setIscheck(false);
-
-        questRepo.saveQuestUser(questUser);
-
-        return questUser;
+            questUser.setNickname(userProfile.getNickname());
+            questUser.setQuest_id(quest_id);
+            questUser.setIscheck(false);
+            questRepo.saveQuestUser(questUser);
+        }
     }
 
     // 위치 등록(수정)
@@ -83,7 +84,6 @@ public class QuestServiceImpl implements QuestService {
         return questUser;
     }
 
-
     // 유저의 QuestList 보여주기
     @Override
     public List<QuestUser> getQuests(String nickname) {
@@ -94,33 +94,39 @@ public class QuestServiceImpl implements QuestService {
         return questList;
     }
 
-//    @Override
-//    public List<Quest> getQuest() {
-//        List<Quest> quest = questRepo.questList();
-//        List<Quest> questList = new ArrayList<>();
-//        return null;
-//    }
+    @Override
+    public List<Quest> getQuest() {
+
+        return questRepo.questList();
+    }
+
+    @Override
+    public List<Long> getQuestId() {
+        List<Long> quest = questRepo.getQuestId();
+        List<Long> questList = new ArrayList<>();
+        questList.addAll(quest);
+        return questList;
+    }
 
     // quest 완료 및 UserProfile point 업데이트
     @Override
-    public QuestUser checkUpdateQuest(String nickname, Long questUser_id, Long quest_id) {
+    public QuestUser checkUpdateQuest(Long questUser_id) {
         QuestUser questUser = questRepo.findQuestUserById(questUser_id);
         Boolean isCheck = questUser.getIscheck();
         questUser.setIscheck(!isCheck);
-        questPointAssignment(nickname, quest_id);
+//        questPointAssignment(nickname, quest_id);
         questRepo.saveQuestUser(questUser);
         return questUser;
     }
 
     // UserProfile point 업데이트
     @Override
-    public UserProfile questPointAssignment(String nickname, Long quest_id) {
+    public void questPointAssignment(String nickname, Long quest_id) {
         UserProfile userProfile = userRepo.findByNickname(nickname);
         int nowPoint = userProfile.getPoint();
         int questPoint = questRepo.findById(quest_id).getPoint();
 
         userProfile.setPoint(nowPoint + questPoint);
-        return userProfile;
     }
 
 }

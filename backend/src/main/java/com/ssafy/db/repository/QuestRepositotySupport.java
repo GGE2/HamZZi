@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -43,6 +44,12 @@ public class QuestRepositotySupport implements QuestRepository {
     @Override
     public List<Quest> questList() {
         return em.createQuery("select q from Quest q", Quest.class)
+                .getResultList();
+    }
+
+    @Override
+    public List<Long> getQuestId() {
+        return em.createQuery("select q.quest_id from Quest q", Long.class)
                 .getResultList();
     }
 }
