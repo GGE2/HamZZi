@@ -87,7 +87,8 @@ public class QuestCotroller {
     }
 
     // Quest 위치 등록 / 수정
-    @PutMapping("/location/{latitude}/{longitude}")
+    @PutMapping("/location")
+    //Requestparam으로 /{latitude}/{longitude} 이거 두개 바꾸기
     @ApiOperation(value = "Quest 위치등록", notes = "해당 Quest를 위치등록한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -95,7 +96,7 @@ public class QuestCotroller {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public String questregisterLocation(String nickname, @PathVariable int latitude, @PathVariable int longitude) {
+    public String questregisterLocation(String nickname, @RequestParam int latitude, @RequestParam int longitude) {
         UserProfile userProfile = questService.registerLocation(nickname, latitude, longitude);
 
         return "OWNER: " + userProfile.getNickname() + " Latitude: " + userProfile.getLatitude() + " Longitude: " + userProfile.getLongitude();

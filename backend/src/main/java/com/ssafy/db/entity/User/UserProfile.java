@@ -25,8 +25,8 @@ public class UserProfile {
     private int rest_point;
 
     // 위도
-    private int latitude;
+    private double latitude;
 
     // 경도
-    private int longitude;
+    private double longitude;
 }
