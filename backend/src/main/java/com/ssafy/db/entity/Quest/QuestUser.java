@@ -18,7 +18,7 @@ public class QuestUser {
     @Column(name="quest_id")
     private Long quest_id;      // 이걸로 quest id 뽑아오기
 
-    @Column(name="user_nicknema")
+    @Column(name="user_nickname")
     private String nickname;
 
     // 완료 여부
@@ -26,11 +26,6 @@ public class QuestUser {
     @Column(nullable = false)
     private Boolean ischeck;
 
-//    // 위도
-//    private int latitude;
-//
-//    // 경도
-//    private int longitude;
 
     // 완료 시간
     private String datetime;
