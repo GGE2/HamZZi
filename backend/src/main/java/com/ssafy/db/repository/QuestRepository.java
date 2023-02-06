@@ -17,13 +17,13 @@ public interface QuestRepository {
     // Read
     Quest findById(Long quest_id);
 
-    QuestUser findQuestUserByQuestId(Long quest_id);
+    // quest_id 받아오기
+    Long questId();
 
-//    QuestRequirement findQuestReqById(Long questReq_id);
 
     QuestUser findQuestUserById(Long questUser_id);
-    QuestUser findQuestUserByNickname(String nickname);
 
     List<QuestUser> questUserList(String nickname);
 
+//    List<Quest> questList();
 }

@@ -36,17 +36,19 @@ public class QuestServiceImpl implements QuestService {
 
         quest.setContent(questInfo.getContent());
         quest.setPoint(questInfo.getPoint());
+        quest.setType("daily");
 
         questRepo.saveQuest(quest);
 
         return quest;
     }
     
-    // questuser 생성
+    // questUser 생성
     @Override
-    public QuestUser createQuestUser(QuestUserRequest questUserReq, Long quest_id) {
+    public QuestUser createQuestUser(QuestUserRequest questUserReq) {
         QuestUser questUser = new QuestUser();
         UserProfile userProfile = userRepo.findByNickname(questUserReq.getUser_nickname());
+        Long quest_id = questRepo.questId();
 
         //fireBase에서 UserProfile 가져오기
         questUser.setNickname(userProfile.getNickname());
@@ -57,6 +59,20 @@ public class QuestServiceImpl implements QuestService {
 
         return questUser;
     }
+//    @Override
+//    public QuestUser createQuestUser(QuestUserRequest questUserReq, Long quest_id) {
+//        QuestUser questUser = new QuestUser();
+//        UserProfile userProfile = userRepo.findByNickname(questUserReq.getUser_nickname());
+//
+//        //fireBase에서 UserProfile 가져오기
+//        questUser.setNickname(userProfile.getNickname());
+//        questUser.setQuest_id(quest_id);
+//        questUser.setIscheck(false);
+//
+//        questRepo.saveQuestUser(questUser);
+//
+//        return questUser;
+//    }
 
     // 위치 등록(수정)
     @Override
@@ -114,4 +130,5 @@ public class QuestServiceImpl implements QuestService {
         userProfile.setPoint(nowPoint + questPoint);
         return userProfile;
     }
+
 }

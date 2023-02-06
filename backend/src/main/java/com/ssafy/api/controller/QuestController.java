@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+//@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("api/quest")
 @RequiredArgsConstructor
@@ -56,7 +56,7 @@ public class QuestController {
     }
 
     // User에게 Quest 부여
-    @PostMapping("/user/{quest_id}")
+    @PostMapping("/user")
     @ApiOperation(value = "Quest를 User에게 부여", notes = "Quest를 User에게 부여한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -64,14 +64,17 @@ public class QuestController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public String createQuestUser(@RequestBody QuestUserRequest questUserReq, @PathVariable Long quest_id) {
-        QuestUser quest = questService.createQuestUser(questUserReq, quest_id);
+//    public String createQuestUser(@RequestBody QuestUserRequest questUserReq, @PathVariable Long quest_id) {
+    public String createQuestUser(@RequestBody QuestUserRequest questUserReq) {
+        QuestUser quest = questService.createQuestUser(questUserReq);
+
+//        QuestUser quest = questService.createQuestUser(questUserReq, quest_id);
 
         return "ID: " + quest.getQuestUser_id() + " OWNER: " +  quest.getNickname() + " QUEST: " + quest.getQuest_id() ;
     }
 
     // Quest IsCheck 바꾸고 계산식 추가
-    @PutMapping("/{questUser_id}")
+    @PutMapping("/check")
     @ApiOperation(value = "Quest 완료", notes = "해당 Quest를 완료한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -79,7 +82,7 @@ public class QuestController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public String checkQuest(String nickname, Long quest_id, @PathVariable Long questUser_id) {
+    public String checkQuest(@RequestParam String nickname, @RequestParam Long questUser_id, @RequestParam Long quest_id) {
         QuestUser quest = questService.checkUpdateQuest(nickname, quest_id, questUser_id);
 
         return "IsCheck: " + quest.getIscheck() ;
