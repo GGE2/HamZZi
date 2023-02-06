@@ -137,7 +137,7 @@ public class GuildController {
     }
 
     @GetMapping("/user")
-    @ApiOperation(value = "길드 세부정보-관리자", notes = "길드 관리자를 출력한다")
+    @ApiOperation(value = "사용자의 길드 정보", notes = "현재 사용자의 길드 관련 정보")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 401, message = "인증 실패"),
