@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Ham from "./mainpages/Ham";
 import Board from "./mainpages/Board";
+import axios from "axios";
 import "../styles/Main.css";
 
 import {
@@ -19,18 +20,7 @@ import { useDispatch } from "react-redux";
 import { setCredentials } from "../authSlice";
 
 const Main = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    const email = localStorage.getItem("user");
-    if (email !== null) {
-      dispatch(
-        setCredentials({
-          user: email,
-        })
-      );
-    }
-  });
+  useEffect(() => {}, []);
 
   return (
     <div className="app">
@@ -48,7 +38,7 @@ const Main = () => {
               <FcSearch size={"100%"} />
             </button>
             <button>
-              <BsBookmarkStarFill color={'orange'} size={"100%"} />
+              <BsBookmarkStarFill color={"orange"} size={"100%"} />
             </button>
             <button>
               <FcWebcam size={"100%"} />
@@ -70,7 +60,6 @@ const Main = () => {
             {/* <button>
               <BsBookmarkStar color={'orange'} size={"100%"} />
             </button> */}
-            
           </div>
         </div>
       </div>

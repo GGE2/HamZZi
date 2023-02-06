@@ -1,21 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import HamExp from "./statuspages/HamExp";
 import HamLevel from "./statuspages/HamLevel";
 import HamName from "./statuspages/HamName";
 import "../../../styles/HamStatus.css";
 import Chart from "react-apexcharts";
 import { IoStatsChart } from "react-icons/io5";
+import { useSelector } from "react-redux";
+import { selectCurrentHamStat } from "./../../../hamStatSlice";
+import StatCtrl from "./statuspages/StatCtrl";
 
 const HamStatus = () => {
-  const [stat, setStat] = useState({
-    physical: 10,
-    artistic: 20,
-    intelligent: 30,
-    inactive: 20,
-    active: 10,
-    etc: 0,
-  });
-
+  const hamstat = useSelector(selectCurrentHamStat);
+  const [isOpen, setIsOpen] = useState(false);
+  const outside = useRef();
   const state = {
     options: {
       colors: ["#3f8744"],
@@ -44,45 +41,57 @@ const HamStatus = () => {
       {
         // id: 'stat',
         data: [
-          stat.physical,
-          stat.artistic,
-          stat.intelligent,
-          stat.inactive,
-          stat.active,
-          stat.etc,
+          hamstat.physical,
+          hamstat.artistic,
+          hamstat.intelligent,
+          hamstat.inactive,
+          hamstat.active,
+          hamstat.etc,
         ],
       },
     ],
   };
 
-  const qwe = () => {
-    console.log(123);
+  const showStat = () => {
+    setIsOpen(true);
   };
 
   return (
-    <div className="HamStatus">
-      <HamName />
-      {/* <ApexChart type="radar"  /> */}
-      <div>
-        <div className="Expbar">
-          <HamExp />
-          <HamLevel />
+    <>
+      <div className="HamStatus">
+        <HamName />
+        {/* <ApexChart type="radar"  /> */}
+        <div>
+          <div className="Expbar">
+            <HamExp />
+            <HamLevel />
+          </div>
+        </div>
+
+        <div className="HamChart">
+          <Chart
+            options={state.options}
+            series={state.series}
+            type="radar"
+            height={"100%"}
+          />
+          <button className="StatButton">
+            <IoStatsChart onClick={showStat} size={"100%"} color={"green"} />
+            {isOpen && (
+              <div
+                className="Modal"
+                ref={outside}
+                onClick={(e) => {
+                  if (e.target === outside.current) setIsOpen(false);
+                }}
+              >
+                <StatCtrl />
+              </div>
+            )}
+          </button>
         </div>
       </div>
-
-      <div className="HamChart">
-        <Chart
-          options={state.options}
-          series={state.series}
-          type="radar"
-          height={"100%"}
-          onClick={qwe}
-        />
-        <button className="StatButton">
-          <IoStatsChart size={'100%'} color={'green'}/>
-        </button>
-      </div>
-    </div>
+    </>
   );
 };
 

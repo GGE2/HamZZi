@@ -6,8 +6,11 @@ import Todos from "./boardpages/Todos";
 import Guild from "./boardpages/Guild";
 import "../../styles/Board.css";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { getCurrentStat } from "./../../hamStatSlice";
 
 const Board = () => {
+  const [name, setName] = useState("");
   const [show, setShow] = useState({
     todoShow: true,
     questShow: false,
@@ -69,28 +72,60 @@ const Board = () => {
     });
   };
   const email = JSON.parse(localStorage.getItem("user"));
-
+  const nickname = localStorage.getItem("nickname");
+  const dispatch = useDispatch();
 
   const getProfile = () => {
     axios
       .get(`http://3.35.88.23:8080/api/user/mypage?email=${email}`)
       .then((res) => {
-        console.log(res.data.nickname);
+        console.log(res.data);
+        setName(res.data.nickname);
         localStorage.setItem("nickname", res.data.nickname);
       })
       .catch((err) => {
         console.log(err);
       });
   };
+  const getPetInfo = () => {
+    axios
+      .get(`http://3.35.88.23:8080/api/pet/${nickname}`)
+      .then((res) => {
+        console.log(res.data[2]);
+        const physical = res.data[2].physical;
+        const artistic = res.data[2].artistic;
+        const intelligent = res.data[2].intelligent;
+        const inactive = res.data[2].inactive;
+        const energetic = res.data[2].energetic;
+        const etc = res.data[2].etc;
+        const data = {
+          physical,
+          artistic,
+          intelligent,
+          inactive,
+          energetic,
+          etc,
+        };
+        dispatch(getCurrentStat(data));
+        console.log(data);
+        console.log("DISPATCHED!!");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
     getProfile();
   }, []);
 
-  
+  useEffect(() => {
+    getPetInfo();
+  }, [name]);
 
   return (
     <>
-      {show.todoShow && <Todos/>}
+      {show.todoShow && <Todos />}
       {/* {show.questShow && <Quests />} */}
       {show.guildShow && <Guild />}
       {show.friendShow && <Friends />}
@@ -122,9 +157,7 @@ const Board = () => {
         >
           Friend
         </button>
-        <button onClick={onClickProfile}>
-          Profile
-        </button>
+        <button onClick={onClickProfile}>Profile</button>
       </div>
     </>
   );

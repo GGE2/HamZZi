@@ -8,11 +8,14 @@ import axios from "axios";
 
 import "react-datepicker/dist/react-datepicker.css";
 import "../../../styles/Todos.css";
+import LoadingModal from "../../../components/LoadingModal";
 
 const Todos = () => {
   const no = useRef(1);
   const [todos, setTodos] = useState([]);
   const [calDate, setCaldate] = useState();
+  // 로딩 tracking
+  const [isLoading, setIsLoading] = useState(false);
 
   // 달력 열기
   const [startDate, setStartDate] = useState(new Date());
@@ -33,12 +36,12 @@ const Todos = () => {
     e.preventDefault();
     setIsOpen(!isOpen);
   };
-  
+
   // 처음 렌더링
   useEffect(() => {
     getTodo();
     setCaldate(new Date(+d + TIME_ZONE).toISOString().split("T")[0]);
-    console.log(todos)
+    console.log(todos);
   }, []);
 
   // useEffect(() => {
@@ -46,12 +49,10 @@ const Todos = () => {
   //   console.log(todos)
   // }, [todos]);
 
-
   // 달력 날짜가 바뀔 때마다 실행
   useEffect(() => {
     setCaldate(new Date(+d + TIME_ZONE).toISOString().split("T")[0]);
   }, [startDate]);
-
 
   // function getToday() {
   //   var date = new Date();
@@ -62,34 +63,43 @@ const Todos = () => {
   //   return year + "-" + month + "-" + day;
   // }
 
-
-   // db에서 todolist 가져오기
-   const getTodo = () => {
-      axios.get("http://3.35.88.23:8080/api/todo").then((res) => {
-        console.log(res)
+  // db에서 todolist 가져오기
+  const getTodo = () => {
+    setIsLoading(true);
+    axios
+      .get("http://3.35.88.23:8080/api/todo")
+      .then((res) => {
+        console.log(res);
         console.log(res.data);
         setTodos(res.data);
+        setIsLoading(false);
+      })
+      .catch(() => {
+        alert("Todo 리스트 불러오기 실패하였습니다");
+        setIsLoading(false);
       });
   };
 
   const onAdd = (text) => {
     setCaldate(new Date(+d + TIME_ZONE).toISOString().split("T")[0]);
-    axios.post("http://3.35.88.23:8080/api/todo", {
-      content: text,
-      datetime: calDate,
-    }).then((res)=>console.log(res))
+    axios
+      .post("http://3.35.88.23:8080/api/todo", {
+        content: text,
+        datetime: calDate,
+      })
+      .then((res) => console.log(res));
     // console.log(dummy)
-    getTodo()
+    getTodo();
   };
 
   const onDel = (id) => {
     axios.delete(`http://3.35.88.23:8080/api/todo/${id}`);
-    getTodo()
+    getTodo();
   };
 
   const onToggle = (id) => {
     axios.put(`http://3.35.88.23:8080/api/todo/check/${id}`);
-    getTodo()
+    getTodo();
     setTodos(
       todos.map((todo) =>
         todo.todo_id === id
@@ -104,27 +114,27 @@ const Todos = () => {
 
   // 방명록 수정
   const onEdit = (id, newContent, ischeck, datetime) => {
-    axios.put(`http://3.35.88.23:8080/api/todo/${id}`, {
-      todo_id: id,
-      content: newContent,
-      datetime: datetime,
-      ischeck: ischeck,
-    })
-    .then(res=> (res));
+    axios
+      .put(`http://3.35.88.23:8080/api/todo/${id}`, {
+        todo_id: id,
+        content: newContent,
+        datetime: datetime,
+        ischeck: ischeck,
+      })
+      .then((res) => res);
     // getTodo()
     setTodos(
       todos.map((todo) =>
-      todo.todo_id === id ? { ...todo, content: newContent } : todo
+        todo.todo_id === id ? { ...todo, content: newContent } : todo
       )
     );
   };
-
 
   return (
     <>
       <Header data={"Todo"} type={"Todo"} />
       <div className="MyBody">
-      <TodoInput onAdd={onAdd} />
+        <TodoInput onAdd={onAdd} />
         <button onClick={handleClick} className="Calbutton">
           <FcCalendar />
         </button>
@@ -132,14 +142,17 @@ const Todos = () => {
         {isOpen && (
           <DatePicker selected={startDate} onChange={handleChange} inline />
         )}
-        <TodoList
-          Caldate={calDate}
-          todos={todos}
-          onDel={onDel}
-          onToggle={onToggle}
-          onEdit={onEdit}
-        />
-        
+        {isLoading ? (
+          <LoadingModal />
+        ) : (
+          <TodoList
+            Caldate={calDate}
+            todos={todos}
+            onDel={onDel}
+            onToggle={onToggle}
+            onEdit={onEdit}
+          />
+        )}
       </div>
     </>
   );

@@ -1,16 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
 const hamStatSlice = createSlice({
   name: "hamStat",
   initialState: {
-    physical: 10,
-    artistic: 20,
-    intelligent: 30,
-    inactive: 20,
-    active: 10,
+    physical: 0,
+    artistic: 0,
+    intelligent: 0,
+    inactive: 0,
+    active: 0,
     etc: 0,
   },
   reducers: {
+    getCurrentStat: (state, action) => {
+      const data = action.payload;
+      state.physical = data.physical;
+      state.artistic = data.artistic;
+      state.intelligent = data.intelligent;
+      state.inactive = data.inactive;
+      state.active = data.active;
+      state.etc = data.etc;
+    },
+
     increasePhysical: (state, action) => {
       state.physical += 1;
     },
@@ -33,6 +44,7 @@ const hamStatSlice = createSlice({
 });
 
 export const {
+  getCurrentStat,
   increasePhysical,
   increaseArtistic,
   increaseIntelligent,
