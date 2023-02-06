@@ -17,13 +17,9 @@ public interface QuestRepository {
     // Read
     Quest findById(Long quest_id);
 
-    // quest_id 받아오기
-    Long questId();
-
-
     QuestUser findQuestUserById(Long questUser_id);
 
     List<QuestUser> questUserList(String nickname);
 
-//    List<Quest> questList();
+    List<Quest> questList();
 }

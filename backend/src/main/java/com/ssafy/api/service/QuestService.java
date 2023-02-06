@@ -17,9 +17,7 @@ public interface QuestService {
     Quest createQuest(QuestRequest questInfo);
 
     // questUser 생성
-    QuestUser createQuestUser(QuestUserRequest questUserReq);
-
-//    QuestUser createQuestUser(QuestUserRequest questUserReq, Long quest_id);
+    QuestUser createQuestUser(QuestUserRequest questUserReq, Long quest_id);
 
     // 위치 등록
     UserProfile registerLocation(String nickname, double latitude, double longitude);

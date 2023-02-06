@@ -28,13 +28,6 @@ public class QuestRepositotySupport implements QuestRepository {
         return em.find(Quest.class, quest_id);
     }
 
-    // quest_id 받아오기
-    @Override
-    public Long questId() {
-        Quest quest = new Quest();
-        return quest.getQuest_id();
-    }
-
     @Override
     public QuestUser findQuestUserById(Long questUser_id) {
         return em.find(QuestUser.class, questUser_id);
@@ -44,6 +37,12 @@ public class QuestRepositotySupport implements QuestRepository {
     public List<QuestUser> questUserList(String nickname) {
         return em.createQuery("select qu from QuestUser qu where qu.nickname=:nickname", QuestUser.class)
                 .setParameter("nickname", nickname)
+                .getResultList();
+    }
+
+    @Override
+    public List<Quest> questList() {
+        return em.createQuery("select q from Quest q", Quest.class)
                 .getResultList();
     }
 }
