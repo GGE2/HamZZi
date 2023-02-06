@@ -94,11 +94,12 @@ public class QuestServiceImpl implements QuestService {
         return questList;
     }
 
-    @Override
-    public List<Quest> getQuest() {
-        List<Quest> quest = questRepo.questList();
-        return null;
-    }
+//    @Override
+//    public List<Quest> getQuest() {
+//        List<Quest> quest = questRepo.questList();
+//        List<Quest> questList = new ArrayList<>();
+//        return null;
+//    }
 
     // quest 완료 및 UserProfile point 업데이트
     @Override

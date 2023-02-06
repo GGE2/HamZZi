@@ -29,7 +29,7 @@ public interface QuestService {
     List<QuestUser> getQuests(String nickname);
 
     // Quest List
-    List<Quest> getQuest();
+//    List<Quest> getQuest();
 
     // Quest 완료 확인하기
     QuestUser checkUpdateQuest(String nickname, Long questUser_id, Long quest_id);
