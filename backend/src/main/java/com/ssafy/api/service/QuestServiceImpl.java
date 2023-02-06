@@ -94,6 +94,12 @@ public class QuestServiceImpl implements QuestService {
         return questList;
     }
 
+    @Override
+    public List<Quest> getQuest() {
+        List<Quest> quest = questRepo.questList();
+        return null;
+    }
+
     // quest 완료 및 UserProfile point 업데이트
     @Override
     public QuestUser checkUpdateQuest(String nickname, Long questUser_id, Long quest_id) {

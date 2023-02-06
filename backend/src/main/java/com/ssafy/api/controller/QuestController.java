@@ -64,7 +64,7 @@ public class QuestController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public String createQuestUser(@RequestBody QuestUserRequest questUserReq, @PathVariable Long quest_id) {
+    public String createQuestUser(@RequestBody QuestUserRequest questUserReq, @RequestBody Long quest_id) {
         QuestUser quest = questService.createQuestUser(questUserReq, quest_id);
 
         return "ID: " + quest.getQuestUser_id() + " OWNER: " +  quest.getNickname() + " QUEST: " + quest.getQuest_id() ;

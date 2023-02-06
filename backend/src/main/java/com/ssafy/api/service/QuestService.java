@@ -25,8 +25,11 @@ public interface QuestService {
     // 시간 등록
     QuestUser registerFinalDatetime(Long questUser_id, String Finish_datetime);
 
-    // Quest 보여주기
+    // User의 Quest 보여주기
     List<QuestUser> getQuests(String nickname);
+
+    // Quest List
+    List<Quest> getQuest();
 
     // Quest 완료 확인하기
     QuestUser checkUpdateQuest(String nickname, Long questUser_id, Long quest_id);
