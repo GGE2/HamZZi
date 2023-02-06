@@ -14,12 +14,13 @@ import com.team.teamrestructuring.dto.Place
 import com.team.teamrestructuring.dto.ResultSearchPlace
 import com.team.teamrestructuring.service.LoginService
 import com.team.teamrestructuring.service.MyPageService
+import com.team.teamrestructuring.util.CreateConfirmDialog
 import com.team.teamrestructuring.view.adapters.RegisterPlaceAdapter
 import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
 
 private const val TAG = "Register_지훈"
-class RegisterPlaceActivity : AppCompatActivity() {
+class RegisterPlaceActivity : AppCompatActivity() , CreateConfirmDialog.CreateConfirmListener{
     private lateinit var binding:ActivityRegisterPlaceBinding
     private lateinit var radapter:RegisterPlaceAdapter
 
@@ -32,6 +33,13 @@ class RegisterPlaceActivity : AppCompatActivity() {
         binding = ActivityRegisterPlaceBinding.inflate(layoutInflater)
         setContentView(binding.root)
         radapter = RegisterPlaceAdapter(emptyList())
+        radapter.setOnRoomClickListener(object : RegisterPlaceAdapter.OnRegisterClickListener{
+            override fun onRegisterClickListener(view: View, position: Int, data: Place) {
+                val dialog = CreateConfirmDialog(this@RegisterPlaceActivity,data)
+                dialog?.show(supportFragmentManager,"ConfirmDialog")
+            }
+
+        })
         init()
         binding.buttonRegisterPlace.setOnClickListener {
             searchPlace(binding.edittextRegisterPlace.text.toString())
@@ -84,6 +92,10 @@ class RegisterPlaceActivity : AppCompatActivity() {
                 }
 
             })
-    }   
+    }
+
+    override fun onYesButtonClick() {
+        finish()
+    }
 
 }

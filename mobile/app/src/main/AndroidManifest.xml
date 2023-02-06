@@ -33,14 +33,14 @@
 
         <activity
             android:name=".view.activities.CreateUserNickNameActivity"
-            android:exported="false">
+            android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".view.activities.CreatePetActivity"
-            android:exported="false">
+            android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -49,6 +49,8 @@
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/NATIVE_APP_KEY" />
+
+
 
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
@@ -85,15 +87,6 @@
             android:name=".view.activities.LoginActivity"
             android:exported="true">
 
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".view.activities.HomeActivity"
-            android:exported="true"
-            android:immersive="true">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -104,6 +97,20 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <activity
+            android:name=".view.activities.HomeActivity"
+            android:exported="true"
+            android:immersive="true">
+
+
+
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+
+
     </application>
 
 </manifest>

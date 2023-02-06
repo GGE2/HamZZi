@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowInsetsController
@@ -12,6 +13,7 @@ import com.team.teamrestructuring.databinding.ActivityCreatePetBinding
 import com.team.teamrestructuring.util.CreatePetDialog
 import com.team.teamrestructuring.util.CreateUserNickNameDialog
 
+private const val TAG = "CreatePet_지훈"
 class CreatePetActivity : AppCompatActivity(),CreatePetDialog.CreatePetDialogInterface{
     lateinit var binding:ActivityCreatePetBinding
 
@@ -24,9 +26,10 @@ class CreatePetActivity : AppCompatActivity(),CreatePetDialog.CreatePetDialogInt
     }
 
     override fun onYesButtonClick() {
-        val intent = Intent(this,CreateUserNickNameDialog::class.java).apply {
+        val intent = Intent(this,HomeActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         }
+        Log.d(TAG, "onYesButtonClick: ")
         startActivity(intent)
     }
 

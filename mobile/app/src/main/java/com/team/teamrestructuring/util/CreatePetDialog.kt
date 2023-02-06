@@ -39,7 +39,6 @@ class CreatePetDialog(
 
         binding.buttonPetCreate.setOnClickListener {
             createPetDialogInterface?.onYesButtonClick()
-            dismiss()
         }
 
         return view

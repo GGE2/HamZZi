@@ -14,6 +14,10 @@ class RegisterPlaceAdapter(var datas:List<Place>) : RecyclerView.Adapter<Registe
         fun bindData(data:Place){
             binding.itemRegisterPlaceName.text= data.place_name
             binding.itemRegisterPlaceAddress.text = data.address_name
+
+            binding.itemRegisterPlaceApply.setOnClickListener {
+                registerClickListener.onRegisterClickListener(it,layoutPosition,data)
+            }
         }
 
     }
@@ -34,7 +38,7 @@ class RegisterPlaceAdapter(var datas:List<Place>) : RecyclerView.Adapter<Registe
     }
 
     interface OnRegisterClickListener{
-        fun onRegisterClickListener(view: View, position: Int)
+        fun onRegisterClickListener(view: View, position: Int,data: Place)
     }
     fun setOnRoomClickListener(registerClickListener:OnRegisterClickListener){
         this.registerClickListener = registerClickListener
