@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Api(value = "pet API", tags = {"Pet"})
@@ -53,17 +54,22 @@ public class PetController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     /* Pet-조회 API: 로그인한 사용자의 활성화된 펫을 조회한다 */
-    public String getActivatePet(@PathVariable String nickname) {
+    public List<Object> getActivatePet(@PathVariable String nickname) {
 
         Pet pet = petService.ActivatePet(nickname);
-        if(pet == null) {return "ERROR: NO Activated Pet";}
+        if(pet == null) {return null;}
 
         // PetStat 과 PetInfo도 받아오자.
         Long pet_id = pet.getPet_id();
         PetInfo petInfo = petService.petInfoData(pet_id);
         PetStat petStat = petService.petStatData(pet_id);
 
-        return "NAME: " + pet.getPet_name() + " OWNER: " + pet.getNickname() ;
+        List<Object> list = new ArrayList<>();
+        list.add(pet);
+        list.add(petInfo);
+        list.add(petStat);
+
+        return list;
     }
 
     @GetMapping("trophy/{nickname}")
