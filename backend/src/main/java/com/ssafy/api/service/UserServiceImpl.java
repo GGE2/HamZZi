@@ -39,6 +39,7 @@ public class UserServiceImpl implements UserService {
         UserProfile userProfile = new UserProfile();
 
         userProfile.setNickname(nickname);
+        userProfile.setRest_point(3);
         user.setUserProfile(userProfile);
 
         userRepo.saveUserProfile(userProfile);
