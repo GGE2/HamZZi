@@ -95,6 +95,12 @@ public class GuildServiceImpl implements GuildService {
     }
 
     @Override
+    public GuildUser getGuildUser(String nickname) {
+        GuildUser guildUser = guildRepo.findByNickname(nickname);
+        return guildUser;
+    }
+
+    @Override
     public Long getUserGuild(String nickname) {
         GuildUser guildUser = guildRepo.findByNickname(nickname);
         return guildUser.getGuild().getGuild_id();

@@ -136,6 +136,19 @@ public class GuildController {
         return list;
     }
 
+    @GetMapping("/user")
+    @ApiOperation(value = "길드 세부정보-관리자", notes = "길드 관리자를 출력한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public GuildUser getGuildUser(@RequestParam String nickname) {
+        GuildUser guildUser = guildService.getGuildUser(nickname);
+        return guildUser;
+    }
+
     //어드민 권한이 없으면 사용할 수 없는 기능
     /* ADMIN ONLY */ ///////////////////////////////////////////////////////////////////////////////
     /* ADMIN 임명: 같은 길드의 일반 길드원을 admin에 임명한다 */

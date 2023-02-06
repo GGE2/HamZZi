@@ -25,6 +25,8 @@ public interface GuildService {
     boolean joinGuild(Long guild_id, String nickname);
     boolean leaveGuild(Long guild_id, String nickname);
 
+    GuildUser getGuildUser(String nickname);
+
     Long getUserGuild(String nickname);
 
     boolean quitAdmin(String nickname);
