@@ -22,4 +22,6 @@ public interface QuestRepository {
     List<QuestUser> questUserList(String nickname);
 
     List<Quest> questList();
+
+    List<Long> getQuestId();
 }

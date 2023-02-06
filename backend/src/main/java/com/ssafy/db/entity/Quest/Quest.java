@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class Quest {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long quest_id;
 
     @Column(nullable = false)
