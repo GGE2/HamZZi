@@ -11,7 +11,8 @@ interface LoginService {
     @GET("api/kakao/app")
     fun selectKakaoUser(@Query("code")code:String):Call<Map<String,Any>>
     @GET("api/user/uid/{email}")
-    fun isSignUser(@Path("email") email : String) : Call<User>
-
+    fun isSignUser(@Path("email") email : String) : Call<Boolean>
+    @GET("api/user/info/{uid}")
+    fun getUserInfo(@Path("uid") uid:String) : Call<User>
 
 }

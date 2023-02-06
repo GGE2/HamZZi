@@ -26,7 +26,6 @@ public class UserProfile {
 
     // 위도
     private double latitude;
-
     // 경도
     private double longitude;
 }

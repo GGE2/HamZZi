@@ -14,24 +14,33 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat.getSystemService
 import com.team.teamrestructuring.R
 import com.team.teamrestructuring.databinding.FragmentHomeBinding
+import com.team.teamrestructuring.dto.User
+import com.team.teamrestructuring.service.LoginService
+import com.team.teamrestructuring.util.ApplicationClass
+import com.team.teamrestructuring.util.CreateFriendDialog
+import com.team.teamrestructuring.util.CreatePetDialog
+import com.team.teamrestructuring.util.CreatePetStatDialog
 import com.team.teamrestructuring.view.activities.GuildActivity
 import com.team.teamrestructuring.view.activities.HomeActivity
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+private const val TAG = "HomeFragment_지"
 
 /**
  * A simple [Fragment] subclass.
  * Use the [HomeFragment.newInstance] factory method to
- * create an instance of this fragment.
+ *훈
  */
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(),CreateFriendDialog.CreateFriendDialogInterface,CreatePetStatDialog.CreatePetDialogInterface{
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -39,6 +48,7 @@ class HomeFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
     }
+    private lateinit var createFriendDialog: CreateFriendDialog
     private lateinit var binding : FragmentHomeBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,15 +58,58 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+    override fun onClick() {
+
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
         binding.buttonHomeFind.setOnClickListener {
-            showDialog()
+            val dialog = CreateFriendDialog(this@HomeFragment)
+            dialog.isCancelable = false
+            dialog.show(activity?.supportFragmentManager!!,"CreateFriendDialog")
+        }
+
+        binding.buttonHomeStat.setOnClickListener {
+            val dialog = CreatePetStatDialog(this@HomeFragment)
+            dialog.isCancelable = false
+            dialog.show(activity?.supportFragmentManager!!,"CreatePetStatDialog")
         }
         init()
     }
+
+
     private fun init(){
         createIntent()
+        getCurrentUserInfo()
+    }
+
+    /**
+     * 현재 접속한 유저의 정보를 저장
+     */
+
+    private fun getCurrentUserInfo(){
+        val service = ApplicationClass.retrofit.create(LoginService::class.java)
+            .getUserInfo(ApplicationClass.currentUser.uid).enqueue(object:Callback<User>{
+                override fun onResponse(call: Call<User>, response: Response<User>) {
+                    if(response.isSuccessful){
+                        val data = response.body()!!
+                        ApplicationClass.currentUser = data
+                        setPetStat()
+                    }
+                }
+
+                override fun onFailure(call: Call<User>, t: Throwable) {
+                    Log.d(TAG, "onFailure: ${t.message}")
+                }
+
+            })
+    }
+    
+    private fun setPetStat(){
+        //binding.textviewHomeName.text = ApplicationClass.currentUser.userProfile.user_nickname
     }
 
     /**
@@ -71,34 +124,6 @@ class HomeFragment : Fragment() {
             val intent = Intent(activity,GuildActivity::class.java)
             startActivity(intent)
         }
-    }
-
-
-    /**
-     * 친구추가 버튼 클릭시 Dialog 창 생성
-     */
-    private fun showDialog(){
-        var builder = AlertDialog.Builder(context,androidx.appcompat.R.style.AlertDialog_AppCompat)
-        var view = LayoutInflater.from(context).inflate(R.layout.dialog_create_find_friend,binding.root.findViewById(R.id.alertdialog_main_findfriend))
-        builder.setView(view)
-
-        val alertDialog = builder.create()
-
-        val display = getSystemService(requireContext(),WindowManager::class.java)?.defaultDisplay
-        var point = Point()
-        display!!.getSize(point)
-        var pointWidth = (point.x * 0.9).toInt()
-        var pointHeight = (point.y * 0.4).toInt()
-
-        view.findViewById<AppCompatButton>(R.id.button_dialog_cancle).setOnClickListener {
-            alertDialog.dismiss()
-        }
-        alertDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        alertDialog.window!!.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
-        alertDialog.setCancelable(false)
-        alertDialog.window!!.attributes.width = pointWidth
-        alertDialog.window!!.attributes.height = pointHeight
-        alertDialog.show()
     }
 
 
@@ -122,4 +147,10 @@ class HomeFragment : Fragment() {
                 }
             }
     }
+
+    override fun onYesButtonClick() {
+
+    }
+
+
 }

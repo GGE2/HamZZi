@@ -16,7 +16,6 @@ import com.team.teamrestructuring.view.activities.LoginActivity
 private const val TAG : String = "로그/SessionCallback_지훈"
 class SessionCallback(val context:LoginActivity) : ISessionCallback{
     override fun onSessionOpened() {
-        Toast.makeText(ApplicationClass.instance, "Successfully logged in to Kakao.Now creating or updating a Firebase User.", Toast.LENGTH_LONG).show()
         UserManagement.getInstance().me(object : MeV2ResponseCallback(){
             override fun onSuccess(result: MeV2Response?) {
                 if(result != null){

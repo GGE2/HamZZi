@@ -63,8 +63,6 @@ public class UserRepositorySupport implements UserRepository {
     }
 
 
-
-
     @Override
     public String findNicknameById(Long user_id) {
         UserProfile userProfile = em.createQuery("select u.userProfile from User u where u.user_id=:user_id", UserProfile.class)

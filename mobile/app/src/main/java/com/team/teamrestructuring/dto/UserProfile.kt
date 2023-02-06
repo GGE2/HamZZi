@@ -14,7 +14,15 @@ data class UserProfile(
 
     @Expose
     @SerializedName("rest_point")
-    var rest_point:Int
+    var rest_point:Int,
+
+    @Expose
+    @SerializedName("latitude")
+    var latitude:Double = 0.0,
+
+    @Expose
+    @SerializedName("longitude")
+    var longitude:Double = 0.0
 ){
 
 

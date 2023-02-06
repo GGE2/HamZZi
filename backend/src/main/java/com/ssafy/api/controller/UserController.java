@@ -37,10 +37,10 @@ public class UserController {
     /* Uid의 존재 여부로 검증 */
     @GetMapping("/uid/{email}")
     @ApiOperation(value = "UID 체크", notes = "기존 사용자라면 true를 리턴한다")
-    public ResponseEntity<Map<String, Object>> CheckUid(@PathVariable String email) {
+    public ResponseEntity<Boolean> CheckUid(@PathVariable String email) {
 //        return userService.CheckUid(email) + "";
-        Map<String, Object> map = userService.CheckUid(email);
-        return ResponseEntity.status(200).body(map);
+        boolean result = userService.CheckUid(email);
+        return ResponseEntity.status(200).body(result);
     }
 
     /* CREATE UPDATE */ ////////////////////////////////////////////////////////////////////////////
@@ -71,6 +71,13 @@ public class UserController {
         //오류 때문에 email을 id로 변환 후 넣어야 함(PK만 받을 수 있음)
         UserProfile userProfile = userService.loginUserData(email);
         return ResponseEntity.status(200).body(UserProfileRes.of(userProfile));
+    }
+
+    @GetMapping("/info/{uid}")
+    @ApiOperation(value = "유저 정보 조회",notes = "사용자 정보 조회")
+    public ResponseEntity<User> selectuserInfo(@PathVariable String uid){
+
+        return ResponseEntity.status(200).body(userService.selectUser(uid));
     }
 
     /* DELETE */ ///////////////////////////////////////////////////////////////////////////////////

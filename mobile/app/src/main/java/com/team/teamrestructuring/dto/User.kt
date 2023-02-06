@@ -15,13 +15,15 @@ data class User(@Expose @SerializedName("email") var email : String) {
 
     @Expose
     @SerializedName("userProfile")
-    var userProfile:UserProfile? = UserProfile("",0,3)
+    var userProfile:UserProfile = UserProfile("",0,3)
 
     constructor(email:String,uid:String,fcmToken: String,userProfile: UserProfile):this(email){
         this.uid = uid
         this.fcmToken = fcmToken
         this.userProfile = userProfile
     }
+
+
     constructor(email:String,uid:String,fcmToken:String) : this(email){
         this.fcmToken = fcmToken
         this.uid = uid

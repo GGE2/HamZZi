@@ -2,7 +2,6 @@ package com.team.teamrestructuring.util
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -13,17 +12,17 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-private const val TAG="ConfirmDialog_지훈"
-class ConfirmDialog(
-    confirmDialogInterface : ConfirmDialogInterface,
+private const val TAG="CreatePetDialog_지훈"
+class CreatePetDialog(
+    createPetDialogInterface: CreatePetDialogInterface
 ) : DialogFragment(){
 
     private var _binding: DialogCreatePetBinding? = null
     private val binding get() = _binding!!
-    private var confirmDialogInterface : ConfirmDialogInterface? = null
+    private var createPetDialogInterface : CreatePetDialogInterface? = null
 
     init{
-        this.confirmDialogInterface = confirmDialogInterface
+        this.createPetDialogInterface= createPetDialogInterface
     }
 
     override fun onCreateView(
@@ -37,9 +36,9 @@ class ConfirmDialog(
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         setFullScreen()
 
+
         binding.buttonPetCreate.setOnClickListener {
-            this.confirmDialogInterface?.onYesButtonClick()
-            sendToServerNickname(binding.edittextDialogFind.text.toString(),ApplicationClass.currentUser.email)
+            createPetDialogInterface?.onYesButtonClick()
         }
 
         return view
@@ -52,7 +51,7 @@ class ConfirmDialog(
 
 
 
-    interface ConfirmDialogInterface{
+    interface CreatePetDialogInterface{
         fun onYesButtonClick()
     }
 
@@ -87,5 +86,7 @@ class ConfirmDialog(
             })
 
     }
+
+
 
 }

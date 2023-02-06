@@ -2,12 +2,43 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="MyPageFragment" />
+        android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/textview_mypage_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="MYPAGE"
+            android:layout_marginTop="6dp"
+            android:layout_marginLeft="6dp"
+            android:textSize="50sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/maple"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <View
+            android:id="@+id/view_mypage_title"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="#000000"
+            app:layout_constraintTop_toBottomOf="@id/textview_mypage_title"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_mypage_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="직장 등록"
+            app:layout_constraintTop_toBottomOf="@id/view_mypage_title"
+            app:layout_constraintLeft_toLeftOf="parent"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

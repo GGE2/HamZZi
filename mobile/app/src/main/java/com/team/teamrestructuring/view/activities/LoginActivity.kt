@@ -3,10 +3,15 @@ package com.team.teamrestructuring.view.activities
 import android.content.ContentValues
 import android.content.Intent
 import android.graphics.Typeface
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.WindowInsets
+import android.view.WindowInsetsController
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.fasterxml.jackson.databind.ObjectMapper
 
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -17,6 +22,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.gson.reflect.TypeToken
 import com.kakao.auth.AuthType
 import com.kakao.auth.Session
 import com.kakao.sdk.common.util.Utility
@@ -30,6 +36,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.create
+import java.lang.reflect.Type
 import java.util.*
 
 
@@ -67,6 +74,7 @@ class LoginActivity : AppCompatActivity() {
         binding.kakaoSignIn.setOnClickListener {
             kakaoLoginStart()
         }
+        setFullScreen()
 
     }
     private fun kakaoLoginStart(){
@@ -86,7 +94,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     /**
-     * 메인 액티비티로 이동하는 Intent 생성
+     * 기존 사용자 : 메인 액티비티로 이동하는 Intent 생성
      *
      */
     private fun loginandhome() {
@@ -95,6 +103,13 @@ class LoginActivity : AppCompatActivity() {
         }
         startActivity(intent)
     }
+    private fun loginAndCreatePet(){
+        val intent = Intent(this,CreateUserNickNameActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        Log.d(TAG, "loginAndCreatePet: ")
+        startActivity(intent)
+}
 
     /**
      * 구글 로그인 세션 생성
@@ -135,8 +150,7 @@ class LoginActivity : AppCompatActivity() {
                     ApplicationClass.currentUser.email = email!!
                     ApplicationClass.currentUser.uid = uid
                     val userData:User = User(email!!,uid)
-                    sendToServcerRequestSignInUser(email)
-                    sendToServerUserData(userData)
+                    sendToServerRequestSignInUser(email)
                 } else {
                     Log.w(ContentValues.TAG, "signInWithCredential:failure", task.exception)
                 }
@@ -149,48 +163,35 @@ class LoginActivity : AppCompatActivity() {
      * true = 기존 사용자
      * falsg = 신규 사용자
      */
-    private fun sendToServcerRequestSignInUser(email:String){
-        val service = ApplicationClass.retrofit.create(LoginService::class.java)
-            .isSignUser(email).enqueue(object : Callback<User>{
-                override fun onResponse(call: Call<User>, response: Response<User>) {
-                    if(response.isSuccessful){
-                        val data = response.body()
-                        Log.d(TAG, "onResponse: ${data.toString()}")
-                        if(data!=null){
-                            Log.d(TAG, "기존 사용자 접속")
-                            ApplicationClass.currentUser = data
-                            loginandhome()
-                        }else{
-                            Log.d(TAG, "신규 사용자 접속")
-                            sendToServerUserData(User(ApplicationClass.currentUser.email,ApplicationClass.currentUser.uid))
-                        }
-
-                    }
-                }
-                override fun onFailure(call: Call<User>, t: Throwable) {
-                    Log.d(TAG, "onFailure: ${t.message}")
-                }
-            })
-    }
-    /*private fun sendToServcerRequestSignInUser(email:String){
+    private fun sendToServerRequestSignInUser(email:String){
         val service = ApplicationClass.retrofit.create(LoginService::class.java)
             .isSignUser(email).enqueue(object:Callback<Boolean>{
                 override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
                     if(response.isSuccessful){
-                        if(response.body()!!){  //기존 사용자의 : 바로 Home으로 이동
+                        val data = response.body()!!
+                        ApplicationClass.isNew = data
+                        if(data){ //기존 사용자
+                            Log.d(TAG, "기존 사용자 접속")
                             loginandhome()
-                        }else{  //신규 사용자 : 서버에 데이터 전송후 Home으로 이동
-                            sendToServerUserData(User(ApplicationClass.currentUser.email,ApplicationClass.currentUser.uid))
-                            loginandhome()
+                        }
+                        else{
+                            Log.d(TAG, "신규 사용자 접속")
+                            sendToServerUserData(
+                                User(ApplicationClass.currentUser.email,ApplicationClass.currentUser.uid)
+                            )
                         }
                     }
                 }
+
                 override fun onFailure(call: Call<Boolean>, t: Throwable) {
                     Log.d(TAG, "onFailure: ${t.message}")
                 }
 
             })
-    }*/
+    }
+
+
+    
 
     /**
      * 사용자의 정보 서버에 전송(email,uid)
@@ -202,7 +203,7 @@ class LoginActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     if(response.isSuccessful){
                         Log.d(TAG, "Server에 유저 데이터 전송 완료")
-                        loginandhome()
+                        loginAndCreatePet()
                     }
                 }
 
@@ -236,14 +237,37 @@ class LoginActivity : AppCompatActivity() {
                     ApplicationClass.currentUser.email = email
                     ApplicationClass.currentUser.uid = uid
                     FirebaseAuth.getInstance().signInWithCustomToken(firebaseToken)
-                    sendToServerUserData(user)
-                    loginandhome()
+                    sendToServerRequestSignInUser(email)
                 }
                 override fun onFailure(call: Call<Map<String, Any>>, t: Throwable) {
                     Log.d(TAG, "onFailure: ${t.message}")
                 }
 
             })
+    }
+    /**
+     * 상태표시줄 , 하단 네비게이션 없애기기
+     */
+    fun setFullScreen(){
+        //Android 11(R) 대응
+        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.R){
+            supportActionBar?.hide()
+            window.setDecorFitsSystemWindows(false)
+            val controller = window.insetsController
+            if(controller!=null){
+                controller.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
+                controller.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+            }
+        }else{ //R버전 이하 대응
+            supportActionBar?.hide()
+            window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_IMMERSIVE or
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    or View.SYSTEM_UI_FLAG_FULLSCREEN)
+        }
     }
 
     companion object{

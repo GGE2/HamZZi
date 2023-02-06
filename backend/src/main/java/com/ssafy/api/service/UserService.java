@@ -13,8 +13,9 @@ import java.util.Map;
 public interface UserService {
 
     User registerFcm(UserTokenRequest tokenInfo);
-    Map<String, Object> CheckUid(String email);
+    boolean CheckUid(String email);
 
+    User selectUser(String uid);
     User registerUser(UserRegisterRequest registerInfo);
     User registerNickname(String email, String nickname);
     UserProfile loginUserData(String email);

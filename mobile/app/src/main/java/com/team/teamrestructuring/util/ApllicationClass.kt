@@ -6,6 +6,8 @@ import android.util.Log
 import com.google.gson.GsonBuilder
 import com.kakao.auth.KakaoSDK
 import com.kakao.sdk.common.KakaoSdk
+import com.naver.maps.map.NaverMap
+import com.naver.maps.map.NaverMapSdk
 import com.team.teamrestructuring.R
 import com.team.teamrestructuring.dto.User
 import com.team.teamrestructuring.dto.UserProfile
@@ -18,7 +20,7 @@ class ApplicationClass : Application(){
 
 
     //url must be end with "/"
-    val BOARD_URL   = "http://3.35.88.23:8080/"
+    val BOARD_URL   = "http://3.35.88.23:8001/"
 
     companion object {
         // 전역변수 문법을 통해 Retrofit 인스턴스를 앱 실행 시 1번만 생성하여 사용 (싱글톤 객체)
@@ -26,11 +28,14 @@ class ApplicationClass : Application(){
         //lateinit var sharedPreferencesUtil:SharedPreferencesUtil
         var instance : ApplicationClass? = null
         lateinit var currentUser : User
+        var isNew : Boolean = false
 
     }
 
     override fun onCreate() {
         super.onCreate()
+
+         NaverMapSdk.getInstance(this).client = NaverMapSdk.NaverCloudPlatformClient("t0ipbviz9p")
 
         KakaoSdk.init(this,"98207802012408560593bd7763f3bedd")
         instance = this

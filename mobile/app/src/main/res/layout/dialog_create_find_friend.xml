@@ -7,7 +7,7 @@
     android:background="@drawable/alert_radius_white">
 
     <TextView
-        android:id="@+id/textview_dialog_title"
+        android:id="@+id/textview_dialog_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="회원 아이디를 입력하세요."
@@ -21,7 +21,7 @@
         android:id="@+id/framelayout_dialog_parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/textview_dialog_title"
+        app:layout_constraintTop_toBottomOf="@id/textview_dialog_address"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,7 +30,7 @@
 
             <EditText
                 android:id="@+id/edittext_dialog_find"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="6dp"
@@ -69,8 +69,6 @@
         android:layout_marginTop="8dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toTopOf="@id/button_dialog_cancle"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/framelayout_dialog_parent"/>
     <androidx.appcompat.widget.AppCompatButton
@@ -82,10 +80,9 @@
         android:textSize="20sp"
         android:textColor="@color/white"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/button_dialog_result"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent" />
 
 
 
