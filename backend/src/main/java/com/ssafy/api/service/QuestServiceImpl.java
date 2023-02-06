@@ -50,7 +50,7 @@ public class QuestServiceImpl implements QuestService {
 
         //fireBase에서 UserProfile 가져오기
         questUser.setNickname(userProfile.getNickname());
-        questUser.setQuest_id(quest_id);;
+        questUser.setQuest_id(quest_id);
         questUser.setIscheck(false);
 
         questRepo.saveQuestUser(questUser);
@@ -60,7 +60,7 @@ public class QuestServiceImpl implements QuestService {
 
     // 위치 등록(수정)
     @Override
-    public UserProfile registerLocation(String nickname, int latitude, int longitude) {
+    public UserProfile registerLocation(String nickname, double latitude, double longitude) {
         
         UserProfile userProfile = userRepo.findByNickname(nickname);
 

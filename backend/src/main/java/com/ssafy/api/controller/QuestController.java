@@ -1,7 +1,6 @@
 package com.ssafy.api.controller;
 
 import com.ssafy.api.request.QuestRequest;
-import com.ssafy.api.request.QuestUserLocationRequest;
 import com.ssafy.api.request.QuestUserRequest;
 import com.ssafy.api.service.QuestService;
 import com.ssafy.db.entity.Quest.Quest;
@@ -17,11 +16,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-//@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("api/quest")
 @RequiredArgsConstructor
-public class QuestCotroller {
+public class QuestController {
 
     @Autowired
     QuestService questService;
@@ -88,7 +87,6 @@ public class QuestCotroller {
 
     // Quest 위치 등록 / 수정
     @PutMapping("/location")
-    //Requestparam으로 /{latitude}/{longitude} 이거 두개 바꾸기
     @ApiOperation(value = "Quest 위치등록", notes = "해당 Quest를 위치등록한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -96,13 +94,13 @@ public class QuestCotroller {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public String questregisterLocation(String nickname, @RequestParam int latitude, @RequestParam int longitude) {
+    public String questRegisterLocation(String nickname, @RequestParam double latitude, @RequestParam double longitude) {
         UserProfile userProfile = questService.registerLocation(nickname, latitude, longitude);
 
         return "OWNER: " + userProfile.getNickname() + " Latitude: " + userProfile.getLatitude() + " Longitude: " + userProfile.getLongitude();
     }
 
-    @PutMapping("/tiem/{finish_time}")
+    @PutMapping("/time")
     @ApiOperation(value = "Quest 완료해야하는 시간 등록", notes = "해당 Quest를 완료해야하는 시간 등록한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -110,7 +108,7 @@ public class QuestCotroller {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public String questregisterLocation(Long questUser_id, @PathVariable String finish_time) {
+    public String questRegisterLocation(Long questUser_id, @RequestParam String finish_time) {
         QuestUser questUser = questService.registerFinalDatetime(questUser_id, finish_time);
 
         return "ID: " + questUser.getQuestUser_id() + " OWNER: " + questUser.getNickname() + " FinishTime: " + questUser.getFinish_datetime();

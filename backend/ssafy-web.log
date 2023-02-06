@@ -262,13 +262,13 @@ javax.persistence.EntityExistsException: A different object with the same identi
 2023-02-06 02:54:04.765 DEBUG 16832 --- [http-nio-127.0.0.1-8080-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Mon Feb 06 02:54:04 KST 2023, status=500, error=Internal Server Error, trace=org.springfr (truncated)...]
 2023-02-06 02:54:04.785 DEBUG 16832 --- [http-nio-127.0.0.1-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 500
 2023-02-06 02:55:02.213 DEBUG 16832 --- [http-nio-127.0.0.1-8080-exec-5] o.s.web.servlet.DispatcherServlet        : POST "/api/quest", parameters={}
-2023-02-06 02:55:02.213 DEBUG 16832 --- [http-nio-127.0.0.1-8080-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ssafy.api.controller.QuestCotroller#createQuest(QuestRequest)
+2023-02-06 02:55:02.213 DEBUG 16832 --- [http-nio-127.0.0.1-8080-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ssafy.api.controller.QuestController#createQuest(QuestRequest)
 2023-02-06 02:55:02.217 DEBUG 16832 --- [http-nio-127.0.0.1-8080-exec-5] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [com.ssafy.api.request.QuestRequest@6c990ff6]
 2023-02-06 02:55:02.246 DEBUG 16832 --- [http-nio-127.0.0.1-8080-exec-5] m.m.a.RequestResponseBodyMethodProcessor : Using 'text/plain', given [*/*] and supported [text/plain, */*, text/plain, */*, text/plain, */*, application/json, application/*+json, application/json, application/*+json]
 2023-02-06 02:55:02.246 DEBUG 16832 --- [http-nio-127.0.0.1-8080-exec-5] m.m.a.RequestResponseBodyMethodProcessor : Writing ["ID: 1CONTENT: 회사/학교에 지각하지 않기"]
 2023-02-06 02:55:02.247 DEBUG 16832 --- [http-nio-127.0.0.1-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
 2023-02-06 02:57:09.275 DEBUG 16832 --- [http-nio-127.0.0.1-8080-exec-8] o.s.web.servlet.DispatcherServlet        : POST "/api/quest/user/1", parameters={}
-2023-02-06 02:57:09.276 DEBUG 16832 --- [http-nio-127.0.0.1-8080-exec-8] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ssafy.api.controller.QuestCotroller#createQuestUser(QuestUserRequest, Long)
+2023-02-06 02:57:09.276 DEBUG 16832 --- [http-nio-127.0.0.1-8080-exec-8] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ssafy.api.controller.QuestController#createQuestUser(QuestUserRequest, Long)
 2023-02-06 02:57:09.282 DEBUG 16832 --- [http-nio-127.0.0.1-8080-exec-8] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [com.ssafy.api.request.QuestUserRequest@77081253]
 2023-02-06 02:57:09.304 DEBUG 16832 --- [http-nio-127.0.0.1-8080-exec-8] m.m.a.RequestResponseBodyMethodProcessor : Using 'text/plain', given [*/*] and supported [text/plain, */*, text/plain, */*, text/plain, */*, application/json, application/*+json, application/json, application/*+json]
 2023-02-06 02:57:09.304 DEBUG 16832 --- [http-nio-127.0.0.1-8080-exec-8] m.m.a.RequestResponseBodyMethodProcessor : Writing ["ID: 1OWNER: aQUEST: 1"]
@@ -348,24 +348,24 @@ javax.persistence.EntityExistsException: A different object with the same identi
 2023-02-06 02:59:51.950 DEBUG 21356 --- [http-nio-127.0.0.1-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [springfox.documentation.spring.web.json.Json@6dae1f47]
 2023-02-06 02:59:51.958 DEBUG 21356 --- [http-nio-127.0.0.1-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
 2023-02-06 03:00:16.043 DEBUG 21356 --- [http-nio-127.0.0.1-8080-exec-6] o.s.web.servlet.DispatcherServlet        : POST "/api/quest", parameters={}
-2023-02-06 03:00:16.044 DEBUG 21356 --- [http-nio-127.0.0.1-8080-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ssafy.api.controller.QuestCotroller#createQuest(QuestRequest)
+2023-02-06 03:00:16.044 DEBUG 21356 --- [http-nio-127.0.0.1-8080-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ssafy.api.controller.QuestController#createQuest(QuestRequest)
 2023-02-06 03:00:16.091 DEBUG 21356 --- [http-nio-127.0.0.1-8080-exec-6] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [com.ssafy.api.request.QuestRequest@c203df3]
 2023-02-06 03:00:16.229 DEBUG 21356 --- [http-nio-127.0.0.1-8080-exec-6] m.m.a.RequestResponseBodyMethodProcessor : Using 'text/plain', given [*/*] and supported [text/plain, */*, text/plain, */*, text/plain, */*, application/json, application/*+json, application/json, application/*+json]
 2023-02-06 03:00:16.229 DEBUG 21356 --- [http-nio-127.0.0.1-8080-exec-6] m.m.a.RequestResponseBodyMethodProcessor : Writing ["ID: 2CONTENT: 가까운 편의점 가기"]
 2023-02-06 03:00:16.232 DEBUG 21356 --- [http-nio-127.0.0.1-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
 2023-02-06 03:00:26.400 DEBUG 21356 --- [http-nio-127.0.0.1-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/quest/a", parameters={}
-2023-02-06 03:00:26.402 DEBUG 21356 --- [http-nio-127.0.0.1-8080-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ssafy.api.controller.QuestCotroller#getQuestUserList(String)
+2023-02-06 03:00:26.402 DEBUG 21356 --- [http-nio-127.0.0.1-8080-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ssafy.api.controller.QuestController#getQuestUserList(String)
 2023-02-06 03:00:26.622 DEBUG 21356 --- [http-nio-127.0.0.1-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/json, application/*+json]
 2023-02-06 03:00:26.624 DEBUG 21356 --- [http-nio-127.0.0.1-8080-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[com.ssafy.db.entity.Quest.QuestUser@4e8b8219]]
 2023-02-06 03:00:26.628 DEBUG 21356 --- [http-nio-127.0.0.1-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
 2023-02-06 03:01:17.129 DEBUG 21356 --- [http-nio-127.0.0.1-8080-exec-10] o.s.web.servlet.DispatcherServlet        : POST "/api/quest/user/2", parameters={}
-2023-02-06 03:01:17.130 DEBUG 21356 --- [http-nio-127.0.0.1-8080-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ssafy.api.controller.QuestCotroller#createQuestUser(QuestUserRequest, Long)
+2023-02-06 03:01:17.130 DEBUG 21356 --- [http-nio-127.0.0.1-8080-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ssafy.api.controller.QuestController#createQuestUser(QuestUserRequest, Long)
 2023-02-06 03:01:17.132 DEBUG 21356 --- [http-nio-127.0.0.1-8080-exec-10] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [com.ssafy.api.request.QuestUserRequest@2dd73713]
 2023-02-06 03:01:17.193 DEBUG 21356 --- [http-nio-127.0.0.1-8080-exec-10] m.m.a.RequestResponseBodyMethodProcessor : Using 'text/plain', given [*/*] and supported [text/plain, */*, text/plain, */*, text/plain, */*, application/json, application/*+json, application/json, application/*+json]
 2023-02-06 03:01:17.194 DEBUG 21356 --- [http-nio-127.0.0.1-8080-exec-10] m.m.a.RequestResponseBodyMethodProcessor : Writing ["ID: 2OWNER: aQUEST: 2"]
 2023-02-06 03:01:17.194 DEBUG 21356 --- [http-nio-127.0.0.1-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
 2023-02-06 03:01:23.993 DEBUG 21356 --- [http-nio-127.0.0.1-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/quest/a", parameters={}
-2023-02-06 03:01:23.994 DEBUG 21356 --- [http-nio-127.0.0.1-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ssafy.api.controller.QuestCotroller#getQuestUserList(String)
+2023-02-06 03:01:23.994 DEBUG 21356 --- [http-nio-127.0.0.1-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ssafy.api.controller.QuestController#getQuestUserList(String)
 2023-02-06 03:01:24.001 DEBUG 21356 --- [http-nio-127.0.0.1-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/json, application/*+json]
 2023-02-06 03:01:24.001 DEBUG 21356 --- [http-nio-127.0.0.1-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [[com.ssafy.db.entity.Quest.QuestUser@6ecb9a22, com.ssafy.db.entity.Quest.QuestUser@31b3f18a]]
 2023-02-06 03:01:24.002 DEBUG 21356 --- [http-nio-127.0.0.1-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
@@ -592,13 +592,13 @@ javax.persistence.EntityExistsException: A different object with the same identi
 2023-02-06 03:07:27.994 DEBUG 20660 --- [http-nio-127.0.0.1-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [springfox.documentation.spring.web.json.Json@5b319ed5]
 2023-02-06 03:07:28.002 DEBUG 20660 --- [http-nio-127.0.0.1-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
 2023-02-06 03:07:49.011 DEBUG 20660 --- [http-nio-127.0.0.1-8080-exec-6] o.s.web.servlet.DispatcherServlet        : PUT "/api/quest/1?nickname=a&quest_id=1", parameters={masked}
-2023-02-06 03:07:49.012 DEBUG 20660 --- [http-nio-127.0.0.1-8080-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ssafy.api.controller.QuestCotroller#checkQuest(String, Long, Long)
+2023-02-06 03:07:49.012 DEBUG 20660 --- [http-nio-127.0.0.1-8080-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ssafy.api.controller.QuestController#checkQuest(String, Long, Long)
 2023-02-06 03:07:49.149 DEBUG 20660 --- [http-nio-127.0.0.1-8080-exec-6] m.m.a.RequestResponseBodyMethodProcessor : Using 'text/plain', given [*/*] and supported [text/plain, */*, text/plain, */*, text/plain, */*, application/json, application/*+json, application/json, application/*+json]
 2023-02-06 03:07:49.149 DEBUG 20660 --- [http-nio-127.0.0.1-8080-exec-6] m.m.a.RequestResponseBodyMethodProcessor : Writing ["IsCheck: true"]
 2023-02-06 03:07:49.151 DEBUG 20660 --- [http-nio-127.0.0.1-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
 2023-02-06 03:08:38.301 DEBUG 20660 --- [http-nio-127.0.0.1-8080-exec-9] o.s.web.servlet.DispatcherServlet        : PUT "/api/quest/location/311314321?nickname=a", parameters={masked}
-2023-02-06 03:08:38.302 DEBUG 20660 --- [http-nio-127.0.0.1-8080-exec-9] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ssafy.api.controller.QuestCotroller#questregisterLocation(String, int, int)
-2023-02-06 03:08:38.309 DEBUG 20660 --- [http-nio-127.0.0.1-8080-exec-9] o.s.web.method.HandlerMethod             : Could not resolve parameter [2] in public java.lang.String com.ssafy.api.controller.QuestCotroller.questregisterLocation(java.lang.String,int,int): Failed to convert value of type 'java.lang.String' to required type 'int'; nested exception is java.lang.NumberFormatException: For input string: ""
+2023-02-06 03:08:38.302 DEBUG 20660 --- [http-nio-127.0.0.1-8080-exec-9] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ssafy.api.controller.QuestController#questregisterLocation(String, int, int)
+2023-02-06 03:08:38.309 DEBUG 20660 --- [http-nio-127.0.0.1-8080-exec-9] o.s.web.method.HandlerMethod             : Could not resolve parameter [2] in public java.lang.String com.ssafy.api.controller.QuestController.questregisterLocation(java.lang.String,int,int): Failed to convert value of type 'java.lang.String' to required type 'int'; nested exception is java.lang.NumberFormatException: For input string: ""
 2023-02-06 03:08:38.314  WARN 20660 --- [http-nio-127.0.0.1-8080-exec-9] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'int'; nested exception is java.lang.NumberFormatException: For input string: ""]
 2023-02-06 03:08:38.315 DEBUG 20660 --- [http-nio-127.0.0.1-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 400 BAD_REQUEST
 2023-02-06 03:08:38.315 DEBUG 20660 --- [http-nio-127.0.0.1-8080-exec-9] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for PUT "/error?nickname=a", parameters={masked}
@@ -681,7 +681,7 @@ javax.persistence.EntityExistsException: A different object with the same identi
 2023-02-06 03:09:39.899 DEBUG 26808 --- [http-nio-127.0.0.1-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [springfox.documentation.spring.web.json.Json@34f565c1]
 2023-02-06 03:09:39.903 DEBUG 26808 --- [http-nio-127.0.0.1-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
 2023-02-06 03:09:46.383 DEBUG 26808 --- [http-nio-127.0.0.1-8080-exec-6] o.s.web.servlet.DispatcherServlet        : PUT "/api/quest/location/1234/4123?nickname=a", parameters={masked}
-2023-02-06 03:09:46.384 DEBUG 26808 --- [http-nio-127.0.0.1-8080-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ssafy.api.controller.QuestCotroller#questregisterLocation(String, int, int)
+2023-02-06 03:09:46.384 DEBUG 26808 --- [http-nio-127.0.0.1-8080-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ssafy.api.controller.QuestController#questregisterLocation(String, int, int)
 2023-02-06 03:09:46.584 DEBUG 26808 --- [http-nio-127.0.0.1-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Failed to complete request: org.springframework.dao.IncorrectResultSizeDataAccessException: query did not return a unique result: 2; nested exception is javax.persistence.NonUniqueResultException: query did not return a unique result: 2
 2023-02-06 03:09:46.604 ERROR 26808 --- [http-nio-127.0.0.1-8080-exec-6] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.springframework.dao.IncorrectResultSizeDataAccessException: query did not return a unique result: 2; nested exception is javax.persistence.NonUniqueResultException: query did not return a unique result: 2] with root cause
 
@@ -712,7 +712,7 @@ javax.persistence.NonUniqueResultException: query did not return a unique result
 	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:763) ~[spring-aop-5.3.24.jar:5.3.24]
 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:708) ~[spring-aop-5.3.24.jar:5.3.24]
 	at com.ssafy.api.service.QuestServiceImpl$$EnhancerBySpringCGLIB$$c386ce3f.registerLocation(<generated>) ~[main/:na]
-	at com.ssafy.api.controller.QuestCotroller.questregisterLocation(QuestCotroller.java:99) ~[main/:na]
+	at com.ssafy.api.controller.QuestController.questregisterLocation(QuestCotroller.java:99) ~[main/:na]
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
@@ -770,7 +770,7 @@ javax.persistence.NonUniqueResultException: query did not return a unique result
 2023-02-06 03:09:46.611 DEBUG 26808 --- [http-nio-127.0.0.1-8080-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Mon Feb 06 03:09:46 KST 2023, status=500, error=Internal Server Error, trace=org.springfr (truncated)...]
 2023-02-06 03:09:46.614 DEBUG 26808 --- [http-nio-127.0.0.1-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 500
 2023-02-06 03:10:46.927 DEBUG 26808 --- [http-nio-127.0.0.1-8080-exec-9] o.s.web.servlet.DispatcherServlet        : PUT "/api/quest/tiem/09%3A00?questUser_id=1", parameters={masked}
-2023-02-06 03:10:46.927 DEBUG 26808 --- [http-nio-127.0.0.1-8080-exec-9] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ssafy.api.controller.QuestCotroller#questregisterLocation(Long, String)
+2023-02-06 03:10:46.927 DEBUG 26808 --- [http-nio-127.0.0.1-8080-exec-9] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ssafy.api.controller.QuestController#questregisterLocation(Long, String)
 2023-02-06 03:10:46.991 DEBUG 26808 --- [http-nio-127.0.0.1-8080-exec-9] m.m.a.RequestResponseBodyMethodProcessor : Using 'text/plain', given [*/*] and supported [text/plain, */*, text/plain, */*, text/plain, */*, application/json, application/*+json, application/json, application/*+json]
 2023-02-06 03:10:46.991 DEBUG 26808 --- [http-nio-127.0.0.1-8080-exec-9] m.m.a.RequestResponseBodyMethodProcessor : Writing ["ID: 1OWNER: aFinishTime: 09:00"]
 2023-02-06 03:10:46.993 DEBUG 26808 --- [http-nio-127.0.0.1-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
@@ -849,7 +849,7 @@ javax.persistence.NonUniqueResultException: query did not return a unique result
 2023-02-06 03:11:57.906 DEBUG 8576 --- [http-nio-127.0.0.1-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [springfox.documentation.spring.web.json.Json@f0f6925]
 2023-02-06 03:11:57.910 DEBUG 8576 --- [http-nio-127.0.0.1-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
 2023-02-06 03:12:03.556 DEBUG 8576 --- [http-nio-127.0.0.1-8080-exec-6] o.s.web.servlet.DispatcherServlet        : PUT "/api/quest/location/12412/41212?nickname=a", parameters={masked}
-2023-02-06 03:12:03.557 DEBUG 8576 --- [http-nio-127.0.0.1-8080-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ssafy.api.controller.QuestCotroller#questregisterLocation(String, int, int)
+2023-02-06 03:12:03.557 DEBUG 8576 --- [http-nio-127.0.0.1-8080-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ssafy.api.controller.QuestController#questregisterLocation(String, int, int)
 2023-02-06 03:12:03.667 DEBUG 8576 --- [http-nio-127.0.0.1-8080-exec-6] m.m.a.RequestResponseBodyMethodProcessor : Using 'text/plain', given [*/*] and supported [text/plain, */*, text/plain, */*, text/plain, */*, application/json, application/*+json, application/json, application/*+json]
 2023-02-06 03:12:03.667 DEBUG 8576 --- [http-nio-127.0.0.1-8080-exec-6] m.m.a.RequestResponseBodyMethodProcessor : Writing ["OWNER: aLatitude: 12412Longitude: 41212"]
 2023-02-06 03:12:03.669 DEBUG 8576 --- [http-nio-127.0.0.1-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
@@ -928,8 +928,8 @@ javax.persistence.NonUniqueResultException: query did not return a unique result
 2023-02-06 03:13:21.807 DEBUG 4676 --- [http-nio-127.0.0.1-8080-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [springfox.documentation.spring.web.json.Json@47ad0510]
 2023-02-06 03:13:21.814 DEBUG 4676 --- [http-nio-127.0.0.1-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
 2023-02-06 03:13:28.895 DEBUG 4676 --- [http-nio-127.0.0.1-8080-exec-6] o.s.web.servlet.DispatcherServlet        : PUT "/api/quest/location/142412352?nickname=a", parameters={masked}
-2023-02-06 03:13:28.896 DEBUG 4676 --- [http-nio-127.0.0.1-8080-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ssafy.api.controller.QuestCotroller#questregisterLocation(String, int, int)
-2023-02-06 03:13:28.909 DEBUG 4676 --- [http-nio-127.0.0.1-8080-exec-6] o.s.web.method.HandlerMethod             : Could not resolve parameter [2] in public java.lang.String com.ssafy.api.controller.QuestCotroller.questregisterLocation(java.lang.String,int,int): Failed to convert value of type 'java.lang.String' to required type 'int'; nested exception is java.lang.NumberFormatException: For input string: ""
+2023-02-06 03:13:28.896 DEBUG 4676 --- [http-nio-127.0.0.1-8080-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.ssafy.api.controller.QuestController#questregisterLocation(String, int, int)
+2023-02-06 03:13:28.909 DEBUG 4676 --- [http-nio-127.0.0.1-8080-exec-6] o.s.web.method.HandlerMethod             : Could not resolve parameter [2] in public java.lang.String com.ssafy.api.controller.QuestController.questregisterLocation(java.lang.String,int,int): Failed to convert value of type 'java.lang.String' to required type 'int'; nested exception is java.lang.NumberFormatException: For input string: ""
 2023-02-06 03:13:28.914  WARN 4676 --- [http-nio-127.0.0.1-8080-exec-6] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'int'; nested exception is java.lang.NumberFormatException: For input string: ""]
 2023-02-06 03:13:28.914 DEBUG 4676 --- [http-nio-127.0.0.1-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 400 BAD_REQUEST
 2023-02-06 03:13:28.915 DEBUG 4676 --- [http-nio-127.0.0.1-8080-exec-6] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for PUT "/error?nickname=a", parameters={masked}

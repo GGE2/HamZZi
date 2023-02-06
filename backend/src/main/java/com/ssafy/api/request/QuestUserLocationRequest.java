@@ -13,9 +13,9 @@ public class QuestUserLocationRequest {
     @ApiModelProperty(name="사용자 닉네임", example="Questjuin")
     String nickname;
 
-    @ApiModelProperty(name="위도", example="111111")
-    int latitude;
+    @ApiModelProperty(name="위도", example="111.111")
+    double latitude;
 
-    @ApiModelProperty(name="경도", example="222222")
-    int longitude;
+    @ApiModelProperty(name="경도", example="222.222")
+    double longitude;
 }
