@@ -104,7 +104,7 @@ class LoginActivity : AppCompatActivity() {
         startActivity(intent)
     }
     private fun loginAndCreatePet(){
-        val intent = Intent(this,CreatePetActivity::class.java).apply {
+        val intent = Intent(this,CreateUserNickNameActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
         Log.d(TAG, "loginAndCreatePet: ")

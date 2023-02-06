@@ -24,7 +24,7 @@ import com.team.teamrestructuring.service.LoginService
 import com.team.teamrestructuring.util.ApplicationClass
 import com.team.teamrestructuring.util.CreatePetDialog
 import com.team.teamrestructuring.view.adapters.ViewPagerAdapter
-import com.team.teamrestructuring.view.fragments.GuildFragment
+import com.team.teamrestructuring.view.fragments.QuestFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

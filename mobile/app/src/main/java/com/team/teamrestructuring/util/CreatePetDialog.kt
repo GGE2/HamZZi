@@ -12,7 +12,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-private const val TAG="ConfirmDialog_지훈"
+private const val TAG="CreatePetDialog_지훈"
 class CreatePetDialog(
     createPetDialogInterface: CreatePetDialogInterface
 ) : DialogFragment(){
@@ -39,8 +39,6 @@ class CreatePetDialog(
 
         binding.buttonPetCreate.setOnClickListener {
             createPetDialogInterface?.onYesButtonClick()
-            ApplicationClass.currentUser.userProfile.user_nickname = binding.edittextDialogFind.text.toString()
-            sendToServerNickname(binding.edittextDialogFind.text.toString(),ApplicationClass.currentUser.email)
             dismiss()
         }
 

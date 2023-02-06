@@ -6,6 +6,8 @@ import android.util.Log
 import com.google.gson.GsonBuilder
 import com.kakao.auth.KakaoSDK
 import com.kakao.sdk.common.KakaoSdk
+import com.naver.maps.map.NaverMap
+import com.naver.maps.map.NaverMapSdk
 import com.team.teamrestructuring.R
 import com.team.teamrestructuring.dto.User
 import com.team.teamrestructuring.dto.UserProfile
@@ -32,6 +34,8 @@ class ApplicationClass : Application(){
 
     override fun onCreate() {
         super.onCreate()
+
+         NaverMapSdk.getInstance(this).client = NaverMapSdk.NaverCloudPlatformClient("t0ipbviz9p")
 
         KakaoSdk.init(this,"98207802012408560593bd7763f3bedd")
         instance = this

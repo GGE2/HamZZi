@@ -10,6 +10,7 @@ import android.view.WindowInsetsController
 import com.team.teamrestructuring.R
 import com.team.teamrestructuring.databinding.ActivityCreatePetBinding
 import com.team.teamrestructuring.util.CreatePetDialog
+import com.team.teamrestructuring.util.CreateUserNickNameDialog
 
 class CreatePetActivity : AppCompatActivity(),CreatePetDialog.CreatePetDialogInterface{
     lateinit var binding:ActivityCreatePetBinding
@@ -18,22 +19,23 @@ class CreatePetActivity : AppCompatActivity(),CreatePetDialog.CreatePetDialogInt
         super.onCreate(savedInstanceState)
         binding = ActivityCreatePetBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         showRegisterPetDialog()
         setFullScreen()
     }
 
     override fun onYesButtonClick() {
-        val intent = Intent(this,HomeActivity::class.java).apply {
+        val intent = Intent(this,CreateUserNickNameDialog::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         }
         startActivity(intent)
     }
 
+
+
     private fun showRegisterPetDialog(){
-        val dialog = CreatePetDialog(this)
-        dialog.isCancelable = false
-        dialog.show(this.supportFragmentManager,"CreatePetDialog")
+        val dialog2 = CreatePetDialog(this@CreatePetActivity)
+        dialog2.isCancelable = false
+        dialog2.show(this.supportFragmentManager,"CreatePetDialog")
     }
 
     /**
@@ -60,4 +62,6 @@ class CreatePetActivity : AppCompatActivity(),CreatePetDialog.CreatePetDialogInt
                     or View.SYSTEM_UI_FLAG_FULLSCREEN)
         }
     }
+
+
 }

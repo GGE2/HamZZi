@@ -1,11 +1,14 @@
 package com.team.teamrestructuring.view.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.team.teamrestructuring.R
+import com.team.teamrestructuring.databinding.FragmentMyPageBinding
+import com.team.teamrestructuring.view.activities.RegisterPlaceActivity
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,6 +24,7 @@ class MyPageFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var binding : FragmentMyPageBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,12 +34,30 @@ class MyPageFragment : Fragment() {
         }
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        init()
+
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_page, container, false)
+
+        binding = FragmentMyPageBinding.inflate(layoutInflater,container,false)
+
+        return binding.root
+    }
+
+    private fun init(){
+        setListener()
+    }
+
+    private fun setListener(){
+        binding.buttonMypageRegister.setOnClickListener {
+            val intent = Intent(requireActivity(),RegisterPlaceActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     companion object {
