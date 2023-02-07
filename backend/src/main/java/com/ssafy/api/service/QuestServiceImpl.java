@@ -76,7 +76,7 @@ public class QuestServiceImpl implements QuestService {
 
     // 시간 등록(수정)
     @Override
-    public QuestUser registerFinalDatetime(Long questUser_id, String Finish_datetime) {
+    public QuestUser registerFinalDatetime(Long questUser_id, int Finish_datetime) {
         QuestUser questUser = questRepo.findQuestUserById(questUser_id);
         questUser.setFinish_datetime(Finish_datetime);
         questRepo.saveQuestUser(questUser);

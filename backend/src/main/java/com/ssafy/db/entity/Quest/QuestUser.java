@@ -25,11 +25,7 @@ public class QuestUser {
     @ColumnDefault("false")
     @Column(nullable = false)
     private Boolean ischeck;
-
-
-    // 완료 시간
-    private String datetime;
     
     // 완료해야하는 시간
-    private String finish_datetime;
+    private int finish_datetime;
 }

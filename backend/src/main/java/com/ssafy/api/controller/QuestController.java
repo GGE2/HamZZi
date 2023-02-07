@@ -137,7 +137,7 @@ public class QuestController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public String questRegisterLocation(Long questUser_id, @RequestParam String finish_time) {
+    public String questRegisterLocation(Long questUser_id, @RequestParam int finish_time) {
         QuestUser questUser = questService.registerFinalDatetime(questUser_id, finish_time);
 
         return "ID: " + questUser.getQuestUser_id() + " OWNER: " + questUser.getNickname() + " FinishTime: " + questUser.getFinish_datetime();

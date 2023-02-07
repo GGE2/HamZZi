@@ -20,7 +20,7 @@ public interface QuestService {
     UserProfile registerLocation(String nickname, double latitude, double longitude);
 
     // 시간 등록
-    QuestUser registerFinalDatetime(Long questUser_id, String Finish_datetime);
+    QuestUser registerFinalDatetime(Long questUser_id, int Finish_datetime);
 
     // User의 Quest 보여주기
     List<QuestUser> getQuests(String nickname);
