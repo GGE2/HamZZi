@@ -26,14 +26,14 @@ public class GuildController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public String foundGuild(@RequestParam String guild_name, @RequestParam String nickname) {
-        if(!guildService.canJoinGuild(nickname)) { return "ERROR: " + nickname + " already joind a guild"; }
+    public Guild foundGuild(@RequestParam String guild_name, @RequestParam String nickname) {
+        if(!guildService.canJoinGuild(nickname)) { return null; }
 
         Guild guild = guildService.foundGuild(guild_name, nickname);
         boolean check = guildService.grantAdmin(nickname);
 
-        if(!check) {return "ERROR: NO ADMIN GRANTED!!";}
-        return guild.getGuild_id() + ": " + guild.getGuild_name() + " FOUND OK\nGRANT admin: " + nickname;
+        if(!check) {return null;}
+        return guild;
     }
     /* Guild 가입 API: 아이디(guild_id)에 해당하는 길드에 가입한다 */
     @PutMapping("/join")
