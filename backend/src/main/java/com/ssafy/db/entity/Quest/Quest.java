@@ -8,10 +8,11 @@ import javax.persistence.*;
 
 // 우리가 랜덤으로 뿌려주기
 @Entity
-@Getter @Setter
+@Getter
+@Setter
 public class Quest {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long quest_id;
 
     @Column(nullable = false)

@@ -30,7 +30,7 @@ import retrofit2.Response
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
-private const val TAG = "HomeFragment_지"
+private const val TAG = "HomeFragment_지훈"
 
 /**
  * A simple [Fragment] subclass.

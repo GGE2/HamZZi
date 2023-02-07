@@ -26,7 +26,6 @@ public class QuestUser {
     @Column(nullable = false)
     private Boolean ischeck;
 
-
     // 완료 시간
     private String datetime;
     

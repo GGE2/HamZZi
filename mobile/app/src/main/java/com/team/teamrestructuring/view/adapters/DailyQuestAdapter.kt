@@ -14,10 +14,13 @@ class DailyQuestAdapter(var datas:MutableList<DailyQuest>) : RecyclerView.Adapte
     inner class DailyQuestViewHolder(var binding:ItemQuestBinding) : RecyclerView.ViewHolder(binding.root){
         val tv = binding.textviewItemQuestTitle
         fun bindData(data:DailyQuest){
-            binding.radioItemQuestCheck.isChecked = data.is_checked
+            binding.radioItemQuestCheck.isChecked = data.ischeck
             binding.radioItemQuestCheck.isClickable = false
-            tv.text = data.title
-            if(data.is_checked){
+            binding.buttonItemQuestFinish.setOnClickListener {
+                questClickListener.onClick(it,layoutPosition,data)
+            }
+            tv.text = data.content
+            if(data.ischeck){
                 tv.setTextColor(Color.parseColor("#c0c0c0"))
                 binding.buttonItemQuestFinish.text = "수행완료"
             }else{
