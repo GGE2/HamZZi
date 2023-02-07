@@ -27,6 +27,7 @@ import com.naver.maps.map.UiSettings
 import com.naver.maps.map.util.FusedLocationSource
 import com.team.teamrestructuring.R
 import com.team.teamrestructuring.databinding.FragmentQuestBinding
+import com.team.teamrestructuring.util.ApplicationClass
 import com.team.teamrestructuring.view.adapters.DailyQuestAdapter
 import java.lang.Math.*
 import java.util.jar.Manifest
@@ -194,19 +195,10 @@ class QuestFragment : Fragment(),OnMapReadyCallback{
             val cameraUpdate = CameraUpdate.scrollTo(LatLng(location.latitude,location.longitude))
             naverMap.moveCamera(cameraUpdate)
             //Log.d(TAG, "onMapReady: ${location.longitude},$${location.latitude}")
-            distance = getDistance(36.107147,128.416220,location.latitude,location.longitude)
+            distance = getDistance(ApplicationClass.currentUser.userProfile.latitude
+                ,ApplicationClass.currentUser.userProfile.longitude,location.latitude,location.longitude)
 
-            /*if(distance<30){
-                Toast.makeText(requireContext(),"도착했습니다",Toast.LENGTH_SHORT).show()
-            }*/
-            /*val destination : Location = Location("destination")
-            destination.latitude = 36.107210
-            destination.longitude = 128.418002
-            val now : Location = Location("current")
-            now.latitude = location.latitude
-            now.latitude = location.longitude
-            Log.d(TAG, "목표물간 거리 :  ${destination.distanceTo(now)}")
-            Log.d(TAG, "onMapReady: ${getDistance(36.107210,128.418002,location.latitude,location.longitude)}")*/
+
 
         }
 

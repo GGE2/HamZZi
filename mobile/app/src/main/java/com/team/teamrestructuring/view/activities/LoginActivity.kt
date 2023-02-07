@@ -172,6 +172,7 @@ class LoginActivity : AppCompatActivity() {
                         ApplicationClass.isNew = data
                         if(data){ //기존 사용자
                             Log.d(TAG, "기존 사용자 접속")
+                            getUserData(ApplicationClass.currentUser.uid)
                             loginandhome()
                         }
                         else{
@@ -190,6 +191,22 @@ class LoginActivity : AppCompatActivity() {
             })
     }
 
+    private fun getUserData(uid:String){
+        val service = ApplicationClass.retrofit.create(LoginService::class.java)
+            .getUserInfo(uid).enqueue(object:Callback<User>{
+                override fun onResponse(call: Call<User>, response: Response<User>) {
+                    if(response.isSuccessful){
+                        ApplicationClass.currentUser = response.body()!!
+                    }
+                }
+
+                override fun onFailure(call: Call<User>, t: Throwable) {
+                    Log.d(TAG, "onFailure data: ${t.message}")
+                }
+
+            })
+
+    }
 
     
 
@@ -208,7 +225,7 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<String>, t: Throwable) {
-                    Log.d(TAG, "onFailure: ${t.message}")
+                    Log.d(TAG, "onFailure send: ${t.message}")
                 }
             })
     }
@@ -240,7 +257,7 @@ class LoginActivity : AppCompatActivity() {
                     sendToServerRequestSignInUser(email)
                 }
                 override fun onFailure(call: Call<Map<String, Any>>, t: Throwable) {
-                    Log.d(TAG, "onFailure: ${t.message}")
+                    Log.d(TAG, "onFailure token: ${t.message}")
                 }
 
             })

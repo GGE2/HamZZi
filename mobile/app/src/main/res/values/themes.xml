@@ -2,10 +2,10 @@
     <!-- Base application theme. -->
     <style name="Theme.TeamRestructuring" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#e6e6fa</item>
+        <item name="colorPrimary">#00000000</item>
         <item name="colorPrimaryDark">#f9fbe7</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnPrimary">#00000000</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
@@ -14,13 +14,12 @@
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
-    <style name="Widget.BottomNavigationView." parent="Widget.Design.BottomNavigationView">
-        <item name="fontFamily">@font/mine</item>
-    </style>
+
 
     <style name="TabLayoutTextSize" parent="TextAppearance.Design.Tab" >
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">@font/maple</item>
     </style>
+
 </resources>

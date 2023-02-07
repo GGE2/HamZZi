@@ -53,6 +53,7 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
         init()
+        Log.d(TAG, "onCreate: ${ApplicationClass.currentUser}")
     }
 
 
@@ -127,6 +128,7 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
                 val currentUser = ApplicationClass.currentUser
                 val fcmUser:User = User(currentUser.email,currentUser.uid,currentUser.fcmToken)
                 sendToServerFcmData(fcmUser)
+
             }
         }
     }
@@ -146,11 +148,11 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
                 binding.viewpagerMainPager.currentItem = 1
                 return true
             }
-            R.id.menu_guild ->{
+            R.id.menu_quest ->{
                 binding.viewpagerMainPager.currentItem = 2
                 return true
             }
-            R.id.menu_my_page ->{
+            R.id.my_page ->{
                 binding.viewpagerMainPager.currentItem = 3
                 return true
             }
@@ -159,7 +161,8 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
 
     }
 
-    
+
+
 
     /**
      * 유저 FCM 토큰 서버에 전송
