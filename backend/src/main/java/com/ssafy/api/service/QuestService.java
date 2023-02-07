@@ -17,7 +17,7 @@ public interface QuestService {
     void createQuestUser(QuestUserRequest questUserReq, String nickname);
 
     // 위치 등록
-    UserProfile registerLocation(String nickname, double latitude, double longitude);
+    UserProfile registerLocation(String nickname, double latitude, double longitude, String location);
 
     // 시간 등록
     UserProfile registerFinalDatetime(String nickname, int finish_datetime);

@@ -31,4 +31,7 @@ public class UserProfile {
 
     // 완료해야하는 시간
     private int finish_datetime;
+
+    // 위치 이름 저장
+    private String location;
 }

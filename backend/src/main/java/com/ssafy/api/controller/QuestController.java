@@ -123,10 +123,10 @@ public class QuestController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public String questRegisterLocation(String nickname, @RequestParam double latitude, @RequestParam double longitude) {
-        UserProfile userProfile = questService.registerLocation(nickname, latitude, longitude);
+    public String questRegisterLocation(String nickname, @RequestParam double latitude, @RequestParam double longitude, @RequestParam String location) {
+        UserProfile userProfile = questService.registerLocation(nickname, latitude, longitude, location);
 
-        return "OWNER: " + userProfile.getNickname() + " Latitude: " + userProfile.getLatitude() + " Longitude: " + userProfile.getLongitude();
+        return "OWNER: " + userProfile.getNickname() + " Latitude: " + userProfile.getLatitude() + " Longitude: " + userProfile.getLongitude() + " Location: " + userProfile.getLocation();
     }
 
     @PutMapping("/time")

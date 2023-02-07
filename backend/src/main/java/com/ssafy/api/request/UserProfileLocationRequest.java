@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @ApiModel("QuestUserLocationRequest")
-public class QuestUserLocationRequest {
+public class UserProfileLocationRequest {
 
     @ApiModelProperty(name="사용자 닉네임", example="Questjuin")
     String nickname;

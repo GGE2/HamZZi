@@ -61,12 +61,13 @@ public class QuestServiceImpl implements QuestService {
 
     // 위치 등록(수정)
     @Override
-    public UserProfile registerLocation(String nickname, double latitude, double longitude) {
+    public UserProfile registerLocation(String nickname, double latitude, double longitude, String location) {
         
         UserProfile userProfile = userRepo.findByNickname(nickname);
 
         userProfile.setLatitude(latitude);
         userProfile.setLongitude(longitude);
+        userProfile.setLocation(location);
 
         userRepo.saveUserProfile(userProfile);
 
