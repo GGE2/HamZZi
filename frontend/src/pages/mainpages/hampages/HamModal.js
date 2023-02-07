@@ -1,38 +1,55 @@
-import React, {useRef, useEffect, useState} from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
-const HamModal = ({setIsModal, setIsCreate}) => {
-
-const [nickName, SetNickName] = useState("");
+const HamModal = ({ setIsModal, setIsCreate }) => {
+  const petnameInput = useRef();
+  const [petName, SetPetName] = useState("");
   const navigate = useNavigate();
   const email = JSON.parse(localStorage.getItem("user"));
-  console.log(typeof nickName, nickName);
+  console.log(typeof petName, petName);
   const handleChange = (e) => {
-    SetNickName(e.target.value);
+    SetPetName(e.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIsModal(false)
+    if (petName.length < 1) {
+      petnameInput.current.focus();
+      return;
+    }
+    setIsModal(false);
   };
 
-return (
-  <div className="Modal">
-    <div className="modalBody">
-      <h1>환영합니다!</h1>
-      <h2>닉네임을 설정해 주세요</h2>
-      <p>설정하신 닉네임은 다시 바꿀 수 없습니다</p>
-      <form onSubmit={handleSubmit}>
-        <input
-          name="nickname"
-          placeholder="닉네임입력"
-          onChange={handleChange}
-        />
-        <button type="submit"> 설정하기</button>
-      </form>
-    </div>
-  </div>
-)
+  const handleClose = () => {
+    console.log("닫는다");
+    setIsModal(false);
+    // console.log()
+  };
+
+  return (
+    <>
+      <div
+        className="Modal"
+        onClick={() => {
+          setIsModal(false);
+        }}
+      ></div>
+      <div className="modalBody">
+        <h2>새로운 펫이름을 설정해주세요</h2>
+        <p>설정하신 펫이름은 다시 바꿀 수 없습니다</p>
+        <form onSubmit={handleSubmit}>
+          <input
+            name="nickname"
+            placeholder="펫이름입력"
+            onChange={handleChange}
+            ref={petnameInput}
+          />
+          <button type="submit"> 설정하기</button>
+        </form>
+        <button onClick={handleClose}>취소</button>
+      </div>
+    </>
+  );
 
   // return (
   //   <div className="HamModal">

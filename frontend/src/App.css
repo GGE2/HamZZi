@@ -1,3 +1,6 @@
+/* @import '~slick-carousel/slick/slick.css';
+@import '~slick-carousel/slick/slick-theme.css'; */
+
 body {
     margin: 0px;
 
@@ -38,4 +41,5 @@ body {
     cursor: pointer;
     background-color: #f9fbe7;
 }
+
 

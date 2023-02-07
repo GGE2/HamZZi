@@ -103,3 +103,8 @@
 inset -4px -4px 6px 0 rgba(255,255,255,.2),
 inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
 }
+
+/* 메뉴 누르면 눌림 */
+.friendbutton__active {
+    color: blue
+}

@@ -14,10 +14,7 @@ const HamExp = () => {
       <div className="Exp">
         <ProgressBar
           completed={50}
-<<<<<<< HEAD
           customLabel={" "}
-=======
->>>>>>> d71fbd50837b97bd096f25692dba0e251672d352
           // className="wrapper"
           // barContainerClassName="container"
           // completedClassName="barCompleted"

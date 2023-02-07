@@ -20,11 +20,7 @@ const QuestItem = ({ content }) => {
           <RiCheckboxBlankCircleLine  size={"100%"} onClick={onclickQcheck} />
         )}
       </div>
-<<<<<<< HEAD
       <textarea readonly defaultValue={content} disabled={isCheck}></textarea> 
-=======
-      <textarea defaultValue={content} disabled={isCheck} />
->>>>>>> d71fbd50837b97bd096f25692dba0e251672d352
     </div>
   );
 };

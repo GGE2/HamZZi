@@ -16,10 +16,17 @@ const SetNickName = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(nickName);
+    const nickName2 = JSON.parse(JSON.stringify(nickName));
+
     axios
       // 요청 주소 수정 예정
       .put(
-        `http://3.35.88.23:8080/api/user/nickname?nickname=${nickName}&email=${email}`
+        `http://3.35.88.23:8080/api/user/nickname?nickname=${nickName2}&email=${email}`
+        // "http://3.35.88.23:8080/api/user/nickname",
+        // {
+        //   params: { nickname: nickName, email: email },
+        // }
       )
       .then((res) => {
         console.log(res);

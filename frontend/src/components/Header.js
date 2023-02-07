@@ -4,12 +4,12 @@ import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { useEffect } from "react";
 import DropdownMenu from './GuestBook/DropdownMenu';
 
-const Header = ({ data, type }) => {
+const Header = (props) => {
   const [menu, setMenu] = useState("");
 
   useEffect(() => {
-    if (type === "profile") {
-      setMenu(type);
+    if (props.type === "profile") {
+      setMenu(props.type);
     }
   }, []);
 
@@ -17,7 +17,7 @@ const Header = ({ data, type }) => {
     <>
       {menu ? (
         <div className="Header">
-          {data}
+          {props.data}
           {/* <button>
             <HiOutlineDotsCircleHorizontal size={"100%"} />
           </button> */}
@@ -28,7 +28,7 @@ const Header = ({ data, type }) => {
         </div>
       ) : (
         <div className="Header">
-          {data}
+          {props.data}
         </div>
       )}
     </>

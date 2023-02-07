@@ -1,26 +1,54 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import HamExp from "./statuspages/HamExp";
 import HamLevel from "./statuspages/HamLevel";
 import HamName from "./statuspages/HamName";
 import "../../../styles/HamStatus.css";
 import Chart from "react-apexcharts";
 import { IoStatsChart } from "react-icons/io5";
+import PetStatCtrl from "./PetStatCtrl";
 
-const HamStatus = () => {
-  const [stat, setStat] = useState({
-    physical: 10,
-    artistic: 20,
-    intelligent: 30,
-    inactive: 20,
-    active: 10,
-    etc: 0,
-  });
+const HamStatus = ({ petInfo, petStat, stat, petData, setStat }) => {
+  const [isModal, setIsModal] = useState(false);
+  console.log("펫데이터 출력");
+  console.log(petData);
+  console.log("펫 스탯 출력");
+  console.log(stat);
+  // const [petstat, setpetstat] = useState([petData[2]])
+  // const [stat, setStat] = useState({
+  // physical: petstat.physical,
+  // artistic: petstat.artistic,
+  // intelligent: petstat.intelligent,
+  // inactive:petstat.inactive,
+  // energetic: petstat.energetic,
+  // etc: petstat.etc,
+  // physical:0,
+  // artistic:0,
+  // intelligent: 0,
+  // inactive: 0,
+  // energetic: 0,
+  // etc:0,
+  // });
+
+  useEffect(() => {
+    // setpetstat(petData[2])
+  }, []);
 
   const state = {
     options: {
-      colors: ["#3f8744"],
+      fill: {
+        opacity: 0.5,
+        colors: ["#3f8744"]
+      },
+      dataLabels: {
+        enabled: true,
+        background: {
+          enabled: true,
+          borderRadius:2,
+        }
+      },
+      // colors: ["#3f8744"],
+      
       chart: {
-        // id: "basic-bar",
         toolbar: {
           show: false,
         },
@@ -42,19 +70,10 @@ const HamStatus = () => {
     ///////////////////////////////////////
     series: [
       {
-        // id: 'stat',
-<<<<<<< HEAD
+        id: 'stat',
         data: [
-          stat.physical,
-          stat.artistic,
-          stat.intelligent,
-          stat.inactive,
-          stat.active,
-          stat.etc,
+          3,0,20,0,20,30
         ],
-=======
-        data: [stat.physical, stat.artistic, stat.intelligent, stat.inactive, stat.active, stat.etc],
->>>>>>> d71fbd50837b97bd096f25692dba0e251672d352
       },
     ],
   };
@@ -63,10 +82,25 @@ const HamStatus = () => {
     console.log(123);
   };
 
+  // 모달창 노출
+  const onPetStatCtrl = () => {
+    // setIsCreate();
+    setIsModal(true);
+  };
+
   return (
     <div className="HamStatus">
+      {/* {isModal && (
+        <PetStatCtrl
+          petStat={petStat}
+          petInfo={petInfo}
+          setIsModal={setIsModal}
+          setStat={setStat}
+          stat={stat}
+        />
+      )} */}
       <HamName />
-      {/* <ApexChart type="radar"  /> */}
+
       <div>
         <div className="Expbar">
           <HamExp />
@@ -83,7 +117,7 @@ const HamStatus = () => {
           onClick={qwe}
         />
         <button className="StatButton">
-          <IoStatsChart size={'100%'} color={'green'}/>
+          <IoStatsChart onClick={onPetStatCtrl} size={"100%"} color={"green"} />
         </button>
       </div>
     </div>

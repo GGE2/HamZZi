@@ -1,5 +1,5 @@
 /* body 2 */
-.GuildPersons {
+.GuildList {
     height: 90%;
     border: 3px solid black;
     border-radius: 8px;
@@ -17,16 +17,12 @@
     overflow: scroll;
 }
 
-.GuildPersons::-webkit-scrollbar {
+.GuildList::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera*/
 }
 
 /* body 1 */
-<<<<<<< HEAD
 .GuildHeaderButton {
-=======
-.FriendHeaderButton {
->>>>>>> d71fbd50837b97bd096f25692dba0e251672d352
     height: 10%;
     display: flex;
     justify-content: start;
@@ -37,11 +33,7 @@
     /* border: 3px solid pink; */
 }
 
-<<<<<<< HEAD
 .GuildHeaderButton button {
-=======
-.FriendHeaderButton button {
->>>>>>> d71fbd50837b97bd096f25692dba0e251672d352
     cursor: pointer;
     border-radius: 8px;
     background-color:transparent;
@@ -103,3 +95,32 @@
     /* width: 0%; */
     background-color:transparent;
 }
+
+/* 길드 0 관리자 o */
+.GuildAdminWrap {
+    border: 3px solid black;
+    border-radius: 8px;
+}
+
+.GuildUsersWrap{
+    border: 3px solid black;
+    border-radius: 8px;
+}
+
+.GuildUser{
+    border-bottom: 1px solid black;
+    /* margin-bottom: 10px; */
+}
+
+/* 길드 x */
+.GuildItem {
+    border-bottom: 3px solid black;
+}
+
+.CreateButton--active {
+    color: red
+}
+
+
+
+/*  */

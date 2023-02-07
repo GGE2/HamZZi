@@ -38,14 +38,11 @@
     align-items: center;
     width: 33%;
     /* border-right: 3px solid black; */
-<<<<<<< HEAD
     transition: all 3 linear ;
 }
 
 .HamSlotSlot:hover {
     transform: scale(1.1, 1.1);
-=======
->>>>>>> d71fbd50837b97bd096f25692dba0e251672d352
 }
 
 

@@ -85,8 +85,8 @@ position: relative;
 /* 보드 페이지에 하단 버튼 리스트 */
 .BoardButton {
 width: 100%;
-/* position: absolute; */
-/* bottom: 0; */
+position: absolute;
+bottom: 0;
 border-top: 3px solid black;
 /* padding-bottom: 3px; */
 height: 5%;
@@ -109,7 +109,7 @@ width: 20%;
 transition-property: color, background-color;
 }
 
-.BoardButton button:hover {
+.BoardButto--active {
   color: pink;
-  background-color: black;
+  background: red;
 }
