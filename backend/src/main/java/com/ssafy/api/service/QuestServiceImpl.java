@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Transactional
@@ -38,8 +39,6 @@ public class QuestServiceImpl implements QuestService {
         } else {
             quest.setType("weekly");
         }
-
-
         questRepo.saveQuest(quest);
 
         return quest;
@@ -47,14 +46,14 @@ public class QuestServiceImpl implements QuestService {
     
     // questUser 생성
     @Override
-    public void createQuestUser(QuestUserRequest questUserReq) {
+    public void createQuestUser(QuestUserRequest questUserReq, String nickname) {
         List<Long> quest_ids = getQuestId();
         for (Long quest_id:quest_ids) {
             QuestUser questUser = new QuestUser();
-            UserProfile userProfile = userRepo.findByNickname(questUserReq.getUser_nickname());
+            UserProfile userProfile = userRepo.findByNickname(nickname);
 
             questUser.setNickname(userProfile.getNickname());
-            questUser.setQuest_id(quest_id);
+            questUser.setQuest(questRepo.findById(quest_id));
             questUser.setIscheck(false);
             questRepo.saveQuestUser(questUser);
         }
@@ -76,12 +75,13 @@ public class QuestServiceImpl implements QuestService {
 
     // 시간 등록(수정)
     @Override
-    public QuestUser registerFinalDatetime(Long questUser_id, int Finish_datetime) {
-        QuestUser questUser = questRepo.findQuestUserById(questUser_id);
-        questUser.setFinish_datetime(Finish_datetime);
-        questRepo.saveQuestUser(questUser);
+    public UserProfile registerFinalDatetime(String nickname, int finish_datetime) {
+        UserProfile userProfile = userRepo.findByNickname(nickname);
 
-        return questUser;
+        userProfile.setFinish_datetime(finish_datetime);
+        userRepo.saveUserProfile(userProfile);
+
+        return userProfile;
     }
 
     // 유저의 QuestList 보여주기
@@ -93,13 +93,14 @@ public class QuestServiceImpl implements QuestService {
 
         return questList;
     }
-
+    
+    // quest list 보여주기
     @Override
     public List<Quest> getQuest() {
-
         return questRepo.questList();
     }
-
+    
+    // quesr id 다 따오기
     @Override
     public List<Long> getQuestId() {
         List<Long> quest = questRepo.getQuestId();
@@ -114,7 +115,6 @@ public class QuestServiceImpl implements QuestService {
         QuestUser questUser = questRepo.findQuestUserById(questUser_id);
         Boolean isCheck = questUser.getIscheck();
         questUser.setIscheck(!isCheck);
-//        questPointAssignment(nickname, quest_id);
         questRepo.saveQuestUser(questUser);
         return questUser;
     }

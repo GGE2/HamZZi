@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.team.teamrestructuring.R
 import com.team.teamrestructuring.databinding.FragmentMyPageBinding
+import com.team.teamrestructuring.util.CreateRegisterTimeDialog
 import com.team.teamrestructuring.view.activities.RegisterPlaceActivity
 
 // TODO: Rename parameter arguments, choose names that match
@@ -57,6 +58,11 @@ class MyPageFragment : Fragment() {
         binding.buttonMypageRegister.setOnClickListener {
             val intent = Intent(requireActivity(),RegisterPlaceActivity::class.java)
             startActivity(intent)
+        }
+        binding.buttonMypageTime.setOnClickListener {
+            val dialog = CreateRegisterTimeDialog()
+            dialog.isCancelable
+            dialog.show(activity?.supportFragmentManager!!,"CreateRegisterTime")
         }
     }
 

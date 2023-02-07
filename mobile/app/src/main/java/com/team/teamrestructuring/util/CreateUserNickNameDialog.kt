@@ -9,6 +9,7 @@ import androidx.fragment.app.DialogFragment
 import com.team.teamrestructuring.databinding.DialogCreateNicknameBinding
 import com.team.teamrestructuring.databinding.DialogCreatePetBinding
 import com.team.teamrestructuring.service.HomeService
+import com.team.teamrestructuring.service.QuestService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -42,6 +43,7 @@ class CreateUserNickNameDialog(
             createuserNickNameDialogInterface?.onClick()
             ApplicationClass.currentUser.userProfile.user_nickname = binding.edittextDialogNickname.text.toString()
             sendToServerNickname(binding.edittextDialogNickname.text.toString(),ApplicationClass.currentUser.email)
+            sendToServerQuestData(ApplicationClass.currentUser.userProfile.user_nickname)
             dismiss()
         }
 
@@ -72,6 +74,23 @@ class CreateUserNickNameDialog(
         //dialog?.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE)
 
     }
+
+    private fun sendToServerQuestData(nickname: String){
+        val service = ApplicationClass.retrofit.create(QuestService::class.java)
+            .createQuestUser(nickname).enqueue(object : Callback<String>{
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    if(response.isSuccessful){
+                        Log.d(TAG, "onResponse: ${response.body()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    Log.d(TAG, "onFailure: ${t.message}")
+                }
+
+            })
+    }
+
 
     private fun sendToServerNickname(nickname:String,email:String){
         val service = ApplicationClass.retrofit.create(HomeService::class.java)

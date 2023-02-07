@@ -23,5 +23,7 @@ public interface QuestRepository {
 
     List<Quest> questList();
 
+    List<Quest> getQuestList(Long quest_id);
+
     List<Long> getQuestId();
 }

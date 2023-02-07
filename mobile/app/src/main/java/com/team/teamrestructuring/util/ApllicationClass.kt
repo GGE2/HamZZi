@@ -34,14 +34,14 @@ class ApplicationClass : Application(){
 
     override fun onCreate() {
         super.onCreate()
-
-         NaverMapSdk.getInstance(this).client = NaverMapSdk.NaverCloudPlatformClient("t0ipbviz9p")
-
+        NaverMapSdk.getInstance(this).client = NaverMapSdk.NaverCloudPlatformClient("t0ipbviz9p")
         KakaoSdk.init(this,"98207802012408560593bd7763f3bedd")
         instance = this
+
         if(KakaoSDK.getAdapter()==null){
             KakaoSDK.init(KakaoSDKAdapter(getApplicationClassContext()))
         }
+
         currentUser = User("","")
 
         val gson = GsonBuilder().setLenient().create()

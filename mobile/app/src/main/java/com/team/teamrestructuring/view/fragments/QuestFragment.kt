@@ -2,6 +2,7 @@ package com.team.teamrestructuring.view.fragments
 
 import android.graphics.Color
 import android.graphics.Paint
+import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.replace
@@ -26,7 +28,9 @@ import com.naver.maps.map.util.FusedLocationSource
 import com.team.teamrestructuring.R
 import com.team.teamrestructuring.databinding.FragmentQuestBinding
 import com.team.teamrestructuring.view.adapters.DailyQuestAdapter
+import java.lang.Math.*
 import java.util.jar.Manifest
+import kotlin.math.pow
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,30 +38,33 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 private const val TAG = "QuestFragment_지훈"
 
+
 /**
  * A simple [Fragment] subclass.
  * Use the [GuildFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class QuestFragment : Fragment(){
+class QuestFragment : Fragment(),OnMapReadyCallback{
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-
     private lateinit var locationSource:FusedLocationSource
     private lateinit var binding:FragmentQuestBinding
     private lateinit var naverMap: NaverMap
     private lateinit var mapView:MapView
     private lateinit var tabLayout : TabLayout
     private lateinit var questAdapter: DailyQuestAdapter
-    private val datas  = listOf<String>("학교 , 직장 지각하지 않기","5000천보 이상 걷기")
+
+
+
     companion object {
+
+        var distance : Int = 0
+
         private val PERMISSIONS:Array<String> =
             arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION,android.Manifest.permission.ACCESS_COARSE_LOCATION)
-
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
-
-        private val tabTextList = listOf<String>("DAILY","WEEKLY")
+        private const val RR = 6372.8 * 1000
 
         /**
          * Use this factory method to create a new instance of
@@ -91,7 +98,7 @@ class QuestFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
     }
 
-   /* override fun onRequestPermissionsResult(
+    override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
         grantResults: IntArray
@@ -109,7 +116,7 @@ class QuestFragment : Fragment(){
         }
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    }*/
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -118,16 +125,13 @@ class QuestFragment : Fragment(){
 
         binding = FragmentQuestBinding.inflate(inflater,container,false)
 
-
-
         tabLayout = binding.tablayoutQuestTap
         setTabLayout() //Tab layout 설정
 
-
-        /*bindingmapView = binding.naverMap
+        mapView = binding.naverMap
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
-        locationSource = FusedLocationSource(this,LOCATION_PERMISSION_REQUEST_CODE)*/
+        locationSource = FusedLocationSource(this,LOCATION_PERMISSION_REQUEST_CODE)
         return binding.root
     }
     private fun setTabLayout(){
@@ -175,7 +179,7 @@ class QuestFragment : Fragment(){
         }
     }
 
-   /* override fun onSaveInstanceState(outState: Bundle) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         mapView.onSaveInstanceState(outState)
     }
@@ -185,13 +189,34 @@ class QuestFragment : Fragment(){
         this.naverMap = naverMap
         naverMap.locationSource = locationSource
         requestPermissions(PERMISSIONS, LOCATION_PERMISSION_REQUEST_CODE)
-
         //val uiSettings = naverMap.uiSettings
         naverMap.addOnLocationChangeListener {location->
             val cameraUpdate = CameraUpdate.scrollTo(LatLng(location.latitude,location.longitude))
             naverMap.moveCamera(cameraUpdate)
+            //Log.d(TAG, "onMapReady: ${location.longitude},$${location.latitude}")
+            distance = getDistance(36.107147,128.416220,location.latitude,location.longitude)
+
+            /*if(distance<30){
+                Toast.makeText(requireContext(),"도착했습니다",Toast.LENGTH_SHORT).show()
+            }*/
+            /*val destination : Location = Location("destination")
+            destination.latitude = 36.107210
+            destination.longitude = 128.418002
+            val now : Location = Location("current")
+            now.latitude = location.latitude
+            now.latitude = location.longitude
+            Log.d(TAG, "목표물간 거리 :  ${destination.distanceTo(now)}")
+            Log.d(TAG, "onMapReady: ${getDistance(36.107210,128.418002,location.latitude,location.longitude)}")*/
+
         }
 
+    }
+    fun getDistance(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Int {
+        val dLat = Math.toRadians(lat2 - lat1)
+        val dLon = Math.toRadians(lon2 - lon1)
+        val a = sin(dLat / 2).pow(2.0) + sin(dLon / 2).pow(2.0) * cos(Math.toRadians(lat1)) * cos(Math.toRadians(lat2))
+        val c = 2 * asin(sqrt(a))
+        return (RR * c).toInt()
     }
 
     override fun onStart() {
@@ -227,5 +252,5 @@ class QuestFragment : Fragment(){
     override fun onLowMemory() {
         super.onLowMemory()
         mapView.onLowMemory()
-    }*/
+    }
 }
