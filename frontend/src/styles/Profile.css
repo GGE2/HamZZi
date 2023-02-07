@@ -8,7 +8,11 @@
 }
 
 .MyBody2 {
-    height: 100%;
+    height: 85%;
+    background-image: url("../../public/room1.gif");
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* background-attachment: fixed; */
     display: flex;
 }
 
@@ -115,3 +119,32 @@
 
 
 
+.box {
+    display: inline;
+    position: absolute;
+    cursor: move;
+    color: black;
+    width: 100px;
+    border-radius: 5px;
+    padding: 1em;
+    margin: auto;
+    user-select: none;
+    background: lightgrey;
+  }
+  
+  .box   img {
+    /* display: inline; */
+    /* position: absolute; */
+    width: 100%;
+    cursor: move;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+img {
+    width: 10em;
+    height: 10em;
+    cursor: move;
+    user-select: none;
+    -webkit-user-drag: none;
+}

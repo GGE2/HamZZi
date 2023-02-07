@@ -8,6 +8,7 @@ import DiaryList from "./../../../components/GuestBook/DiaryList";
 import "../../../styles/Profile.css";
 import PetCarousel from './../../../components/PetCarousel';
 import axios from "axios";
+import Draggable from "react-draggable";
 
 const Profile = () => {
   const nickname = localStorage.getItem("nickname");
@@ -83,18 +84,64 @@ const Profile = () => {
     getUID()
   }, [])
 
+
+  const [position, setPosition] = useState({ x: 0, y: 0 }); // box의 포지션 값
+  const [Opacity, setOpacity] = useState(false);
+
+  const handleStart = () => {
+    setOpacity(true);
+  };
+  const handleEnd = () => {
+    setOpacity(false);
+  };
+  // 업데이트 되는 값을 set 해줌
+  const trackPos = (data) => {
+    setPosition({ x: data.x, y: data.y });
+  };
+  console.log(position.x);
+
+  const test = (e, data) => {
+    trackPos(data);
+    console.log(e);
+    console.log(data);
+
+    // if(data.x > 330) {
+    //   setPosition({ x: 330, y: data.y })
+    // }
+    // if (data.y > 330) {
+    //   setPosition({ x: data.x, y: 330 })
+    // }
+  };
+
+
   return (
     <>
       <Header data={nickname} type={"profile"} />
-      <div className="MyBody">
+      <div className="MyBody2">
         
-      <PetCarousel/>
+
+        <Draggable
+          bounds={{ left: 0, top: 0, right: 535, bottom: 320 }}
+          onDrag={test}
+          onStart={handleStart}
+          onStop={handleEnd}
+          defaultPosition={{x: 260, y: 150}}
+        >
+          <img src="hamzzi.png" alt="" />
+          {/* <div className="box" style={{ opacity: Opacity ? "0.6" : "1" }}>
+            <img src="hamzzi.png" alt="" />
+            <div>
+              x: {position.x.toFixed(0)}, y: {position.y.toFixed(0)}
+            </div>
+          </div> */}
+        </Draggable>
+      {/* <PetCarousel/> */}
       
-        <div className="UserName">
-          {/* {user}'s Profile(USERNAME) */}
+        {/* <div className="UserName">
+          {user}'s Profile(USERNAME)
      
-        </div>
-        <div className="MyBody2">
+        </div> */}
+        {/* <div className="MyBody2"> */}
           {/* <div className="HamGrad">
             <div className="HamSlot">
               
@@ -135,7 +182,7 @@ const Profile = () => {
             <DiaryList diaryList={data} onDelete={onDelete} onEdit={onEdit} />
           </div> */}
         </div>
-      </div>
+      {/* </div> */}
     </>
   );
 };
