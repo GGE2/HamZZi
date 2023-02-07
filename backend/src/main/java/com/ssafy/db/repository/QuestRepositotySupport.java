@@ -48,6 +48,12 @@ public class QuestRepositotySupport implements QuestRepository {
     }
 
     @Override
+    public List<Quest> getQuestList(Long quest_id) {
+        return em.createQuery("select q from Quest q", Quest.class)
+                .getResultList();
+    }
+
+    @Override
     public List<Long> getQuestId() {
         return em.createQuery("select q.quest_id from Quest q", Long.class)
                 .getResultList();
