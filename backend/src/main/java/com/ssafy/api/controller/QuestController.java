@@ -84,7 +84,7 @@ public class QuestController {
 //    }
 
     // User에게 Quest 부여 List
-    @PostMapping("/user")
+    @PostMapping("/user/{nickname}")
     @ApiOperation(value = "Quest를 User에게 부여", notes = "Quest를 User에게 부여한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -92,8 +92,8 @@ public class QuestController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public String createQuestUser(@RequestBody QuestUserRequest questUserReq) {
-        questService.createQuestUser(questUserReq);
+    public String createQuestUser(QuestUserRequest questUserReq, @PathVariable String nickname) {
+        questService.createQuestUser(questUserReq, nickname);
 
         return "200 OK!" ;
     }
@@ -137,9 +137,9 @@ public class QuestController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public String questRegisterLocation(Long questUser_id, @RequestParam int finish_time) {
-        QuestUser questUser = questService.registerFinalDatetime(questUser_id, finish_time);
+    public String questRegisterLocation(String nickname, @RequestParam int finish_time) {
+        UserProfile userProfile = questService.registerFinalDatetime(nickname, finish_time);
 
-        return "ID: " + questUser.getQuestUser_id() + " OWNER: " + questUser.getNickname() + " FinishTime: " + questUser.getFinish_datetime();
+        return "OWNER: " + userProfile.getNickname() + " FinishTime: " + userProfile.getFinish_datetime();
     }
 }

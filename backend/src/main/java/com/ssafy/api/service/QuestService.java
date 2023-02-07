@@ -14,13 +14,13 @@ public interface QuestService {
     Quest createQuest(QuestRequest questInfo, int key);
 
     // questUser 생성
-    void createQuestUser(QuestUserRequest questUserReq);
+    void createQuestUser(QuestUserRequest questUserReq, String nickname);
 
     // 위치 등록
     UserProfile registerLocation(String nickname, double latitude, double longitude);
 
     // 시간 등록
-    QuestUser registerFinalDatetime(Long questUser_id, int Finish_datetime);
+    UserProfile registerFinalDatetime(String nickname, int finish_datetime);
 
     // User의 Quest 보여주기
     List<QuestUser> getQuests(String nickname);

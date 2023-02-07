@@ -15,10 +15,13 @@ public class QuestUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long questUser_id;
 
-    @Column(name="quest_id")
-    private Long quest_id;      // 이걸로 quest id 뽑아오기
+//    @Column(name="quest_id")
+//    private Long quest_id;      // 이걸로 quest id 뽑아오기
+    @OneToOne
+    @JoinColumn(name="quest_id")
+    private Quest quest;
 
-    @Column(name="user_nickname")
+    @Column(name="user_nickname", nullable = false)
     private String nickname;
 
     // 완료 여부
@@ -26,6 +29,6 @@ public class QuestUser {
     @Column(nullable = false)
     private Boolean ischeck;
     
-    // 완료해야하는 시간
-    private int finish_datetime;
+//    // 완료해야하는 시간
+//    private int finish_datetime;
 }
