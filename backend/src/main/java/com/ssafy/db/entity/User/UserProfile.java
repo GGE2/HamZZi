@@ -28,7 +28,7 @@ public class UserProfile {
     private double latitude;
     // 경도
     private double longitude;
-
     // 완료해야하는 시간
     private int finish_datetime;
+
 }
