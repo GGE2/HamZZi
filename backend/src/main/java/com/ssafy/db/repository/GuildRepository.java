@@ -24,6 +24,6 @@ public interface GuildRepository {
     List<Guild> findListByName(String guild_name);
 
 
-    List<GuildUser> findGuildAdmin(Long guild_id);
+    GuildUser findGuildAdmin(Long guild_id);
     List<GuildUser> findGuildUser(Long guild_id);
 }

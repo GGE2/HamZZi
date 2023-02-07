@@ -33,7 +33,7 @@ public class GuildController {
         boolean check = guildService.grantAdmin(nickname);
 
         if(!check) {return "ERROR: NO ADMIN GRANTED!!";}
-        return guild.getGuild_name() + " FOUND OK\nGRANT admin: " + nickname;
+        return guild.getGuild_id() + ": " + guild.getGuild_name() + " FOUND OK\nGRANT admin: " + nickname;
     }
     /* Guild 가입 API: 아이디(guild_id)에 해당하는 길드에 가입한다 */
     @PutMapping("/join")
@@ -107,7 +107,7 @@ public class GuildController {
         Guild guild = guildService.findGuild(guild_id);
         return guild;
     }
-    /* Guild 세부정보: 길드 소속 사용자 정보(NO admin) 출력 */
+    /* Guild 세부정보: 길드 소속 사용자 정보 출력 */
     @GetMapping("/detail/user")
     @ApiOperation(value = "길드 세부정보-사용자", notes = "일반 길드원을 출력한다")
     @ApiResponses({
@@ -121,7 +121,7 @@ public class GuildController {
         int listSize = list.size();
         return list;
     }
-    /* Guild 세부정보: 길드 소속 어드민 정보 출력 */
+    /* Guild 세부정보: 길드 어드민 정보 출력 */
     @GetMapping("/detail/admin")
     @ApiOperation(value = "길드 세부정보-관리자", notes = "길드 관리자를 출력한다")
     @ApiResponses({
@@ -130,10 +130,9 @@ public class GuildController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public List<GuildUser> findGuildAdmin(@RequestParam Long guild_id) {
-        List<GuildUser> list = guildService.findGuildAdmin(guild_id);
-        int listSize = list.size();
-        return list;
+    public String findGuildAdmin(@RequestParam Long guild_id) {
+        GuildUser admin = guildService.findGuildAdmin(guild_id);
+        return "GUILD: " + admin.getGuild().getGuild_name() + " ADMIN : " + admin.getNickname();
     }
 
     @GetMapping("/user")
@@ -168,26 +167,14 @@ public class GuildController {
 
         //A가 B를 관리자에 임명한다고 했을 때, A의 권한 체크
         if(!guildService.checkAdmin(nickname_admin)) { return "ERROR: GRANT - CAN'T ACCESS GENERAL USER"; }
-        boolean check = guildService.grantAdmin(nickname_granted);
+        boolean checkB = guildService.grantAdmin(nickname_granted);
         //B에게 권한부여 실패 - B가 이미 어드민이거나 길드 미소속이면 false
-        if(!check) { return "FAIL TO GRANT ADMIN: " + nickname_granted; }
-        return nickname_admin + " GRANT " + nickname_granted + " ADMIN";
+        if(!checkB) { return "FAIL TO GRANT ADMIN: " + nickname_granted; }
+        boolean checkA = guildService.quitAdmin(nickname_admin);
+        if(!checkA) { return "ERROR: QuitAdmin - CAN'T ACCESS GENERAL USER OR NO GUILD USER"; }
+        return nickname_admin + " GRANT " + nickname_granted + " ADMIN\n" + nickname_admin + ": NOW GENERAL USER";
     }
 
-    /* ADMIN 그만두기: 자신의 is_admin을 false로 만든다 */
-    @PutMapping("/admin/quit")
-    @ApiOperation(value = "길드 관리자 그만두기", notes = "길드 관리자를 그만둔다")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "성공"),
-            @ApiResponse(code = 401, message = "인증 실패"),
-            @ApiResponse(code = 404, message = "사용자 없음"),
-            @ApiResponse(code = 500, message = "서버 오류")
-    })
-    public String quitAdmin(@RequestParam String nickname) {
-        boolean check = guildService.quitAdmin(nickname);
-        if(!check) { return "ERROR: QuitAdmin - CAN'T ACCESS GENERAL USER OR NO GUILD USER"; }
-        return nickname + ": NOW GENERAL USER";
-    }
     /* GUILD에서 사용자 강퇴: 해당 nickname의 일반 user를 길드에서 강퇴한다 */
     @PutMapping("/kick")
     @ApiOperation(value = "길드 강퇴", notes = "어드민이 길드에서 일반유저를 강퇴시킨다")
