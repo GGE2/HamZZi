@@ -1,40 +1,40 @@
 package com.ssafy.api.service;
 
-import com.ssafy.api.request.QuestFinishDatetimeRequest;
 import com.ssafy.api.request.QuestRequest;
-import com.ssafy.api.request.QuestUserLocationRequest;
 import com.ssafy.api.request.QuestUserRequest;
 import com.ssafy.db.entity.Quest.Quest;
 import com.ssafy.db.entity.Quest.QuestUser;
 import com.ssafy.db.entity.User.UserProfile;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
 public interface QuestService {
 
     // Quest 생성
-    Quest createQuest(QuestRequest questInfo);
+    Quest createQuest(QuestRequest questInfo, int key);
 
     // questUser 생성
-    QuestUser createQuestUser(QuestUserRequest questUserReq, Long quest_id);
+    void createQuestUser(QuestUserRequest questUserReq);
 
     // 위치 등록
     UserProfile registerLocation(String nickname, double latitude, double longitude);
 
     // 시간 등록
-    QuestUser registerFinalDatetime(Long questUser_id, String Finish_datetime);
+    QuestUser registerFinalDatetime(Long questUser_id, int Finish_datetime);
 
     // User의 Quest 보여주기
     List<QuestUser> getQuests(String nickname);
 
     // Quest List
     List<Quest> getQuest();
-
+    
+    // Quest List의 id 값 뽑아오기
+    List<Long> getQuestId();
+    
     // Quest 완료 확인하기
-    QuestUser checkUpdateQuest(String nickname, Long questUser_id, Long quest_id);
+    QuestUser checkUpdateQuest(Long questUser_id);
 
     // point 계산
-    UserProfile questPointAssignment(String nickname, Long quest_id);
+    void questPointAssignment(String nickname, Long quest_id);
 
 }

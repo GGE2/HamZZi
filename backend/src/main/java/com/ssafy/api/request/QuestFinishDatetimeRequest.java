@@ -10,6 +10,6 @@ import lombok.Setter;
 @ApiModel("QuestDatetimeRequest")
 public class QuestFinishDatetimeRequest {
 
-    @ApiModelProperty(name = "완료해야하는 시간", example = "09:00")
-    String finish_datetime;
+    @ApiModelProperty(name = "완료해야하는 시간(분으로 계산해서)", example = "540")  // 9시를 분으로 나타낸 것
+    int finish_datetime;
 }

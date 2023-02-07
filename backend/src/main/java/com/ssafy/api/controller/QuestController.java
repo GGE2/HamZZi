@@ -40,8 +40,8 @@ public class QuestController {
         return ResponseEntity.status(200).body(questUserList);
     }
 
-    // Quest 생성
-    @PostMapping()
+    // Quest 생성 // key 1 : daily / key 2: weekly
+    @PostMapping("/{key}")
     @ApiOperation(value = "Quest 생성", notes = "Quest를 생성한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -49,13 +49,41 @@ public class QuestController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public String createQuest(@RequestBody QuestRequest questInfo) {
-        Quest quest = questService.createQuest(questInfo);
+    public String createQuest(@RequestBody QuestRequest questInfo, @PathVariable int key) {
+        Quest quest = questService.createQuest(questInfo, key);
 
         return "ID: " + quest.getQuest_id() + " CONTENT: " + quest.getContent() ;
     }
 
-    // User에게 Quest 부여
+    // 전체 Quest List
+    @GetMapping()
+    @ApiOperation(value = "All Quest List", notes = "Quest List Get.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<?> getQuestList() {
+        List<Quest> questList = questService.getQuest();
+
+        return ResponseEntity.status(200).body(questList);
+    }
+//
+//    // Quest Object 뽑아 올수 있는지 테스트
+//    @GetMapping("/test")
+//    @ApiOperation(value = "Test", notes = "Quest List Get.")
+//    @ApiResponses({
+//            @ApiResponse(code = 200, message = "성공"),
+//            @ApiResponse(code = 401, message = "인증 실패"),
+//            @ApiResponse(code = 404, message = "사용자 없음"),
+//            @ApiResponse(code = 500, message = "서버 오류")
+//    })
+//    public List<Long> test() {
+//        return questService.getQuestId();
+//    }
+
+    // User에게 Quest 부여 List
     @PostMapping("/user")
     @ApiOperation(value = "Quest를 User에게 부여", notes = "Quest를 User에게 부여한다.")
     @ApiResponses({
@@ -64,13 +92,13 @@ public class QuestController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public String createQuestUser(@RequestBody QuestUserRequest questUserReq, @RequestBody Long quest_id) {
-        QuestUser quest = questService.createQuestUser(questUserReq, quest_id);
+    public String createQuestUser(@RequestBody QuestUserRequest questUserReq) {
+        questService.createQuestUser(questUserReq);
 
-        return "ID: " + quest.getQuestUser_id() + " OWNER: " +  quest.getNickname() + " QUEST: " + quest.getQuest_id() ;
+        return "200 OK!" ;
     }
 
-    // Quest IsCheck 바꾸고 계산식 추가
+    // Quest 완료 체크 계산식 추가
     @PutMapping("/check")
     @ApiOperation(value = "Quest 완료", notes = "해당 Quest를 완료한다.")
     @ApiResponses({
@@ -80,7 +108,8 @@ public class QuestController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public String checkQuest(@RequestParam String nickname, @RequestParam Long questUser_id, @RequestParam Long quest_id) {
-        QuestUser quest = questService.checkUpdateQuest(nickname, quest_id, questUser_id);
+        QuestUser quest = questService.checkUpdateQuest(questUser_id);
+        questService.questPointAssignment(nickname, quest_id);
 
         return "IsCheck: " + quest.getIscheck() ;
     }
@@ -108,7 +137,7 @@ public class QuestController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public String questRegisterLocation(Long questUser_id, @RequestParam String finish_time) {
+    public String questRegisterLocation(Long questUser_id, @RequestParam int finish_time) {
         QuestUser questUser = questService.registerFinalDatetime(questUser_id, finish_time);
 
         return "ID: " + questUser.getQuestUser_id() + " OWNER: " + questUser.getNickname() + " FinishTime: " + questUser.getFinish_datetime();
