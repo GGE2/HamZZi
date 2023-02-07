@@ -41,6 +41,11 @@ public class TodoServiceImpl implements TodoService{
         return todoList;
     }
 
+    @Override
+    public List<Todo> searchTodo(String nickname, String content) {
+        return todoRepo.searchTodo(nickname, content);
+    }
+
     // todo 생성
     @Override
     public Todo createTodo(TodoRequest todoInfo) {

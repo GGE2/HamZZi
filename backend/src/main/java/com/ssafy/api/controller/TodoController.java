@@ -96,4 +96,17 @@ public class TodoController {
         return "ID: " + id;
     }
 
+    @GetMapping("/list/search")
+    @ApiOperation(value = "Todo 목록 - 이름 검색", notes = "Todo 을 포함하는 전체 목록")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public List<Todo> searchTodoByNicknameContent(@RequestParam String nickname, @RequestParam String content) {
+        List<Todo> list = todoService.searchTodo(nickname, content);
+        int listSize = list.size();
+        return list;
+    }
 }

@@ -55,4 +55,16 @@ public class TodoRepositorySupport implements TodoRepository {
         }
     }
 
+    @Override
+    public List<Todo> searchTodo(String nickname, String content) {
+        try {
+            return em.createQuery("select t from Todo t Where t.nickname=:nickname and t.content like :content", Todo.class)
+                    .setParameter("nickname", nickname)
+                    .setParameter("content", "%"+content+"%")
+                    .getResultList();
+        } catch (NoResultException e){
+            return null;
+        }
+    }
+
 }
