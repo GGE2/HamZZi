@@ -18,7 +18,7 @@ public interface GuildService {
     Guild findGuild(Long guild_id);
 
     List<GuildUser> findGuildUser(Long guild_id);
-    GuildUser findGuildAdmin(Long guild_id);
+    List<GuildUser> findGuildAdmin(Long guild_id);
 
     Guild foundGuild(String guildName, String nickname);
 

@@ -130,12 +130,13 @@ public class GuildController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public String findGuildAdmin(@RequestParam Long guild_id) {
-        GuildUser admin = guildService.findGuildAdmin(guild_id);
-        return "GUILD: " + admin.getGuild().getGuild_name() + " ADMIN : " + admin.getNickname();
+    public List<GuildUser> findGuildAdmin(@RequestParam Long guild_id) {
+        List<GuildUser> list = guildService.findGuildAdmin(guild_id);
+        int listSize = list.size();
+        return list;
     }
 
-    @GetMapping("/user")
+        @GetMapping("/user")
     @ApiOperation(value = "사용자의 길드 정보", notes = "현재 사용자의 길드 관련 정보")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),

@@ -59,16 +59,18 @@ public class GuildRepositorySupport implements GuildRepository {
     }
 
     @Override
-    public GuildUser findGuildAdmin(Long guild_id) {
+    public List<GuildUser> findGuildAdmin(Long guild_id) {
         return em.createQuery("select u from GuildUser u left join Guild g on (g.guild_id=u.guild.guild_id) " +
                         "where g.guild_id=:guild_id and u.admin=:admin", GuildUser.class)
                 .setParameter("guild_id", guild_id)
-                .setParameter("admin", true).getSingleResult();
+                .setParameter("admin", true).getResultList();
     }
     @Override
     public List<GuildUser> findGuildUser(Long guild_id) {
         return em.createQuery("select u from GuildUser u left join Guild g on (g.guild_id=u.guild.guild_id) " +
-                        "where g.guild_id=:guild_id", GuildUser.class)
-                .setParameter("guild_id", guild_id).getResultList();
+                        "where g.guild_id=:guild_id and u.admin=:admin", GuildUser.class)
+                .setParameter("guild_id", guild_id)
+                .setParameter("admin", false).getResultList();
+
     }
 }

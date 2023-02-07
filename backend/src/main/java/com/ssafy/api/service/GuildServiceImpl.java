@@ -51,7 +51,7 @@ public class GuildServiceImpl implements GuildService {
     @Override
     public List<GuildUser> findGuildUser(Long guild_id) { return guildRepo.findGuildUser(guild_id); }
     @Override
-    public GuildUser findGuildAdmin(Long guild_id) { return guildRepo.findGuildAdmin(guild_id); }
+    public List<GuildUser> findGuildAdmin(Long guild_id) { return guildRepo.findGuildAdmin(guild_id); }
 
     @Override
     public Guild foundGuild(String guildName, String nickname) {
@@ -135,8 +135,11 @@ public class GuildServiceImpl implements GuildService {
             guildRepo.removeGuildUser(guildUser.getNickname());
         }
 
-        GuildUser admin = guildRepo.findGuildAdmin(guildId);
-        guildRepo.removeGuildUser(admin.getNickname());
+        List<GuildUser> adminList = guildRepo.findGuildAdmin(guildId);
+        for (int i = 0; i < adminList.size(); i++) {
+            GuildUser guildUser = adminList.get(i);
+            guildRepo.removeGuildUser(guildUser.getNickname());
+        }
 
         guildRepo.removeGuild(guildId);
     }
