@@ -12,6 +12,9 @@ public interface TodoService {
 
     // todo 가지고 오기
     List<Todo> getTodos(String nickname, String datetime);
+
+    // todo 검색
+    List<Todo> searchTodo(String nickname, String content);
     
     // todo 생성
     Todo createTodo(TodoRequest todoInfo);

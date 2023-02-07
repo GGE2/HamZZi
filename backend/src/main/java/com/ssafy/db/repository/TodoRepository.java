@@ -20,4 +20,5 @@ public interface TodoRepository {
     Todo findByNickname(String nickname);
     List<Todo> todoList(String nickname, String datetime);
 
+    List<Todo> searchTodo(String nickname, String content);
 }
