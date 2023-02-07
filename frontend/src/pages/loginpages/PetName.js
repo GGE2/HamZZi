@@ -21,6 +21,7 @@ const PetName = () => {
         user_nickname: nickname,
       })
       .then(() => {
+        localStorage.setItem("petName", petName);
         navigate("/main");
       })
       .catch((error) => {

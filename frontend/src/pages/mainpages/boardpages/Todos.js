@@ -75,7 +75,7 @@ const Todos = () => {
         setIsLoading(false);
       })
       .catch(() => {
-        alert("Todo 리스트 불러오기 실패하였습니다");
+        // alert("Todo 리스트 불러오기 실패하였습니다");
         setIsLoading(false);
       });
   };

@@ -8,19 +8,13 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { selectCurrentHamStat, getCurrentStat } from "./../../hamStatSlice";
 
-const Ham = () => {
-  const nickname = localStorage.getItem("nickname");
-  const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   getPetInfo();
-  // }, []);
+const Ham = (props) => {
   return (
     <div className="Ham">
       <HamHeader />
 
       <HamOutfit />
-      <HamStatus />
+      <HamStatus petName={props.petName} />
     </div>
   );
 };

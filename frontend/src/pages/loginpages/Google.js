@@ -32,7 +32,7 @@ function Google() {
       console.log(dummy.data);
       // dummy가 true -> 기존 사용자 -> 메인페이지 이동
       // false -> 신규 사용자 -> 닉네임 설정 페이지 이동
-      dummy.data.result
+      dummy.data
         ? navigate("/main")
         : axios
             .post("http://3.35.88.23:8080/api/user/register", {
