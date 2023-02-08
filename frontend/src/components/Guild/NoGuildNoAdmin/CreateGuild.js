@@ -7,7 +7,7 @@ import GuildItem from "./../GuildItem";
 const CreateGuild = ({
   onSearchGuild,
   guilds,
-  setKeyword,
+  // setKeyword,
   onGetUserGuildInfo,
   getGuildList,
   onGetGuildAdmin,
@@ -19,7 +19,7 @@ const CreateGuild = ({
   const [SearchFlag, setSearchFlag] = useState(true);
   const [create_guild_menu, setCreate_guild_menu] = useState([true, false]);
 
-  // const [keyword, setKeyword] = useState('')
+  const [keyword, setKeyword] = useState('')
 
   const onCreateGuild = async () => {
     if (GuildName) {
@@ -32,8 +32,8 @@ const CreateGuild = ({
           console.log(res);
           onGetUserGuildInfo();
           // getGuildList();
-          onGetGuildAdmin();
-          onGetGuilduser();
+          onGetGuildAdmin(res.data.guild_id);
+          onGetGuilduser(res.data.guild_id);
         })
         .catch((err) => {
           console.log(err);
@@ -44,6 +44,11 @@ const CreateGuild = ({
   };
 
   const onKeyword = (e) => {
+    console.log(e.target.value);
+    setKeyword(e.target.value);
+  };
+
+  const onGuildName = (e) => {
     console.log(e.target.value);
     setGuildName(e.target.value);
   };
@@ -80,21 +85,35 @@ const CreateGuild = ({
         >
           길드 찾기
         </button>
-        <form onSubmit="return false;">
-          {/* <input type="text" > */}
+        
+        {create_guild_menu[0] && (
+          <>
+          <form >
           <input
             type="text"
             placeholder="길드 이름을 입력하세요"
             value={GuildName}
+            onChange={onGuildName}
+            onKeyPress={handleOnKeyPress}
+          />
+        </form>
+          <button onClick={onCreateGuild}>생성하기</button>
+          </>
+        )}
+        {create_guild_menu[1] && (
+          <>
+          <form >
+          <input
+            type="text"
+            placeholder="길드 이름을 검색하세요"
+            value={keyword}
             onChange={onKeyword}
             onKeyPress={handleOnKeyPress}
           />
         </form>
-        {create_guild_menu[0] && (
-          <button onClick={onCreateGuild}>생성하기</button>
-        )}
-        {create_guild_menu[1] && (
-          <button onClick={onSearchGuild}>검색하기</button>
+          <button onClick={()=> {onSearchGuild(keyword)}}>검색하기</button>
+           {/* <button onClick={onSearchGuild(GuildName)}>검색하기</button> */}
+          </>
         )}
       </div>
       <div className="GuildList">

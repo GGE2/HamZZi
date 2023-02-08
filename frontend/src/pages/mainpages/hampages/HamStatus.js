@@ -1,53 +1,53 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import HamExp from "./statuspages/HamExp";
 import HamLevel from "./statuspages/HamLevel";
 import HamName from "./statuspages/HamName";
+import StatCtrl from "./statuspages/StatCtrl";
 import "../../../styles/HamStatus.css";
 import Chart from "react-apexcharts";
 import { IoStatsChart } from "react-icons/io5";
-import PetStatCtrl from "./PetStatCtrl";
+import { useSelector, useDispatch } from "react-redux";
+import { selectCurrentHamStat, clearStat } from "./../../../hamStatSlice";
+import axios from "axios";
 
-const HamStatus = ({ petInfo, petStat, stat, petData, setStat }) => {
-  const [isModal, setIsModal] = useState(false);
-  console.log("펫데이터 출력");
-  console.log(petData);
-  console.log("펫 스탯 출력");
-  console.log(stat);
-  // const [petstat, setpetstat] = useState([petData[2]])
-  // const [stat, setStat] = useState({
-  // physical: petstat.physical,
-  // artistic: petstat.artistic,
-  // intelligent: petstat.intelligent,
-  // inactive:petstat.inactive,
-  // energetic: petstat.energetic,
-  // etc: petstat.etc,
-  // physical:0,
-  // artistic:0,
-  // intelligent: 0,
-  // inactive: 0,
-  // energetic: 0,
-  // etc:0,
-  // });
+const HamStatus = (props) => {
+  const hamstat = useSelector(selectCurrentHamStat);
+  const level = localStorage.getItem("petLevel");
+  const petId = localStorage.getItem("petId");
+  const petName = localStorage.getItem("petName");
+  const nickname = localStorage.getItem("nickname");
+  const [isOpen, setIsOpen] = useState(false);
+  const outside = useRef();
+  const dispatch = useDispatch(clearStat());
 
-  useEffect(() => {
-    // setpetstat(petData[2])
-  }, []);
-
+  const handleGraduate = () => {
+    axios
+      .put(`http://3.35.88.23:8080/api/pet/graduate?pet_id=${petId}`)
+      .then(() => {
+        console.log("graduated");
+        dispatch(clearStat());
+        localStorage.setItem("petId", null);
+        localStorage.setItem("petName", null);
+        localStorage.setItem("petLevel", null);
+        localStorage.setItem("exp", null);
+        window.location.replace("/main");
+      });
+  };
   const state = {
     options: {
       fill: {
         opacity: 0.5,
-        colors: ["#3f8744"]
+        colors: ["#3f8744"],
       },
       dataLabels: {
         enabled: true,
         background: {
           enabled: true,
-          borderRadius:2,
-        }
+          borderRadius: 2,
+        },
       },
       // colors: ["#3f8744"],
-      
+
       chart: {
         toolbar: {
           show: false,
@@ -70,57 +70,67 @@ const HamStatus = ({ petInfo, petStat, stat, petData, setStat }) => {
     ///////////////////////////////////////
     series: [
       {
-        id: 'stat',
+        // id: 'stat',
         data: [
-          3,0,20,0,20,30
+          hamstat.physical,
+          hamstat.artistic,
+          hamstat.intelligent,
+          hamstat.inactive,
+          hamstat.energetic,
+          hamstat.etc,
         ],
       },
     ],
   };
-
-  const qwe = () => {
-    console.log(123);
-  };
-
-  // 모달창 노출
-  const onPetStatCtrl = () => {
-    // setIsCreate();
-    setIsModal(true);
+  const showStat = () => {
+    setIsOpen(true);
   };
 
   return (
-    <div className="HamStatus">
-      {/* {isModal && (
-        <PetStatCtrl
-          petStat={petStat}
-          petInfo={petInfo}
-          setIsModal={setIsModal}
-          setStat={setStat}
-          stat={stat}
-        />
-      )} */}
-      <HamName />
-
-      <div>
-        <div className="Expbar">
-          <HamExp />
-          <HamLevel />
+    <>
+      <div className="HamStatus">
+        <HamName petName={props.petName} />
+        {/* <ApexChart type="radar"  /> */}
+        <div>
+          <div className="Expbar">
+            <HamExp />
+            <HamLevel />
+          </div>
+        </div>
+        {level === "5" && (
+          <button
+            style={{ position: "relative", top: "30px" }}
+            onClick={handleGraduate}
+          >
+            graduate
+          </button>
+        )}
+        <div className="HamChart">
+          <Chart
+            options={state.options}
+            series={state.series}
+            type="radar"
+            height={"100%"}
+          />
+          <button className="StatButton">
+            <IoStatsChart onClick={showStat} size={"100%"} color={"green"} />
+            {isOpen && (
+              <div
+                className="Modal"
+                ref={outside}
+                onClick={(e) => {
+                  if (e.target === outside.current) {
+                    setIsOpen(false);
+                  }
+                }}
+              >
+                <StatCtrl />
+              </div>
+            )}
+          </button>
         </div>
       </div>
-
-      <div className="HamChart">
-        <Chart
-          options={state.options}
-          series={state.series}
-          type="radar"
-          height={"100%"}
-          onClick={qwe}
-        />
-        <button className="StatButton">
-          <IoStatsChart onClick={onPetStatCtrl} size={"100%"} color={"green"} />
-        </button>
-      </div>
-    </div>
+    </>
   );
 };
 

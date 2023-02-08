@@ -3,26 +3,14 @@ import styled, { css } from "styled-components";
 import useDetectClose from "../useDetectClose";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { useNavigate } from "react-router";
-import axios from "axios";
 
 const DropdownMenu = () => {
-  const email =  localStorage.getItem("user");
   const navigate = useNavigate();
   const [myPageIsOpen, myPageRef, myPageHandler] = useDetectClose(false);
   const LogoutAuth = () => {
     localStorage.clear();
     navigate("/");
   };
-
-  const DeleteUser = async () => {
-    const email2 = JSON.parse(email);
-    await axios.delete(`http://3.35.88.23:8080/api/user/delete?email=${email2}`)
-    .then((res)=>{
-      console.log(res)
-    })
-  }
-
-
   return (
     <>
       <DropdownContainer>
@@ -32,15 +20,15 @@ const DropdownMenu = () => {
         <Menu isDropped={myPageIsOpen}>
           <Ul>
             <Li>
-              <LinkWrapper onClick={LogoutAuth} >
+              <LinkWrapper onClick={LogoutAuth} href="#1-2">
                 로그아웃
               </LinkWrapper>
             </Li>
             <Li>
-              <LinkWrapper2 >정보수정</LinkWrapper2>
+              <LinkWrapper2 href="#1-3">정보수정</LinkWrapper2>
             </Li>
             <Li>
-              <LinkWrapper onClick={DeleteUser}>회원탈퇴</LinkWrapper>
+              <LinkWrapper href="#1-3">회원탈퇴</LinkWrapper>
             </Li>
           </Ul>
         </Menu>

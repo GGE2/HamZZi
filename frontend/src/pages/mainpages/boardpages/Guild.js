@@ -7,7 +7,7 @@ import GuildNoAdmin from "./../../../components/Guild/GuildNoAdmin/GuildNoAdmin"
 import GuildAdmin from "../../../components/Guild/GuildAdmin/GuildAdmin";
 
 const Guild = ({
-  user,
+
   guildUsers,
   guildId,
   setGuildUsers,
@@ -17,7 +17,7 @@ const Guild = ({
   const [users, setUsers] = useState();
 
   const [guilds, setGuilds] = useState([]);
-  const [keyword, setKeyword] = useState("");
+  // const [keyword, setKeyword] = useState("");
   const [loading, setLoading] = useState(null)
   const nickname = localStorage.getItem("nickname");
 
@@ -33,7 +33,7 @@ const Guild = ({
   };
 
   // 특정 길드 검색 api
-  const onSearchGuild = async () => {
+  const onSearchGuild = async (keyword) => {
     await axios
       .get(`http://3.35.88.23:8080/api/guild/list/search?guild_name=${keyword}`)
       .then((res) => {
@@ -185,7 +185,7 @@ const Guild = ({
           <CreateGuild
             guilds={guilds}
             onSearchGuild={onSearchGuild}
-            setKeyword={setKeyword}
+            // setKeyword={setKeyword}
             onGetUserGuildInfo={onGetUserGuildInfo}
             getGuildList={getGuildList}
             onGetGuildAdmin={onGetGuildAdmin}

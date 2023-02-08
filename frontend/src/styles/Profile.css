@@ -9,7 +9,7 @@
 
 .MyBody2 {
     height: 85%;
-    background-image: url("../../public/room1.gif");
+    background-image: url("../../public/room2.gif");
     background-repeat: no-repeat;
     background-size: cover;
     /* background-attachment: fixed; */
@@ -120,31 +120,33 @@
 
 
 .box {
-    display: inline;
-    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: move;
-    color: black;
-    width: 100px;
-    border-radius: 5px;
-    padding: 1em;
-    margin: auto;
+    /* color: black; */
+    width: 5em;
+    height: 5em;
+    padding: 0.3em;
+    /* margin: auto; */
     user-select: none;
-    background: lightgrey;
+    background: transparent;
   }
   
-  .box   img {
+  .MyBody2   img {
     /* display: inline; */
     /* position: absolute; */
-    width: 100%;
+    width: 4em;
+    height: 4em;
     cursor: move;
     user-select: none;
     -webkit-user-drag: none;
   }
 
-img {
+/* img {
     width: 10em;
     height: 10em;
     cursor: move;
     user-select: none;
     -webkit-user-drag: none;
-}
+} */

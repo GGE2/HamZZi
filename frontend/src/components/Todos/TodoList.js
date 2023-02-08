@@ -1,7 +1,7 @@
 import React from "react";
 import TodoItem from "./TodoItem";
 // import './TodoList.css';
-import PetCarousel from './../PetCarousel';
+// import PetCarousel from './../PetCarousel';
 
 const TodoList = ({ Caldate, todos, onDel, onEdit, onToggle }) => {
   // console.log(todos)

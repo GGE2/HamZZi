@@ -20,8 +20,8 @@ const GuildItem = ({
         console.log("길드가입api");
         console.log(res);
         onGetUserGuildInfo(); // 유저 길드 정보 업데이트
-        onGetGuildAdmin(res.data.guild_id)
-        onGetGuilduser(res.data.guild_id)
+        onGetGuildAdmin(guild.guild_id)
+        onGetGuilduser(guild.guild_id)
       });
   };
 

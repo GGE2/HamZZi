@@ -1,4 +1,4 @@
-import React, { useState,useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../../authSlice";
 import Header from "./../../../components/Header";
@@ -6,13 +6,13 @@ import { GiAchievement } from "react-icons/gi";
 import DiaryEditor from "./../../../components/GuestBook/DiaryEditor";
 import DiaryList from "./../../../components/GuestBook/DiaryList";
 import "../../../styles/Profile.css";
-import PetCarousel from './../../../components/PetCarousel';
+// import PetCarousel from './../../../components/PetCarousel';
 import axios from "axios";
 import Draggable from "react-draggable";
 
 const Profile = () => {
   const nickname = localStorage.getItem("nickname");
-  const email =  localStorage.getItem("user");
+  const email = localStorage.getItem("user");
 
   // 방명록 리스트
   const [data, setData] = useState([]);
@@ -72,18 +72,18 @@ const Profile = () => {
   // UID 체크 api
   const getUID = async () => {
     const email2 = JSON.parse(email);
-    await axios.get(`http://3.35.88.23:8080/api/user/uid/${email2}?email=${email2}`)
-    .then((res)=>{
-      console.log('uid체크 api')
-      console.log(res.data)
-    })
-  }
+    await axios
+      .get(`http://3.35.88.23:8080/api/user/uid/${email2}?email=${email2}`)
+      .then((res) => {
+        console.log("uid체크 api");
+        console.log(res.data);
+      });
+  };
 
   useEffect(() => {
     // getMypage()
-    getUID()
-  }, [])
-
+    getUID();
+  }, []);
 
   const [position, setPosition] = useState({ x: 0, y: 0 }); // box의 포지션 값
   const [Opacity, setOpacity] = useState(false);
@@ -113,21 +113,20 @@ const Profile = () => {
     // }
   };
 
-
   return (
     <>
       <Header data={nickname} type={"profile"} />
       <div className="MyBody2">
-        
-
         <Draggable
-          bounds={{ left: 0, top: 0, right: 535, bottom: 320 }}
+          bounds={{ left: 0, top: 0, right: 615, bottom: 340 }}
           onDrag={test}
           onStart={handleStart}
           onStop={handleEnd}
-          defaultPosition={{x: 260, y: 150}}
+          defaultPosition={{ x: 260, y: 150 }}
         >
-          <img src="hamzzi.png" alt="" />
+          <div className="box">
+            <img src="hamzzi.png" alt="" />
+          </div>
           {/* <div className="box" style={{ opacity: Opacity ? "0.6" : "1" }}>
             <img src="hamzzi.png" alt="" />
             <div>
@@ -135,14 +134,14 @@ const Profile = () => {
             </div>
           </div> */}
         </Draggable>
-      {/* <PetCarousel/> */}
-      
+        {/* <PetCarousel/> */}
+
         {/* <div className="UserName">
           {user}'s Profile(USERNAME)
      
         </div> */}
         {/* <div className="MyBody2"> */}
-          {/* <div className="HamGrad">
+        {/* <div className="HamGrad">
             <div className="HamSlot">
               
               <div className="HamSlotSlot">
@@ -176,12 +175,12 @@ const Profile = () => {
             </div>
           </div> */}
 
-          {/* 방명록방명록방명록 */}
-          {/* <div className="GuestBook">
+        {/* 방명록방명록방명록 */}
+        {/* <div className="GuestBook">
             <DiaryEditor onCreate={onCreate} />
             <DiaryList diaryList={data} onDelete={onDelete} onEdit={onEdit} />
           </div> */}
-        </div>
+      </div>
       {/* </div> */}
     </>
   );

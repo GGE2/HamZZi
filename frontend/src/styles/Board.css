@@ -10,3 +10,8 @@
 
 }
 
+.BoardButto--active {
+    color: pink;
+    background: red;
+  }
+

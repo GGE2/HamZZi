@@ -1,13 +1,13 @@
-import React from 'react';
-
+import React, { useState } from "react";
+import axios from "axios";
 
 const HamLevel = () => {
-    return (
-        <div>
-            
-            <button className='HamLevel'>8</button>
-        </div>
-    );
+  const petLevel = localStorage.getItem("petLevel");
+  return (
+    <div>
+      <button className="HamLevel">{petLevel}</button>
+    </div>
+  );
 };
 
 export default HamLevel;
