@@ -3,6 +3,7 @@ package com.ssafy.db.entity.Friend;
 import com.ssafy.db.entity.User.UserProfile;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
@@ -11,13 +12,15 @@ import javax.persistence.*;
 public class Friend {
 
     @Id
-    private char relation;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long friend_id;
 
-    @ManyToOne
-    @JoinColumn(name="user_nickname")
-    private UserProfile userProfile;      // UserProfile.java의 User_Nickname와 FK관계
+    @Column(name = "user_nickname", nullable = false)
+    private String nickname;
 
-    @Column
-    private String friendProfile;        // findById 사용하면 쉽다는데 https://bcp0109.tistory.com/325
+    @Column(nullable = false)
+    private String friend_nickname;
 
+    @ColumnDefault(value = "1")
+    private int relation;      // 1 : 친구요청, 2 : 친구 요청 받음, 3 : 친구
 }
