@@ -37,6 +37,9 @@ animation: rotate_image 10s linear infinite;
 /* 햄 header 부분 : 업적  */
 .Hamheader {
     /* border-bottom: 3px solid black; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     height: 10%;
     /* display: flex; */
 }
@@ -52,7 +55,14 @@ animation: rotate_image 10s linear infinite;
     /* border: 1px solid pink; */
     justify-content: flex-end;
     align-items: center;
-    padding-right: 1vw;
+    /* padding-right: 1vw; */
+    margin-left: 0.5em;
+}
+
+.Profile {
+    height: 3em;
+    width: 3em;
+    margin-right: 0.5em;
 }
 
 /* 햄 outfit 이height: 100%;미지 크기 설정 */

@@ -1,5 +1,6 @@
 import React from 'react';
 import { GiAchievement} from "react-icons/gi";
+import DropdownMenu from './../../../components/GuestBook/DropdownMenu';
 
 const HamHeader = () => {
     return (
@@ -7,6 +8,9 @@ const HamHeader = () => {
             <div className='HamAchievement'>
                 <GiAchievement  size={"40"} color={"orange"} />
                 <b>500000</b>
+            </div>
+            <div className="Profile">
+                <DropdownMenu/>
             </div>
         </div>
     );

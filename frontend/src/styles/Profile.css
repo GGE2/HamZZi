@@ -14,6 +14,9 @@
     background-image: url("../../public/room2.gif");
     background-repeat: no-repeat;
     background-size: cover;
+    border-radius: 10px;
+    /* -webkit-border-radius: 50px;
+  -moz-border-radius: 50px; */
     /* background-attachment: fixed; */
     display: flex;
 }

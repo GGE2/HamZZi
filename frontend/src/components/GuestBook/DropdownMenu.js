@@ -15,7 +15,7 @@ const DropdownMenu = () => {
     <>
       <DropdownContainer>
         <DropdownButton onClick={myPageHandler} ref={myPageRef}>
-          <BiDotsHorizontalRounded />
+          <BiDotsHorizontalRounded size={'100%'} />
         </DropdownButton>
         <Menu isDropped={myPageIsOpen}>
           <Ul>
@@ -44,7 +44,7 @@ const DropdownContainer = styled.div`
   text-align: center;
   display: flex;
   align-items: center;
-  padding-top: 10px;
+  // padding-top: 10px;
 `;
 
 const DropdownButton = styled.div`

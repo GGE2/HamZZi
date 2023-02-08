@@ -85,6 +85,7 @@ const Main = () => {
 
   useEffect(() => {
     getProfile();
+    getPetInfo();
     onGetUserGuildInfo(); // 유저 길드 정보 가져오기
   }, []);
 
@@ -150,7 +151,7 @@ const Main = () => {
     });
     setMenu([false, true, false, false]);
     console.log("길드");
-    console.log(show)
+    console.log(show);
   };
 
   const onClickFriend = () => {
@@ -173,7 +174,7 @@ const Main = () => {
     });
     setMenu([false, false, false, true]);
     console.log("프로필");
-    console.log(show)
+    console.log(show);
   };
 
   return (
@@ -199,7 +200,7 @@ const Main = () => {
           </div>
 
           <div className="buttonflex">
-            <button>
+            {/* <button>
               <FcSearch size={"100%"} />
             </button>
             <button>
@@ -207,7 +208,7 @@ const Main = () => {
             </button>
             <button>
               <FcWebcam size={"100%"} />
-            </button>
+            </button> */}
             <button
               className={menu[0] ? "BoardButto--active" : ""}
               onClick={onClickTodo}
@@ -233,7 +234,7 @@ const Main = () => {
               className={menu[3] ? "BoardButto--active" : ""}
               onClick={onClickProfile}
             >
-              Profile
+              Room
             </button>
           </div>
         </div>

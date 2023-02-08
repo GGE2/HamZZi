@@ -68,7 +68,7 @@ const Board = () => {
       profileShow: false,
       guildShow: true,
     });
-    setMenu([ false, true, false, false]);
+    setMenu([false, true, false, false]);
   };
 
   const onClickFriend = () => {
@@ -93,7 +93,6 @@ const Board = () => {
     });
     setMenu([false, false, false, true]);
   };
-  
 
   // const getProfile = () => {
   //   axios
@@ -173,17 +172,15 @@ const Board = () => {
       .then((res) => {
         console.log("유저 길드 정보 가져오기 api");
         console.log(res.data);
-        if(res.data.guild){
+        if (res.data.guild) {
           setGuildId(res.data.guild.guild_id);
-          console.log(guildId)
-         setGuildUsers(res.data);
+          console.log(guildId);
+          setGuildUsers(res.data);
         }
-        
+
         // setGuilds(res.data);
       });
   };
-
-  
 
   useEffect(() => {
     getProfile(); // 유저 프로필 정보 가져오기
@@ -209,7 +206,7 @@ const Board = () => {
       {/* 보드 하단 버튼 리스트 */}
       <div className="BoardButton">
         <button
-          className={menu[0] ? "BoardButto--active" : ''}
+          className={menu[0] ? "BoardButto--active" : ""}
           onClick={onClickTodo}
           style={{ borderRight: "3px solid black" }}
         >
@@ -239,7 +236,7 @@ const Board = () => {
           className={menu[3] ? "BoardButto--active" : ""}
           onClick={onClickProfile}
         >
-          Profile
+          room
         </button>
       </div>
     </>
