@@ -7,14 +7,26 @@
     align-items: center;
 }
 
-.MyBody2 {
-    height: 85%;
+
+/* 미니룸 꾸미기 */
+.MyBody_profile {
+    height: 100%;
     background-image: url("../../public/room2.gif");
     background-repeat: no-repeat;
     background-size: cover;
     /* background-attachment: fixed; */
     display: flex;
 }
+
+.MyBody_profile img {
+    /* display: inline; */
+    /* position: absolute; */
+    width: 4em;
+    height: 4em;
+    cursor: move;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
 
 .HamGrad {
     width: 50%;
@@ -133,15 +145,7 @@
     background: transparent;
   }
   
-  .MyBody2   img {
-    /* display: inline; */
-    /* position: absolute; */
-    width: 4em;
-    height: 4em;
-    cursor: move;
-    user-select: none;
-    -webkit-user-drag: none;
-  }
+
 
 /* img {
     width: 10em;

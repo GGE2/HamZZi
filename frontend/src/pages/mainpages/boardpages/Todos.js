@@ -34,6 +34,9 @@ const Todos = () => {
     new Date(+d + TIME_ZONE).toISOString().split("T")[0]
   );
 
+  // 검색을 했냐 안했냐~!
+  const [isSearch, setIsSearch] = useState(false)
+
   // const { current: todotodos } = useRef(todos);
   const [addTodo, setAddTodo] = useState({
     todo_id: no,
@@ -104,6 +107,7 @@ const Todos = () => {
       .then((res) => {
         console.log("특정 투두 검색 api");
         console.log(res);
+        setTodos(res.data)
       });
   };
 
@@ -209,6 +213,19 @@ const Todos = () => {
     setSearchWord(e.target.value);
   };
 
+  // 검색했을 때
+  const onSearchFunc = () => {
+    onSearchTodo()
+    setIsSearch(true)
+    
+  }
+
+  // 검색 취소
+  const onSearchCancelFunc = () => {
+    getTodo()
+    setIsSearch(false)
+  }
+
   return (
     <>
       <Header data={"Todo"} type={"Todo"} />
@@ -218,7 +235,7 @@ const Todos = () => {
             onClick={CreateFlagfunc}
             className={todo_menu[0] ? "TodoButton--active" : null}
           >
-            투두 생성
+            날짜 선택
           </button>
           <button
             onClick={SearchFlagfunc}
@@ -236,7 +253,13 @@ const Todos = () => {
               placeholder="투두 이름을 입력하세요"
               onChange={onKeyword}
             />
-          </form> <button onClick={onSearchTodo}>검색하기</button></>}
+          </form> 
+          { isSearch ? <button onClick={onSearchCancelFunc}>취소</button>: <button onClick={onSearchFunc}>검색하기</button>}
+          
+
+          </>
+          
+          }
           {todo_menu[0] && (
           <div className="DateControl">
             {/* 달력 아이콘을 누르면 isOpen을 true */}

@@ -3,7 +3,7 @@
   min-width: 100%;
   min-height: 100%;
   position: fixed;
-  background: repeating-linear-gradient(150deg, #7cac54, #7cac54 20px, #3f8744 0, #3f8744 40px);
+  /* background: repeating-linear-gradient(150deg, #7cac54, #7cac54 20px, #3f8744 0, #3f8744 40px); */
   /* board를 가운데 정렬 */
   display: flex;
   justify-content: center;
@@ -15,7 +15,7 @@
 min-width: 80%;
 min-height: 100%;
 position: relative;
-background-color: rgba(63, 131, 84, 0.8);
+/* background-color: rgba(63, 131, 84, 0.8); */
 /* Back을 가운데 정렬 */
 display: flex;
 justify-content: center;

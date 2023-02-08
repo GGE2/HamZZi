@@ -115,8 +115,8 @@ const Profile = () => {
 
   return (
     <>
-      <Header data={nickname} type={"profile"} />
-      <div className="MyBody2">
+      {/* <Header data={nickname} type={"profile"} /> */}
+      <div className="MyBody_profile">
         <Draggable
           bounds={{ left: 0, top: 0, right: 615, bottom: 340 }}
           onDrag={test}
