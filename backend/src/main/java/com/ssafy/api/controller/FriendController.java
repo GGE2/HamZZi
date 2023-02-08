@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,9 +18,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FriendController {
 
+    @Autowired
     FriendService friendService;
 
-    @GetMapping
+    @GetMapping("/{nickname}")
     @ApiOperation(value = "친구를 관계별로 조회", notes = "친구 목록을 조회한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -27,7 +29,7 @@ public class FriendController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<?> getFriends(@RequestParam String nickname, @RequestParam int relation) {
+    public ResponseEntity<?> getFriends(@PathVariable String nickname, @RequestParam int relation) {
         List<Friend> friendList = friendService.getFriendList(nickname, relation);
         return ResponseEntity.status(200).body(friendList);
     }
@@ -69,12 +71,12 @@ public class FriendController {
     })
 //    public String requestFriend(@RequestParam FriendRequest friendReq, @RequestParam String nickname) {
     public String requestFriend(@RequestParam String nickname, @RequestParam String friend_nickname) {
-        friendService.createFriend(friend_nickname, nickname);
+        friendService.createFriend(nickname, friend_nickname);
         return "CREATE 200 OK";
     }
 
     @PutMapping
-    @ApiOperation(value = "관계 수정", notes = "관계 수정")
+    @ApiOperation(value = "관계 수정(요청받은 친구만 누를 수 있게!)", notes = "관계 수정")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 401, message = "인증 실패"),
@@ -96,6 +98,6 @@ public class FriendController {
     })
     public String deleteFriend(Long friend_id) {
         friendService.deleteFriend(friend_id);
-        return "ID" + friend_id;
+        return "DELETE";
     }
 }

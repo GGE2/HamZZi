@@ -23,6 +23,7 @@ public class FriendRepositorySupport implements FriendRepository {
         em.persist(friend);
     }
 
+    // 삭제
     @Override
     public void removeFriend(Long friend_id) {
         em.remove(findById(friend_id));
@@ -34,7 +35,7 @@ public class FriendRepositorySupport implements FriendRepository {
         return em.find(Friend.class, friend_id);
     }
 
-    // 유저의 닉네임과 관계로 리스트 가져오기
+    // 요청을 보내는 유저와 관계 리스트
     @Override
     public List<Friend> friendListByNickname(String nickname, int relation) {
         try {
@@ -44,21 +45,21 @@ public class FriendRepositorySupport implements FriendRepository {
                     .getResultList();
         } catch (NoResultException e) { return null; }
     }
-    
+
     // Friend의 모든 리스트 가지고 오기
     @Override
     public List<Friend> allFriendList() {
-        try {
-            return em.createQuery("select f from Friend f", Friend.class)
-                    .getResultList();
-        } catch (NoResultException e) { return null; }
+        return em.createQuery("select f from Friend f", Friend.class)
+                .getResultList();
     }
 
     // UserNickname 검색
     @Override
     public List<UserProfile> searchUserNickname(String nickname) {
-        return em.createQuery("select up.nickname from UserProfile up where up.nickname like :nickname", UserProfile.class)
-                .setParameter("nickname", "%" + nickname + "%")
-                .getResultList();
+        try {
+            return em.createQuery("select up from UserProfile up where up.nickname like :nickname", UserProfile.class)
+                    .setParameter("nickname", "%" + nickname + "%")
+                    .getResultList();
+        } catch (NoResultException e) { return null; }
     }
 }

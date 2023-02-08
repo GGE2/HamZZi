@@ -12,12 +12,13 @@ import javax.persistence.*;
 public class Friend {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long friend_id;
 
-    @Column(name = "user_nickname")
+    @Column(name = "user_nickname", nullable = false)
     private String nickname;
 
+    @Column(nullable = false)
     private String friend_nickname;
 
     @ColumnDefault(value = "1")

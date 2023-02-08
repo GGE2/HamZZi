@@ -41,6 +41,7 @@ public class FriendServiceImpl implements FriendService {
         return friendRepo.searchUserNickname(nickname);
     }
 
+    // Friend 전체 리스트
     @Override
     public List<Friend> friendAllList() {
         return friendRepo.allFriendList();
@@ -49,8 +50,8 @@ public class FriendServiceImpl implements FriendService {
     // Friend table 생성(친구 요청 보냈을 때)
     @Override
     public void createFriend(String nickname, String friend_nickname) {
-        Friend friend = new Friend();
         for (int i = 0; i <= 1; i++){
+            Friend friend = new Friend();
             if (i == 0){
                 friend.setNickname(nickname);
                 friend.setFriend_nickname(friend_nickname);
@@ -68,22 +69,34 @@ public class FriendServiceImpl implements FriendService {
     // relation 수정 > friend_id는 요청 받은 사람 것이기 때문에 -1 하면 신청한 사람도 같이 3(친구)으로 변하게
     @Override
     public void updateRequest(Long friend_id) {
-        Friend friend1 = friendRepo.findById(friend_id);
-        friend1.setRelation(3);
-        friendRepo.saveFriend(friend1);
+        Friend friend = friendRepo.findById(friend_id);
+        friend.setRelation(3);
+        friendRepo.saveFriend(friend);
 
         // Long을 int로 바꿔서 연산하고 다시 Long으로 반환
-        int idI = Math.toIntExact(friend_id);
-        int downid = idI - 1;
-        Long id = (long) downid;
+        Long id = friend_id-1;
 
         Friend friend2 = friendRepo.findById(id);
         friend2.setRelation(3);
         friendRepo.saveFriend(friend2);
+
     }
 
+    // 친구 요청 취소, 친구 삭제
     @Override
     public void deleteFriend(Long friend_id) {
+        Long mId = friend_id-1;
+        Long pId = friend_id+1;
+        Friend user = friendRepo.findById(friend_id);
+        Friend mFriend = friendRepo.findById(mId);
+//        Friend pFriend = friendRepo.findById(pId);
+
+        if (user.getNickname().equals(mFriend.getFriend_nickname()) && user.getFriend_nickname().equals(mFriend.getNickname())) {
+            friendRepo.removeFriend(mId);
+//        } else if (user.getNickname().equals(pFriend.getFriend_nickname()) && user.getFriend_nickname().equals(pFriend.getNickname())) {
+        } else {
+            friendRepo.removeFriend(pId);
+        }
         friendRepo.removeFriend(friend_id);
     }
 }

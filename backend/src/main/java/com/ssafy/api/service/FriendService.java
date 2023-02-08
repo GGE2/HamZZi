@@ -18,7 +18,6 @@ public interface FriendService {
     List<Friend> friendAllList();
 
     // Friend table 생성(친구 요청 보냈을 때)
-//    void createFriend(FriendRequest friendReq, String user_nickname);
     void createFriend(String nickname, String friend_nickname);
 
     // relation 수정
