@@ -63,6 +63,11 @@ animation: rotate_image 10s linear infinite;
     align-items: center;
 }
 
+.HamOutfit img {
+   height: 15em;
+   width: 15em;
+}
+
 
 
 .img3 {
