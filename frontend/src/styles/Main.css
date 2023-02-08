@@ -7,6 +7,7 @@
   /* board를 가운데 정렬 */
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 100vw;
   height: 100vh;
 }
@@ -23,7 +24,7 @@ align-items: center;
 }
 
 .Back {
-width: 70%;
+width: 80%;
 height: 80%;
 position: fixed;
 display: flex;
@@ -35,17 +36,21 @@ display: flex;
 border-top: solid 3px black;
 border-left: solid 3px black;
 border-bottom: solid 3px black;
-border-top-left-radius: 15px;
-border-bottom-left-radius: 15px;
+border-right: solid 3px black;
+/* border-top-left-radius: 15px;
+border-bottom-left-radius: 15px; */
+border-radius: 15px;
 text-align: center;
 width: 30%;
 margin: 0px;
-position: relative
+position: relative;
+margin: 1em;
 
 }
 
 
 .Back .Screen {
+  border-radius: 15px;
   background-color: #f9fbe7;
 display: flex;
 flex-direction: column;
@@ -55,6 +60,7 @@ border: solid 3px black;
 /* border-bottom-right-radius: 15px; */
 margin: 0px;
 position: relative;
+margin: 1em;
 }
 
 .Back .buttonflex {
