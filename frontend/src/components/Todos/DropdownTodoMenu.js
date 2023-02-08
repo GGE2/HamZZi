@@ -7,7 +7,7 @@ const DropdownTodoMenu = ({onDel, toggleIsEdit, todo_id}) => {
   const [myPageIsOpen, myPageRef, myPageHandler] = useDetectClose(false);
 
   return (
-    <>
+    <div className="TodoDropDownMenu">
       <DropdownContainer>
         <DropdownButton onClick={myPageHandler} ref={myPageRef}>
           <BiDotsVerticalRounded size={"100%"}/>
@@ -22,7 +22,7 @@ const DropdownTodoMenu = ({onDel, toggleIsEdit, todo_id}) => {
           </Ul>
         </Menu>
       </DropdownContainer>
-    </>
+    </div>
   );
 };
 

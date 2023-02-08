@@ -1,38 +1,48 @@
-import React, {useRef, useEffect, useState} from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import axios from "axios";
+import GetPetInfo from "./../../../components/GetPetInfo";
 
-const HamModal = ({setIsModal, setIsCreate}) => {
+const HamModal = ({ setIsModal, setIsCreate }) => {
+  const [petName, setPetName] = useState("");
+  const nickname = localStorage.getItem("nickname");
 
-const [nickName, SetNickName] = useState("");
-  const navigate = useNavigate();
-  const email = JSON.parse(localStorage.getItem("user"));
-  console.log(typeof nickName, nickName);
   const handleChange = (e) => {
-    SetNickName(e.target.value);
+    setPetName(e.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIsModal(false)
+    axios
+      .post("http://3.35.88.23:8080/api/pet", {
+        name: petName,
+        user_nickname: nickname,
+      })
+      .then(() => {
+        GetPetInfo();
+        setIsModal(false);
+        window.location.replace("/main");
+      })
+      .catch(() => {
+        alert("펫 생성에 실패하였습니다");
+      });
   };
 
-return (
-  <div className="Modal">
+  return (
     <div className="modalBody">
-      <h1>환영합니다!</h1>
-      <h2>닉네임을 설정해 주세요</h2>
-      <p>설정하신 닉네임은 다시 바꿀 수 없습니다</p>
+      <h1>햄스터 이름</h1>
+      <h2>당신의 햄스터의 이름을 정해주세요</h2>
+      <p>햄스터 이름은 언제든지 수정할 수 있습니다</p>
       <form onSubmit={handleSubmit}>
         <input
-          name="nickname"
-          placeholder="닉네임입력"
+          type="text"
+          placeholder="햄스터 이름 입력"
           onChange={handleChange}
         />
-        <button type="submit"> 설정하기</button>
+        <button type="submit">이름 정하기</button>
       </form>
     </div>
-  </div>
-)
+  );
 
   // return (
   //   <div className="HamModal">

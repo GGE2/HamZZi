@@ -6,12 +6,17 @@ import "../../styles/Modal.css";
 const SetNickName = () => {
   const [nickName, SetNickName] = useState("");
   const [text, setText] = useState("");
+  const [modal, setModal] = useState(true);
   const navigate = useNavigate();
   const email = JSON.parse(localStorage.getItem("user"));
   console.log(typeof nickName, nickName);
   const handleChange = (e) => {
     setText(e.target.value);
     SetNickName(e.target.value);
+  };
+
+  const closeModal = () => {
+    setModal(false);
   };
 
   const handleSubmit = (e) => {
@@ -34,22 +39,24 @@ const SetNickName = () => {
       });
   };
   return (
-    <div className="Modal">
-      <div className="modalBody">
-        <h1>환영합니다!</h1>
-        <h2>닉네임을 설정해 주세요</h2>
-        <p>설정하신 닉네임은 다시 바꿀 수 없습니다</p>
-        <form onSubmit={handleSubmit}>
-          <input
-            name="nickname"
-            placeholder="닉네임입력"
-            onChange={handleChange}
-            value={text}
-          />
-          <button type="submit"> 설정하기</button>
-        </form>
+    <>
+      <div className="Modal">
+        <div className="modalBody">
+          <h1>환영합니다!</h1>
+          <h2>닉네임을 설정해 주세요</h2>
+          <p>설정하신 닉네임은 다시 바꿀 수 없습니다</p>
+          <form onSubmit={handleSubmit}>
+            <input
+              name="nickname"
+              placeholder="닉네임입력"
+              onChange={handleChange}
+              value={text}
+            />
+            <button type="submit"> 설정하기</button>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

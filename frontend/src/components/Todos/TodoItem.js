@@ -6,10 +6,16 @@ import {
 } from "react-icons/md";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import DropdownTodoMenu from './DropdownTodoMenu';
+// import { OpenVidu } from "openvidu-browser";
 
 
 const TodoItem = ({ todos, onDel, onToggle, onEdit }) => {
   const { todo_id, content, ischeck, datetime } = todos;
+  // const [ OV, setOV ] = useState(<OpenVidu>);
+ 
+
+  // session.subscribe
+
 
   const localContentInput = useRef();
   const [localContent, setLocalContent] = useState(content);
@@ -36,7 +42,7 @@ const TodoItem = ({ todos, onDel, onToggle, onEdit }) => {
     //   toggleIsEdit();
     // }
   };
-  // 왔다갑니다
+
   return (
     <div className="TodoItem">
       <>
@@ -56,7 +62,7 @@ const TodoItem = ({ todos, onDel, onToggle, onEdit }) => {
         {/* {datetime} */}
 
         {/* <em onClick={() => onToggle(todo_id)}>{content}</em> */}
-        <div className="TodoSetting"><DropdownTodoMenu todo_id={todo_id}  onEdit={onEdit} toggleIsEdit={toggleIsEdit}/></div>
+        <div className="TodoSetting"><DropdownTodoMenu todo_id={todo_id}  onEdit={onEdit} onDel={onDel} toggleIsEdit={toggleIsEdit}/></div>
         
 
         <div className="content" >
@@ -84,10 +90,10 @@ const TodoItem = ({ todos, onDel, onToggle, onEdit }) => {
           </>
         ) : (
           <>
-            <button onClick={() => onDel(todo_id)}>
+            {/* <button onClick={() => onDel(todo_id)}>
               <FaRegTrashAlt color="rgb(175,169,169)" size="20" />
             </button>
-            <button onClick={toggleIsEdit}>수정하기</button>
+            <button onClick={toggleIsEdit}>수정하기</button> */}
           </>
         )}
       </>

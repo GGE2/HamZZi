@@ -1,10 +1,10 @@
 import React, { useRef, useState } from "react";
 // import "./TodoInput.css";
-import { FcAddRow } from "react-icons/fc";
+import { GrReturn } from "react-icons/gr";
 
 const TodoInput = ({ onAdd }) => {
   const textRef = useRef();
-  const [text, setText] = useState('');
+  const [text, setText] = useState("");
 
   const changeInput = (evt) => {
     const { value } = evt.target;
@@ -14,7 +14,12 @@ const TodoInput = ({ onAdd }) => {
   const onSubmit = (e) => {
     e.preventDefault(); // 새로고침 방지
 
-    if (!text) return;
+    // if (!text) return;
+
+    if(text.length < 1) {
+      textRef.current.focus();
+      return
+    }
 
     onAdd(text);
 
@@ -23,11 +28,20 @@ const TodoInput = ({ onAdd }) => {
   };
   return (
     <div>
-      <form className="TodoInput" onClick={onSubmit}>
-        <input type="text" value={text} placeholder="할 일을 입력하세요" onChange={changeInput} ref={textRef} />
-        <button>
-          <FcAddRow className="icon" size="50"></FcAddRow>
-        </button>
+      <form className="TodoInput">
+        {/* <div className="TodoInput_input"> */}
+          <input
+            type="text"
+            value={text}
+            placeholder="할 일을 입력하세요"
+            onChange={changeInput}
+            ref={textRef}
+          />
+        {/* </div> */}
+
+        <div className="TodoInput_btn" onClick={onSubmit}>
+          <GrReturn className="icon" size={"100%"}></GrReturn>
+        </div>
       </form>
     </div>
   );
