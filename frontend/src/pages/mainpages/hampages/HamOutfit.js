@@ -52,7 +52,7 @@ const HamOutfit = () => {
       {isCreate && (
         <div className="HamOutfit">
           {/* <img className='img3' src="hamzzi.png" alt="" /> */}
-          <img src="animal-3629_128.gif" alt="" />
+          <img src="tennis.png" alt="" />
         </div>
       )}
     </>

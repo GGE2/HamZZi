@@ -172,7 +172,7 @@ const Guild = ({
 
   return (
     <>
-      <Header data={"길드"} type={"Guild"} />
+      {/* <Header data={"길드"} type={"Guild"} /> */}
       <div className="MyBody">
         {/* <CreateGuild
             guilds={guilds}

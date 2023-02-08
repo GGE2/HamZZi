@@ -26,7 +26,7 @@ const Friends = () => {
 
   return (
     <>
-      <Header data={"Friends"} type={"Friends"} />
+      {/* <Header data={"Friends"} type={"Friends"} /> */}
       <div className="MyBody">
         {/* <div className="Quests"> */}
         <div className="FriendHeaderButton">

@@ -228,7 +228,7 @@ const Todos = () => {
 
   return (
     <>
-      <Header data={"Todo"} type={"Todo"} />
+      {/* <Header data={"Todo"} type={"Todo"} /> */}
       <div className="MyBody">
         <div className="FriendHeaderButton">
           <button
@@ -241,6 +241,7 @@ const Todos = () => {
             onClick={SearchFlagfunc}
             className={todo_menu[1] ? "TodoButton--active" : ""}
           >
+            
             투두 검색
           </button>
           
