@@ -173,3 +173,7 @@ p:disabled {
     overflow: visible;
 }
 
+ul {
+  list-style: none;
+  padding-left: 0px;
+}

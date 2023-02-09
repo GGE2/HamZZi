@@ -1,21 +1,20 @@
 import React, { useState, useRef } from "react";
-
+import { FaRegTrashAlt } from "react-icons/fa";
 import {
   MdOutlineCheckBox,
   MdOutlineCheckBoxOutlineBlank,
 } from "react-icons/md";
-
-import DropdownTodoMenu from './DropdownTodoMenu';
+import { BiDotsVerticalRounded } from "react-icons/bi";
+import DropdownTodoMenu from "./DropdownTodoMenu";
+import { Reorder, useMotionValue } from "framer-motion";
+import { useRaisedShadow } from "./useRaisedShadow";
 // import { OpenVidu } from "openvidu-browser";
-
 
 const TodoItem = ({ todos, onDel, onToggle, onEdit }) => {
   const { todo_id, content, ischeck, datetime } = todos;
   // const [ OV, setOV ] = useState(<OpenVidu>);
- 
 
   // session.subscribe
-
 
   const localContentInput = useRef();
   const [localContent, setLocalContent] = useState(content);
@@ -42,62 +41,62 @@ const TodoItem = ({ todos, onDel, onToggle, onEdit }) => {
     //   toggleIsEdit();
     // }
   };
+  const y = useMotionValue(0);
+  const boxShadow = useRaisedShadow(y);
 
   return (
-    <div className="TodoItem">
-      <>
-        <div onClick={() => onToggle(todo_id)} className="CheckTodo">
-          {ischeck ? (
-       
-            <MdOutlineCheckBox size={"100%"} />
-            
-         
-          ) : (
-        
-            <MdOutlineCheckBoxOutlineBlank size={"100%"} />
-         
-         
-          )}
-        </div>
-        {/* {datetime} */}
+    <Reorder.Item id={todos} value={todos} style={{ boxShadow, y }}>
+      <div className="TodoItem">
+        <>
+          <div onClick={() => onToggle(todo_id)} className="CheckTodo">
+            {ischeck ? (
+              <MdOutlineCheckBox size={"100%"} />
+            ) : (
+              <MdOutlineCheckBoxOutlineBlank size={"100%"} />
+            )}
+          </div>
 
-        {/* <em onClick={() => onToggle(todo_id)}>{content}</em> */}
-        <div className="TodoSetting"><DropdownTodoMenu todo_id={todo_id}  onEdit={onEdit} onDel={onDel} toggleIsEdit={toggleIsEdit}/></div>
-        
+          {/* {datetime} */}
 
-        <div className="content" >
-          {isEdit ? (
-            <textarea
-              ref={localContentInput}
-              value={localContent}
-              onChange={(e) => setLocalContent(e.target.value)}
-              disabled={ischeck}
+          {/* <em onClick={() => onToggle(todo_id)}>{content}</em> */}
+          <div className="TodoSetting">
+            <DropdownTodoMenu
+              todo_id={todo_id}
+              onEdit={onEdit}
+              onDel={onDel}
+              toggleIsEdit={toggleIsEdit}
             />
-          ) : (
-            <p
-        
-              disabled={ischeck}
-            >{content}</p>
-            
-            
-          )}
-        </div>
+          </div>
 
-        {isEdit ? (
-          <>
-            <button onClick={handleQuitEdit}>수정 취소</button>
-            <button onClick={handleEdit}>수정 완료</button>
-          </>
-        ) : (
-          <>
-            {/* <button onClick={() => onDel(todo_id)}>
+          <div className="content">
+            {isEdit ? (
+              <textarea
+                ref={localContentInput}
+                value={localContent}
+                onChange={(e) => setLocalContent(e.target.value)}
+                disabled={ischeck}
+              />
+            ) : (
+              <p disabled={ischeck}>{content}</p>
+            )}
+          </div>
+
+          {isEdit ? (
+            <>
+              <button onClick={handleQuitEdit}>수정 취소</button>
+              <button onClick={handleEdit}>수정 완료</button>
+            </>
+          ) : (
+            <>
+              {/* <button onClick={() => onDel(todo_id)}>
               <FaRegTrashAlt color="rgb(175,169,169)" size="20" />
             </button>
             <button onClick={toggleIsEdit}>수정하기</button> */}
-          </>
-        )}
-      </>
-    </div>
+            </>
+          )}
+        </>
+      </div>
+    </Reorder.Item>
   );
 };
 

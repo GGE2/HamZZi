@@ -6,17 +6,21 @@ import { FcCalendar } from "react-icons/fc";
 
 import { AiFillCaretRight, AiFillCaretLeft } from "react-icons/ai";
 import DatePicker from "react-datepicker";
+// import Header from "./../../../components/Header";
 import axios from "axios";
 
 import "react-datepicker/dist/react-datepicker.css";
 import "../../../styles/Todos.css";
-import { motion } from "framer-motion";
-import api from './../../../components/api';
+import api from "./../../../components/api";
+import { useDispatch } from "react-redux";
+import { receivePoint } from "../../../pointSlice";
 
 const Todos = () => {
   const nickname = localStorage.getItem("nickname");
+  const user = JSON.parse(localStorage.getItem("user"));
   const [todo_menu, setTodoMenu] = useState([true, false]);
   const [searchword, setSearchWord] = useState(null);
+  const dispatch = useDispatch();
 
   const getStringDate = (date) => {
     return date.toISOString().slice(0, 10);
@@ -36,7 +40,7 @@ const Todos = () => {
   );
 
   // 검색을 했냐 안했냐~!
-  const [isSearch, setIsSearch] = useState(false)
+  const [isSearch, setIsSearch] = useState(false);
 
   // const { current: todotodos } = useRef(todos);
   const [addTodo, setAddTodo] = useState({
@@ -61,25 +65,22 @@ const Todos = () => {
 
   // db에서 todolist 가져오기
   const getTodo = async () => {
-    await api
-      .get(`/api/todo/${nickname}/${calDate}`)
-      .then((res) => {
-        // console.log(res);
-        console.log("db에서 todolist 가져오기");
-        console.log(nickname);
-        console.log(res.data);
-        setTodos(res.data);
-      });
+    await api.get(`/api/todo/${nickname}/${calDate}`).then((res) => {
+      // console.log(res);
+      console.log("db에서 todolist 가져오기");
+      console.log(nickname);
+      console.log(res.data);
+      setTodos(res.data);
+    });
   };
 
   // 처음 렌더링
   useEffect(() => {
     setCaldate(new Date(+d + TIME_ZONE).toISOString().split("T")[0]);
     getTodo();
-    console.log(`날짜목록: ${calDate}`);
-    console.log(`투두목록: ${todos}`);
-    
-    console.log(`닉네임: ${nickname}`);
+    console.log(calDate);
+    console.log(todos);
+    console.log(nickname);
     // setDate(new Date())
   }, []);
 
@@ -91,20 +92,23 @@ const Todos = () => {
   useEffect(() => {
     getTodo();
     console.log("날짜가 변해서 데이터 가져옴");
+    // setCaldate(new Date(+d + TIME_ZONE).toISOString().split("T")[0]);
   }, [calDate, addTodo]);
 
-
+  // useEffect(() => {
+  //   getTodo();
+  //   console.log("todo가 변해서 데이터 가져옴");
+  //   // setCaldate(new Date(+d + TIME_ZONE).toISOString().split("T")[0]);
+  // }, [todotodos]);
 
   // 특정 투두 검색 api
   const onSearchTodo = async () => {
     await api
-      .get(
-        `/api/todo/list/search?nickname=${nickname}&content=${searchword}`
-      )
+      .get(`/api/todo/list/search?nickname=${nickname}&content=${searchword}`)
       .then((res) => {
         console.log("특정 투두 검색 api");
         console.log(res);
-        setTodos(res.data)
+        setTodos(res.data);
       });
   };
 
@@ -115,23 +119,22 @@ const Todos = () => {
       datetime: calDate,
       user_nickname: nickname,
     };
-    await api
-      .post("/api/todo", newTodos)
-      .then((res) => {
-        console.log(res.data);
-        console.log(parseInt(res.data.slice(4, 7)));
-        setAddTodo({
-          todo_id: no,
-          content: text,
-          datetime: calDate,
-          ischeck: false,
-          nickname: nickname,
-        });
+    await api.post("/api/todo", newTodos).then((res) => {
+      console.log(res.data);
+      console.log(parseInt(res.data.slice(4, 7)));
+      // no = parseInt(res.data.slice(4,7))
+      setAddTodo({
+        todo_id: no,
+        content: text,
+        datetime: calDate,
+        ischeck: false,
+        nickname: nickname,
       });
+    });
     console.log(addTodo);
     setTodos([addTodo, ...todos]);
     console.log(todos);
-
+    // getTodo();
     console.log("투두를 추가했다!");
   };
 
@@ -145,14 +148,20 @@ const Todos = () => {
         nickname: nickname,
       });
     });
-   
+    // getTodo();
     setTodos(todos.filter((todo) => todo.id !== id));
     console.log("투두를 삭제했다!");
   };
 
   const onToggle = (id) => {
-    api.put(`/api/todo/check/${nickname}/${id}`);
-  
+    api.put(`/api/todo/check/${nickname}/${id}`).then(() => {
+      // 포인트 받아온 뒤 redux에 반영
+      api.get(`/api/user/mypage?email=${user}`).then((res) => {
+        console.log(res.data.point);
+        dispatch(receivePoint(res.data.point));
+      });
+    });
+    // getTodo();
     setTodos(
       todos.map((todo) =>
         todo.todo_id === id
@@ -211,47 +220,20 @@ const Todos = () => {
 
   // 검색했을 때
   const onSearchFunc = () => {
-    onSearchTodo()
-    setIsSearch(true)
-    
-  }
+    onSearchTodo();
+    setIsSearch(true);
+  };
 
   // 검색 취소
   const onSearchCancelFunc = () => {
-    getTodo()
-    setIsSearch(false)
-  }
-
-  const variants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1 }
-  }
-
-  
+    getTodo();
+    setIsSearch(false);
+  };
 
   return (
-    <motion.div
-          initial={{opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ y: -100, opacity: 0 }}
-          transition={{ duration: 1}}
-          variants={variants}
-        >
+    <>
       {/* <Header data={"Todo"} type={"Todo"} /> */}
       <div className="MyBody">
-        <motion.button
-          hidden = { {opacity: 0.2}}
-          visible = {{opacity: 1,
-         
-            transition: {
-              delay: 0.2,
-              duration: 1,
-              repeat: Infinity,
-              repeatType: "reverse"
-            }}}
-        >
-          ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ
-        </motion.button>
         <div className="FriendHeaderButton">
           <button
             onClick={CreateFlagfunc}
@@ -263,45 +245,46 @@ const Todos = () => {
             onClick={SearchFlagfunc}
             className={todo_menu[1] ? "TodoButton--active" : ""}
           >
-            
             투두 검색
           </button>
-          
+
           {/* {todo_menu[0] && (
           <button onClick={onCreateGuild}>생성하기</button>
         )} */}
-          {todo_menu[1] &&<><form onSubmit="return false;">
-            <input
-              type="text"
-              placeholder="투두 이름을 입력하세요"
-              onChange={onKeyword}
-            />
-          </form> 
-          { isSearch ? <button onClick={onSearchCancelFunc}>취소</button>: <button onClick={onSearchFunc}>검색하기</button>}
-          
-
-          </>
-          
-          }
+          {todo_menu[1] && (
+            <>
+              <form onSubmit="return false;">
+                <input
+                  type="text"
+                  placeholder="투두 이름을 입력하세요"
+                  onChange={onKeyword}
+                />
+              </form>
+              {isSearch ? (
+                <button onClick={onSearchCancelFunc}>취소</button>
+              ) : (
+                <button onClick={onSearchFunc}>검색하기</button>
+              )}
+            </>
+          )}
           {todo_menu[0] && (
-          <div className="DateControl">
-            {/* 달력 아이콘을 누르면 isOpen을 true */}
-            <button onClick={handleClick} className="Calbutton">
-              <FcCalendar size={"100%"} />
-            </button>
-            <div className="DateButton" onClick={decreaseMonth}>
-              <AiFillCaretLeft className="DateButton_left" size={"55%"} />
-            </div>
+            <div className="DateControl">
+              {/* 달력 아이콘을 누르면 isOpen을 true */}
+              <button onClick={handleClick} className="Calbutton">
+                <FcCalendar size={"100%"} />
+              </button>
+              <div className="DateButton" onClick={decreaseMonth}>
+                <AiFillCaretLeft className="DateButton_left" size={"55%"} />
+              </div>
 
-            {calDate}
-            <div className="DateButton" onClick={increaseMonth}>
-              <AiFillCaretRight className="DateButton_right" size={"55%"} />
+              {calDate}
+              <div className="DateButton" onClick={increaseMonth}>
+                <AiFillCaretRight className="DateButton_right" size={"55%"} />
+              </div>
+              {/* <p class="arrow_box">내asdasdasd일</p> */}
             </div>
-            {/* <p class="arrow_box">내asdasdasd일</p> */}
-          </div>
-        )}
+          )}
         </div>
-       
 
         {isOpen && (
           <DatePicker selected={startDate} onChange={handleChange} inline />
@@ -313,10 +296,11 @@ const Todos = () => {
           onDel={onDel}
           onToggle={onToggle}
           onEdit={onEdit}
+          setTodos={setTodos}
         />
         <TodoInput onAdd={onAdd} />
       </div>
-    </motion.div>
+    </>
   );
 };
 
