@@ -9,6 +9,7 @@ import { IoStatsChart } from "react-icons/io5";
 import { useSelector, useDispatch } from "react-redux";
 import { selectCurrentHamStat, clearStat } from "./../../../hamStatSlice";
 import axios from "axios";
+import api from './../../../components/api';
 
 const HamStatus = (props) => {
   const hamstat = useSelector(selectCurrentHamStat);
@@ -21,8 +22,8 @@ const HamStatus = (props) => {
   const dispatch = useDispatch(clearStat());
 
   const handleGraduate = () => {
-    axios
-      .put(`http://3.35.88.23:8080/api/pet/graduate?pet_id=${petId}`)
+    api
+      .put(`/api/pet/graduate?pet_id=${petId}`)
       .then(() => {
         console.log("graduated");
         dispatch(clearStat());

@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 import useDetectClose from "../useDetectClose";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { useNavigate } from "react-router";
+import { motion } from "framer-motion";
 
 const DropdownMenu = () => {
   const navigate = useNavigate();
@@ -15,7 +16,15 @@ const DropdownMenu = () => {
     <>
       <DropdownContainer>
         <DropdownButton onClick={myPageHandler} ref={myPageRef}>
-          <BiDotsHorizontalRounded size={'100%'} />
+          <motion.div
+            whileHover={{
+              scale: 1.3,
+              transition: { duration: 0.2 },
+            }}
+            whileTap={{ scale: 0.9 }}
+          >
+            <BiDotsHorizontalRounded size={"100%"} />
+          </motion.div>
         </DropdownButton>
         <Menu isDropped={myPageIsOpen}>
           <Ul>

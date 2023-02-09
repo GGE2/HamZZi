@@ -1,6 +1,6 @@
 import React from "react";
 // import GuildUsersNo from "./GuildUsersNo";
-import Header from './../../Header';
+
 import GuildUserNo from './GuildUserNo';
 
 const GuildNoAdmin = ({

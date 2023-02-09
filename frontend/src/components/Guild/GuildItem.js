@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import api from './../api';
 
 const GuildItem = ({
   guild,
@@ -12,9 +13,9 @@ const GuildItem = ({
 
   // 길드 가입 api
   const onJoinGuild = async () => {
-    await axios
+    await api
       .put(
-        `http://3.35.88.23:8080/api/guild/join?guild_id=${guild.guild_id}&nickname=${nickname}`
+        `/api/guild/join?guild_id=${guild.guild_id}&nickname=${nickname}`
       )
       .then((res) => {
         console.log("길드가입api");

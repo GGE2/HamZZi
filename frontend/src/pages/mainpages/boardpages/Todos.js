@@ -6,11 +6,12 @@ import { FcCalendar } from "react-icons/fc";
 
 import { AiFillCaretRight, AiFillCaretLeft } from "react-icons/ai";
 import DatePicker from "react-datepicker";
-import Header from "./../../../components/Header";
 import axios from "axios";
 
 import "react-datepicker/dist/react-datepicker.css";
 import "../../../styles/Todos.css";
+import { motion } from "framer-motion";
+import api from './../../../components/api';
 
 const Todos = () => {
   const nickname = localStorage.getItem("nickname");
@@ -60,8 +61,8 @@ const Todos = () => {
 
   // db에서 todolist 가져오기
   const getTodo = async () => {
-    await axios
-      .get(`http://3.35.88.23:8080/api/todo/${nickname}/${calDate}`)
+    await api
+      .get(`/api/todo/${nickname}/${calDate}`)
       .then((res) => {
         // console.log(res);
         console.log("db에서 todolist 가져오기");
@@ -75,9 +76,10 @@ const Todos = () => {
   useEffect(() => {
     setCaldate(new Date(+d + TIME_ZONE).toISOString().split("T")[0]);
     getTodo();
-    console.log(calDate);
-    console.log(todos);
-    console.log(nickname);
+    console.log(`날짜목록: ${calDate}`);
+    console.log(`투두목록: ${todos}`);
+    
+    console.log(`닉네임: ${nickname}`);
     // setDate(new Date())
   }, []);
 
@@ -89,20 +91,15 @@ const Todos = () => {
   useEffect(() => {
     getTodo();
     console.log("날짜가 변해서 데이터 가져옴");
-    // setCaldate(new Date(+d + TIME_ZONE).toISOString().split("T")[0]);
   }, [calDate, addTodo]);
 
-  // useEffect(() => {
-  //   getTodo();
-  //   console.log("todo가 변해서 데이터 가져옴");
-  //   // setCaldate(new Date(+d + TIME_ZONE).toISOString().split("T")[0]);
-  // }, [todotodos]);
+
 
   // 특정 투두 검색 api
   const onSearchTodo = async () => {
-    await axios
+    await api
       .get(
-        `http://3.35.88.23:8080/api/todo/list/search?nickname=${nickname}&content=${searchword}`
+        `/api/todo/list/search?nickname=${nickname}&content=${searchword}`
       )
       .then((res) => {
         console.log("특정 투두 검색 api");
@@ -118,12 +115,11 @@ const Todos = () => {
       datetime: calDate,
       user_nickname: nickname,
     };
-    await axios
-      .post("http://3.35.88.23:8080/api/todo", newTodos)
+    await api
+      .post("/api/todo", newTodos)
       .then((res) => {
         console.log(res.data);
         console.log(parseInt(res.data.slice(4, 7)));
-        // no = parseInt(res.data.slice(4,7))
         setAddTodo({
           todo_id: no,
           content: text,
@@ -135,12 +131,12 @@ const Todos = () => {
     console.log(addTodo);
     setTodos([addTodo, ...todos]);
     console.log(todos);
-    // getTodo();
+
     console.log("투두를 추가했다!");
   };
 
   const onDel = (id) => {
-    axios.delete(`http://3.35.88.23:8080/api/todo/${id}`).then((res) => {
+    api.delete(`/api/todo/${id}`).then((res) => {
       setAddTodo({
         todo_id: no,
         content: "text",
@@ -149,14 +145,14 @@ const Todos = () => {
         nickname: nickname,
       });
     });
-    // getTodo();
+   
     setTodos(todos.filter((todo) => todo.id !== id));
     console.log("투두를 삭제했다!");
   };
 
   const onToggle = (id) => {
-    axios.put(`http://3.35.88.23:8080/api/todo/check/${nickname}/${id}`);
-    // getTodo();
+    api.put(`/api/todo/check/${nickname}/${id}`);
+  
     setTodos(
       todos.map((todo) =>
         todo.todo_id === id
@@ -173,8 +169,8 @@ const Todos = () => {
 
   // 방명록 수정
   const onEdit = (id, newContent, datetime) => {
-    axios
-      .put(`http://3.35.88.23:8080/api/todo/${id}`, {
+    api
+      .put(`/api/todo/${id}`, {
         content: newContent,
         datetime: datetime,
         user_nickname: nickname,
@@ -226,10 +222,36 @@ const Todos = () => {
     setIsSearch(false)
   }
 
+  const variants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 }
+  }
+
+  
+
   return (
-    <>
+    <motion.div
+          initial={{opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ y: -100, opacity: 0 }}
+          transition={{ duration: 1}}
+          variants={variants}
+        >
       {/* <Header data={"Todo"} type={"Todo"} /> */}
       <div className="MyBody">
+        <motion.button
+          hidden = { {opacity: 0.2}}
+          visible = {{opacity: 1,
+         
+            transition: {
+              delay: 0.2,
+              duration: 1,
+              repeat: Infinity,
+              repeatType: "reverse"
+            }}}
+        >
+          ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ
+        </motion.button>
         <div className="FriendHeaderButton">
           <button
             onClick={CreateFlagfunc}
@@ -294,7 +316,7 @@ const Todos = () => {
         />
         <TodoInput onAdd={onAdd} />
       </div>
-    </>
+    </motion.div>
   );
 };
 

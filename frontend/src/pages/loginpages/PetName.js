@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import "../../styles/Modal.css";
+import api from './../../components/api';
 
 const PetName = () => {
   const [petName, setPetName] = useState("");
@@ -15,8 +16,8 @@ const PetName = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post("http://3.35.88.23:8080/api/pet", {
+    api
+      .post("/api/pet", {
         name: petName,
         user_nickname: nickname,
       })

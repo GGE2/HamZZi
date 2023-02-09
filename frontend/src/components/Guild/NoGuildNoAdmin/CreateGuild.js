@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import axios from "axios";
-import Header from "./../../Header";
-// import GuildList from "./../GuildList";
+
 import GuildItem from "./../GuildItem";
+import api from './../../api';
 
 const CreateGuild = ({
   onSearchGuild,
@@ -23,9 +22,9 @@ const CreateGuild = ({
 
   const onCreateGuild = async () => {
     if (GuildName) {
-      await axios
+      await api
         .post(
-          `http://3.35.88.23:8080/api/guild/found?guild_name=${GuildName}&nickname=${nickname}`
+          `/api/guild/found?guild_name=${GuildName}&nickname=${nickname}`
         )
         .then((res) => {
           console.log("길드생성api");

@@ -1,10 +1,10 @@
 import React, { useState, useRef } from "react";
-import { FaRegTrashAlt } from "react-icons/fa";
+
 import {
   MdOutlineCheckBox,
   MdOutlineCheckBoxOutlineBlank,
 } from "react-icons/md";
-import { BiDotsVerticalRounded } from "react-icons/bi";
+
 import DropdownTodoMenu from './DropdownTodoMenu';
 // import { OpenVidu } from "openvidu-browser";
 

@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import GetPetInfo from "./components/GetPetInfo";
 import increaseExp from "./components/increaseExp";
+import api from './components/api';
 
 const hamStatSlice = createSlice({
   name: "hamStat",
@@ -50,8 +51,8 @@ const hamStatSlice = createSlice({
     increasePhysical: (state, action) => {
       const petId = action.payload;
       state.physical += 1;
-      axios
-        .put(`http://3.35.88.23:8080/api/pet/stat`, {
+      api
+        .put(`/api/pet/stat`, {
           artistic: 0,
           energetic: 0,
           etc: 0,
@@ -72,8 +73,8 @@ const hamStatSlice = createSlice({
     increaseArtistic: (state, action) => {
       const petId = action.payload;
       state.artistic += 1;
-      axios
-        .put(`http://3.35.88.23:8080/api/pet/stat`, {
+      api
+        .put(`/api/pet/stat`, {
           artistic: 1,
           energetic: 0,
           etc: 0,
@@ -90,8 +91,8 @@ const hamStatSlice = createSlice({
     increaseIntelligent: (state, action) => {
       const petId = action.payload;
       state.intelligent += 1;
-      axios
-        .put(`http://3.35.88.23:8080/api/pet/stat`, {
+      api
+        .put(`/api/pet/stat`, {
           artistic: 0,
           energetic: 0,
           etc: 0,
@@ -108,8 +109,8 @@ const hamStatSlice = createSlice({
     increaseInactive: (state, action) => {
       const petId = action.payload;
       state.inactive += 1;
-      axios
-        .put(`http://3.35.88.23:8080/api/pet/stat`, {
+      api
+        .put(`/api/pet/stat`, {
           artistic: 0,
           energetic: 0,
           etc: 0,
@@ -126,8 +127,8 @@ const hamStatSlice = createSlice({
     increaseEnergetic: (state, action) => {
       const petId = action.payload;
       state.energetic += 1;
-      axios
-        .put(`http://3.35.88.23:8080/api/pet/stat`, {
+      api
+        .put(`/api/pet/stat`, {
           artistic: 0,
           energetic: 1,
           etc: 0,
@@ -144,8 +145,8 @@ const hamStatSlice = createSlice({
     increaseEtc: (state, action) => {
       const petId = action.payload;
       state.etc += 1;
-      axios
-        .put(`http://3.35.88.23:8080/api/pet/stat`, {
+      api
+        .put(`/api/pet/stat`, {
           artistic: 0,
           energetic: 0,
           etc: 1,

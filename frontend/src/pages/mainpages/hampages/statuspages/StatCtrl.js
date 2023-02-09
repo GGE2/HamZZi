@@ -13,6 +13,7 @@ import {
 } from "./../../../../hamStatSlice";
 import axios from "axios";
 import GetPetInfo from "../../../../components/GetPetInfo";
+import api from './../../../../components/api';
 
 const StatCtrl = () => {
   // const [localStat, setLocalStat] = useState();
@@ -24,8 +25,8 @@ const StatCtrl = () => {
   const petId = localStorage.getItem("petId");
 
   const initialPetInfo = () => {
-    axios
-      .get(`http://3.35.88.23:8080/api/pet/${nickname}`)
+    api
+      .get(`/api/pet/${nickname}`)
       .then((res) => {
         console.log(res.data[2]);
         const physical = res.data[2].physical;
@@ -73,8 +74,8 @@ const StatCtrl = () => {
     dispatch(clearStat(petId));
   };
   const handleExp = () => {
-    axios
-      .put(`http://3.35.88.23:8080/api/pet/exp?pet_id=${petId}&exp=${15}`)
+    api
+      .put(`/api/pet/exp?pet_id=${petId}&exp=${15}`)
       .then((res) => {
         console.log(res);
         GetPetInfo();

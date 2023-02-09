@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import GetPetInfo from "./../../../components/GetPetInfo";
+import api from './../../../components/api';
 
 const HamModal = ({ setIsModal, setIsCreate }) => {
   const [petName, setPetName] = useState("");
@@ -13,8 +14,8 @@ const HamModal = ({ setIsModal, setIsCreate }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post("http://3.35.88.23:8080/api/pet", {
+    api
+      .post("/api/pet", {
         name: petName,
         user_nickname: nickname,
       })

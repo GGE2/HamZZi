@@ -1,0 +1,123 @@
+.DressRoom {
+    background-color: white;
+    height: 100%;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+}
+
+.SwiperSlide {
+    width: 5em;
+    height: 5em;
+}
+
+
+.DressList, .ClothList{
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    /* justify-content: center;
+    align-items: center; */
+    place-items: center;
+    overflow: scroll;
+}
+
+.DressList::-webkit-scrollbar,  .ClothList::-webkit-scrollbar{
+    display: none; /* Chrome, Safari, Opera*/
+}
+
+
+/*  드레스 메뉴 버튼 */
+.DressButton {
+    
+}
+.DressButton button{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    width: 50%;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    cursor: pointer;
+    background-color: white;
+    height: 4em;
+    
+    
+}
+
+.DressButton_clicked {
+    /* margin: auto; */
+    color: blueviolet;
+    border-bottom: 3px solid blueviolet;
+    
+}
+
+.DressButton_Unclicked {
+    border-bottom: 3px solid #ececec;
+}
+
+
+/* 드레스 아이템 */
+.DressItem, .ClothItem {
+    background-color: #ececec;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* margin: auto; */
+    padding: 0.5em;
+    margin: 0.5em;
+    border-radius: 10px;
+    width: 8em;
+    height: 8em;
+}
+
+.DressItem_clicked, .ClothItem_clicked {
+    font-weight: bold;
+    background-color: #222f93;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* margin: auto; */
+    padding: 0.5em;
+    margin: 0.5em;
+    border-radius: 10px;
+    width: 8em;
+    height: 8em;
+    scale: 0.7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.DressItem_Unclicked, .ClothItem_Unclicked {
+    background-color: #222f93;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* margin: auto; */
+    padding: 0.5em;
+    margin: 0.5em;
+    border-radius: 10px;
+    width: 8em;
+    height: 8em;
+    scale: 0.7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.DressButton_clicked_text {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.DressButton_Unclicked_text {
+    font-size: 24px;
+}
+
+.DressItem img, .ClothItem img{
+    width: 8em;
+    height: 8em;
+}
+
+

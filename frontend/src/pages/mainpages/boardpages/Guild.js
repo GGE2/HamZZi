@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import Header from "./../../../components/Header";
 import axios from "axios";
 import "../../../styles/Guild.css";
 import CreateGuild from "./../../../components/Guild/NoGuildNoAdmin/CreateGuild";
 import GuildNoAdmin from "./../../../components/Guild/GuildNoAdmin/GuildNoAdmin";
 import GuildAdmin from "../../../components/Guild/GuildAdmin/GuildAdmin";
+import api from './../../../components/api';
+
 
 const Guild = ({
 
@@ -25,7 +26,7 @@ const Guild = ({
   // console.log(user);
   // 길드 리스트 가져오기
   const getGuildList = async () => {
-    await axios.get("http://3.35.88.23:8080/api/guild/list").then((res) => {
+    await api.get("/api/guild/list").then((res) => {
       console.log("길드리스트 api");
       console.log(res);
       setGuilds(res.data);
@@ -34,8 +35,8 @@ const Guild = ({
 
   // 특정 길드 검색 api
   const onSearchGuild = async (keyword) => {
-    await axios
-      .get(`http://3.35.88.23:8080/api/guild/list/search?guild_name=${keyword}`)
+    await api
+      .get(`/api/guild/list/search?guild_name=${keyword}`)
       .then((res) => {
         console.log("특정 길드 검색 api");
         console.log(res);
@@ -46,8 +47,8 @@ const Guild = ({
 
   // 길드 세부정보 api
   const onGetGuildDetail = async () => {
-    await axios
-      .get(`http://3.35.88.23:8080/api/guild/detail?guild_id=${guildId}`)
+    await api
+      .get(`/api/guild/detail?guild_id=${guildId}`)
       .then((res) => {
         console.log("길드 세부정보 api");
         console.log(res);
@@ -58,8 +59,8 @@ const Guild = ({
 
     // 길드 세부정보 -관리자 api
     const onGetGuildAdmin = async (id) => {
-      await axios
-        .get(`http://3.35.88.23:8080/api/guild/detail/admin?guild_id=${id}`)
+      await api
+        .get(`/api/guild/detail/admin?guild_id=${id}`)
         .then((res) => {
           console.log("길드 세부정보 -관리자 api");
           console.log(res.data[0]);
@@ -70,8 +71,8 @@ const Guild = ({
     };
     // 길드 세부정보 -사 용자 api
     const onGetGuilduser = async (id) => {
-      await axios
-        .get(`http://3.35.88.23:8080/api/guild/detail/user?guild_id=${id}`)
+      await api
+        .get(`/api/guild/detail/user?guild_id=${id}`)
         .then((res) => {
           console.log("길드 세부정보 -사용자 api");
           console.log(res.data);
@@ -85,9 +86,9 @@ const Guild = ({
 
   // 길드 탈퇴 api
   const onLeaveGuild = async () => {
-    await axios
+    await api
       .get(
-        `http://3.35.88.23:8080/api/guild/leave?guild_id=${guildId}&nickname=${nickname}`
+        `/api/guild/leave?guild_id=${guildId}&nickname=${nickname}`
       )
       .then((res) => {
         console.log("길드 탈퇴 api");
@@ -105,9 +106,9 @@ const Guild = ({
   // 길드 0 길드장 0 전용 api
   // 관리자 임명 api
   const onGrantAdmin = async (admin, user, id) => {
-    await axios
+    await api
       .put(
-        `http://3.35.88.23:8080/api/guild/admin/grant?nickname_admin=${admin}&nickname_granted=${user}`
+        `/api/guild/admin/grant?nickname_admin=${admin}&nickname_granted=${user}`
       )
       .then((res) => {
         console.log("관리자 임명 api");
@@ -122,9 +123,9 @@ const Guild = ({
   };
   // 길드 삭제 api
   const onDeleteGuild = async () => {
-    await axios
+    await api
       .delete(
-        `http://3.35.88.23:8080/api/guild/delete?guild_id=${guildId}&nickname=${nickname}`
+        `/api/guild/delete?guild_id=${guildId}&nickname=${nickname}`
       )
       .then((res) => {
         console.log("길드 삭제 api");
@@ -142,9 +143,9 @@ const Guild = ({
 
   // 길드 강퇴 api
   const onKickUser = async (admin, user, id) => {
-    await axios
+    await api
       .put(
-        `http://3.35.88.23:8080/api/guild/kick?nickname_admin=${admin}&nickname_user=${user}`
+        `/api/guild/kick?nickname_admin=${admin}&nickname_user=${user}`
       )
       .then((res) => {
         console.log("길드 강퇴 api");
@@ -180,6 +181,7 @@ const Guild = ({
             setKeyword={setKeyword}
           /> */}
         {/* 길드 x 길드장 x */}
+
 
         {guildUsers.admin === false && guildUsers.guild === null && (
           <CreateGuild

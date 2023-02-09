@@ -1,6 +1,5 @@
 import React from "react";
 import GuildUser from "./GuildUser";
-import Header from "./../../Header";
 
 const GuildAdmin = ({
   admin, // 길드 관리자

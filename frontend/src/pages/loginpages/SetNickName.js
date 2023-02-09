@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import "../../styles/Modal.css";
+import api from './../../components/api';
 
 const SetNickName = () => {
   const [nickName, SetNickName] = useState("");
@@ -21,10 +22,10 @@ const SetNickName = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
+    api
       // 요청 주소 수정 예정
       .put(
-        `http://3.35.88.23:8080/api/user/nickname?nickname=${nickName}&email=${email}`
+        `/api/user/nickname?nickname=${nickName}&email=${email}`
       )
       .then((res) => {
         console.log(res);

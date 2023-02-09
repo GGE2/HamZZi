@@ -9,6 +9,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setCredentials } from "../../authSlice";
+import api from "./../../components/api";
 
 export default function Signup() {
   const dispatch = useDispatch();
@@ -77,13 +78,10 @@ export default function Signup() {
         })
       );
       // uid 보내기
-      const dummy = await axios.post(
-        "http://3.35.88.23:8080/api/user/register",
-        {
-          email: curUserInfo.user.email,
-          uid: curUserInfo.user.uid,
-        }
-      );
+      const dummy = await api.post("/api/user/register", {
+        email: curUserInfo.user.email,
+        uid: curUserInfo.user.uid,
+      });
       navigate("/nickname");
     } catch (err) {
       console.log(err.code);

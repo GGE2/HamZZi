@@ -71,6 +71,14 @@ animation: rotate_image 10s linear infinite;
     display: flex;
     justify-content: center;
     align-items: center;
+
+
+    z-index: 1;
+    background-image: url("../../public/room2.gif");
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    background-position: center;
 }
 
 .HamOutfit img {
@@ -78,6 +86,31 @@ animation: rotate_image 10s linear infinite;
    width: 15em;
 }
 
+.HamBody {
+    z-index: 2;
+    background-image: url("../../public/wheel.gif");
+    height: 15em;
+   width: 15em;
+   background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    background-position: center;
+}
+
+.HamCloths {
+    z-index: 3;
+    background-image: url("../../public/tennis.png");
+    height: 10em;
+   width: 10em;
+   background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    background-position: center;
+}
+
+.test {
+    z-index: 4;
+}
 
 
 .img3 {
@@ -174,4 +207,13 @@ animation: rotate_image 10s linear infinite;
     right: 10px;
     top: 10px;
   }
+
+
+
+
+
+.HamBackGround {
+
+    background-image: url("../../public/room2.gif");
+}
 

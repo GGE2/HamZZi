@@ -1,17 +1,26 @@
 .app {
   text-align: center;
-  min-width: 100%;
-  min-height: 100%;
+  min-width: 90vw;
+  min-height: 90vh;
   position: fixed;
   /* background: repeating-linear-gradient(150deg, #7cac54, #7cac54 20px, #3f8744 0, #3f8744 40px); /
   / board를 가운데 정렬 */
-  background-image: url("../../public/sawdust.png");
+  /* background-image: url("../../public/sawdust.png"); */
+
+  /* background-color: #888;
+  background-image: linear-gradient(45deg, #444 25%, transparent 25%, transparent 75%, #444 75%, #444), linear-gradient(45deg, #444 25%, transparent 25%, transparent 75%, #444 75%, #444);
+  background-position: 0 0, 25px 25px;
+  background-size: 50px 50px; */
+  background-color: rgb(106, 162, 109);
+  background-size: 10px, 25px, 10px 10px, 25px 25px;
+  background-image: linear-gradient(90deg, #00000001 1px, transparent 1px), linear-gradient(90deg, blue 1px, transparent 1px), linear-gradient(#00000001 1px, transparent 1px), linear-gradient(blue 1px, transparent 1px);
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100vw;
   height: 100vh;
   /* filter: brightness(200%); */
+  overflow: hidden;
 }
 
 .Board {
@@ -50,13 +59,14 @@ text-align: center;
 width: 30%;
 margin: 0px;
 position: relative;
-margin: 1em;
+margin: 1.5em;
 
 }
 
 .Back .Screen {
   /* border-radius: 15px; */
   background-color: #f9fbe7;
+  background-color: red;
 display: flex;
 flex-direction: column;
 text-align: center;
@@ -72,17 +82,17 @@ border-bottom-left-radius: 10px;
 margin: 0px;
 position: relative;
 /* margin-right: 1em; */
-margin-top: 1em;
-margin-bottom: 1em;
+margin-top: 1.5em;
+margin-bottom: 1.5em;
 }
 
 .Back .buttonflex {
 display: flex;
 flex-direction: column;
-width: 2em;
+width: 1.5em;
 /* margin-right: 1em; */
 
-margin-top: 1.6em;
+margin-top: 2em;
 position: relative;
 }
 
@@ -100,7 +110,7 @@ border-bottom-right-radius: 10px;
  
   margin-bottom: 5px;
   cursor: pointer;
-  background-color: #f9fbe7;
+  /* background-color: #f9fbe7; */
 }
 
 /* 보드 페이지에 하단 버튼 리스트 /
@@ -129,7 +139,32 @@ width: 20%;
 transition-property: color, background-color;
 }
 
-.BoardButto--active {
+.BoardButto--active0 {
   color: pink;
-  background: red;
+  background-color: red;
+  text-decoration:underline
+}
+
+.BoardButto--active1 {
+  color: black;
+  background-color: orange;
+  text-decoration:underline
+}
+
+.BoardButto--active2 {
+  color: white;
+  background-color: blue;
+  text-decoration:underline
+}
+
+.BoardButto--active3 {
+  color: black;
+  background-color: yellow;
+  text-decoration:underline
+}
+
+.BoardButto--active4 {
+  color: black;
+  background-color: white;
+  text-decoration:underline
 }
