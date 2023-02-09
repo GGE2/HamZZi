@@ -10,6 +10,6 @@ interface PlaceService {
 
     @PUT("api/quest/location")
     fun registerPlace(@Query("nickname") nickname:String, @Query("latitude") latitude:Double,
-                      @Query("longitude") longitude:Double ) : Call<String>
+                      @Query("longitude") longitude:Double ,@Query("location") location:String) : Call<String>
 
 }

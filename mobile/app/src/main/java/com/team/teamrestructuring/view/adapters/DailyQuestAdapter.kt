@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.team.teamrestructuring.databinding.ItemQuestBinding
 import com.team.teamrestructuring.dto.DailyQuest
 
-class DailyQuestAdapter(var datas:MutableList<DailyQuest>) : RecyclerView.Adapter<DailyQuestAdapter.DailyQuestViewHolder>(){
+class DailyQuestAdapter(var datas:List<DailyQuest>) : RecyclerView.Adapter<DailyQuestAdapter.DailyQuestViewHolder>(){
     private lateinit var questClickListener : QuestClickListener
     inner class DailyQuestViewHolder(var binding:ItemQuestBinding) : RecyclerView.ViewHolder(binding.root){
         val tv = binding.textviewItemQuestTitle
@@ -19,7 +19,7 @@ class DailyQuestAdapter(var datas:MutableList<DailyQuest>) : RecyclerView.Adapte
             binding.buttonItemQuestFinish.setOnClickListener {
                 questClickListener.onClick(it,layoutPosition,data)
             }
-            tv.text = data.content
+            tv.text = data.quest.content
             if(data.ischeck){
                 tv.setTextColor(Color.parseColor("#c0c0c0"))
                 binding.buttonItemQuestFinish.text = "수행완료"

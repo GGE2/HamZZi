@@ -16,6 +16,7 @@ import com.team.teamrestructuring.dto.DailyQuest
 import com.team.teamrestructuring.dto.Place
 import com.team.teamrestructuring.service.HomeService
 import com.team.teamrestructuring.service.PlaceService
+import com.team.teamrestructuring.service.QuestService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -46,6 +47,9 @@ class CreateRegisterTimeDialog(
             dismiss()
         }
         binding.buttonDialogCreateTimeOk.setOnClickListener {
+            setFinishTime(ApplicationClass.currentUser.userProfile.nickname,
+            60*registHour+registerMinute)
+            ApplicationClass.currentUser.userProfile.time = 60*registHour+registerMinute
             dismiss()
         }
         binding.timepickerDialogCreateTime.setOnTimeChangedListener { timePicker, hour, minute ->
@@ -67,6 +71,21 @@ class CreateRegisterTimeDialog(
     }
 
 
+    fun setFinishTime(nickname:String,time:Int){
+        val service = ApplicationClass.retrofit.create(QuestService::class.java)
+            .setFinishTime(nickname,time).enqueue(object : Callback<String>{
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    if(response.isSuccessful){
+                        Log.d(TAG, "onResponse: ${response.body()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    Log.d(TAG, "onFailure: ${t.message}")
+                }
+
+            })
+    }
 
 
     /**

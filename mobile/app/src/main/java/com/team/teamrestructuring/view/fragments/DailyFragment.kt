@@ -12,15 +12,20 @@ import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.team.teamrestructuring.R
 import com.team.teamrestructuring.databinding.FragmentDailyBinding
 import com.team.teamrestructuring.dto.DailyQuest
+import com.team.teamrestructuring.service.QuestService
+import com.team.teamrestructuring.util.ApplicationClass
+import com.team.teamrestructuring.util.CreateQuestResultDialog
 import com.team.teamrestructuring.view.adapters.DailyQuestAdapter
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
-private lateinit var questAdapter: DailyQuestAdapter
-private var datas  = mutableListOf<DailyQuest>(DailyQuest(false,"학교 , 직장 지각하지 않기"),
-    DailyQuest(false,"5000천보 이상 걷기"))
 private lateinit var binding:FragmentDailyBinding
 
 /**
@@ -28,12 +33,12 @@ private lateinit var binding:FragmentDailyBinding
  * Use the [DailyFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class DailyFragment : Fragment() {
+class DailyFragment : Fragment() ,CreateQuestResultDialog.CreateResultListener{
 
     companion object {
 
         private const val TAG = "DatilyFragment_지훈"
-
+        lateinit var questAdapter: DailyQuestAdapter
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
@@ -65,6 +70,12 @@ class DailyFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        getQuestData(ApplicationClass.currentUser.userProfile.nickname)
+    }
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -72,13 +83,46 @@ class DailyFragment : Fragment() {
 
         binding = FragmentDailyBinding.inflate(layoutInflater,container,false)
 
-        questAdapter = DailyQuestAdapter(datas)
+        questAdapter = DailyQuestAdapter(emptyList<DailyQuest>())
        questAdapter.setOnQuestClickListener(object : DailyQuestAdapter.QuestClickListener{
             override fun onClick(view: View, position: Int, data: DailyQuest) {
                 when(position){
                     //1번 퀘스일 경우
                     0->{
-                        Toast.makeText(requireContext(),"${QuestFragment.distance}m입니다",Toast.LENGTH_SHORT).show()
+                        val currentTime = System.currentTimeMillis()
+                        val dData = Date(currentTime)
+
+                        val format = SimpleDateFormat("HH:mm")
+                        val res = format.format(dData)
+                        var hour = 0
+                        var minute = 0
+
+                        if(res.substring(0 until 1).equals("0")){
+                            hour = res.substring(1 until 2).toInt()
+                        }else{
+                            hour = res.substring(0 until 2).toInt()
+                        }
+                        if(res.substring(3 until 4).equals("0")){
+                            minute = res.substring(4 until 5).toInt()
+                        }else{
+                            minute = res.substring(3 until 5).toInt()
+                        }
+                        if(ApplicationClass.currentUser.userProfile.time>hour*60+minute){
+                            if(QuestFragment.distance<30){
+                                val dialog = CreateQuestResultDialog(this@DailyFragment,"퀘스트를 성공하셨습니다",true,data)
+                                dialog.isCancelable = false
+                                dialog.show(activity!!.supportFragmentManager,"성공 알람")
+                            }else{
+                                val dialog = CreateQuestResultDialog(this@DailyFragment,"${ApplicationClass.currentUser.userProfile.location}에 더 접근해주세요\n" +
+                                        "현재 목적지까지와의 거리는 ${QuestFragment.distance}m 입니다",false,data)
+                                dialog.isCancelable = false
+                                dialog.show(activity!!.supportFragmentManager,"실패 알람")
+                            }
+                        }else{
+                            val dialog = CreateQuestResultDialog(this@DailyFragment,"오늘은 지각하셨네요.. 내일은 꼭 일찍!!",false,data)
+                            dialog.isCancelable = false
+                            dialog.show(activity!!.supportFragmentManager,"실패 알람")
+                        }
                     }
                 }
             }
@@ -92,6 +136,29 @@ class DailyFragment : Fragment() {
 
         return binding.root
     }
+    private fun getQuestData(nickname:String){
+        val service = ApplicationClass.retrofit.create(QuestService::class.java)
+            .getQuestList(nickname).enqueue(object:Callback<List<DailyQuest>>{
+                override fun onResponse(
+                    call: Call<List<DailyQuest>>,
+                    response: Response<List<DailyQuest>>
+                ) {
+                    if(response.isSuccessful){
+                        Log.d(TAG, "onResponse: ${response.body()}")
+                        questAdapter.datas = response.body()!!
+                        questAdapter.notifyDataSetChanged()
+                    }
+                }
 
+                override fun onFailure(call: Call<List<DailyQuest>>, t: Throwable) {
+                    Log.d(TAG, "onFailure: ${t.message}")
+                }
+
+            })
+    }
+
+    override fun onConfirmButtonClick() {
+
+    }
 
 }

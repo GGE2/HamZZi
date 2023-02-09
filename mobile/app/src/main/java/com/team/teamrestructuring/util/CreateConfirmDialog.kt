@@ -68,8 +68,11 @@ class CreateConfirmDialog(
     }
 
     private fun sendToServerLatData(){
+        ApplicationClass.currentUser.userProfile.latitude = place?.y?.toDouble()!!
+        ApplicationClass.currentUser.userProfile.longitude = place?.x?.toDouble()!!
+        ApplicationClass.currentUser.userProfile.location = place?.place_name!!
         val service = ApplicationClass.retrofit.create(PlaceService::class.java)
-            .registerPlace(ApplicationClass.currentUser.userProfile.user_nickname,place?.x?.toDouble()!!,place?.y?.toDouble()!!).enqueue(object:Callback<String>{
+            .registerPlace(ApplicationClass.currentUser.userProfile.nickname,place?.y?.toDouble()!!,place?.x?.toDouble()!!,place?.place_name!!).enqueue(object:Callback<String>{
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     if(response.isSuccessful){
                         Log.d(TAG, "onResponse: ${response.body()}")

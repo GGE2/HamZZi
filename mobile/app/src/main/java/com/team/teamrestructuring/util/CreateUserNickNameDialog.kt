@@ -41,9 +41,9 @@ class CreateUserNickNameDialog(
 
         binding.buttonPetNickname.setOnClickListener {
             createuserNickNameDialogInterface?.onClick()
-            ApplicationClass.currentUser.userProfile.user_nickname = binding.edittextDialogNickname.text.toString()
+            ApplicationClass.currentUser.userProfile.nickname = binding.edittextDialogNickname.text.toString()
             sendToServerNickname(binding.edittextDialogNickname.text.toString(),ApplicationClass.currentUser.email)
-            sendToServerQuestData(ApplicationClass.currentUser.userProfile.user_nickname)
+            sendToServerQuestData(binding.edittextDialogNickname.text.toString())
             dismiss()
         }
 
@@ -76,6 +76,7 @@ class CreateUserNickNameDialog(
     }
 
     private fun sendToServerQuestData(nickname: String){
+        Log.d(TAG, "sendToServerQuestData: ${nickname}")
         val service = ApplicationClass.retrofit.create(QuestService::class.java)
             .createQuestUser(nickname).enqueue(object : Callback<String>{
                 override fun onResponse(call: Call<String>, response: Response<String>) {

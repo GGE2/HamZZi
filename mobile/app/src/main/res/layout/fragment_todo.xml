@@ -5,9 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/navbar_background">
         <TextView
             android:id="@+id/textview_todo_title"
             android:layout_width="match_parent"
@@ -16,20 +21,11 @@
             android:layout_marginTop="6dp"
             android:layout_marginLeft="6dp"
             android:textSize="50sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/maple"
+            android:textColor="#ffb100"
+            android:fontFamily="@font/mine"
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"/>
-
-        <View
-            android:id="@+id/view_todo_title"
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:background="#000000"
-            app:layout_constraintTop_toBottomOf="@id/textview_todo_title"
-            app:layout_constraintLeft_toLeftOf="parent"/>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
+    </FrameLayout>
 </FrameLayout>

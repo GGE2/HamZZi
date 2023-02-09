@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <TextView
+        android:id="@+id/textview_dialog_quest_result_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="도착하지 않았습니다"
+        android:fontFamily="@font/kakao_bold"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_dialog_quest_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="확인"
+        android:textSize="20sp"
+        android:fontFamily="@font/kakao_bold"
+        android:textColor="#F7C77B"
+        android:background="@drawable/alert_button_time_cancel"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/textview_dialog_quest_result_title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
