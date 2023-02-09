@@ -39,4 +39,6 @@ public interface QuestService {
 
     // QuestUser Table 초기화 후에 다시 모든 유저에게 퀘스트 만들어주기
     void resetBeforeCreateQuestUser();
+
+    void resetRestPoint();
 }

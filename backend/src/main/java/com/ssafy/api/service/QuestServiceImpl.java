@@ -130,6 +130,7 @@ public class QuestServiceImpl implements QuestService {
         userProfile.setPoint(nowPoint + questPoint);
     }
 
+    // QuestUser Table 초기화 후에 다시 모든 유저에게 퀘스트 만들어주기
     @Override
     public void resetBeforeCreateQuestUser() {
         List<String> userProfiles = questRepo.getUserNickname();
@@ -137,4 +138,16 @@ public class QuestServiceImpl implements QuestService {
             createQuestUser(userProfile);
         }
     }
+
+    // UserProfile RestPoint 3으로 매일 초기화 해주기
+    @Override
+    public void resetRestPoint() {
+        List<String> userProfiles = questRepo.getUserNickname();
+        for (String userProfile:userProfiles) {
+            UserProfile user = userRepo.findByNickname(userProfile);
+            user.setRest_point(3);
+        }
+    }
+
+
 }

@@ -112,7 +112,5 @@ public class UserServiceImpl implements UserService {
 
         userRepo.removeUserProfile(user_id);
         userRepo.removeUser(user_id);
-
-
     }
 }
