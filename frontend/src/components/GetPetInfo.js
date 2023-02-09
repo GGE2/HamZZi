@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import api from './api';
 
+// 안녕
+
 const GetPetInfo = () => {
   const currentLevel = localStorage.getItem("petLevel");
   const nickname = localStorage.getItem("nickname");
