@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import java.util.ArrayList;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
@@ -53,9 +53,26 @@ public class QuestRepositotySupport implements QuestRepository {
                 .getResultList();
     }
 
+    // QuestUser에 닉네임 별로 Quest를 자동으로 부여해주기 위해
     @Override
     public List<Long> getQuestId() {
         return em.createQuery("select q.quest_id from Quest q", Long.class)
                 .getResultList();
     }
+
+    // 00시에 QuestUser Table 초기화
+    @Override
+    @Transactional
+    public void tableClear() {
+        em.createNativeQuery("TRUNCATE TABLE quest_user")
+                .executeUpdate();
+    }
+
+    // 초기화 후에 자동으로 생성해주기 위해 유저 닉네임 전체 가져오기
+    @Override
+    public List<String> getUserNickname() {
+        return em.createQuery("select up.nickname from UserProfile up", String.class)
+                .getResultList();
+    }
+
 }

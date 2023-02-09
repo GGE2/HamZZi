@@ -14,7 +14,7 @@ public interface QuestService {
     Quest createQuest(QuestRequest questInfo, int key);
 
     // questUser 생성
-    void createQuestUser(QuestUserRequest questUserReq, String nickname);
+    void createQuestUser(String nickname);
 
     // 위치 등록
     UserProfile registerLocation(String nickname, double latitude, double longitude, String location);
@@ -37,4 +37,6 @@ public interface QuestService {
     // point 계산
     void questPointAssignment(String nickname, Long quest_id);
 
+    // QuestUser Table 초기화 후에 다시 모든 유저에게 퀘스트 만들어주기
+    void resetBeforeCreateQuestUser();
 }

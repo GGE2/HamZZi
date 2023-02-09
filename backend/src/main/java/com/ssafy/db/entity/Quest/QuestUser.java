@@ -29,7 +29,4 @@ public class QuestUser {
     @Column(nullable = false)
     private Boolean ischeck;
 
-    
-//    // 완료해야하는 시간
-//    private int finish_datetime;
 }

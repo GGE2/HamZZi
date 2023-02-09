@@ -26,4 +26,10 @@ public interface QuestRepository {
     List<Quest> getQuestList(Long quest_id);
 
     List<Long> getQuestId();
+
+    // 00시에 QuestUser Table 초기화
+    void tableClear();
+
+    // 초기화 후에 자동으로 생성해주기 위해 유저 닉네임 전체 가져오기
+    List<String> getUserNickname();
 }
