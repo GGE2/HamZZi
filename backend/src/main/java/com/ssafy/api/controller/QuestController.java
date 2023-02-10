@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-//@CrossOrigin(origins = "*", allowedHeaders = "*")
+//@CrossOrigin(origins = "*", allowedHeaders = "*")     // 프론트 cors 에러 잡아주는 코드
 @RestController
 @RequestMapping("api/quest")
 @RequiredArgsConstructor
@@ -73,19 +73,6 @@ public class QuestController {
 
         return ResponseEntity.status(200).body(questList);
     }
-//
-//    // Quest Object 뽑아 올수 있는지 테스트
-//    @GetMapping("/test")
-//    @ApiOperation(value = "Test", notes = "Quest List Get.")
-//    @ApiResponses({
-//            @ApiResponse(code = 200, message = "성공"),
-//            @ApiResponse(code = 401, message = "인증 실패"),
-//            @ApiResponse(code = 404, message = "사용자 없음"),
-//            @ApiResponse(code = 500, message = "서버 오류")
-//    })
-//    public List<Long> test() {
-//        return questService.getQuestId();
-//    }
 
     // User에게 Quest 부여 List
     @PostMapping("/user/{nickname}")
@@ -146,30 +133,58 @@ public class QuestController {
 
         return "OWNER: " + userProfile.getNickname() + " FinishTime: " + userProfile.getFinish_datetime();
     }
-    
-    @DeleteMapping("/reset")
-    @ApiOperation(value = "매일 00시에 실행 - QuestUser Table 초기화", notes = "QuestUser Table의 모든 값을 지운다.")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "성공"),
-            @ApiResponse(code = 401, message = "인증 실패"),
-            @ApiResponse(code = 404, message = "사용자 없음"),
-            @ApiResponse(code = 500, message = "서버 오류")
-    })
-    public String reset() {
-        questRepo.tableClear();
-        return "200 OK ALL Clear";
-    }
 
-    @PostMapping("/beforeReset")
-    @ApiOperation(value = "매일 00시에 실행 - QuestUser Table 생성", notes = "QuestUser Table의 모든 값을 만든다.")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "성공"),
-            @ApiResponse(code = 401, message = "인증 실패"),
-            @ApiResponse(code = 404, message = "사용자 없음"),
-            @ApiResponse(code = 500, message = "서버 오류")
-    })
-    public String resetBeforeCreate() {
-        questService.resetBeforeCreateQuestUser();
-        return "200 OK ALL Create";
-    }
+//    // Quest Object 뽑아 올수 있는지 테스트
+//    @GetMapping("/test")
+//    @ApiOperation(value = "Test", notes = "Quest List Get.")
+//    @ApiResponses({
+//            @ApiResponse(code = 200, message = "성공"),
+//            @ApiResponse(code = 401, message = "인증 실패"),
+//            @ApiResponse(code = 404, message = "사용자 없음"),
+//            @ApiResponse(code = 500, message = "서버 오류")
+//    })
+//    public List<Long> test() {
+//        return questService.getQuestId();
+//    }
+    
+//    아래 3개 매핑은 Scheduler에서 자동화 완료!
+
+//    @DeleteMapping("/reset")
+//    @ApiOperation(value = "매일 00시에 실행 - QuestUser Table 초기화", notes = "QuestUser Table의 모든 값을 지운다.")
+//    @ApiResponses({
+//            @ApiResponse(code = 200, message = "성공"),
+//            @ApiResponse(code = 401, message = "인증 실패"),
+//            @ApiResponse(code = 404, message = "사용자 없음"),
+//            @ApiResponse(code = 500, message = "서버 오류")
+//    })
+//    public String reset() {
+//        questRepo.tableClear();
+//        return "200 OK ALL Clear";
+//    }
+
+//    @PostMapping("/beforeReset")
+//    @ApiOperation(value = "매일 00시에 실행 - QuestUser Table 생성", notes = "QuestUser Table의 모든 값을 만든다.")
+//    @ApiResponses({
+//            @ApiResponse(code = 200, message = "성공"),
+//            @ApiResponse(code = 401, message = "인증 실패"),
+//            @ApiResponse(code = 404, message = "사용자 없음"),
+//            @ApiResponse(code = 500, message = "서버 오류")
+//    })
+//    public String resetBeforeCreate() {
+//        questService.resetBeforeCreateQuestUser();
+//        return "200 OK ALL Create";
+//    }
+//
+//    @PutMapping("/reset")
+//    @ApiOperation(value = "UserProfile RestPoint 3으로 초기화", notes = "UserProfile RestPoint 3으로 초기화.")
+//    @ApiResponses({
+//            @ApiResponse(code = 200, message = "성공"),
+//            @ApiResponse(code = 401, message = "인증 실패"),
+//            @ApiResponse(code = 404, message = "사용자 없음"),
+//            @ApiResponse(code = 500, message = "서버 오류")
+//    })
+//    public String resetRestPoint(){
+//        questService.resetRestPoint();
+//        return "200 OK Reset RestPoint";
+//    }
 }
