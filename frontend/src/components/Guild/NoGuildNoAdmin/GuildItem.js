@@ -32,10 +32,11 @@ const GuildItem = ({
   return (
     <>
       <div className="GuildItem">
-        <div>{guildName}</div>
-        <div>강교철~</div>
-        <div>{length}</div>
-        <button onClick={onJoinGuild}>가입하기</button>
+        <div className="div1">{guildName}</div>
+        <div className="div2">강교철~</div>
+        <div></div>
+        <div className="div3">{length}</div>
+        <div className="div4" onClick={onJoinGuild}><img src="guildlist/registerbtn.png" alt="" /></div>
       </div>
       
     </>

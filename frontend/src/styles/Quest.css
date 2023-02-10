@@ -1,14 +1,36 @@
-/* 일간, 주간 버튼 */
-.QuestHeaderButton {
-    
-}
-
-/* 퀘스트 리스트 */
+/* 최상위 */
 .Quests {
     height: 100%;
+    display: flex;
+    flex-direction: column;
 }
+
+/* 헤더 부분 */
+/* 일간, 주간 버튼 */
+.QuestHeaderButton {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-left: 30px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.QuestHeaderButton_btn1, .QuestHeaderButton_btn2 {
+    width: 8em;
+    margin-right: 10px;
+}
+
+.QuestHeaderButton_btn1 img, .QuestHeaderButton_btn2 img{
+    width: 8em;
+}
+
+
+/* 퀘스트 리스트 */
+
 .QuestList {
     overflow: scroll;
+    height: min-content;
 }
 .QuestList::-webkit-scrollbar {
     display: none;}

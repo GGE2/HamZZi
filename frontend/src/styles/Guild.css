@@ -1,27 +1,35 @@
 
 .GuildList {
     height: 90%;
-    border: 3px solid black;
-    border-radius: 8px;
+    /* border: 3px solid black; */
+    /* border-radius: 8px; */
     
-    padding-left: 5%;
-    padding-right: 5%;
+    /* padding-left: 5%;
+    padding-right: 5%; */
     padding-top: 1%;
     padding-bottom: 1%;
 
 
     margin-bottom: 5%;
     /* margin-top: 5%; */
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-left: 30px;
+    margin-right: 30px;
     overflow: scroll;
 }
 
 .GuildList_tab {
-    display: grid;
+    /* display: grid;
     grid-template-columns: 2fr 2fr 2fr 1fr;
     margin-bottom: 15px;
-    font-size: 18px;
+    font-size: 18px; */
+    width: 100%;
+    /* background-image: url('../../public/guildlist/guildbar.png'); */
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.GuildList_tab img {
+    width: 100%;
 }
 
 .GuildList::-webkit-scrollbar {
@@ -104,21 +112,51 @@
 }
 
 /* 길드 o 관리자 x */
-.GuildNoAdmin {
-    
+
+.GuildUserNoNo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button_text1 {
+    width: 3em;
+    padding-right: 0.5em;
+}
+
+.button_text1 img {
+    width: 3em;
+}
+
+.button_text {
+    width: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button_text img {
+    width: 2em;
 }
 .GuildNoAdminHeader {
     display: flex;
     border-bottom: 3px solid black;
     /* height: 10%; */
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 10px;
+    margin-left: 40px;
+    margin-right: 40px;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     font-size: 50px;
     height:auto;
 }
 
 .titless {
-    padding-top: 20px;
+    /* padding-top: 20px; */
     text-align: end;
     font-size: 50px;
     height:100%;
@@ -182,8 +220,12 @@
     padding-right: 2em;
 }
 
-.GuildAdminWrap img {
-    height: 3em;
+.GuildAdminWrap3 {
+    height: 2em;
+}
+
+.GuildAdminWrap3 img {
+    height: 2em;
 }
 
 .GuildUsersWrap{
@@ -217,8 +259,9 @@
     padding-right: 2em;
 }
 
-.GuildUserNo img {
-    height: 3.5em;
+.imgicon img {
+    height: 1em;
+    padding-left: 0.5em;
 }
 
 .GuildUser{
@@ -229,11 +272,68 @@
 /* 길드 x */
 .GuildItem {
     /* border-bottom: 3px solid black; */
-    border: 3px solid black;
+    /* border: 3px solid black; */
     display: grid;
-    grid-template-columns: 2fr 2fr 2fr 1fr;
-    margin-bottom: 15px;
-    font-size: 24px;
+    grid-template-columns: 4fr 2fr 1fr 1fr 2fr;
+    /* margin-bottom: 15px; */
+    padding-top: 10px;
+    font-size: 20px;
+    border-bottom: 3px solid #ececec;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.GuildItem .div1 {
+    padding-left: 1em;
+    display: flex;
+    justify-content: start;
+}
+.GuildItem .div2 {
+    /* padding-left:0em; */
+    /* display: flex;
+    justify-content: center;
+    padding-right: 3em; */
+}
+.GuildItem .div3 {
+    /* padding-left: 1em; */
+    /* display: flex;
+    justify-content: center; */
+    /* padding-right: 0.3em; */
+}
+
+.GuildItem .div4 {
+    /* background-color: transparent;
+    border: none; */
+    /* width: 30% */
+    padding-left: 1em;
+    width: 4em;
+    /* background-image: url('../../public/guildlist/guildbar.png'); */
+    background-size: cover;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.div4 img {
+    width: 4em;
+}
+
+.searchbtn {
+    width: 5em;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.searchbtn img{
+    width: 5em;
+}
+
+.createbtn {
+    width: 5em;
+    margin-right: 10px;
+}
+
+.createbtn img{
+    width: 5em;
 }
 
 
@@ -249,27 +349,47 @@
 .onCreateGuildHeaderButton {
     display: flex;
     margin-left: 5%;
+    margin-right: 5%;
     margin-top: 1em;
-    margin-bottom: 1em;
+    margin-bottom: 10px;
+    align-items: center;
+    justify-content: start;
+    flex-wrap: nowrap;
 }
 
-.onCreateGuildHeaderButton input {
-    
+/* .onCreateGuildHeaderButton div {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    margin-right: 10px;
+    flex-grow: 0;
+} */
+
+.onCreateGuildHeaderButton .div1 {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    flex-grow: 1;
 }
 
 .inputWrapGuild {
     display: flex;
     border-radius: 10px;
-    padding: 16px;
+    padding: 8px;
     /* margin-top: 8px; */
     background-color: white;
     border: 1px solid gray;
+    width: 100%;
+    
   }
   
   .inputWrapGuild:focus-within {
     border: 1px solid rgb(146, 89, 67);
   }
   
+  .inputt {
+    width: 100%;
+  }
   .inputWrapGuild input {
     width: 100%;
     outline: none;

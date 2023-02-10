@@ -16,31 +16,32 @@ const GuildAdmin = ({
     <>
       <div className="GuildNoAdmin">
         <div className="GuildNoAdminHeader">
-          {/* <button onClick={onCreateGuild}>길드 생성</button> */}
-
-          <div className="titless">{guildName}</div>
-
-          <div className="button-text">STUDY ROOM</div>
+          <div className="titless">{(guildName)}</div>
+          <div className="button_text">
+            
+        <img src="guildlist/studyroombtn.png" alt="" />
+          </div>
         </div>
         {/* 길드 관리자 */}
         {/* <div className="Guild"></div> */}
         {/* 길드장: {admin.nickname} */}
         <div className="GuildAdminWrap">
           <div className="GuildAdminWrap2">
-            <div>
-              <img src="./levellogo/lvlogo (4).png" alt="" />
+            <div className="GuildAdminWrap3">
+              <img src="./guildlist/master.png" alt="" />
             </div>
-            <div>
-              <button onClick={onDeleteGuild}>길드 삭제</button>
+            <div className="GuildUserNoNo">
+              <div className="button_text1" onClick={onDeleteGuild}>
+                <img src="guildlist/deletebtn.png" alt="" />
+              
+              </div>
               길드장: {admin ? admin.nickname : ""}
             </div>
           </div>
         </div>
-      </div>
-      {/* {adminname} */}
-      {/* 일반 길드원 */}
-      <div className="GuildUsersWrap">
-
+        {/* {adminname} */}
+        {/* 일반 길드원 */}
+        <div className="GuildUsersWrap">
           {users
             ? users.map((user, idx) => (
                 <GuildUser
@@ -55,7 +56,7 @@ const GuildAdmin = ({
                 />
               ))
             : ""}
-        
+        </div>
       </div>
     </>
   );

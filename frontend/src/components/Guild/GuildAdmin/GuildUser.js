@@ -16,13 +16,22 @@ const GuildUser = ({
   return (
     <div className="GuildUserNo">
     
-      <div>
-        <img src="./levellogo/lvlogo (2).png" alt="" />
+      <div className="imgicon">
+        <img src="./guildlist/general.png" alt="" />
       </div>
       <div>
-       <button onClick={()=>onKickUser(admin.nickname, user.nickname, guildId)}>추방</button>
-      <button onClick={()=>onGrantAdmin(admin.nickname, user.nickname, guildId)}>길드장 임명</button>
-      길드원: {user.nickname}
+      <div className="GuildUserNoNo">
+            <div className="button_text1" onClick={()=>onKickUser(admin.nickname, user.nickname, guildId)}>
+              <img src="guildlist/kickbtn.png" alt="" />
+            </div>
+            <div className="button_text1" onClick={()=>onGrantAdmin(admin.nickname, user.nickname, guildId)}>
+              <img src="guildlist/grantbtn.png" alt="" />
+            </div>
+            길드원: {user.nickname}
+            </div>
+       {/* <button onClick={()=>onKickUser(admin.nickname, user.nickname, guildId)}>추방</button>
+      <button onClick={()=>onGrantAdmin(admin.nickname, user.nickname, guildId)}>길드장 임명</button> */}
+      
       </div>
   
     </div>

@@ -21,17 +21,18 @@ const Quests = () => {
   return (
     <>
    
-      <div className="MyBody">
-        {/* <div className="Quests"> */}
+ 
+        <div className="Quests">
         
           <div className="QuestHeaderButton">
-            <button >DAILY</button>
-            <button>WEEKLY</button>
+            <div className="QuestHeaderButton_btn1"><img src="dailyB.png" alt="" /></div>
+            <div className="QuestHeaderButton_btn2"><img src="weeklyB.png" alt="" /></div>
           </div>
 
-          {/* <div className="QuestList"></div>  */}
+          <div className="QuestList"> 
           <QuestList questList={quests} />
-        {/* </div> */}
+          </div>
+    
       </div>
     </>
   );

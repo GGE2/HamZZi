@@ -8,6 +8,7 @@
 
 * {
     font-family: "miness";
+    cursor: url('./../public/levellogo/lvlogo\ \(1\).png') 60 40, auto;
 }
 
 body {

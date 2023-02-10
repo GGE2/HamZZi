@@ -17,11 +17,6 @@ const CreateGuild = ({
 }) => {
   const nickname = localStorage.getItem("nickname");
   const [GuildName, setGuildName] = useState("");
-  // const [CreateFlag, setGuildFlag] = useState(false);
-  // const [SearchFlag, setSearchFlag] = useState(true);
-  // const [create_guild_menu, setCreate_guild_menu] = useState([true, false]);
-
-  // const [keyword, setKeyword] = useState('')
 
   const onCreateGuild = async () => {
     if (GuildName) {
@@ -45,68 +40,39 @@ const CreateGuild = ({
       alert('이름이 없다')
   };
 
-  // const onKeyword = (e) => {
-  //   console.log(e.target.value);
-  //   setKeyword(e.target.value);
-  // };
-
   const onGuildName = (e) => {
     console.log(e.target.value);
     setGuildName(e.target.value);
   };
 
-  const handleOnKeyPress = (e) => {
-    if (e.key === "Enter") {
-      console.log("enter");
-      onSearchGuild(); // Enter 입력이 되면 클릭 이벤트 실행
-    }
-  };
-
-  // const CreateFlagfunc = () => {
-    // setCreate_guild_menu([true, false]);
-    // setGuildName('')
-  // };
-
-  // const SearchFlagfunc = () => {
-    // setCreate_guild_menu([false, true]);
-    // setGuildName('')
-  // };
-
   return (
     <>
     
       <div className="onCreateGuildHeaderButton">
-        <div></div>
-      <form >
-      <div className="inputWrapGuild">
+        
+      
+      <div className="inputWrapGuild div1">
+      <form className="inputt">
           <input
             type="text"
             placeholder="길드 이름을 입력하세요"
             value={GuildName}
             onChange={onGuildName}
-            // onKeyPress={handleOnKeyPress}
+       
           />
+          </form>
           </div>
-        </form>
         
-        <motion.button
+        
+        {/* <motion.button
         whileHover={{ top: 1}}
         whileTap={{ scale: 0.9 }}
         transition={{ type: "spring", stiffness: 400, damping: 17 }}
           onClick={onCreateGuild}
-          // className={create_guild_menu[0] ? "CreateButton--active" : ""}
-        >
-          길드 생성
-        </motion.button>
-        <motion.button
-        whileHover={{ scale: 1.2 }}
-        whileTap={{ scale: 0.9 }}
-        transition={{ type: "spring", stiffness: 400, damping: 17 }}
-          onClick={()=>onSearchGuild(GuildName)}
-          // className={create_guild_menu[1] ? "CreateButton--active" : ""}
-        >
-          길드 찾기
-        </motion.button>
+        > */}
+       
+        <div onClick={()=>onSearchGuild(GuildName)} className="searchbtn"><img src="guildlist/searchbtn.png" alt="" /></div>
+        <div onClick={onCreateGuild} className="createbtn"><img src="guildlist/createbtn.png" alt="" /></div>
         
         {/* {create_guild_menu[0] && (
           <>
@@ -139,9 +105,7 @@ const CreateGuild = ({
       </div>
       <div className="GuildList">
         <div className="GuildList_tab">
-          <div>길드명</div>
-          <div>길드장</div>
-          <div>인원</div>
+          <img src="guildlist/guildbar.png" alt="" />
         </div>
         {guilds.map((guild) => (
           <GuildItem

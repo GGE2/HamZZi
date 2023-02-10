@@ -10,31 +10,29 @@ const GuildUserNo = ({
 }) => {
   return (
     <div className="GuildUserNo">
-      
-        {nickname === user.nickname ? (
-          <>
-          
-            <div>
-              <img src="./levellogo/lvlogo (2).png" alt="" />
+      {nickname === user.nickname ? (
+        <>
+          <div className="imgicon">
+            <img src="./guildlist/general.png" alt="" />
+          </div>
+          <div className="GuildUserNoNo" onClick={onLeaveGuild}>
+            <div className="button_text1">
+              <img src="guildlist/quitbtn.png" alt="" />
             </div>
             <div>
-              <button onClick={onLeaveGuild}>탈퇴</button> 길드원:{" "}
-              {user.nickname}
+            길드원: {user.nickname}
             </div>
-         
-          </>
-        ) : (
-          <>
-         
-            <div>
-              <img src="./levellogo/lvlogo (2).png" alt="" />
-            </div>
-            <div>길드원: {user.nickname}</div>
-          
-          </>
-        )}
-      </div>
-   
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="imgicon">
+            <img src="./guildlist/general.png" alt="" />
+          </div>
+          <div>길드원: {user.nickname}</div>
+        </>
+      )}
+    </div>
   );
 };
 

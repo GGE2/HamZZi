@@ -16,9 +16,9 @@ const GuildNoAdmin = ({
       <div className="GuildNoAdmin">
         <div className="GuildNoAdminHeader">
           <div className="titless">{(guildName)}</div>
-          <div className="button-text">
+          <div className="button_text">
             
-            STUDY ROOM
+        <img src="guildlist/studyroombtn.png" alt="" />
           </div>
         </div>
 
@@ -27,8 +27,8 @@ const GuildNoAdmin = ({
         {/* <GuildUsersNo admin={admin} users={users} /> */}
         <div className="GuildAdminWrap">
         <div className="GuildAdminWrap2">
-            <div>
-          <img src="./levellogo/lvlogo (4).png" alt="" /></div>
+            <div className="GuildAdminWrap3">
+          <img src="./guildlist/master.png" alt="" /></div>
           <div>길드장: {admin ? admin.nickname : ""}
           </div>
         </div>

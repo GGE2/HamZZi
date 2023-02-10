@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import {
-  RiCheckboxBlankCircleLine,
-  RiCheckboxCircleLine,
-} from "react-icons/ri";
+import React, { useState, useRef } from "react";
+
+import QuestModal from "./QuestModal";
+import "../../styles/QuestModal.css";
 
 const QuestItem = ({ content }) => {
   const [isCheck, setCheck] = useState(false);
@@ -11,16 +10,37 @@ const QuestItem = ({ content }) => {
     setCheck(!isCheck);
   };
 
+  const nickname = localStorage.getItem("nickname");
+  const [isCreate, setIsCreate] = useState(false);
+  const [isModal, setIsModal] = useState(false);
+
+  const outside = useRef();
+  // 캐릭터 생성 창을 누르면 모달창을 띄워서 펫 이름을 받는다.
+  // 모달창 노출
+  const onOpenModal = () => {
+    setIsModal(true);
+  };
+
+
+
+
   return (
     <div className="QuestItem">
-      <div className="QuestItemButton">
-        {isCheck ? (
-          <RiCheckboxCircleLine  color="pink"  size={"100%"} onClick={onclickQcheck} />
-        ) : (
-          <RiCheckboxBlankCircleLine  size={"100%"} onClick={onclickQcheck} />
-        )}
-      </div>
-      <textarea readonly defaultValue={content} disabled={isCheck}></textarea> 
+
+{isModal && (
+        <div
+          className="QuestModal"
+          ref={outside}
+          onClick={(e) => {
+            if (e.target === outside.current) setIsModal(false);
+          }}
+        >
+          <QuestModal content={content} setIsModal={setIsModal} setIsCreate={setIsCreate} />
+        </div>
+      )}
+
+
+      <textarea onClick={onOpenModal} readonly defaultValue={content} disabled={isCheck}></textarea> 
     </div>
   );
 };
