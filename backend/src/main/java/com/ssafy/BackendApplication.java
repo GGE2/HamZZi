@@ -5,11 +5,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 import java.nio.charset.StandardCharsets;
 
 @SpringBootApplication
+@EnableScheduling   // 스케줄러 설정
 public class BackendApplication {
 
     public static void main(String[] args) {

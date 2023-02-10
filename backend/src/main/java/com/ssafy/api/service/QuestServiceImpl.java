@@ -46,7 +46,7 @@ public class QuestServiceImpl implements QuestService {
     
     // questUser 생성
     @Override
-    public void createQuestUser(QuestUserRequest questUserReq, String nickname) {
+    public void createQuestUser(String nickname) {
         List<Long> quest_ids = getQuestId();
         for (Long quest_id:quest_ids) {
             QuestUser questUser = new QuestUser();
@@ -101,7 +101,7 @@ public class QuestServiceImpl implements QuestService {
         return questRepo.questList();
     }
     
-    // quesr id 다 따오기
+    // quest id 다 따오기
     @Override
     public List<Long> getQuestId() {
         List<Long> quest = questRepo.getQuestId();
@@ -130,4 +130,11 @@ public class QuestServiceImpl implements QuestService {
         userProfile.setPoint(nowPoint + questPoint);
     }
 
+    @Override
+    public void resetBeforeCreateQuestUser() {
+        List<String> userProfiles = questRepo.getUserNickname();
+        for (String userProfile:userProfiles) {
+            createQuestUser(userProfile);
+        }
+    }
 }

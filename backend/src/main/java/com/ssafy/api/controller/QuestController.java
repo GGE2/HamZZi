@@ -6,6 +6,7 @@ import com.ssafy.api.service.QuestService;
 import com.ssafy.db.entity.Quest.Quest;
 import com.ssafy.db.entity.Quest.QuestUser;
 import com.ssafy.db.entity.User.UserProfile;
+import com.ssafy.db.repository.QuestRepository;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -24,6 +25,9 @@ public class QuestController {
 
     @Autowired
     QuestService questService;
+
+    @Autowired
+    QuestRepository questRepo;
 
     // 유저의 QuestList 보여주기
     @GetMapping("/{nickname}")
@@ -92,8 +96,8 @@ public class QuestController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public String createQuestUser(QuestUserRequest questUserReq, @PathVariable String nickname) {
-        questService.createQuestUser(questUserReq, nickname);
+    public String createQuestUser(@PathVariable String nickname) {
+        questService.createQuestUser(nickname);
 
         return "200 OK!" ;
     }
@@ -141,5 +145,31 @@ public class QuestController {
         UserProfile userProfile = questService.registerFinalDatetime(nickname, finish_time);
 
         return "OWNER: " + userProfile.getNickname() + " FinishTime: " + userProfile.getFinish_datetime();
+    }
+    
+    @DeleteMapping("/reset")
+    @ApiOperation(value = "매일 00시에 실행 - QuestUser Table 초기화", notes = "QuestUser Table의 모든 값을 지운다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public String reset() {
+        questRepo.tableClear();
+        return "200 OK ALL Clear";
+    }
+
+    @PostMapping("/beforeReset")
+    @ApiOperation(value = "매일 00시에 실행 - QuestUser Table 생성", notes = "QuestUser Table의 모든 값을 만든다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public String resetBeforeCreate() {
+        questService.resetBeforeCreateQuestUser();
+        return "200 OK ALL Create";
     }
 }
