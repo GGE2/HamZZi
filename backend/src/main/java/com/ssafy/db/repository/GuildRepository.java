@@ -26,17 +26,4 @@ public interface GuildRepository {
 
     List<GuildUser> findGuildAdmin(Long guild_id);
     List<GuildUser> findGuildUser(Long guild_id);
-
-    /**
-     * 길드의 모든 name 뽑아오기
-     * @return Long name
-     */
-    List<Long> getGuildId();
-
-    /**
-     * 길드 유저들의 수를 셈
-     * @param guild_id
-     * @return
-     */
-    List<GuildUser> getGuildUserSize(Long guild_id);
 }
