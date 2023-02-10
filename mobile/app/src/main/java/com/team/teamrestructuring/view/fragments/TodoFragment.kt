@@ -68,12 +68,13 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
         super.onViewCreated(view, savedInstanceState)
 
         stringList = mutableListOf<String>()
+        callService(nickName, dateStr)
         initRecyclerView()
         Log.i(TAG, nickName)
         todoAdapter.notifyDataSetChanged()
         initDate()
         initInput()
-        callService(nickName, dateStr)
+
 
 
     }

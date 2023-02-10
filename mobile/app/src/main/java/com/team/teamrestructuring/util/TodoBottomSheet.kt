@@ -64,7 +64,11 @@ class TodoBottomSheet(
 
         return inflater.inflate(R.layout.todobottomdialog, container, false)
     }
-
+    // 비동기 동기화 맞추기 위해 로컬 동기화 하는 함수
+    private fun localChange(){
+        TodoFragment.todoAdapter.items = todoList
+        TodoFragment.todoAdapter.notifyDataSetChanged()
+    }
     //  함수
     // 콜백 함수를 만들어 처리해야한다
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -76,8 +80,7 @@ class TodoBottomSheet(
             todo?.content = view?.findViewById<EditText>(R.id.modifyTextBottom)?.text.toString()
             modifyTodoService(todo?.todo_id!!,todo!!)
             todoList[position!!] = todo!!
-            TodoFragment.todoAdapter.items = todoList
-            TodoFragment.todoAdapter.notifyDataSetChanged()
+            localChange()
             dismiss()
 
         }
@@ -85,6 +88,8 @@ class TodoBottomSheet(
         view?.findViewById<Button>(R.id.deleteBottomButtom)?.setOnClickListener {
             callbackInterface?.onButtonClick()
             deleteTodoService(todo?.todo_id!!)
+            todoList.removeAt(position!!)
+            localChange()
             dismiss()
         }
 
