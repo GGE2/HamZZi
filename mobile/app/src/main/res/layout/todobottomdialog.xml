@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="24dp"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="56dp"
+    android:background="@color/backgorund"
+
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/bottomText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="24sp"
+        android:text=""
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/modifyTextBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="투두를 수정하시겠습니까"
+        android:textColorHint="#72402b"
+        android:textColor="#72402b"
+        android:fontFamily="@font/kakao_regular"
+        android:layout_margin="30sp"
+        android:layout_marginTop="12sp"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bottomText"
+        app:layout_goneMarginStart="28dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/modifyBottom"
+        android:background="@drawable/alert_button_todo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30sp"
+        android:fontFamily="@font/kakao_regular"
+        android:text="수정"
+        android:textColor="#ffb100"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/modifyTextBottom"
+
+        />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/deleteBottomButtom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="삭제"
+            android:background="@drawable/alert_button_todo"
+            android:textStyle="bold"
+            android:fontFamily="@font/kakao_regular"
+            android:textColor="#ffb100"
+            android:layout_marginHorizontal="30sp"
+            android:textSize="16sp"
+            android:layout_marginTop="6dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/modifyBottom"
+            />
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
