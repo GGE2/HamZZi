@@ -51,7 +51,7 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        callService(nickName, dateStr)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -61,6 +61,7 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         todoList = mutableListOf()
+        Log.i("테스트", "${nickName} ${dateStr}")
         callService(nickName, dateStr)
         initRecyclerView()
         initDate()
