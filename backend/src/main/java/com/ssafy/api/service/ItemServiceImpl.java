@@ -36,11 +36,11 @@ public class ItemServiceImpl implements ItemService {
         item.setItem_id(itemReq.getItem_id());
         item.setCost(itemReq.getCost());
         item.setLevel(itemReq.getLevel());
-        if (type == 1) {
+        if (1 <= type && type < 30) {
             item.setType("모자");
-        } else if (type == 2) {
+        } else if (30 <= type && type < 60) {
             item.setType("옷");
-        } else if (type == 3) {
+        } else if (60 <= type && type < 90) {
             item.setType("배경");
         }
         itemRepo.saveItem(item);
@@ -56,7 +56,6 @@ public class ItemServiceImpl implements ItemService {
             ItemUser itemUser = new ItemUser();
             itemUser.setNickname(nickname);
             itemUser.setItem(itemRepo.findById(item_id));
-            itemUser.setWear(false);
             itemRepo.saveItemUser(itemUser);
 
             return itemUser;
@@ -110,16 +109,18 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public ItemUser updateWear(Long itemUser_id) {
-        ItemUser itemUser = itemRepo.findItemUserById(itemUser_id);
-        Boolean wear = itemUser.getWear();
-        itemUser.setWear(!wear);
-        itemRepo.saveItemUser(itemUser);
-        return itemUser;
-    }
+    public UserProfile updateWear(String nickname, int item_id) {
+        UserProfile userProfile = userRepo.findByNickname(nickname);
+        String type = itemRepo.findById(item_id).getType();
+        if (type.equals("모자")) {
+            userProfile.setHat(item_id);
+        } else if (type.equals("옷")) {
+            userProfile.setDress(item_id);
+        } else {
+            userProfile.setBackground(item_id);
+        }
 
-    @Override
-    public List<ItemUser> findByTrue(String nickname) {
-        return itemRepo.wearItem(nickname);
+        userRepo.saveUserProfile(userProfile);
+        return userProfile;
     }
 }

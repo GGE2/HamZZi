@@ -37,12 +37,4 @@ public interface ItemRepository {
      * @return List
      */
     List<Item> itemByIdList(int item_id);
-
-    /**
-     * Nickname으로 wear이 true인 것들 가져오기
-     * @param nickname
-     * @return List
-     */
-    List<ItemUser> wearItem(String nickname);
-
 }

@@ -20,9 +20,4 @@ public class ItemUser {
 
     @Column(nullable = false)
     private String nickname;
-
-    @ColumnDefault(value = "false")
-    @Column(nullable = false)
-    private Boolean wear;
-
 }
