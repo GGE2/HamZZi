@@ -39,12 +39,8 @@ public class ItemServiceImpl implements ItemService {
         if (type == 1) {
             item.setType("모자");
         } else if (type == 2) {
-            item.setType("안경");
-        }else if (type == 3) {
             item.setType("옷");
-        }else if (type == 4) {
-            item.setType("신발");
-        }else if (type == 5) {
+        } else if (type == 3) {
             item.setType("배경");
         }
         itemRepo.saveItem(item);
@@ -60,6 +56,7 @@ public class ItemServiceImpl implements ItemService {
             ItemUser itemUser = new ItemUser();
             itemUser.setNickname(nickname);
             itemUser.setItem(itemRepo.findById(item_id));
+            itemUser.setWear(false);
             itemRepo.saveItemUser(itemUser);
 
             return itemUser;
@@ -110,5 +107,19 @@ public class ItemServiceImpl implements ItemService {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public ItemUser updateWear(Long itemUser_id) {
+        ItemUser itemUser = itemRepo.findItemUserById(itemUser_id);
+        Boolean wear = itemUser.getWear();
+        itemUser.setWear(!wear);
+        itemRepo.saveItemUser(itemUser);
+        return itemUser;
+    }
+
+    @Override
+    public List<ItemUser> findByTrue(String nickname) {
+        return itemRepo.wearItem(nickname);
     }
 }

@@ -18,15 +18,31 @@ public interface ItemRepository {
     // Read
     Item findById(int item_id);
 
-    ItemUser findByItemUserId(int itemUser_id);
+    ItemUser findItemUserById(Long itemUser_id);
 
     List<Item> itemAllList();
 
     List<ItemUser> itemUserAllList();
 
-    // 닉네임으로 ItemUser에서 리스트 가져오기
+    /**
+     * Nickname으로 ItemUser에서 리스트 가져오기
+     * @param nickname
+     * @return
+     */
     List<ItemUser> itemUserNicknameList(String nickname);
 
-    // Id으로 Item에서 리스트 가져오기
+    /**
+     * Id로 Item에서 리스트 가져오기
+     * @param item_id
+     * @return List
+     */
     List<Item> itemByIdList(int item_id);
+
+    /**
+     * Nickname으로 wear이 true인 것들 가져오기
+     * @param nickname
+     * @return List
+     */
+    List<ItemUser> wearItem(String nickname);
+
 }

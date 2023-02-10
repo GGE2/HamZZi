@@ -21,5 +21,6 @@ public class Item {
     @Column(nullable = false)
     private int level;          // level 제한
 
-    private String type;        // 1: 모자, 2: 안경, 3: 옷, 4: 신발, 5: 배경 임시!
+    @Column(nullable = false)
+    private String type;        // 1: 모자, 2: 옷, 3: 배경
 }

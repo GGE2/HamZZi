@@ -2,6 +2,7 @@ package com.ssafy.db.entity.Item;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
@@ -17,6 +18,11 @@ public class ItemUser {
     @JoinColumn(name = "item_id")
     private Item item;
 
+    @Column(nullable = false)
     private String nickname;
+
+    @ColumnDefault(value = "false")
+    @Column(nullable = false)
+    private Boolean wear;
 
 }

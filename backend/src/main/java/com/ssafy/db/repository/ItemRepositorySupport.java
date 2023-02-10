@@ -32,7 +32,7 @@ public class ItemRepositorySupport implements ItemRepository{
     }
 
     @Override
-    public ItemUser findByItemUserId(int itemUser_id) {
+    public ItemUser findItemUserById(Long itemUser_id) {
         return em.find(ItemUser.class, itemUser_id);
     }
 
@@ -56,9 +56,19 @@ public class ItemRepositorySupport implements ItemRepository{
     }
 
     @Override
+    public List<ItemUser> wearItem(String nickname) {
+        return em.createQuery("select iu from ItemUser iu where iu.nickname=:nickname and iu.wear=:wear", ItemUser.class)
+                .setParameter("nickname", nickname)
+                .setParameter("wear", true)
+                .getResultList();
+    }
+
+    @Override
     public List<ItemUser> itemUserNicknameList(String nickname) {
         return em.createQuery("select iu from ItemUser iu where iu.nickname=:nickname", ItemUser.class)
                 .setParameter("nickname", nickname)
                 .getResultList();
     }
+
+
 }
