@@ -34,10 +34,23 @@ public class QuestRepositotySupport implements QuestRepository {
         return em.find(QuestUser.class, questUser_id);
     }
 
+//    @Override
+//    public List<QuestUser> questUserList(String nickname) {
+//        return em.createQuery("select qu from QuestUser qu where qu.nickname=:nickname", QuestUser.class)
+//                .setParameter("nickname", nickname)
+//                .getResultList();
+//    }
     @Override
-    public List<QuestUser> questUserList(String nickname) {
-        return em.createQuery("select qu from QuestUser qu where qu.nickname=:nickname", QuestUser.class)
+    public List<QuestUser> dailyQuestUserList(String nickname) {
+        return em.createQuery("select qu from QuestUser qu where qu.nickname=:nickname and qu.quest.type=:type", QuestUser.class)
                 .setParameter("nickname", nickname)
+                .setParameter("type", "daily")
+                .getResultList();
+    }@Override
+    public List<QuestUser> weeklyQuestUserList(String nickname) {
+        return em.createQuery("select qu from QuestUser qu where qu.nickname=:nickname and qu.quest.type=:type", QuestUser.class)
+                .setParameter("nickname", nickname)
+                .setParameter("type", "weekly")
                 .getResultList();
     }
 

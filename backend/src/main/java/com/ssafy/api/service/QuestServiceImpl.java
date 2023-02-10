@@ -86,15 +86,33 @@ public class QuestServiceImpl implements QuestService {
     }
 
     // 유저의 QuestList 보여주기
+//    @Override
+//    public List<QuestUser> getQuests(String nickname) {
+//        List<QuestUser> quests = questRepo.questUserList(nickname);
+//        List<QuestUser> questList = new ArrayList<>();
+//        questList.addAll(quests);
+//
+//        return questList;
+//    }
     @Override
-    public List<QuestUser> getQuests(String nickname) {
-        List<QuestUser> quests = questRepo.questUserList(nickname);
+    public List<QuestUser> getDailyQuests(String nickname) {
+        List<QuestUser> quests = questRepo.dailyQuestUserList(nickname);
         List<QuestUser> questList = new ArrayList<>();
         questList.addAll(quests);
 
         return questList;
     }
-    
+    @Override
+    public List<QuestUser> getWeeklyQuests(String nickname) {
+        List<QuestUser> quests = questRepo.weeklyQuestUserList(nickname);
+        List<QuestUser> questList = new ArrayList<>();
+        questList.addAll(quests);
+
+        return questList;
+    }
+
+
+
     // quest list 보여주기
     @Override
     public List<Quest> getQuest() {

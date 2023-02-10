@@ -19,7 +19,9 @@ public interface QuestRepository {
 
     QuestUser findQuestUserById(Long questUser_id);
 
-    List<QuestUser> questUserList(String nickname);
+//    List<QuestUser> questUserList(String nickname);
+    List<QuestUser> dailyQuestUserList(String nickname);
+    List<QuestUser> weeklyQuestUserList(String nickname);
 
     List<Quest> questList();
 

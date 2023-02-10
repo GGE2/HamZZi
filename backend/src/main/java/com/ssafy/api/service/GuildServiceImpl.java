@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service @Transactional
@@ -143,4 +144,17 @@ public class GuildServiceImpl implements GuildService {
 
         guildRepo.removeGuild(guildId);
     }
+
+//    @Override
+//    public List<Guild> getGuildAdminMember() {
+//        List<Long> guildIds = guildRepo.getGuildId();
+//        List<?> guildList = new ArrayList<>();
+//        for (Long guildId:guildIds) {
+//            String guildName = guildRepo.findById(guildId).getGuild_name();
+//            List<GuildUser> guildMemberSize = guildRepo.getGuildUserSize(guildId);
+//            int size = guildMemberSize.size();
+//            guildList.
+//        }
+//        return null;
+//    }
 }

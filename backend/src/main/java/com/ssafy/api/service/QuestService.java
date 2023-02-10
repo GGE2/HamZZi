@@ -23,7 +23,9 @@ public interface QuestService {
     UserProfile registerFinalDatetime(String nickname, int finish_datetime);
 
     // User의 Quest 보여주기
-    List<QuestUser> getQuests(String nickname);
+//    List<QuestUser> getQuests(String nickname);
+    List<QuestUser> getDailyQuests(String nickname);
+    List<QuestUser> getWeeklyQuests(String nickname);
 
     // Quest List
     List<Quest> getQuest();

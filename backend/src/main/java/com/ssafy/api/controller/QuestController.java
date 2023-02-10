@@ -30,16 +30,43 @@ public class QuestController {
     QuestRepository questRepo;
 
     // 유저의 QuestList 보여주기
-    @GetMapping("/{nickname}")
-    @ApiOperation(value = "Quest 조회", notes = "Quest를 조회한다.")
+//    @GetMapping("/{nickname}")
+//    @ApiOperation(value = "Quest 조회", notes = "Quest를 조회한다.")
+//    @ApiResponses({
+//            @ApiResponse(code = 200, message = "성공"),
+//            @ApiResponse(code = 401, message = "인증 실패"),
+//            @ApiResponse(code = 404, message = "사용자 없음"),
+//            @ApiResponse(code = 500, message = "서버 오류")
+//    })
+//    public ResponseEntity<?> getQuestUserList(@PathVariable String nickname) {
+//        List<QuestUser> questUserList = questService.getQuests(nickname);
+//
+//        return ResponseEntity.status(200).body(questUserList);
+//    }
+    @GetMapping("/daily/{nickname}")
+    @ApiOperation(value = "Daily Quest 조회", notes = "Daily Quest를 조회한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 401, message = "인증 실패"),
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<?> getQuestUserList(@PathVariable String nickname) {
-        List<QuestUser> questUserList = questService.getQuests(nickname);
+    public ResponseEntity<?> getDailyQuestList(@PathVariable String nickname) {
+        List<QuestUser> questUserList = questService.getDailyQuests(nickname);
+
+        return ResponseEntity.status(200).body(questUserList);
+    }
+
+    @GetMapping("/weekly/{nickname}")
+    @ApiOperation(value = "Weekly Quest 조회", notes = "Weekly Quest를 조회한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<?> getWeeklyQuestList(@PathVariable String nickname) {
+        List<QuestUser> questUserList = questService.getWeeklyQuests(nickname);
 
         return ResponseEntity.status(200).body(questUserList);
     }

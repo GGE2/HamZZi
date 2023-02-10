@@ -34,4 +34,6 @@ public interface GuildService {
     boolean kickUser(String nickname);
 
     void deleteGuild(Long guildId);
+
+//    List<Guild> getGuildAdminMember();
 }
