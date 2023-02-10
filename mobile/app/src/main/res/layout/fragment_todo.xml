@@ -1,31 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/backgorund"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".view.activities.HomeActivity">
 
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/todoXml"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/navbar_background">
-        <TextView
-            android:id="@+id/textview_todo_title"
+        android:padding="0dp"
+        >
+        <!-- TODO: Update blank fragment layout -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_main1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TODO"
-            android:layout_marginTop="6dp"
-            android:layout_marginLeft="6dp"
-            android:textSize="50sp"
-            android:textColor="#ffb100"
-            android:fontFamily="@font/mine"
-            android:textStyle="bold"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:background="@drawable/title_new_a"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+            app:layout_constraintLeft_toLeftOf="parent">
+
+            <TextView
+                android:id="@+id/textview_todo_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginLeft="6dp"
+                android:text="Todo"
+                android:paddingStart="6dp"
+                android:textSize="50sp"
+                android:textColor="#ffb100"
+                android:fontFamily="@font/mine"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <CalendarView
+            android:id="@+id/calender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/constraint_main1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintVertical_bias="0.006"
+
+            />
+
+
+        <EditText
+            android:id="@+id/calenderText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/kakao_regular"
+            android:hint="오늘 할 일을 입력하세요"
+            android:textColorHint="#72402b"
+            android:textColor="#72402b"
+            android:layout_marginLeft="4dp"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/CreateTodoButton"
+            app:layout_constraintTop_toBottomOf="@id/calender" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/CreateTodoButton"
+            android:background="@drawable/alert_button_todo"
+            android:textColor="#ffb100"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/calender"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_weight="0"
+            android:textSize="20sp"
+            android:layout_marginRight="4dp"
+            android:fontFamily="@font/kakao_regular"
+            android:text="입력" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview_todo_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/calenderText"
+            tools:layout_editor_absoluteX="20dp"
+            android:padding="4dp"/>
+
+
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-    </FrameLayout>
+
 </FrameLayout>

@@ -78,9 +78,9 @@ class LoginActivity : AppCompatActivity() {
 
     }
     private fun kakaoLoginStart(){
-        /*val keyHash = Utility.getKeyHash(this) // keyHash 발급
-        //Log.d(TAG, "KEY_HASH : $keyHash")
-        Log.d(TAG, "kakaoLoginStart: ")*/
+        val keyHash = Utility.getKeyHash(this) // keyHash 발급
+        Log.d(TAG, "KEY_HASH : $keyHash")
+        //Log.d(TAG, "kakaoLoginStart: ")
         Session.getCurrentSession().addCallback(callback)
         Session.getCurrentSession().open(AuthType.KAKAO_TALK, this)
     }
