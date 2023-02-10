@@ -6,18 +6,14 @@ const HamExp = () => {
   const experience = localStorage.getItem("exp");
   const level = localStorage.getItem("petLevel");
   const petId = localStorage.getItem("petId");
+  const petLevel = localStorage.getItem("petLevel");
 
   return (
-    // <div className='Expbar'>
-    // {/* <div className='progress'>
-    // HamExp: 99.161561561%
-    // </div> */}
+
     <>
-      <div>
-        {/* <div className="Level">
-        <button className="button">8</button>
-        </div> */}
-        <div className="Exp">
+      <div className="HamExp">
+        {petLevel}
+        <div className="ProgressBar">
           <ProgressBar
             completed={level}
             maxCompleted={5}
@@ -26,23 +22,20 @@ const HamExp = () => {
             // barContainerClassName="container"
             // completedClassName="barCompleted"
             // labelClassName="label"
+           
             bgColor="yellow"
-            height="10px"
-            width="70%"
-            margin="5px"
+            height="25px"
+            width="18.5em"
+            // margin="5px"
             labelColor="#000"
-            baseBgColor="#000"
+            baseBgColor="rgb(146,85,56)"  //
           />
         </div>
+        <div className="ExpBar">
+          <img src="hamzziStatus/expbar.png" alt="" />
+        </div>
       </div>
-      {/* {level === "5" && (
-        <button
-          style={{ position: "relative", top: "30px" }}
-          onClick={handleGraduate}
-        >
-          graduate
-        </button>
-      )} */}
+
     </>
   );
 };

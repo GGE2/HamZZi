@@ -7,14 +7,15 @@
     }
   }
   .spinner-container {
-    position: relative;
-    margin-left: 40%;
-    margin-top: 6rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
   .loading-spinner {
     display: flex;
-    width: 50px;
-    height: 50px;
+    width: 100px;
+    height: 100px;
     border: 10px solid #f3f3f3; /* Light grey */
     border-top: 10px solid #383636; /* Black */
     border-radius: 50%;

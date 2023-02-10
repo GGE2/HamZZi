@@ -9,27 +9,40 @@ const GuildAdmin = ({
   onKickUser, // 길드원 추방
   onLeaveGuild, // 길드 탈퇴
   guildId, // 길드 id
+  guildName, // 길드 이름
 }) => {
-  // const adminname = admin.nickname
+  
+  const nickname = localStorage.getItem('nickname')
   return (
     <>
-
-      <div className="GuildAdmin">
-        <div className="FriendHeaderButton">
+    
+      <div className="GuildNoAdmin">
+        
+        <div className="GuildNoAdminHeader">
           {/* <button onClick={onCreateGuild}>길드 생성</button> */}
-          <button onClick={onDeleteGuild}>길드 삭제</button>
-          <button onClick={onLeaveGuild}>길드 탈퇴</button>
+          <div className="titless">{(guildName)}</div>
+          
+          <div className="button-text">
+            
+            STUDY ROOM
+          </div>
         </div>
         {/* 길드 관리자 */}
         {/* <div className="Guild"></div> */}
         {/* 길드장: {admin.nickname} */}
-        <div className="GuildAdminWrap">길드장: {admin ? admin.nickname : ""}</div>
-        {/* {adminname} */}
+        <div className="GuildAdminWrap"><div>
+          
+        <img src="./levellogo/lvlogo (4).png" alt="" /></div><div>
+
+        <button onClick={onDeleteGuild}>길드 삭제</button>
+          길드장: {admin ? admin.nickname : ""} </div></div>
+         {/* {adminname} */}
         {/* 일반 길드원 */}
         <div className="GuildUsersWrap">
         {users
           ? users.map((user, idx) => (
               <GuildUser
+              nickname={nickname}
               key={idx}
                 admin={admin}
                 user={user}

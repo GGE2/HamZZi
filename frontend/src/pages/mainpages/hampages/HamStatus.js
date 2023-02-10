@@ -9,7 +9,7 @@ import { IoStatsChart } from "react-icons/io5";
 import { useSelector, useDispatch } from "react-redux";
 import { selectCurrentHamStat, clearStat } from "./../../../hamStatSlice";
 import axios from "axios";
-import api from './../../../components/api';
+import api from "./../../../components/api";
 
 const HamStatus = (props) => {
   const hamstat = useSelector(selectCurrentHamStat);
@@ -22,23 +22,21 @@ const HamStatus = (props) => {
   const dispatch = useDispatch(clearStat());
 
   const handleGraduate = () => {
-    api
-      .put(`/api/pet/graduate?pet_id=${petId}`)
-      .then(() => {
-        console.log("graduated");
-        dispatch(clearStat());
-        localStorage.setItem("petId", null);
-        localStorage.setItem("petName", null);
-        localStorage.setItem("petLevel", null);
-        localStorage.setItem("exp", null);
-        window.location.replace("/main");
-      });
+    api.put(`/api/pet/graduate?pet_id=${petId}`).then(() => {
+      console.log("graduated");
+      dispatch(clearStat());
+      localStorage.setItem("petId", null);
+      localStorage.setItem("petName", null);
+      localStorage.setItem("petLevel", null);
+      localStorage.setItem("exp", null);
+      window.location.replace("/main");
+    });
   };
   const state = {
     options: {
       fill: {
         opacity: 0.5,
-        colors: ["#3f8744"],
+        colors: ["#c08457"],
       },
       dataLabels: {
         enabled: true,
@@ -47,7 +45,7 @@ const HamStatus = (props) => {
           borderRadius: 2,
         },
       },
-      // colors: ["#3f8744"],
+      colors: ["rgb(146, 89, 67)"],
 
       chart: {
         toolbar: {
@@ -92,12 +90,12 @@ const HamStatus = (props) => {
       <div className="HamStatus">
         <HamName petName={props.petName} />
         {/* <ApexChart type="radar"  /> */}
-        <div>
-          <div className="Expbar">
-            <HamExp />
-            <HamLevel />
-          </div>
-        </div>
+
+    
+          <HamExp />
+          {/* <HamLevel /> */}
+       
+
         {level === "5" && (
           <button
             style={{ position: "relative", top: "30px" }}
@@ -114,7 +112,7 @@ const HamStatus = (props) => {
             height={"100%"}
           />
           <button className="StatButton">
-            <IoStatsChart onClick={showStat} size={"100%"} color={"green"} />
+            <IoStatsChart onClick={showStat} size={"100%"} color={"rgb(146, 89, 67)"} />
             {isOpen && (
               <div
                 className="Modal"

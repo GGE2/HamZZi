@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Header from "./../../../components/Header";
 import axios from "axios";
 import QuestList from "./../../../components/Quest/QuestList";
 import "../../../styles/Quest.css";
@@ -21,7 +20,7 @@ const Quests = () => {
 
   return (
     <>
-      <Header data={"Quests"} type={"Quests"} />
+   
       <div className="MyBody">
         {/* <div className="Quests"> */}
         

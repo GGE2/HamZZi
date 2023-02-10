@@ -1,4 +1,4 @@
-/* body 2 */
+
 .GuildList {
     height: 90%;
     border: 3px solid black;
@@ -15,6 +15,13 @@
     margin-left: 5%;
     margin-right: 5%;
     overflow: scroll;
+}
+
+.GuildList_tab {
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr 1fr;
+    margin-bottom: 15px;
+    font-size: 18px;
 }
 
 .GuildList::-webkit-scrollbar {
@@ -96,15 +103,100 @@
     background-color:transparent;
 }
 
+/* 길드 o 관리자 x */
+.GuildNoAdmin {
+    
+}
+.GuildNoAdminHeader {
+    display: flex;
+    border-bottom: 3px solid black;
+    /* height: 10%; */
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+    height:auto;
+}
+
+.titless {
+    padding-top: 20px;
+    text-align: end;
+    font-size: 50px;
+    height:100%;
+    /* background-color: red; */
+    white-space: nowrap;
+   
+    /* display: block; */
+    /* font-size: 300px; */
+}
+
+/* .title p {
+    line-height: normal;
+    display: inline-block;
+    vertical-align: middle;
+    
+} */
+
+.GuildNoAdminHeader .button-text {
+    /* cursor: pointer;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    background-position: center;
+    background-image: url('../../public/myresource/btn.png'); */
+    /* font-size: 3.5em; */
+    
+}
+
+.btm_image {
+    /* padding: 0;
+    margin: 0; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 7em;
+}
+
+.btm_image img {
+    /* padding: 0; */
+    width: 7em;
+}
+
 /* 길드 0 관리자 o */
 .GuildAdminWrap {
-    border: 3px solid black;
-    border-radius: 8px;
+    /* border: 3px solid black; */
+    /* border-radius: 8px; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 5em;
+    margin-right: 5em;
+    height: 3em;
+    font-size: 20px;
+    border-bottom: 2px solid #ececec;
+}
+
+.GuildAdminWrap img {
+    height: 3em;
 }
 
 .GuildUsersWrap{
-    border: 3px solid black;
+    /* border: 3px solid black; */
     border-radius: 8px;
+    padding-left: 5em;
+    padding-right: 5em;
+    font-size: 20px;
+    
+}
+.GuildUserNo{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 3em;
+    border-bottom: 2px solid #ececec;
+}
+
+.GuildUserNo img {
+    height: 3.5em;
 }
 
 .GuildUser{
@@ -114,13 +206,57 @@
 
 /* 길드 x */
 .GuildItem {
-    border-bottom: 3px solid black;
+    /* border-bottom: 3px solid black; */
+    border: 3px solid black;
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr 1fr;
+    margin-bottom: 15px;
+    font-size: 24px;
 }
 
+
+/* 
 .CreateButton--active {
     color: red
+} */
+
+
+
+
+/* 길드 x  */
+.onCreateGuildHeaderButton {
+    display: flex;
+    margin-left: 5%;
+    margin-top: 1em;
+    margin-bottom: 1em;
 }
 
+.onCreateGuildHeaderButton input {
+    
+}
 
-
-/*  */
+.inputWrapGuild {
+    display: flex;
+    border-radius: 10px;
+    padding: 16px;
+    /* margin-top: 8px; */
+    background-color: white;
+    border: 1px solid gray;
+  }
+  
+  .inputWrapGuild:focus-within {
+    border: 1px solid rgb(146, 89, 67);
+  }
+  
+  .inputWrapGuild input {
+    width: 100%;
+    outline: none;
+    border: none;
+    height: 20px;
+    font-size: 16px;
+    /* font-weight: 400; */
+  }
+  
+  .input::placeholder {
+    color: #dadada;
+  }

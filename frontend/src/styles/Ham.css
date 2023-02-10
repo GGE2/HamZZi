@@ -123,15 +123,6 @@ animation: rotate_image 10s linear infinite;
  
 }
 
-.Expbar {
-    display: flex;
-    /* justify-content: center; */
-    position: relative;
-    left: 5%;
-    margin-top: 0px;
-    /* margin-bottom: 10px; */
-}
-
  .HamChart{
     height: 80%;
     display: flex;
@@ -153,11 +144,7 @@ animation: rotate_image 10s linear infinite;
     left: 5%;
    }
 
-.Exp{
-    width: 100%;
-    margin-left: 10%;
-    position: absolute;
-}
+
 
 
 /* 팻 생성 */

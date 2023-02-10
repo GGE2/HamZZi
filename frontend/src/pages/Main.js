@@ -6,9 +6,10 @@ import "../styles/Main.css";
 
 import Todos from "./mainpages/boardpages/Todos";
 import Guild from "./mainpages/boardpages/Guild";
-import Friends from "./mainpages/boardpages/Friends";
-import Profile from "./mainpages/boardpages/Profile";
+import Quests from './mainpages/boardpages/Quests';
 import DressRoom from './mainpages/boardpages/DressRoom';
+import Profile from "./mainpages/boardpages/Profile";
+
 
 
 import { useDispatch } from "react-redux";
@@ -34,6 +35,7 @@ const Main = () => {
     nickname: nickname,
   });
   const [guildId, setGuildId] = useState(0);
+  const [guildName, setGuildName] = useState('');
 
   const [loading1, setLoading1] = useState(true);
   const [loading2, setLoading2] = useState(true);
@@ -122,6 +124,7 @@ const Main = () => {
           setGuildId(res.data.guild.guild_id);
           console.log(guildId);
           setGuildUsers(res.data);
+          setGuildName(res.data.guild.guild_name)
         }
         setLoading3(false)
       });
@@ -216,9 +219,11 @@ const Main = () => {
                 guildUsers={guildUsers}
                 guildId={guildId}
                 onGetUserGuildInfo={onGetUserGuildInfo}
+                guildName={guildName}
               />
             )}
-            {show.friendShow && <Friends user={user} />}
+            
+            {show.friendShow && <Quests user={user} />}
             {show.profileShow && <Profile user={user} />}
             {show.dressShow && <DressRoom user={user} />}
           </div>
@@ -243,7 +248,7 @@ const Main = () => {
               onClick={onClickFriend}
               style={{ borderRight: "3px solid black" }}
             >
-              Friend
+              Quest
             </button>
             <button
               className={menu[3] ? "BoardButto--active3" : ""}
@@ -255,7 +260,7 @@ const Main = () => {
               className={menu[4] ? "BoardButto--active4" : ""}
               onClick={onClickDressRoom}
             >
-              드레스룸
+              Shop
             </button>
           </div>
           </>: <LoadingModal/>}

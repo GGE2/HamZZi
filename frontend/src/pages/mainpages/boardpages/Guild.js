@@ -13,6 +13,7 @@ const Guild = ({
   guildId,
   setGuildUsers,
   onGetUserGuildInfo,
+  guildName,
 }) => {
   const [admin, setAdmin] = useState();
   const [users, setUsers] = useState();
@@ -93,6 +94,7 @@ const Guild = ({
       .then((res) => {
         console.log("길드 탈퇴 api");
         console.log(res);
+        getGuildList();
         setGuildUsers({
           admin: false,
           guild: null,
@@ -114,8 +116,13 @@ const Guild = ({
         console.log("관리자 임명 api");
         console.log(res);
         // setGuilds(res.data);
-        onGetUserGuildInfo();
+        onGetUserGuildInfo(admin);
         getGuildList();
+        setGuildUsers({
+          admin: false,
+          guild: true,
+          nickname: nickname,
+        });
         onGetGuildAdmin(id);
         onGetGuilduser(id);
         setLoading(false)
@@ -130,6 +137,7 @@ const Guild = ({
       .then((res) => {
         console.log("길드 삭제 api");
         console.log(res);
+        
         // setGuilds(res.data);
         getGuildList();
         setGuildUsers({
@@ -150,6 +158,7 @@ const Guild = ({
       .then((res) => {
         console.log("길드 강퇴 api");
         console.log(res);
+        getGuildList();
         onGetGuildAdmin(id);
         onGetGuilduser(id);
         // setGuilds(res.data);
@@ -192,6 +201,7 @@ const Guild = ({
             getGuildList={getGuildList}
             onGetGuildAdmin={onGetGuildAdmin}
             onGetGuilduser={onGetGuilduser}
+            admin={admin}
           />
         )}
         {/* 길드 o 길드장 x */}
@@ -201,6 +211,7 @@ const Guild = ({
             admin={admin}
             users={users}
             onLeaveGuild={onLeaveGuild}
+            guildName={guildName}
           />
         )}
         {/* 길드 o 길드장 o */}
@@ -213,6 +224,7 @@ const Guild = ({
             onGrantAdmin={onGrantAdmin}
             onKickUser={onKickUser}
             onLeaveGuild={onLeaveGuild}
+            guildName={guildName}
           />
         )}
 

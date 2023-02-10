@@ -1,5 +1,6 @@
 .app {
   text-align: center;
+  
   min-width: 90vw;
   min-height: 90vh;
   position: fixed;
@@ -11,9 +12,9 @@
   background-image: linear-gradient(45deg, #444 25%, transparent 25%, transparent 75%, #444 75%, #444), linear-gradient(45deg, #444 25%, transparent 25%, transparent 75%, #444 75%, #444);
   background-position: 0 0, 25px 25px;
   background-size: 50px 50px; */
-  background-color: rgb(106, 162, 109);
+  background-color: rgb(214, 194, 164);
   background-size: 10px, 25px, 10px 10px, 25px 25px;
-  background-image: linear-gradient(90deg, #00000001 1px, transparent 1px), linear-gradient(90deg, blue 1px, transparent 1px), linear-gradient(#00000001 1px, transparent 1px), linear-gradient(blue 1px, transparent 1px);
+  background-image: linear-gradient(90deg, #00000001 1px, transparent 1px), linear-gradient(90deg, rgb(228,214,194) 2px, transparent 1px), linear-gradient(#00000001 1px, transparent 1px), linear-gradient(rgb(228,214,194) 2px, transparent 1px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -41,7 +42,7 @@ height: 85%;
 position: fixed;
 display: flex;
 border: 3px solid black;
-background-color: #93BFCF;
+background-color: rgb(146, 89, 67);
 border-radius: 10px;
 }
 
@@ -65,8 +66,8 @@ margin: 1.5em;
 
 .Back .Screen {
   /* border-radius: 15px; */
-  background-color: #f9fbe7;
   background-color: red;
+  background-color: #f9fbe7;
 display: flex;
 flex-direction: column;
 text-align: center;

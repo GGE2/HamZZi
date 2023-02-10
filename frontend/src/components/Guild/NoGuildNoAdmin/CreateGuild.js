@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 
-import GuildItem from "./../GuildItem";
+import GuildItem from "./GuildItem";
 import api from './../../api';
+
+import { motion } from "framer-motion";
 
 const CreateGuild = ({
   onSearchGuild,
@@ -11,14 +13,15 @@ const CreateGuild = ({
   getGuildList,
   onGetGuildAdmin,
   onGetGuilduser,
+  admin,
 }) => {
   const nickname = localStorage.getItem("nickname");
   const [GuildName, setGuildName] = useState("");
-  const [CreateFlag, setGuildFlag] = useState(false);
-  const [SearchFlag, setSearchFlag] = useState(true);
-  const [create_guild_menu, setCreate_guild_menu] = useState([true, false]);
+  // const [CreateFlag, setGuildFlag] = useState(false);
+  // const [SearchFlag, setSearchFlag] = useState(true);
+  // const [create_guild_menu, setCreate_guild_menu] = useState([true, false]);
 
-  const [keyword, setKeyword] = useState('')
+  // const [keyword, setKeyword] = useState('')
 
   const onCreateGuild = async () => {
     if (GuildName) {
@@ -29,7 +32,7 @@ const CreateGuild = ({
         .then((res) => {
           console.log("길드생성api");
           console.log(res);
-          onGetUserGuildInfo();
+          onGetUserGuildInfo(nickname);
           // getGuildList();
           onGetGuildAdmin(res.data.guild_id);
           onGetGuilduser(res.data.guild_id);
@@ -42,10 +45,10 @@ const CreateGuild = ({
       alert('이름이 없다')
   };
 
-  const onKeyword = (e) => {
-    console.log(e.target.value);
-    setKeyword(e.target.value);
-  };
+  // const onKeyword = (e) => {
+  //   console.log(e.target.value);
+  //   setKeyword(e.target.value);
+  // };
 
   const onGuildName = (e) => {
     console.log(e.target.value);
@@ -59,33 +62,53 @@ const CreateGuild = ({
     }
   };
 
-  const CreateFlagfunc = () => {
-    setCreate_guild_menu([true, false]);
-    setGuildName('')
-  };
+  // const CreateFlagfunc = () => {
+    // setCreate_guild_menu([true, false]);
+    // setGuildName('')
+  // };
 
-  const SearchFlagfunc = () => {
-    setCreate_guild_menu([false, true]);
-    setGuildName('')
-  };
+  // const SearchFlagfunc = () => {
+    // setCreate_guild_menu([false, true]);
+    // setGuildName('')
+  // };
 
   return (
     <>
-      <div className="FriendHeaderButton">
-        <button
-          onClick={CreateFlagfunc}
-          className={create_guild_menu[0] ? "CreateButton--active" : ""}
+    
+      <div className="onCreateGuildHeaderButton">
+        <div></div>
+      <form >
+      <div className="inputWrapGuild">
+          <input
+            type="text"
+            placeholder="길드 이름을 입력하세요"
+            value={GuildName}
+            onChange={onGuildName}
+            // onKeyPress={handleOnKeyPress}
+          />
+          </div>
+        </form>
+        
+        <motion.button
+        whileHover={{ top: 1}}
+        whileTap={{ scale: 0.9 }}
+        transition={{ type: "spring", stiffness: 400, damping: 17 }}
+          onClick={onCreateGuild}
+          // className={create_guild_menu[0] ? "CreateButton--active" : ""}
         >
           길드 생성
-        </button>
-        <button
-          onClick={SearchFlagfunc}
-          className={create_guild_menu[1] ? "CreateButton--active" : ""}
+        </motion.button>
+        <motion.button
+        whileHover={{ scale: 1.2 }}
+        whileTap={{ scale: 0.9 }}
+        transition={{ type: "spring", stiffness: 400, damping: 17 }}
+          onClick={()=>onSearchGuild(GuildName)}
+          // className={create_guild_menu[1] ? "CreateButton--active" : ""}
         >
           길드 찾기
-        </button>
+        </motion.button>
         
-        {create_guild_menu[0] && (
+        {/* {create_guild_menu[0] && (
           <>
           <form >
           <input
@@ -111,19 +134,25 @@ const CreateGuild = ({
           />
         </form>
           <button onClick={()=> {onSearchGuild(keyword)}}>검색하기</button>
-           {/* <button onClick={onSearchGuild(GuildName)}>검색하기</button> */}
           </>
-        )}
+        )} */}
       </div>
       <div className="GuildList">
+        <div className="GuildList_tab">
+          <div>길드명</div>
+          <div>길드장</div>
+          <div>인원</div>
+        </div>
         {guilds.map((guild) => (
           <GuildItem
             key={guild.id}
             length={guilds.length}
-            guild={guild}
+            guildId={guild.guild_id}
+            guildName={guild.guild_name}
             onGetGuildAdmin={onGetGuildAdmin}
             onGetGuilduser={onGetGuilduser}
             onGetUserGuildInfo={onGetUserGuildInfo}
+        
           />
         ))}
       </div>

@@ -14,6 +14,7 @@ import "../../../styles/Todos.css";
 import api from "./../../../components/api";
 import { useDispatch } from "react-redux";
 import { receivePoint } from "../../../pointSlice";
+import { motion } from "framer-motion";
 
 const Todos = () => {
   const nickname = localStorage.getItem("nickname");
@@ -230,8 +231,19 @@ const Todos = () => {
     setIsSearch(false);
   };
 
+  const variants = {
+    hidden: { opacity: 0},
+    visibie: { opacity: 1}
+  }
+
   return (
-    <>
+    <motion.div
+    initial= {{ opacity: 0}}
+    animate= {{ opacity: 1}}
+    exit= {{ y: -100, opacity: 0}}
+    transition = {{ duration: 1}}
+    variants = { variants }
+    >
       {/* <Header data={"Todo"} type={"Todo"} /> */}
       <div className="MyBody">
         <div className="FriendHeaderButton">
@@ -271,7 +283,7 @@ const Todos = () => {
             <div className="DateControl">
               {/* 달력 아이콘을 누르면 isOpen을 true */}
               <button onClick={handleClick} className="Calbutton">
-                <FcCalendar size={"100%"} />
+                <FcCalendar size={"100%"} color={"black"}/>
               </button>
               <div className="DateButton" onClick={decreaseMonth}>
                 <AiFillCaretLeft className="DateButton_left" size={"55%"} />
@@ -300,7 +312,7 @@ const Todos = () => {
         />
         <TodoInput onAdd={onAdd} />
       </div>
-    </>
+    </motion.div>
   );
 };
 

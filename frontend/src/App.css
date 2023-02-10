@@ -1,3 +1,15 @@
+@font-face {
+    font-family: "miness";
+    src:url("./fonts/mine.ttf") format("truetype"),
+    url("./fonts/mine.woff") format("woff"),
+    url("./fonts/mine.eot?iefix") format("embedded-opentype");
+    /* font-style: lighter; */
+}
+
+* {
+    font-family: "miness";
+}
+
 body {
     margin: 0px;
 

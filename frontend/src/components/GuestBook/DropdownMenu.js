@@ -63,7 +63,7 @@ const DropdownButton = styled.div`
 const Menu = styled.div`
   background: gray;
   position: absolute;
-  top: 55px;
+  top: 45px;
   left: 50%;
   width: 100px;
   text-align: center;
@@ -125,7 +125,7 @@ const LinkWrapper = styled.div`
   cursor: pointer;
 
   &:hover {
-    background-color: red;
+    text-decoration: underline;
   }
 `;
 
@@ -137,7 +137,7 @@ const LinkWrapper2 = styled.div`
   cursor: pointer;
 
   &:hover {
-    background-color: red;
+    text-decoration: underline;
   }
   &:after {
     border-top: 3px solid black;
