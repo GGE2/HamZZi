@@ -37,13 +37,10 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
     private val now = format.format(calendar.time)
     // 날짜 저장
     var dateStr = now
-    var todo_id : Long = -1
+    var todo_id : Int = -1
 
     // Todo 정보 저장
     var todoList: MutableList<Todo> = mutableListOf()
-    // 클릭한 날짜
-    private var nowDate = Date()
-
     val nickName = ApplicationClass.currentUser.userProfile.nickname.toString()
 
 
@@ -93,20 +90,21 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
     // 투두를 만드는 서비스
     private fun createService(todo: Todo){
         val service = ApplicationClass.retrofit.create(TodoService::class.java)
-            .createTodo(todo).enqueue(object: Callback<Todo>{
-                override fun onResponse(call: Call<Todo>, response: Response<Todo>) {
+            .createTodo(todo).enqueue(object: Callback<String>{
+                override fun onResponse(call: Call<String>, response: Response<String>) {
                     if(response.isSuccessful){
-                        Log.d(TAG, "정상적으로 입력된 투두 입니다 ${todo}")
+                        Log.d(TAG, "정상적으로 입력된 투두 입니다 ${response.body()}")
                     }
                 }
-                override fun onFailure(call: Call<Todo>, t: Throwable) {
+                override fun onFailure(call: Call<String>, t: Throwable) {
                     Log.d(TAG, "입력 실패 ${t.message}")
                 }
             })
     }
 
+
     // 투두를 지우는 서비스
-    private fun deleteTodoService(id: Long){
+    private fun deleteTodoService(id: Int){
         val service = ApplicationClass.retrofit.create(TodoService:: class.java)
             .deleteTodo(id).enqueue(object : Callback<String>{
                 override fun onResponse(call: Call<String>, response: Response<String>) {
@@ -121,7 +119,7 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
     }
 
     //투두를 수정하는 서비스
-    private fun modifyTodoService(id: Long, Todo: Todo){
+    private fun modifyTodoService(id: Int, Todo: Todo){
         val service = ApplicationClass.retrofit.create(TodoService::class.java)
             .modifyTodo(id, Todo).enqueue(object :Callback<Todo>{
                 override fun onResponse(call: Call<Todo>, response: Response<Todo>) {
@@ -138,7 +136,7 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
     }
 
     //투두를 체크(완료했는 지)하는 서비스
-    private fun checkTodo(id: Long){
+    private fun checkTodo(id: Int){
         val service = ApplicationClass.retrofit.create(TodoService::class.java)
             .checkTodo(id).enqueue(object : Callback<String>{
                 override fun onResponse(call: Call<String>, response: Response<String>) {
@@ -237,7 +235,6 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
                         // 다이어로그 코드
                         val bottomSheet = TodoBottomSheet(this@TodoFragment, todoList[position], dateStr, position, todoList)
                         bottomSheet.show(activity!!.supportFragmentManager, bottomSheet.tag)
-
                     }
 
                 }
@@ -245,7 +242,9 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
             todoAdapter.itemClick = object: TodoAdapter.ItemClick {
                 // 체크 눌렀을 때
                 override fun onClick(view: View, position: Int) {
-                    Toast.makeText(requireContext(), "${position}을 눌렀습니다", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(requireContext(), "${position}을 눌렀습니다", Toast.LENGTH_SHORT).show()
+                    checkTodo(todoList[position].todo_id!!)
+
                 }
             }
             recyclerviewTodoList.apply {
