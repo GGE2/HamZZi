@@ -39,9 +39,7 @@ const TodoInput = ({ onAdd }) => {
         />
         {/* </div> */}
 
-        <div className="TodoInput_btn" onClick={onSubmit}>
-          <div type="button" className="AddBtn"></div>
-        </div>
+        <div className="TodoInput_btn" onClick={onSubmit}></div>
       </form>
     </div>
   );

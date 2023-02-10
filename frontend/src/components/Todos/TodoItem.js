@@ -13,9 +13,9 @@ import { useRaisedShadow } from "./useRaisedShadow";
 const TodoItem = ({ todos, onDel, onToggle, onEdit }) => {
   const { todo_id, content, ischeck, datetime } = todos;
   // const [ OV, setOV ] = useState(<OpenVidu>);
-
+  const outside = useRef();
   // session.subscribe
-
+  const [isOpen, setIsOpen] = useState(false);
   const localContentInput = useRef();
   const [localContent, setLocalContent] = useState(content);
   const [isEdit, setIsEdit] = useState(false);
@@ -41,32 +41,28 @@ const TodoItem = ({ todos, onDel, onToggle, onEdit }) => {
     //   toggleIsEdit();
     // }
   };
+  const showDetail = () => {
+    setIsOpen(true);
+  };
+
   const y = useMotionValue(0);
   const boxShadow = useRaisedShadow(y);
 
   return (
     <Reorder.Item id={todos} value={todos} style={{ boxShadow, y }}>
-      <div className="TodoItem">
+      <div className="TodoItem" onClick={showDetail}>
         <>
           <div onClick={() => onToggle(todo_id)} className="CheckTodo">
             {ischeck ? (
-              <MdOutlineCheckBox size={"100%"} />
+              <button className="CheckedTodo" />
             ) : (
-              <MdOutlineCheckBoxOutlineBlank size={"100%"} />
+              <button className="UnCheckedTodo" />
             )}
           </div>
 
           {/* {datetime} */}
 
           {/* <em onClick={() => onToggle(todo_id)}>{content}</em> */}
-          <div className="TodoSetting">
-            <DropdownTodoMenu
-              todo_id={todo_id}
-              onEdit={onEdit}
-              onDel={onDel}
-              toggleIsEdit={toggleIsEdit}
-            />
-          </div>
 
           <div className="content">
             {isEdit ? (
@@ -79,6 +75,15 @@ const TodoItem = ({ todos, onDel, onToggle, onEdit }) => {
             ) : (
               <p disabled={ischeck}>{content}</p>
             )}
+          </div>
+
+          <div className="TodoSetting">
+            <DropdownTodoMenu
+              todo_id={todo_id}
+              onEdit={onEdit}
+              onDel={onDel}
+              toggleIsEdit={toggleIsEdit}
+            />
           </div>
 
           {isEdit ? (

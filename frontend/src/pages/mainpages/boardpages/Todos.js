@@ -232,23 +232,23 @@ const Todos = () => {
   };
 
   const variants = {
-    hidden: { opacity: 0},
-    visibie: { opacity: 1}
-  }
+    hidden: { opacity: 0 },
+    visibie: { opacity: 1 },
+  };
 
   return (
     <motion.div
-    initial= {{ opacity: 0}}
-    animate= {{ opacity: 1}}
-    exit= {{ y: -100, opacity: 0}}
-    transition = {{ duration: 1}}
-    variants = { variants }
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ y: -100, opacity: 0 }}
+      transition={{ duration: 1 }}
+      variants={variants}
     >
       {/* <Header data={"Todo"} type={"Todo"} /> */}
       <div className="MyBody">
         <TodoInput onAdd={onAdd} />
         <div className="TodoHeaderButton">
-          <button
+          {/* <button
             onClick={CreateFlagfunc}
             className={todo_menu[0] ? "TodoButton--active" : null}
           >
@@ -259,7 +259,7 @@ const Todos = () => {
             className={todo_menu[1] ? "TodoButton--active" : ""}
           >
             투두 검색
-          </button>
+          </button> */}
 
           {/* {todo_menu[0] && (
           <button onClick={onCreateGuild}>생성하기</button>
@@ -283,17 +283,19 @@ const Todos = () => {
           {todo_menu[0] && (
             <div className="DateControl">
               {/* 달력 아이콘을 누르면 isOpen을 true */}
-              <button onClick={handleClick} className="Calbutton">
-                <FcCalendar size={"100%"} color={"black"}/>
-              </button>
+              {/* <button onClick={handleClick} className="Calbutton"> */}
+              <button onClick={handleClick} className="HamCalendar"></button>
+              {/* </button> */}
+              {/* <div className="DateContainer"> */}
               <div className="DateButton" onClick={decreaseMonth}>
                 <AiFillCaretLeft className="DateButton_left" size={"55%"} />
               </div>
 
-              {calDate}
+              <p>{calDate}</p>
               <div className="DateButton" onClick={increaseMonth}>
                 <AiFillCaretRight className="DateButton_right" size={"55%"} />
               </div>
+              {/* </div> */}
               {/* <p class="arrow_box">내asdasdasd일</p> */}
             </div>
           )}
