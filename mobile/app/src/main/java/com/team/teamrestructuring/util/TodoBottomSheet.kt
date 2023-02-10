@@ -75,8 +75,9 @@ class TodoBottomSheet(
             callbackInterface?.onButtonClick()
             todo?.content = view?.findViewById<EditText>(R.id.modifyTextBottom)?.text.toString()
             modifyTodoService(todo?.todo_id!!,todo!!)
-
-            TodoFragment.todoAdapter.items
+            todoList[position!!] = todo!!
+            TodoFragment.todoAdapter.items = todoList
+            TodoFragment.todoAdapter.notifyDataSetChanged()
             dismiss()
 
         }
@@ -122,9 +123,7 @@ class TodoBottomSheet(
             .modifyTodo(todo?.todo_id!!,todo!!).enqueue(object:Callback<Todo>{
                 override fun onResponse(call: Call<Todo>, response: Response<Todo>) {
                     if(response.isSuccessful){
-                        todoList[position!!] = todo!!
-                        TodoFragment.todoAdapter.items = todoList
-                        TodoFragment.todoAdapter.notifyDataSetChanged()
+
                     }
                 }
 
@@ -143,6 +142,7 @@ class TodoBottomSheet(
             .deleteTodo(id).enqueue(object : Callback<String>{
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     if(response.isSuccessful){
+
 
                     }
                 }

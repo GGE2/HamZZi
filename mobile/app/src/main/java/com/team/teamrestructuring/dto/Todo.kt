@@ -8,7 +8,7 @@ import com.team.teamrestructuring.util.ApplicationClass
 data class Todo(
     @Expose @SerializedName("content") var content:String,
     @Expose @SerializedName("datetime")var dateTime:String,
-    @Expose @SerializedName("user_nickname") var userNickname:String? = ApplicationClass.currentUser.userProfile?.nickname,
+    @Expose @SerializedName("user_nickname") var user_Nickname:String? = ApplicationClass.currentUser.userProfile?.nickname,
     @Expose @SerializedName("todo_id") var todo_id : Long?= null
 ){
     @Expose

@@ -69,17 +69,18 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
 
         stringList = mutableListOf<String>()
         initRecyclerView()
-        callService(nickName, dateStr)
+        Log.i(TAG, nickName)
         todoAdapter.notifyDataSetChanged()
         initDate()
         initInput()
+        callService(nickName, dateStr)
 
 
     }
 
     // Todo를 가져오는 서비스
     private fun callService(nickName: String, dateTime: String){
-//        Log.d(TAG, "확인")
+        Log.d("닉네임", nickName)
         val service = ApplicationClass.retrofit.create(TodoService::class.java)
             .getTodo(nickName, dateTime).enqueue(object : Callback<MutableList<Todo>>{
                 override fun onResponse(
@@ -94,17 +95,12 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
                             todoAdapter.items = todoList
                             todoAdapter.notifyDataSetChanged()
                         }
-
-
-
                         Log.w(TAG, "${todoList}")
                     }
                 }
-
                 override fun onFailure(call: Call<MutableList<Todo>>, t: Throwable) {
                     Log.d(TAG, "onFailure: ${t.message}")
                 }
-
             })
 
     }
@@ -207,6 +203,7 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
                     dateStr =  "${year}-${month+1}-${dayOfMonth}"
                 }
                 Log.i(TAG, dateStr)
+                Log.i(TAG, nickName)
                 callService(nickName, dateStr)
             }
         }
@@ -232,6 +229,7 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
                     todoList.add(todo)
                     todoAdapter.items = todoList
                     todoAdapter.notifyDataSetChanged()
+
 //                    val fragmentTransaction = fragmentManager.beginTransaction()
 //                    fragmentTransaction.detach(TodoFragment).attach(TodoFragment).commit()
 
