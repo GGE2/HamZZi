@@ -22,17 +22,23 @@ private val nickName = ApplicationClass.currentUser.userProfile.nickname.toStrin
 class TodoBottomSheet(
     callbackInterface : SetOnModifyButtonInterface?,
     todo: Todo?,
-    dateStr: String?
+    dateStr: String?,
+    position: Int?,
+    todoList: MutableList<Todo>,
 
 ): BottomSheetDialogFragment() {
 
     private var callbackInterface : SetOnModifyButtonInterface? = null
     private var todo:Todo?=null
     private var dateStr: String?= null
+    private var position: Int?=null
+    private var todoList: MutableList<Todo> = mutableListOf()
     init{
         this.callbackInterface = callbackInterface
         this.todo = todo
         this.dateStr = dateStr
+        this.position = position
+        this.todoList = todoList
     }
 
     override fun onCreateView(
@@ -68,9 +74,9 @@ class TodoBottomSheet(
             Log.d(TAG, "함수 오나")
             callbackInterface?.onButtonClick()
             todo?.content = view?.findViewById<EditText>(R.id.modifyTextBottom)?.text.toString()
-
             modifyTodoService(todo?.todo_id!!,todo!!)
 
+            TodoFragment.todoAdapter.items
             dismiss()
 
         }
@@ -116,7 +122,8 @@ class TodoBottomSheet(
             .modifyTodo(todo?.todo_id!!,todo!!).enqueue(object:Callback<Todo>{
                 override fun onResponse(call: Call<Todo>, response: Response<Todo>) {
                     if(response.isSuccessful){
-                        callService(nickName, dateStr!!)
+                        todoList[position!!] = todo!!
+                        TodoFragment.todoAdapter.items = todoList
                         TodoFragment.todoAdapter.notifyDataSetChanged()
                     }
                 }

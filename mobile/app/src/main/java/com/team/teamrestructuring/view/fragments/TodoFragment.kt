@@ -51,6 +51,7 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
     private var nowDate = Date()
 
     // 더미 데이터
+
     val nickName = ApplicationClass.currentUser.userProfile.nickname.toString()
 
 
@@ -275,7 +276,7 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
                         todo_id = todoList[position].todo_id!!
                         Log.d(TAG, todoList[position].toString())
                         // 다이어로그 코드
-                        val bottomSheet = TodoBottomSheet(this@TodoFragment, todoList[position], dateStr)
+                        val bottomSheet = TodoBottomSheet(this@TodoFragment, todoList[position], dateStr, position, todoList)
                         bottomSheet.show(activity!!.supportFragmentManager, bottomSheet.tag)
 
                     }
