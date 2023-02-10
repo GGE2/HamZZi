@@ -48,7 +48,7 @@
                 android:id="@+id/imageview_my_page_icon_level"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_marginLeft="8dp"
+                android:layout_marginLeft="16dp"
                 android:layout_marginTop="8dp"
                 android:src="@drawable/lv_logo_4"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -58,7 +58,7 @@
                 android:id="@+id/textview_my_page_content_level"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
+                android:layout_marginLeft="16dp"
                 android:fontFamily="@font/mine"
                 android:text="HAMZZI"
                 android:textColor="@color/black"
@@ -70,11 +70,11 @@
 
             <ImageView
                 android:id="@+id/imageview_my_page_icon_coin"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_marginLeft="18dp"
                 android:layout_marginTop="8dp"
-                android:src="@drawable/coin"
+                android:src="@drawable/coin_1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imageview_my_page_icon_level" />
 
@@ -82,7 +82,7 @@
                 android:id="@+id/textview_my_page_content_coin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="16dp"
                 android:fontFamily="@font/mine"
                 android:text="9999"
                 android:textColor="@color/black"
@@ -94,12 +94,12 @@
 
             <ImageView
                 android:id="@+id/imageview_my_page_icon_place"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="14dp"
-                android:src="@drawable/mygps"
+                android:src="@drawable/mygps_1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imageview_my_page_icon_coin"
                 app:layout_constraintBottom_toBottomOf="parent"/>

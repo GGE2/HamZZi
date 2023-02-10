@@ -70,6 +70,7 @@ class CreateQuestResultDialog(
                     getQuestData(ApplicationClass.currentUser.userProfile.nickname)
                 }
                 else -> {
+                    Log.d(TAG, "onCreateView:x` ")
                     getQuestData(ApplicationClass.currentUser.userProfile.nickname)
                 }
             }
