@@ -165,14 +165,21 @@
 .GuildAdminWrap {
     /* border: 3px solid black; */
     /* border-radius: 8px; */
+    margin-left: 40px;
+    margin-right: 40px;
+    border-bottom: 2px solid #ececec;
+}
+
+.GuildAdminWrap2 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-left: 5em;
-    margin-right: 5em;
+    /* margin-left: 1em;
+    margin-right: 1em; */
     height: 3em;
     font-size: 20px;
-    border-bottom: 2px solid #ececec;
+    padding-left: 2em;
+    padding-right: 2em;
 }
 
 .GuildAdminWrap img {
@@ -181,18 +188,33 @@
 
 .GuildUsersWrap{
     /* border: 3px solid black; */
-    border-radius: 8px;
-    padding-left: 5em;
-    padding-right: 5em;
+    /* border-radius: 8px; */
+    /* padding-left: 5em;
+    padding-right: 5em; */
     font-size: 20px;
+    margin-left: 40px;
+    margin-right: 40px;
     
 }
+
+
 .GuildUserNo{
+    border-bottom: 2px solid #ececec;
+    height: 3em;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 3em;
-    border-bottom: 2px solid #ececec;
+    padding-left: 2em;
+    padding-right: 2em;
+    
+}
+
+.GuildUserNo2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 2em;
+    padding-right: 2em;
 }
 
 .GuildUserNo img {

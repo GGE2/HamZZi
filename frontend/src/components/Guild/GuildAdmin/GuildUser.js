@@ -15,6 +15,7 @@ const GuildUser = ({
   console.log(admin)
   return (
     <div className="GuildUserNo">
+    
       <div>
         <img src="./levellogo/lvlogo (2).png" alt="" />
       </div>
@@ -23,6 +24,7 @@ const GuildUser = ({
       <button onClick={()=>onGrantAdmin(admin.nickname, user.nickname, guildId)}>길드장 임명</button>
       길드원: {user.nickname}
       </div>
+  
     </div>
   );
 };

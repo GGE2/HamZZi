@@ -26,16 +26,17 @@ const GuildNoAdmin = ({
 
         {/* <GuildUsersNo admin={admin} users={users} /> */}
         <div className="GuildAdminWrap">
-         
+        <div className="GuildAdminWrap2">
             <div>
           <img src="./levellogo/lvlogo (4).png" alt="" /></div>
           <div>길드장: {admin ? admin.nickname : ""}
           </div>
         </div>
+        </div>
         {/* {adminname} */}
         {/* 일반 길드원 */}
         <div className="GuildUsersWrap">
-        
+          
           {users
             ? users.map((user, idx) => (
                 <GuildUserNo key={idx} admin={admin} user={user} nickname={nickname} onLeaveGuild={onLeaveGuild}/>
