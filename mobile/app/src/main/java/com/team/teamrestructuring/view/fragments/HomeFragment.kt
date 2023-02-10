@@ -97,6 +97,7 @@ class HomeFragment : Fragment(),CreateFriendDialog.CreateFriendDialogInterface,C
                     if(response.isSuccessful){
                         val data = response.body()!!
                         ApplicationClass.currentUser = data
+                        Log.d(TAG, "onResponse: ${ApplicationClass.currentUser}")
                         setPetStat()
                     }
                 }

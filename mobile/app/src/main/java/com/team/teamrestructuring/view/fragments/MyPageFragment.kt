@@ -58,20 +58,21 @@ class MyPageFragment : Fragment() {
     private fun setUserData(){
         binding.textviewMyPageContentLevel.text = ApplicationClass.currentUser.userProfile.nickname
         binding.textviewMyPageContentCoin.text = ApplicationClass.currentUser.userProfile.point.toString()
+        if(ApplicationClass.currentUser.userProfile.location!=null)
         binding.textviewMyPageContentPlace.text = ApplicationClass.currentUser.userProfile.location
     }
 
 
     private fun setListener(){
-       /* binding.buttonMypageRegister.setOnClickListener {
+        binding.buttonMypageRegitserPlace.setOnClickListener{
             val intent = Intent(requireActivity(),RegisterPlaceActivity::class.java)
             startActivity(intent)
         }
-        binding.buttonMypageTime.setOnClickListener {
+        binding.buttonMypageRegitserTime.setOnClickListener{
             val dialog = CreateRegisterTimeDialog()
             dialog.isCancelable
             dialog.show(activity?.supportFragmentManager!!,"CreateRegisterTime")
-        }*/
+        }
     }
 
     companion object {
