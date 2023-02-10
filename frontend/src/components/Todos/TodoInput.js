@@ -16,9 +16,9 @@ const TodoInput = ({ onAdd }) => {
 
     // if (!text) return;
 
-    if(text.length < 1) {
+    if (text.length < 1) {
       textRef.current.focus();
-      return
+      return;
     }
 
     onAdd(text);
@@ -30,17 +30,17 @@ const TodoInput = ({ onAdd }) => {
     <div>
       <form className="TodoInput">
         {/* <div className="TodoInput_input"> */}
-          <input
-            type="text"
-            value={text}
-            placeholder="할 일을 입력하세요"
-            onChange={changeInput}
-            ref={textRef}
-          />
+        <input
+          type="text"
+          value={text}
+          placeholder="할 일을 입력하세요"
+          onChange={changeInput}
+          ref={textRef}
+        />
         {/* </div> */}
 
         <div className="TodoInput_btn" onClick={onSubmit}>
-          <GrReturn className="icon" size={"100%"}></GrReturn>
+          <div type="button" className="AddBtn"></div>
         </div>
       </form>
     </div>

@@ -246,7 +246,8 @@ const Todos = () => {
     >
       {/* <Header data={"Todo"} type={"Todo"} /> */}
       <div className="MyBody">
-        <div className="FriendHeaderButton">
+        <TodoInput onAdd={onAdd} />
+        <div className="TodoHeaderButton">
           <button
             onClick={CreateFlagfunc}
             className={todo_menu[0] ? "TodoButton--active" : null}
@@ -310,7 +311,6 @@ const Todos = () => {
           onEdit={onEdit}
           setTodos={setTodos}
         />
-        <TodoInput onAdd={onAdd} />
       </div>
     </motion.div>
   );

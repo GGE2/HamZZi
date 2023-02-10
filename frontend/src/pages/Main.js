@@ -6,26 +6,24 @@ import "../styles/Main.css";
 
 import Todos from "./mainpages/boardpages/Todos";
 import Guild from "./mainpages/boardpages/Guild";
-import Quests from './mainpages/boardpages/Quests';
-import DressRoom from './mainpages/boardpages/DressRoom';
+import Quests from "./mainpages/boardpages/Quests";
+import DressRoom from "./mainpages/boardpages/DressRoom";
 import Profile from "./mainpages/boardpages/Profile";
-
-
 
 import { useDispatch } from "react-redux";
 // import { setCredentials } from "../authSlice";
 import { getCurrentStat } from "../hamStatSlice";
-import api from './../components/api';
-import LoadingModal from './../components/LoadingModal';
+import api from "./../components/api";
+import LoadingModal from "./../components/LoadingModal";
+import { receivePoint } from "../pointSlice";
 // import SetNickName from './loginpages/SetNickName';
-
 
 const Main = () => {
   const [petName, setPetName] = useState("");
   const [name, setName] = useState("");
   const email = JSON.parse(localStorage.getItem("user"));
   // const nickname = localStorage.getItem("nickname");
-  const [nickname, SetNickName] = useState()
+  const [nickname, SetNickName] = useState();
   const dispatch = useDispatch();
 
   const [user, setUser] = useState({});
@@ -35,7 +33,7 @@ const Main = () => {
     nickname: nickname,
   });
   const [guildId, setGuildId] = useState(0);
-  const [guildName, setGuildName] = useState('');
+  const [guildName, setGuildName] = useState("");
 
   const [loading1, setLoading1] = useState(true);
   const [loading2, setLoading2] = useState(true);
@@ -52,12 +50,12 @@ const Main = () => {
   const [menu, setMenu] = useState([true, false, false, false, false]);
 
   const getPetInfo = (nickname) => {
-    setLoading1(true)
+    setLoading1(true);
     api
       .get(`/api/pet/${nickname}`)
       .then((res) => {
         console.log(res.data);
-        const physical =res.data[2].physical;
+        const physical = res.data[2].physical;
         const artistic = res.data[2].artistic;
         const intelligent = res.data[2].intelligent;
         const inactive = res.data[2].inactive;
@@ -79,16 +77,15 @@ const Main = () => {
         dispatch(getCurrentStat(data));
         console.log(data);
         console.log("DISPATCHED!!");
-        setLoading1(false)
+        setLoading1(false);
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  
   const getProfile = () => {
-    setLoading2(true)
+    setLoading2(true);
     api
       .get(`/api/user/mypage?email=${email}`)
       .then((res) => {
@@ -101,10 +98,11 @@ const Main = () => {
           nickname: res.data.nickname,
           rest_point: res.data.rest_point,
         });
-        SetNickName(res.data.nickname)
-        setLoading2(false)
-        getPetInfo(res.data.nickname)
-        onGetUserGuildInfo(res.data.nickname)
+        dispatch(receivePoint(res.data.point));
+        SetNickName(res.data.nickname);
+        setLoading2(false);
+        getPetInfo(res.data.nickname);
+        onGetUserGuildInfo(res.data.nickname);
       })
       .catch((err) => {
         console.log(err);
@@ -114,25 +112,23 @@ const Main = () => {
   // 유저 길드 정보 가져오기 api
   // 닉네임으로 가져옴. nickname
   const onGetUserGuildInfo = async (nickname) => {
-    setLoading3(true)
-    await api
-      .get(`/api/guild/user?nickname=${nickname}`)
-      .then((res) => {
-        console.log("유저 길드 정보 가져오기 api");
-        console.log(res.data);
-        if (res.data.guild) {
-          setGuildId(res.data.guild.guild_id);
-          console.log(guildId);
-          setGuildUsers(res.data);
-          setGuildName(res.data.guild.guild_name)
-        }
-        setLoading3(false)
-      });
+    setLoading3(true);
+    await api.get(`/api/guild/user?nickname=${nickname}`).then((res) => {
+      console.log("유저 길드 정보 가져오기 api");
+      console.log(res.data);
+      if (res.data.guild) {
+        setGuildId(res.data.guild.guild_id);
+        console.log(guildId);
+        setGuildUsers(res.data);
+        setGuildName(res.data.guild.guild_name);
+      }
+      setLoading3(false);
+    });
   };
 
   useEffect(() => {
     // callData()
-    getProfile()
+    getProfile();
     // getPetInfo();
     //     onGetUserGuildInfo(); // 유저 길드 정보 가져오기
   }, []);
@@ -141,8 +137,6 @@ const Main = () => {
     getPetInfo();
   }, [name]);
 
-
-
   // 메뉴 선택 함수
   const onClickTodo = () => {
     setShow({
@@ -150,7 +144,7 @@ const Main = () => {
       guildShow: false,
       friendShow: false,
       profileShow: false,
-      dressShow: false
+      dressShow: false,
     });
     setMenu([true, false, false, false, false]);
   };
@@ -161,7 +155,7 @@ const Main = () => {
       guildShow: true,
       friendShow: false,
       profileShow: false,
-      dressShow: false
+      dressShow: false,
     });
     setMenu([false, true, false, false, false]);
   };
@@ -172,10 +166,9 @@ const Main = () => {
       guildShow: false,
       friendShow: true,
       profileShow: false,
-      dressShow: false
+      dressShow: false,
     });
     setMenu([false, false, true, false, false]);
-
   };
 
   const onClickProfile = () => {
@@ -184,7 +177,7 @@ const Main = () => {
       guildShow: false,
       friendShow: false,
       profileShow: true,
-      dressShow: false
+      dressShow: false,
     });
     setMenu([false, false, false, true, false]);
   };
@@ -195,77 +188,78 @@ const Main = () => {
       guildShow: false,
       friendShow: false,
       profileShow: false,
-      dressShow: true
+      dressShow: true,
     });
-    setMenu([false, false, false, false,true]);
-
+    setMenu([false, false, false, false, true]);
   };
 
   return (
     <div className="app">
       <div className="Board">
-        <div className="Back">{
-           loading2===false ? <>
-          <div className="Hamster">
-            <Ham petName={petName} />
-          </div>
-        
-          <div className="Screen">
-            {show.todoShow && <Todos user={user} />}
-            {show.guildShow && (
-              <Guild
-                // user={user}
-                setGuildUsers={setGuildUsers}
-                guildUsers={guildUsers}
-                guildId={guildId}
-                onGetUserGuildInfo={onGetUserGuildInfo}
-                guildName={guildName}
-              />
-            )}
-            
-            {show.friendShow && <Quests user={user} />}
-            {show.profileShow && <Profile user={user} />}
-            {show.dressShow && <DressRoom user={user} />}
-          </div>
+        <div className="Back">
+          {loading2 === false ? (
+            <>
+              <div className="Hamster">
+                <Ham petName={petName} />
+              </div>
 
-          <div className="buttonflex">
-            <button
-              className={menu[0] ? "BoardButto--active0" : ""}
-              onClick={onClickTodo}
-              style={{ borderRight: "3px solid black" }}
-            >
-              Todo
-            </button>
-            <button
-              className={menu[1] ? "BoardButto--active1" : ""}
-              onClick={onClickGuild}
-              style={{ borderRight: "3px solid black" }}
-            >
-              Guild
-            </button>
-            <button
-              className={menu[2] ? "BoardButto--active2" : ""}
-              onClick={onClickFriend}
-              style={{ borderRight: "3px solid black" }}
-            >
-              Quest
-            </button>
-            <button
-              className={menu[3] ? "BoardButto--active3" : ""}
-              onClick={onClickProfile}
-            >
-              Room
-            </button>
-            <button
-              className={menu[4] ? "BoardButto--active4" : ""}
-              onClick={onClickDressRoom}
-            >
-              Shop
-            </button>
-          </div>
-          </>: <LoadingModal/>}
-        
-        
+              <div className="Screen">
+                {show.todoShow && <Todos user={user} />}
+                {show.guildShow && (
+                  <Guild
+                    // user={user}
+                    setGuildUsers={setGuildUsers}
+                    guildUsers={guildUsers}
+                    guildId={guildId}
+                    onGetUserGuildInfo={onGetUserGuildInfo}
+                    guildName={guildName}
+                  />
+                )}
+
+                {show.friendShow && <Quests user={user} />}
+                {show.profileShow && <Profile user={user} />}
+                {show.dressShow && <DressRoom user={user} />}
+              </div>
+
+              <div className="buttonflex">
+                <button
+                  className={menu[0] ? "BoardButto--active0" : ""}
+                  onClick={onClickTodo}
+                  style={{ borderRight: "3px solid black" }}
+                >
+                  Todo
+                </button>
+                <button
+                  className={menu[1] ? "BoardButto--active1" : ""}
+                  onClick={onClickGuild}
+                  style={{ borderRight: "3px solid black" }}
+                >
+                  Guild
+                </button>
+                <button
+                  className={menu[2] ? "BoardButto--active2" : ""}
+                  onClick={onClickFriend}
+                  style={{ borderRight: "3px solid black" }}
+                >
+                  Quest
+                </button>
+                <button
+                  className={menu[3] ? "BoardButto--active3" : ""}
+                  onClick={onClickProfile}
+                >
+                  Room
+                </button>
+                <button
+                  className={menu[4] ? "BoardButto--active4" : ""}
+                  onClick={onClickDressRoom}
+                >
+                  Shop
+                </button>
+              </div>
+            </>
+          ) : (
+            <LoadingModal />
+          )}
         </div>
       </div>
     </div>

@@ -6,7 +6,7 @@ const pointSlice = createSlice({
   reducers: {
     receivePoint: (state, action) => {
       const received = action.payload;
-      state.stat += received;
+      state.stat = received;
     },
     grantPoint: (state, action) => {
       state.stat -= 1;

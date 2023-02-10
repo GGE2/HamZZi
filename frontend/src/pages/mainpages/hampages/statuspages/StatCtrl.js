@@ -13,7 +13,8 @@ import {
 } from "./../../../../hamStatSlice";
 import axios from "axios";
 import GetPetInfo from "../../../../components/GetPetInfo";
-import api from './../../../../components/api';
+import api from "./../../../../components/api";
+import { selectCurrentPoint } from "./../../../../pointSlice";
 
 const StatCtrl = () => {
   // const [localStat, setLocalStat] = useState();
@@ -23,6 +24,7 @@ const StatCtrl = () => {
   // console.log(localStat);
   const nickname = localStorage.getItem("nickname");
   const petId = localStorage.getItem("petId");
+  const point = useSelector(selectCurrentPoint);
 
   const initialPetInfo = () => {
     api
@@ -74,12 +76,10 @@ const StatCtrl = () => {
     dispatch(clearStat(petId));
   };
   const handleExp = () => {
-    api
-      .put(`/api/pet/exp?pet_id=${petId}&exp=${15}`)
-      .then((res) => {
-        console.log(res);
-        GetPetInfo();
-      });
+    api.put(`/api/pet/exp?pet_id=${petId}&exp=${15}`).then((res) => {
+      console.log(res);
+      GetPetInfo();
+    });
   };
 
   useEffect(() => {
@@ -93,27 +93,27 @@ const StatCtrl = () => {
         <h3>StatCtrl</h3>
         <div>
           Physical: {status.physical}
-          <button onClick={handlePhysical}>+</button>
+          {point > 0 ? <button onClick={handlePhysical}>+</button> : null}
         </div>
         <div>
           Artistic: {status.artistic}
-          <button onClick={handleArtistic}>+</button>
+          {point > 0 ? <button onClick={handleArtistic}>+</button> : null}
         </div>
         <div>
           Intelligent: {status.intelligent}
-          <button onClick={handleIntelligent}>+</button>
+          {point > 0 ? <button onClick={handleIntelligent}>+</button> : null}
         </div>
         <div>
           Inactive: {status.inactive}
-          <button onClick={handleInactive}>+</button>
+          {point > 0 ? <button onClick={handleInactive}>+</button> : null}
         </div>
         <div>
           Energetic: {status.energetic}
-          <button onClick={handleEnergetic}>+</button>
+          {point > 0 ? <button onClick={handleEnergetic}>+</button> : null}
         </div>
         <div>
           Etc: {status.etc}
-          <button onClick={handleEtc}>+</button>
+          {point > 0 ? <button onClick={handleEtc}>+</button> : null}
         </div>
         <button onClick={handleClear}>CLEAR</button>
         <button onClick={handleExp}>EXP UP</button>

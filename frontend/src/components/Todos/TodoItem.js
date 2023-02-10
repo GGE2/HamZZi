@@ -95,7 +95,7 @@ const TodoItem = ({ todos, onDel, onToggle, onEdit }) => {
             </>
           )}
         </>
-      </div>
+      </div>{" "}
     </Reorder.Item>
   );
 };
