@@ -1,25 +1,28 @@
 package com.team.teamrestructuring.dto
 
+import android.provider.ContactsContract.CommonDataKinds.Nickname
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import com.team.teamrestructuring.util.ApplicationClass
 
 data class Todo(
     @Expose @SerializedName("content") var content:String,
     @Expose @SerializedName("datetime")var dateTime:String,
-    @Expose @SerializedName("todo_id") var todo_id : Long= -1
-    ){
-
-
+    @Expose @SerializedName("user_nickname") var userNickname:String? = ApplicationClass.currentUser.userProfile?.user_nickname,
+    @Expose @SerializedName("todo_id") var todo_id : Long?= null
+){
     @Expose
     @SerializedName("ischeck")
     var is_check : Boolean = false
 
-    @Expose
-    @SerializedName("userProfile")
-    var userProfile:UserProfile? = null
 
-    constructor(todo_id:Long , content:String, dateTime:String,is_check:Boolean,userProfile: UserProfile):this(content, dateTime, todo_id){
+    constructor(todo_id:Long , content:String, dateTime:String,is_check:Boolean,userNickname: String):this(content, dateTime, userNickname){
+        this.todo_id = todo_id
         this.is_check = is_check
-        this.userProfile = userProfile
     }
+
+    // 그 외 요청시
+    constructor(todo_id:Long , content:String, dateTime:String,is_check:Boolean):this(todo_id, content, dateTime, is_check, ""){}
 }
+
+

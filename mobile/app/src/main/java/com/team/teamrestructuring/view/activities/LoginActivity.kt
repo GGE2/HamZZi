@@ -84,7 +84,6 @@ class LoginActivity : AppCompatActivity() {
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_Sign_in)
     }
-<<<<<<< HEAD
 
     /**
      * 메인 액티비티로 이동하는 Intent 생성
@@ -93,12 +92,6 @@ class LoginActivity : AppCompatActivity() {
     private fun loginandhome() {
         val intent = Intent(this, HomeActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-=======
-    // 구`글 로그인 이후 홈으로 가기`
-    private fun loginandhome() {
-        val intent = Intent(this, HomeActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
->>>>>>> b24c2d732eb5a3882f8dab596779e91ab70e0eeb
         }
         startActivity(intent)
     }

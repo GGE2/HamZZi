@@ -1,22 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="left"
-        android:visibility="visible"
-        />
+    android:layout_height="wrap_content"
+    android:background="@drawable/questbck"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/recycler_item"
-        android:text="rv"
-        android:fontFamily="@font/mine"
-        android:textSize="20dp"
-        android:layout_marginRight="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="right"
-        />
-</LinearLayout>
+        <CheckBox
+            android:id="@+id/radio_item_todo_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:buttonTint="#92553b"
+            android:clickable="false"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/view_item_todo"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+        <TextView
+            android:id="@+id/textview_item_todo_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="오늘 할 일 입력하기"
+            android:textColor="@color/black"
+            android:fontFamily="@font/nexon_gothic_medium"
+            android:textSize="16sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/view_item_todo"
+            app:layout_constraintLeft_toRightOf="@id/radio_item_todo_check" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_item_todo_modify_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="⋮"
+            android:gravity="right"
+            android:paddingRight="10sp"
+            android:textSize="30sp"
+            android:textColor="#72402b"
+            android:background="@drawable/tab_style04"
+            android:layout_marginRight="10dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+        <View
+            android:id="@+id/view_item_todo"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#e8e1d2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

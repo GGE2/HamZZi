@@ -7,24 +7,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.activities.HomeActivity"
-
     >
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/todoXml"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="20dp"
+        android:padding="4dp"
         >
         <!-- TODO: Update blank fragment layout -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_main1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:background="@drawable/title_new_a"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent">
+
+            <TextView
+                android:id="@+id/textview_todo_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginLeft="6dp"
+                android:text="Todo"
+                android:paddingStart="6dp"
+                android:textSize="50sp"
+                android:textColor="#ffb100"
+                android:fontFamily="@font/mine"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <CalendarView
             android:id="@+id/calender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/constraint_main1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.006" />
 
 
@@ -43,13 +67,16 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/CreateTodoButton"
-            android:background="@drawable/alert_button_pet_ok"
+            android:background="@drawable/alert_button_todo"
+            android:textColor="#ffb100"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
+            android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/calender"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_weight="0"
+            android:textSize="20sp"
             android:fontFamily="@font/mine"
             android:text="입력" />
 
