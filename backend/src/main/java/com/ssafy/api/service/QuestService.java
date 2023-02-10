@@ -16,11 +16,31 @@ public interface QuestService {
     // questUser 생성
     void createQuestUser(String nickname);
 
-    // 위치 등록
+    /**
+     * 위치 등록
+     * @param nickname
+     * @param latitude
+     * @param longitude
+     * @param location
+     * @return
+     */
     UserProfile registerLocation(String nickname, double latitude, double longitude, String location);
 
-    // 시간 등록
+    /**
+     * 시간 등록
+     * @param nickname
+     * @param finish_datetime
+     * @return
+     */
     UserProfile registerFinalDatetime(String nickname, int finish_datetime);
+
+    /**
+     * 만보기 등록
+     * @param nickname
+     * @param pedometer
+     * @return
+     */
+    UserProfile registerPedometer(String nickname, int pedometer);
 
     // User의 Quest 보여주기
 //    List<QuestUser> getQuests(String nickname);

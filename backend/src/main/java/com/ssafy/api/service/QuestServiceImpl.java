@@ -69,7 +69,6 @@ public class QuestServiceImpl implements QuestService {
         }
     }
 
-    // 위치 등록(수정)
     @Override
     public UserProfile registerLocation(String nickname, double latitude, double longitude, String location) {
         
@@ -84,12 +83,21 @@ public class QuestServiceImpl implements QuestService {
         return userProfile;
     }
 
-    // 시간 등록(수정)
     @Override
     public UserProfile registerFinalDatetime(String nickname, int finish_datetime) {
         UserProfile userProfile = userRepo.findByNickname(nickname);
 
         userProfile.setFinish_datetime(finish_datetime);
+        userRepo.saveUserProfile(userProfile);
+
+        return userProfile;
+    }
+
+    @Override
+    public UserProfile registerPedometer(String nickname, int pedometer) {
+        UserProfile userProfile = userRepo.findByNickname(nickname);
+
+        userProfile.setPedometer(pedometer);
         userRepo.saveUserProfile(userProfile);
 
         return userProfile;

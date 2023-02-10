@@ -33,4 +33,8 @@ public class UserProfile {
 
     // 위치 이름 저장
     private String location;
+
+    // 유저 만보기
+    private int pedometer;
+
 }
