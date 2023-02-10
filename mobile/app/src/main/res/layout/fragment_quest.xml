@@ -20,6 +20,7 @@
             android:background="@drawable/title_new_a"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent">
+
         <TextView
             android:id="@+id/textview_quest_title"
             android:layout_width="match_parent"
@@ -36,6 +37,7 @@
             app:layout_constraintLeft_toLeftOf="parent"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tablayout_quest_tap"
             android:layout_width="match_parent"
@@ -51,6 +53,8 @@
             app:tabIconTint="@color/white"
             app:tabTextColor="@color/black"
             app:tabIndicatorHeight="0dp"/>
+
+
 
         <FrameLayout
             android:id="@+id/fragment_quest_container"

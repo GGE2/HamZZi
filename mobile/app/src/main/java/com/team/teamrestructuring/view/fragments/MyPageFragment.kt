@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.team.teamrestructuring.R
 import com.team.teamrestructuring.databinding.FragmentMyPageBinding
+import com.team.teamrestructuring.util.ApplicationClass
 import com.team.teamrestructuring.util.CreateRegisterTimeDialog
 import com.team.teamrestructuring.view.activities.RegisterPlaceActivity
 
@@ -46,16 +47,23 @@ class MyPageFragment : Fragment() {
     ): View? {
 
         binding = FragmentMyPageBinding.inflate(layoutInflater,container,false)
-
         return binding.root
     }
 
     private fun init(){
         setListener()
+        setUserData()
     }
 
+    private fun setUserData(){
+        binding.textviewMyPageContentLevel.text = ApplicationClass.currentUser.userProfile.nickname
+        binding.textviewMyPageContentCoin.text = ApplicationClass.currentUser.userProfile.point.toString()
+        binding.textviewMyPageContentPlace.text = ApplicationClass.currentUser.userProfile.location
+    }
+
+
     private fun setListener(){
-        binding.buttonMypageRegister.setOnClickListener {
+       /* binding.buttonMypageRegister.setOnClickListener {
             val intent = Intent(requireActivity(),RegisterPlaceActivity::class.java)
             startActivity(intent)
         }
@@ -63,7 +71,7 @@ class MyPageFragment : Fragment() {
             val dialog = CreateRegisterTimeDialog()
             dialog.isCancelable
             dialog.show(activity?.supportFragmentManager!!,"CreateRegisterTime")
-        }
+        }*/
     }
 
     companion object {

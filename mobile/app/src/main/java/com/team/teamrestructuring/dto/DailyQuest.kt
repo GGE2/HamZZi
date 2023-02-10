@@ -2,7 +2,7 @@ package com.team.teamrestructuring.dto
 
 import com.google.gson.annotations.SerializedName
 
-class DailyQuest(
+data class DailyQuest(
 
     @SerializedName("questUser_id")
     var q_user_id:Long,

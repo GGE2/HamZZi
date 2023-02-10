@@ -28,21 +28,18 @@ class DailyQuestAdapter(var datas:List<DailyQuest>) : RecyclerView.Adapter<Daily
             }else{
                 binding.buttonItemQuestFinish.isClickable = true
                 binding.buttonItemQuestFinish.text = "미션하기"
-                tv.setTextColor(Color.parseColor("#000000"))
-                binding.buttonItemQuestFinish.setTextColor(Color.parseColor("#000000"))
+                tv.setTextColor(Color.parseColor("#72402b"))
+                binding.buttonItemQuestFinish.setTextColor(Color.parseColor("#72402b"))
             }
         }
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DailyQuestViewHolder {
         val binding = ItemQuestBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return DailyQuestViewHolder(binding)
     }
-
     override fun onBindViewHolder(holder: DailyQuestViewHolder, position: Int) {
         holder.bindData(datas[position])
     }
-
     override fun getItemCount(): Int {
         return datas.size
     }
@@ -52,4 +49,8 @@ class DailyQuestAdapter(var datas:List<DailyQuest>) : RecyclerView.Adapter<Daily
     fun setOnQuestClickListener(questClickListener: QuestClickListener){
         this.questClickListener = questClickListener
     }
+
+
+
+
 }
