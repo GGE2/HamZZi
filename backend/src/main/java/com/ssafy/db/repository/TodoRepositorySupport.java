@@ -1,7 +1,5 @@
 package com.ssafy.db.repository;
 
-import com.ssafy.api.request.TodoRequest;
-import com.ssafy.db.entity.Quest.QuestUser;
 import com.ssafy.db.entity.Todo.Todo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;

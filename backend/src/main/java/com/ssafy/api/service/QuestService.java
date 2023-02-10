@@ -1,9 +1,9 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.request.QuestRequest;
-import com.ssafy.api.request.QuestUserRequest;
 import com.ssafy.db.entity.Quest.Quest;
-import com.ssafy.db.entity.Quest.QuestUser;
+import com.ssafy.db.entity.Quest.QuestDaily;
+import com.ssafy.db.entity.Quest.QuestWeekly;
 import com.ssafy.db.entity.User.UserProfile;
 
 import java.util.List;
@@ -24,8 +24,8 @@ public interface QuestService {
 
     // User의 Quest 보여주기
 //    List<QuestUser> getQuests(String nickname);
-    List<QuestUser> getDailyQuests(String nickname);
-    List<QuestUser> getWeeklyQuests(String nickname);
+    List<QuestDaily> getDailyQuests(String nickname);
+    List<QuestWeekly> getWeeklyQuests(String nickname);
 
     // Quest List
     List<Quest> getQuest();
@@ -34,7 +34,8 @@ public interface QuestService {
     List<Long> getQuestId();
     
     // Quest 완료 확인하기
-    QuestUser checkUpdateQuest(Long questUser_id);
+    QuestDaily checkDailyQuest(Long questDaily_id);
+    QuestWeekly checkWeeklyQuest(Long questWeekly_id);
 
     // point 계산
     void questPointAssignment(String nickname, Long quest_id);

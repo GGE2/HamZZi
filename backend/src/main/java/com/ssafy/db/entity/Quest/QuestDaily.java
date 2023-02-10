@@ -1,6 +1,5 @@
 package com.ssafy.db.entity.Quest;
 
-import com.ssafy.db.entity.User.UserProfile;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
@@ -9,11 +8,11 @@ import javax.persistence.*;
 
 @Getter @Setter
 @Entity
-public class QuestUser {
+public class QuestDaily {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long questUser_id;
+    private Long questDaily_id;
 
 //    @Column(name="quest_id")
 //    private Long quest_id;      // 이걸로 quest id 뽑아오기
