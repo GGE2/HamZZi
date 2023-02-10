@@ -118,22 +118,6 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
             })
     }
 
-    //투두를 수정하는 서비스
-    private fun modifyTodoService(id: Int, Todo: Todo){
-        val service = ApplicationClass.retrofit.create(TodoService::class.java)
-            .modifyTodo(id, Todo).enqueue(object :Callback<Todo>{
-                override fun onResponse(call: Call<Todo>, response: Response<Todo>) {
-                    if(response.isSuccessful){
-                        Log.d(TAG, "수정된 투두 입니다 ${Todo}")
-
-                    }
-                }
-
-                override fun onFailure(call: Call<Todo>, t: Throwable) {
-                    Log.d(TAG, "수정 실패 ${t.message}")
-                }
-            })
-    }
 
     //투두를 체크(완료했는 지)하는 서비스
     private fun checkTodo(id: Int){
