@@ -11,6 +11,7 @@ import com.team.teamrestructuring.databinding.DialogCreatePetBinding
 import com.team.teamrestructuring.databinding.DialogCreateQuestResultBinding
 import com.team.teamrestructuring.dto.DailyQuest
 import com.team.teamrestructuring.dto.Place
+import com.team.teamrestructuring.dto.QuestEnum
 import com.team.teamrestructuring.dto.User
 import com.team.teamrestructuring.service.HomeService
 import com.team.teamrestructuring.service.LoginService
@@ -22,11 +23,11 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-private const val TAG="CreateConfirmDialog_지훈"
+private const val TAG="CreateQuestResult_지훈"
 class CreateQuestResultDialog(
     createResultListener:CreateResultListener,
     text:String,
-    result:Boolean,
+    enum: QuestEnum,
     quest:DailyQuest
 ) : DialogFragment(){
 
@@ -34,12 +35,12 @@ class CreateQuestResultDialog(
     private val binding get() = _binding!!
     private var createResultListener : CreateResultListener? = null
     private var text:String? = null
-    private var result:Boolean = false
+    private var enum : QuestEnum? = null
     private var quest:DailyQuest? = null
     init{
         this.createResultListener= createResultListener
         this.text = text
-        this.result = result
+        this.enum = enum
         this.quest = quest
     }
 
@@ -57,8 +58,21 @@ class CreateQuestResultDialog(
 
         binding.buttonDialogQuestResult.setOnClickListener {
             this.createResultListener?.onConfirmButtonClick()
-                sendToServerResult()
-            getQuestData(ApplicationClass.currentUser.userProfile.nickname)
+            when(enum){
+                QuestEnum.TRUE->{
+                    Log.d(TAG, "onCreateView: ${true}")
+                    sendToServerResult()
+                    getQuestData(ApplicationClass.currentUser.userProfile.nickname)
+                }
+                QuestEnum.FALSE->{
+                    Log.d(TAG, "onCreateView: ${false}")
+                    sendToServerResult()
+                    getQuestData(ApplicationClass.currentUser.userProfile.nickname)
+                }
+                else -> {
+                    getQuestData(ApplicationClass.currentUser.userProfile.nickname)
+                }
+            }
             dismiss()
         }
 

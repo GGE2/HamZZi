@@ -22,9 +22,14 @@ class DailyQuestAdapter(var datas:List<DailyQuest>) : RecyclerView.Adapter<Daily
             tv.text = data.quest.content
             if(data.ischeck){
                 tv.setTextColor(Color.parseColor("#c0c0c0"))
-                binding.buttonItemQuestFinish.text = "수행완료"
+                binding.buttonItemQuestFinish.text = "미션종료"
+                binding.buttonItemQuestFinish.setTextColor(Color.parseColor("#c0c0c0"))
+                binding.buttonItemQuestFinish.isClickable = false
             }else{
+                binding.buttonItemQuestFinish.isClickable = true
+                binding.buttonItemQuestFinish.text = "미션하기"
                 tv.setTextColor(Color.parseColor("#000000"))
+                binding.buttonItemQuestFinish.setTextColor(Color.parseColor("#000000"))
             }
         }
     }

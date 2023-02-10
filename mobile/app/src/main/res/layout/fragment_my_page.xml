@@ -7,7 +7,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#fff2d6">
     <FrameLayout
         android:id="@+id/frame2"
         android:layout_width="match_parent"
@@ -15,7 +16,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/navbar_background">
+        android:background="@drawable/title_new_a"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp">
         <TextView
             android:id="@+id/textview_mypage_title"
             android:layout_width="match_parent"
@@ -26,6 +29,7 @@
             android:textSize="50sp"
             android:textColor="#ffb100"
             android:fontFamily="@font/mine"
+            android:paddingStart="6dp"
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"/>
@@ -33,29 +37,31 @@
 
     </FrameLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/frame2"
-        app:layout_constraintBottom_toBottomOf="parent">
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_mypage_register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="직장 등록"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/frame2"
+            app:layout_constraintVertical_bias="0.0"
+            tools:layout_editor_absoluteX="-46dp">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_mypage_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="시간 등록"
-            android:layout_marginLeft="20dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/button_mypage_register"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_mypage_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="직장 등록"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_mypage_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="시간 등록"
+                app:layout_constraintLeft_toRightOf="@id/button_mypage_register"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

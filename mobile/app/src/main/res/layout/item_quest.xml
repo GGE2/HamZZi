@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/questbck"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <CheckBox
@@ -10,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
-        android:buttonTint="@color/black"
+        android:buttonTint="#92553b"
         android:clickable="false"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/view_item_quest"
@@ -44,7 +45,7 @@
         android:id="@+id/view_item_quest"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="#000000"
+        android:background="#e8e1d2"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

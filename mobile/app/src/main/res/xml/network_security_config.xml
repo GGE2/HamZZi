@@ -10,6 +10,7 @@
         <domain includeSubdomains="true">192.168.75.35</domain>
         <domain includeSubdomains="true">10.0.0.2</domain>
         <domain includeSubdomains="true">kauth.kakao.com</domain>
+        <domain includeSubdomains="true">i8d209.p.ssafy.io</domain>
     </domain-config>
 
 </network-security-config>

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.team.teamrestructuring.R
 import com.team.teamrestructuring.databinding.FragmentDailyBinding
 import com.team.teamrestructuring.dto.DailyQuest
+import com.team.teamrestructuring.dto.QuestEnum
 import com.team.teamrestructuring.service.QuestService
 import com.team.teamrestructuring.util.ApplicationClass
 import com.team.teamrestructuring.util.CreateQuestResultDialog
@@ -82,9 +83,8 @@ class DailyFragment : Fragment() ,CreateQuestResultDialog.CreateResultListener{
     ): View? {
 
         binding = FragmentDailyBinding.inflate(layoutInflater,container,false)
-
         questAdapter = DailyQuestAdapter(emptyList<DailyQuest>())
-       questAdapter.setOnQuestClickListener(object : DailyQuestAdapter.QuestClickListener{
+        questAdapter.setOnQuestClickListener(object : DailyQuestAdapter.QuestClickListener{
             override fun onClick(view: View, position: Int, data: DailyQuest) {
                 when(position){
                     //1번 퀘스일 경우
@@ -107,27 +107,35 @@ class DailyFragment : Fragment() ,CreateQuestResultDialog.CreateResultListener{
                         }else{
                             minute = res.substring(3 until 5).toInt()
                         }
-                        if(ApplicationClass.currentUser.userProfile.time>hour*60+minute){
-                            if(QuestFragment.distance<30){
-                                val dialog = CreateQuestResultDialog(this@DailyFragment,"퀘스트를 성공하셨습니다",true,data)
-                                dialog.isCancelable = false
-                                dialog.show(activity!!.supportFragmentManager,"성공 알람")
-                            }else{
-                                val dialog = CreateQuestResultDialog(this@DailyFragment,"${ApplicationClass.currentUser.userProfile.location}에 더 접근해주세요\n" +
-                                        "현재 목적지까지와의 거리는 ${QuestFragment.distance}m 입니다",false,data)
+                        //장소와 시간을 등록한 경우
+                        if(ApplicationClass.currentUser.userProfile.time!=-1&&ApplicationClass.currentUser.userProfile.latitude!=0.0){
+                            if(ApplicationClass.currentUser.userProfile.time>hour*60+minute){
+                                if(QuestFragment.distance<70){
+                                    val dialog = CreateQuestResultDialog(this@DailyFragment,"퀘스트를 성공하셨습니다",QuestEnum.TRUE,data)
+                                    dialog.isCancelable = false
+                                    dialog.show(activity!!.supportFragmentManager,"성공 알람")
+                                }else{
+                                    val dialog = CreateQuestResultDialog(this@DailyFragment,"${ApplicationClass.currentUser.userProfile.location}에 더 접근해주세요\n" +
+                                            "현재 목적지까지와의 거리는 ${QuestFragment.distance}m 입니다 더 가까이 가주세요",QuestEnum.NOT_YET,data)
+                                    dialog.isCancelable = false
+                                    dialog.show(activity!!.supportFragmentManager,"미성공")
+                                }
+                            }
+                            else{
+                                val dialog = CreateQuestResultDialog(this@DailyFragment,"오늘은 지각하셨네요.. 내일은 꼭 일찍!!",QuestEnum.FALSE,data)
                                 dialog.isCancelable = false
                                 dialog.show(activity!!.supportFragmentManager,"실패 알람")
                             }
+
                         }else{
-                            val dialog = CreateQuestResultDialog(this@DailyFragment,"오늘은 지각하셨네요.. 내일은 꼭 일찍!!",false,data)
+                            val dialog = CreateQuestResultDialog(this@DailyFragment,"시간과 장소를 등록해주세요",QuestEnum.NOT_YET,data)
                             dialog.isCancelable = false
-                            dialog.show(activity!!.supportFragmentManager,"실패 알람")
+                            dialog.show(activity!!.supportFragmentManager,"등록 요구 알람")
                         }
+
                     }
                 }
             }
-
-
         })
 
         binding.recyclerviewDaily.apply {

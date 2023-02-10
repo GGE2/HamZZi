@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff2d6"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/quest_frag">
 
@@ -14,16 +15,19 @@
             android:id="@+id/constraint_main1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/navbar_background"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:background="@drawable/title_new_a"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent">
         <TextView
             android:id="@+id/textview_quest_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="QUEST"
             android:layout_marginTop="6dp"
             android:layout_marginLeft="6dp"
+            android:text="QUEST"
+            android:paddingStart="6dp"
             android:textSize="50sp"
             android:textColor="#ffb100"
             android:fontFamily="@font/mine"
@@ -36,6 +40,7 @@
             android:id="@+id/tablayout_quest_tap"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
             android:layout_marginTop="6dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -43,7 +48,7 @@
             app:tabBackground="@drawable/menu_selector"
             app:tabGravity="fill"
             app:tabTextAppearance="@style/TabLayoutTextSize"
-            app:tabIconTint="@color/black"
+            app:tabIconTint="@color/white"
             app:tabTextColor="@color/black"
             app:tabIndicatorHeight="0dp"/>
 

@@ -39,7 +39,6 @@ class CreateConfirmDialog(
     ): View? {
         _binding = DialogConfirmPlaceBinding.inflate(inflater,container,false)
         val view = binding.root
-
         setFullScreen()
 
         binding.textviewDialogPlace.text = "장소명 : ${place?.place_name}"
