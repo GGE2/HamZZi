@@ -47,21 +47,6 @@ class TodoBottomSheet(
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-
-//        view?.findViewById<Button>(R.id.modifyBottom)?.setOnClickListener{
-//            Log.d(TAG, "함수 오나")
-//            callbackInterface?.onButtonClick()
-//            todo?.content = view?.findViewById<EditText>(R.id.modifyTextBottom)?.text.toString()
-//            modifyTodoService(todo?.todo_id!!,todo!!)
-//            dismiss()
-//        }
-        // 삭제 버튼
-        view?.findViewById<AppCompatButton>(R.id.deleteBottomButtom)?.setOnClickListener {
-
-            dismiss()
-        }
-
-
         return inflater.inflate(R.layout.todobottomdialog, container, false)
     }
     // 비동기 동기화 맞추기 위해 로컬 동기화 하는 함수
@@ -69,6 +54,7 @@ class TodoBottomSheet(
         TodoFragment.todoAdapter.items = todoList
         TodoFragment.todoAdapter.notifyDataSetChanged()
     }
+
     //  함수
     // 콜백 함수를 만들어 처리해야한다
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -101,26 +87,8 @@ class TodoBottomSheet(
     interface SetOnModifyButtonInterface{
         fun onButtonClick()
     }
-    // 투두를 불러오는
-    private fun callService(nickName: String, dateTime: String) {
-//        Log.d(TAG, "확인")
-        val service = ApplicationClass.retrofit.create(TodoService::class.java)
-            .getTodo(nickName, dateTime).enqueue(object : Callback<MutableList<Todo>>{
-                override fun onResponse(
-                    call: Call<MutableList<Todo>>,
-                    response: Response<MutableList<Todo>>
-                ) {
-                    if(response.isSuccessful){
-                        TodoFragment.todoAdapter.items = response.body()!!
-                    }
-                }
 
-                override fun onFailure(call: Call<MutableList<Todo>>, t: Throwable) {
-                    Log.d(TAG, "${t.message}")
-                }
 
-            })
-    }
     // 투두를 수정하는
     private fun modifyTodoService(id: Long, Todo: Todo){
         Log.d(TAG, todo.toString())
@@ -128,15 +96,11 @@ class TodoBottomSheet(
             .modifyTodo(todo?.todo_id!!,todo!!).enqueue(object:Callback<Todo>{
                 override fun onResponse(call: Call<Todo>, response: Response<Todo>) {
                     if(response.isSuccessful){
-
                     }
                 }
-
                 override fun onFailure(call: Call<Todo>, t: Throwable) {
                     Log.w(TAG, "onFailure: ${t.message}")
                 }
-
-
             })
     }
 
@@ -147,11 +111,8 @@ class TodoBottomSheet(
             .deleteTodo(id).enqueue(object : Callback<String>{
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     if(response.isSuccessful){
-
-
                     }
                 }
-
                 override fun onFailure(call: Call<String>, t: Throwable) {
                 }
             })

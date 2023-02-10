@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.load.engine.executor.GlideExecutor.UncaughtThrowableStrategy.LOG
-import com.google.android.material.snackbar.Snackbar
 import com.team.teamrestructuring.databinding.FragmentTodoBinding
 import com.team.teamrestructuring.dto.Todo
 import com.team.teamrestructuring.service.TodoService
@@ -41,16 +39,12 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
     // 날짜 저장
     var dateStr = now
 
-    //  리사이클러뷰에서 쓸 녀석, 전역 해야지
-    lateinit var stringList: MutableList<String>
     var todo_id : Long = -1
 
     // Todo 정보 저장
     var todoList: MutableList<Todo> = mutableListOf()
     // 클릭한 날짜
     private var nowDate = Date()
-
-    // 더미 데이터
 
     val nickName = ApplicationClass.currentUser.userProfile.nickname.toString()
 
@@ -66,15 +60,11 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        stringList = mutableListOf<String>()
+        todoList = mutableListOf()
         callService(nickName, dateStr)
         initRecyclerView()
-        Log.i(TAG, nickName)
-        todoAdapter.notifyDataSetChanged()
         initDate()
         initInput()
-
 
 
     }
