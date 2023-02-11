@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION"/>
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
 
     <application
         android:name=".util.ApplicationClass"
@@ -97,6 +99,12 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
+        <receiver android:name=".util.AlarmReceiver" android:exported="true">
+            <intent-filter>
+                <action android:name="com.team.register"/>
+            </intent-filter>
+        </receiver>
 
         <activity
             android:name=".view.activities.HomeActivity"
