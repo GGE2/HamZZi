@@ -58,4 +58,5 @@ class WeeklyQuestAdapter(var datas : List<WeeklyQuest>) : RecyclerView.Adapter<W
     fun setOnQuestClickListener(questClickListener: WeeklyQuestClickListener){
         this.questClickListener = questClickListener
     }
+    
 }

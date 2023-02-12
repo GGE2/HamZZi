@@ -15,8 +15,15 @@ interface QuestService {
     fun getWeeklyQuestList(@Path("nickname") nickname:String):Call<List<WeeklyQuest>>
     @PUT("api/quest/time")
     fun setFinishTime(@Query("nickname") nickname:String,@Query("finish_time") time:Int):Call<String>
-    @PUT("api/quest/check")
+    @PUT("api/quest/daily")
     fun updateQuestResult(@Query("nickname") nickname: String,
-                          @Query("questUser_id") qUid:Int,
+                          @Query("questDaily_id") qUid:Int,
                           @Query("quest_id") qId:Int):Call<String>
+    @PUT("api/quest/weekly")
+    fun updateWeeklyQuestResult(
+        @Query("nickname") nickname:String,
+        @Query("questWeekly_id") qUid:Int,
+        @Query("quest_id") qId:Int):Call<String>
+
+
 }
