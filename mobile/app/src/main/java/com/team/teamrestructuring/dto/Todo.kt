@@ -9,13 +9,9 @@ data class Todo(
     @Expose @SerializedName("content") var content:String,
     @Expose @SerializedName("datetime")var dateTime:String,
     @Expose @SerializedName("user_nickname") var user_Nickname:String? = ApplicationClass.currentUser.userProfile?.nickname,
-    @Expose @SerializedName("todo_id") var todo_id : Int?= null
+    @Expose @SerializedName("todo_id") var todo_id : Int?= null,
+    @Expose @SerializedName("ischeck") var is_check : Boolean = false
 ){
-    @Expose
-    @SerializedName("ischeck")
-    var is_check : Boolean = false
-
-
     constructor(todo_id:Int , content:String, dateTime:String,is_check:Boolean,userNickname: String):this(content, dateTime, userNickname){
         this.todo_id = todo_id
         this.is_check = is_check

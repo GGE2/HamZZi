@@ -31,7 +31,7 @@ import retrofit2.Response
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 private const val TAG = "HomeFragment_지훈"
-
+private const val petName : String = "햄최몇"
 /**
  * A simple [Fragment] subclass.
  * Use the [HomeFragment.newInstance] factory method to
@@ -50,6 +50,7 @@ class HomeFragment : Fragment(),CreateFriendDialog.CreateFriendDialogInterface,C
     }
     private lateinit var createFriendDialog: CreateFriendDialog
     private lateinit var binding : FragmentHomeBinding
+    private lateinit var petName : String
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -79,12 +80,13 @@ class HomeFragment : Fragment(),CreateFriendDialog.CreateFriendDialogInterface,C
         }
         init()
     }
+    private fun petNickName(){
 
+    }
 
     private fun init(){
         createIntent()
         getCurrentUserInfo()
-        
     }
 
     /**

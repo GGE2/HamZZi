@@ -84,11 +84,6 @@ class TodoBottomSheet(
             localChange()
             dismiss()
         }
-
-//        // 확인 버튼
-//        view?.findViewById<Button>(R.id.checkBottombuttom)?.setOnClickListener {
-//            dismiss()
-//        }
     }
     interface SetOnModifyButtonInterface{
         fun onButtonClick()

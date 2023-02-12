@@ -60,8 +60,6 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
         initRecyclerView()
         initDate()
         initInput()
-
-
     }
 
     // Todo를 가져오는 서비스
@@ -120,13 +118,12 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
 
 
     //투두를 체크(완료했는 지)하는 서비스
-    private fun checkTodo(id: Int){
+    private fun checkTodo(id: Int, nickName: String,todo: Todo){
         val service = ApplicationClass.retrofit.create(TodoService::class.java)
-            .checkTodo(id).enqueue(object : Callback<String>{
+            .checkTodo(id, nickName ,todo).enqueue(object : Callback<String>{
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     if (response.isSuccessful){
                         Log.d(TAG,"투두 완료 되었습니다.")
-
 
                     }
                 }
@@ -137,7 +134,6 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
             })
 
     }
-
 
     private fun initDate() {
         binding.apply {
@@ -182,39 +178,17 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
         }
     }
 
-    // 투두 리싸이클러뷰를 클릭
+    // 리사이클러뷰 클릭 투두 체크 수정 삭제
     private fun initRecyclerView() {
         binding.apply {
             todoAdapter = TodoAdapter(mutableListOf())
             todoAdapter.menuClick = object : TodoAdapter.MemuClick {
                 // 점 세개 눌렀을 때
                 override fun onClick(view: View, position: Int) {
+                    Log.i("투두", todoList[position].toString())
                     if (todoList[position].todo_id == null){
-
                         Toast.makeText(context, "투두 수정을 위해선 잠깐만 고민을 해주세요.", Toast.LENGTH_LONG).show()
-//                        Snackbar.make(view, "투두 수정을 위해선 잠깐 고민을 해주세요", Snackbar.LENGTH_SHORT).show()
                     } else{
-                        // 투두 삭제 그리고 즉시 반영 코드
-//                        todo_id = todoList[position].todo_id!!
-//                        deleteTodoService(todo_id)
-//                        todoList.removeAt(position)
-//                        todoAdapter.items = todoList
-//                        todoAdapter.notifyDataSetChanged()
-//
-
-
-                        // 투두 수정 코드
-//                        todo_id = todoList[position].todo_id!!
-//                        val dumi = Todo("더미데이터입니다", dateStr, nickName)
-//                        modifyTodoService(todo_id, dumi)
-//                        todoList[position] = dumi
-//                        todoAdapter.items = todoList
-//                        todoAdapter.notifyDataSetChanged()
-
-//                        todo_id = todoList[position].todo_id!!
-//                        checkTodo(todo_id)
-                        // 체크처리 어떻게 하지
-
                         todo_id = todoList[position].todo_id!!
                         // 다이어로그 코드
                         val bottomSheet = TodoBottomSheet(this@TodoFragment, todoList[position], dateStr, position, todoList)
@@ -226,9 +200,12 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
             todoAdapter.itemClick = object: TodoAdapter.ItemClick {
                 // 체크 눌렀을 때
                 override fun onClick(view: View, position: Int) {
-//                    Toast.makeText(requireContext(), "${position}을 눌렀습니다", Toast.LENGTH_SHORT).show()
-                    checkTodo(todoList[position].todo_id!!)
-
+                    if(todoList[position].todo_id == null){
+                        Toast.makeText(context, "투두 체크를 위해선 잠깐만 고민을 해주세요.", Toast.LENGTH_LONG).show()
+                    } else{
+                        Log.w(TAG, todoList[position].toString())
+                        checkTodo(todoList[position].todo_id!!, nickName,todoList[position])
+                    }
                 }
             }
             recyclerviewTodoList.apply {

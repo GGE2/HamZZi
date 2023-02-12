@@ -5,8 +5,7 @@ import com.team.teamrestructuring.dto.Todo
 import retrofit2.Call
 import retrofit2.http.*
 
-// 각  API 설명 확인 해서 다시 해야함
-//
+
 interface TodoService {
     // 투두 가져옴
     @GET("api/todo/{nick_name}/{datetime}")
@@ -17,12 +16,12 @@ interface TodoService {
     fun createTodo(@Body todo: Todo): Call<String>
 
     // 투두 클리어
-    @PUT("api/todo/check/{id}")
-    fun checkTodo(@Path("id") id: Int): Call<String>
+    @PUT("api/todo/check/{nickname}/{id}")
+    fun checkTodo(@Path("id") id: Int, @Path("nickname") nickname: String, @Body todo: Todo): Call<String>
 
     // 투두 수정
     @PUT("api/todo/{id}")
-    fun modifyTodo(@Path("id") id:Int, @Body todo: Todo): Call<String>
+    fun modifyTodo(@Path("id") id:Int, @Body todo: Todo): Call<Todo>
 
 
     // 투두 삭제
