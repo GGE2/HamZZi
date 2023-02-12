@@ -26,7 +26,7 @@ class MyPageFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private lateinit var binding : FragmentMyPageBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,23 +58,31 @@ class MyPageFragment : Fragment() {
     private fun setUserData(){
         binding.textviewMyPageContentLevel.text = ApplicationClass.currentUser.userProfile.nickname
         binding.textviewMyPageContentCoin.text = ApplicationClass.currentUser.userProfile.point.toString()
-        binding.textviewMyPageContentPlace.text = ApplicationClass.currentUser.userProfile.location
+        if(ApplicationClass.currentUser.userProfile.location!=null)
+            binding.textviewMyPageContentPlace.text = ApplicationClass.currentUser.userProfile.location
     }
 
+    override fun onResume() {
+        super.onResume()
+        if(ApplicationClass.currentUser.userProfile.location!=null)
+            binding.textviewMyPageContentPlace.text = ApplicationClass.currentUser.userProfile.location
+    }
 
     private fun setListener(){
-       /* binding.buttonMypageRegister.setOnClickListener {
+        binding.buttonMypageRegitserPlace.setOnClickListener{
             val intent = Intent(requireActivity(),RegisterPlaceActivity::class.java)
             startActivity(intent)
+            requireActivity().overridePendingTransition(R.anim.horizon_exit,R.anim.none)
         }
-        binding.buttonMypageTime.setOnClickListener {
+        binding.buttonMypageRegitserTime.setOnClickListener{
             val dialog = CreateRegisterTimeDialog()
             dialog.isCancelable
             dialog.show(activity?.supportFragmentManager!!,"CreateRegisterTime")
-        }*/
+        }
     }
 
     companion object {
+        lateinit var binding : FragmentMyPageBinding
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.

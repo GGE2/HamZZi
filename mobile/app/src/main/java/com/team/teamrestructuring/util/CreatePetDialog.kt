@@ -7,7 +7,9 @@ import android.util.Log
 import android.view.*
 import androidx.fragment.app.DialogFragment
 import com.team.teamrestructuring.databinding.DialogCreatePetBinding
+import com.team.teamrestructuring.dto.CreatePet
 import com.team.teamrestructuring.service.HomeService
+import com.team.teamrestructuring.service.PetService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -38,6 +40,8 @@ class CreatePetDialog(
 
 
         binding.buttonPetCreate.setOnClickListener {
+            val pet = CreatePet(binding.edittextDialogFind.text.toString(),ApplicationClass.currentUser.userProfile.nickname)
+            sendToServerPetNickname(pet)
             createPetDialogInterface?.onYesButtonClick()
         }
 
@@ -69,13 +73,12 @@ class CreatePetDialog(
 
     }
 
-    private fun sendToServerNickname(nickname:String,email:String){
-        val service = ApplicationClass.retrofit.create(HomeService::class.java)
-            .createNickName(nickname,email).enqueue(object : Callback<String> {
+    private fun sendToServerPetNickname(pet : CreatePet){
+        val service = ApplicationClass.retrofit.create(PetService::class.java)
+            .createPet(pet).enqueue(object:Callback<String>{
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     if(response.isSuccessful){
-                        Log.d(TAG, "유저 닉네임 서버 전송 완료")
-                        dismiss()
+                        Log.d(TAG, "onResponse: ${response.body()!!}")
                     }
                 }
 
@@ -84,7 +87,6 @@ class CreatePetDialog(
                 }
 
             })
-
     }
 
 

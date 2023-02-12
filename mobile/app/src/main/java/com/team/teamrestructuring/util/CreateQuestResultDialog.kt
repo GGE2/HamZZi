@@ -9,16 +9,11 @@ import androidx.fragment.app.DialogFragment
 import com.team.teamrestructuring.databinding.DialogConfirmPlaceBinding
 import com.team.teamrestructuring.databinding.DialogCreatePetBinding
 import com.team.teamrestructuring.databinding.DialogCreateQuestResultBinding
-import com.team.teamrestructuring.dto.DailyQuest
-import com.team.teamrestructuring.dto.Place
-import com.team.teamrestructuring.dto.QuestEnum
-import com.team.teamrestructuring.dto.User
-import com.team.teamrestructuring.service.HomeService
-import com.team.teamrestructuring.service.LoginService
-import com.team.teamrestructuring.service.PlaceService
-import com.team.teamrestructuring.service.QuestService
+import com.team.teamrestructuring.dto.*
+import com.team.teamrestructuring.service.*
 import com.team.teamrestructuring.view.fragments.DailyFragment
 import com.team.teamrestructuring.view.fragments.QuestFragment
+import com.team.teamrestructuring.view.fragments.WeeklyFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,8 +22,7 @@ private const val TAG="CreateQuestResult_지훈"
 class CreateQuestResultDialog(
     createResultListener:CreateResultListener,
     text:String,
-    enum: QuestEnum,
-    quest:DailyQuest
+    enum: QuestEnum
 ) : DialogFragment(){
 
     private var _binding: DialogCreateQuestResultBinding? = null
@@ -37,12 +31,24 @@ class CreateQuestResultDialog(
     private var text:String? = null
     private var enum : QuestEnum? = null
     private var quest:DailyQuest? = null
+    private var weeklyQ:WeeklyQuest? = null
     init{
         this.createResultListener= createResultListener
         this.text = text
         this.enum = enum
-        this.quest = quest
     }
+    constructor(createResultListener:CreateResultListener,
+                text:String,
+                enum: QuestEnum,
+                quest:DailyQuest) : this(createResultListener, text, enum){
+                    this.quest = quest
+                }
+    constructor(createResultListener:CreateResultListener,
+                text:String,
+                enum: QuestEnum,weeklyQ:WeeklyQuest) : this(createResultListener, text, enum){
+                    this.weeklyQ = weeklyQ
+                }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,17 +67,31 @@ class CreateQuestResultDialog(
             when(enum){
                 QuestEnum.TRUE->{
                     Log.d(TAG, "onCreateView: ${true}")
-                    sendToServerResult()
-                    getQuestData(ApplicationClass.currentUser.userProfile.nickname)
+                    if(quest!=null) {
+                        sendToServerResult()
+                        updateExp()
+                        getQuestData(ApplicationClass.currentUser.userProfile.nickname)
+                    }else{
+                        sendToServerWeeklyResult()
+                        updateExp()
+                        getWeeklyQuestData()
+                    }
                 }
                 QuestEnum.FALSE->{
-                    Log.d(TAG, "onCreateView: ${false}")
+                    if(quest!=null){
                     sendToServerResult()
                     getQuestData(ApplicationClass.currentUser.userProfile.nickname)
+                    }else{
+                        sendToServerWeeklyResult()
+                        getWeeklyQuestData()
+                    }
                 }
                 else -> {
-                    Log.d(TAG, "onCreateView:x` ")
-                    getQuestData(ApplicationClass.currentUser.userProfile.nickname)
+                    if(quest!=null) {
+                        getQuestData(ApplicationClass.currentUser.userProfile.nickname)
+                    }else{
+                        getWeeklyQuestData()
+                    }
                 }
             }
             dismiss()
@@ -89,6 +109,45 @@ class CreateQuestResultDialog(
 
     interface CreateResultListener{
         fun onConfirmButtonClick()
+    }
+
+    /**
+     * 펫 경험치 증가
+     */
+    private fun updateExp(){
+        val service = ApplicationClass.retrofit.create(PetService::class.java)
+            .petUpdatePetExp(ApplicationClass.petData!!.pet.pet_id,quest!!.quest.point).enqueue(object:Callback<String>{
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    if(response.isSuccessful){
+                        Log.d(TAG, "onResponse: ${response.body()!!}")
+                    }
+                }
+
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    Log.d(TAG, "onFailure: ${t.message}")
+                }
+
+            })
+    }
+
+    private fun getWeeklyQuestData(){
+        val service = ApplicationClass.retrofit.create(QuestService::class.java)
+            .getWeeklyQuestList(ApplicationClass.currentUser.userProfile.nickname).enqueue(object:Callback<List<WeeklyQuest>>{
+                override fun onResponse(
+                    call: Call<List<WeeklyQuest>>,
+                    response: Response<List<WeeklyQuest>>
+                ) {
+                    if(response.isSuccessful){
+                        WeeklyFragment.weeklyAdapter.datas = response.body()!!
+                        WeeklyFragment.weeklyAdapter.notifyDataSetChanged()
+                    }
+                }
+
+                override fun onFailure(call: Call<List<WeeklyQuest>>, t: Throwable) {
+                    Log.d(TAG, "onFailure: ${t.message}")
+                }
+
+            })
     }
 
     private fun getQuestData(nickname:String){
@@ -111,14 +170,29 @@ class CreateQuestResultDialog(
 
             })
     }
+    private fun sendToServerWeeklyResult(){
+        val service = ApplicationClass.retrofit.create(QuestService::class.java)
+            .updateWeeklyQuestResult(weeklyQ!!.nickname,weeklyQ!!.questWeekly_id.toInt(),weeklyQ!!.quest.quest_id.toInt())
+            .enqueue(object:Callback<String>{
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    if(response.isSuccessful){
+                        Log.d(TAG, "Weekly Result: ${response.body()!!}")
+                    }
+                }
 
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    Log.d(TAG, "onFailure: ${t.message}")
+                }
+
+            })
+    }
 
    fun sendToServerResult(){
        val service = ApplicationClass.retrofit.create(QuestService::class.java)
-           .updateQuestResult(quest!!.nickname,quest!!.q_user_id.toInt(),quest!!.quest.quest_id.toInt()).enqueue(object:Callback<String>{
+           .updateQuestResult(quest!!.nickname,quest!!.questDaily_id.toInt(),quest!!.quest.quest_id.toInt()).enqueue(object:Callback<String>{
                override fun onResponse(call: Call<String>, response: Response<String>) {
                    if(response.isSuccessful){
-                       Log.d(TAG, "onResponse: ${response.body()!!}")
+                       Log.d(TAG, "Daily Result: ${response.body()!!}")
                    }
                }
 

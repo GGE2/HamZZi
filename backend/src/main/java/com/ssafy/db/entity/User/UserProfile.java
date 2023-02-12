@@ -24,13 +24,21 @@ public class UserProfile {
     @ColumnDefault("3")
     private int rest_point;
 
+    // 펫 Item
+    private int hat;
+    private int dress;
+    private int background;
+
     // 위도
     private double latitude;
     // 경도
     private double longitude;
+    // 위치 이름 저장
+    private String location;
     // 완료해야하는 시간
     private int finish_datetime;
 
-    // 위치 이름 저장
-    private String location;
+    // 유저 만보기
+    private int pedometer;
+
 }

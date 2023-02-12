@@ -136,7 +136,7 @@ public class GuildController {
         return list;
     }
 
-        @GetMapping("/user")
+    @GetMapping("/user")
     @ApiOperation(value = "사용자의 길드 정보", notes = "현재 사용자의 길드 관련 정보")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -185,7 +185,7 @@ public class GuildController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public String kickGuildUser(@RequestParam String nickname_admin, @RequestParam String nickname_user) {
+    public String kickGuildUser(@RequestParam String nickname_admin, @RequestParam String nickname_user, @RequestParam Long guild_id) {
         //A의 소속 길드와 B의 소속 길드가 같은지 체크
         Long guildA = guildService.getUserGuild(nickname_admin);
         Long guildB = guildService.getUserGuild(nickname_user);
@@ -193,7 +193,7 @@ public class GuildController {
 
         //A가 B를 강퇴한다고 했을 때, A의 권한 체크
         if(!guildService.checkAdmin(nickname_admin)) { return "ERROR: KICK - CAN'T ACCESS GENERAL USER"; }
-        boolean check = guildService.kickUser(nickname_user);
+        boolean check = guildService.kickUser(nickname_user, guild_id);
         // 어드민이면 강퇴할 수 없음
         if(!check) { return "FAIL TO KICK: " + nickname_user; }
         return nickname_user + " KICKED BY " + nickname_admin;

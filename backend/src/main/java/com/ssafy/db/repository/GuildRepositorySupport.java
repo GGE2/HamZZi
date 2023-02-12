@@ -71,6 +71,5 @@ public class GuildRepositorySupport implements GuildRepository {
                         "where g.guild_id=:guild_id and u.admin=:admin", GuildUser.class)
                 .setParameter("guild_id", guild_id)
                 .setParameter("admin", false).getResultList();
-
     }
 }

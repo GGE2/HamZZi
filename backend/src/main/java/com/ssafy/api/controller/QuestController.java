@@ -1,12 +1,13 @@
 package com.ssafy.api.controller;
 
 import com.ssafy.api.request.QuestRequest;
-import com.ssafy.api.request.QuestUserRequest;
 import com.ssafy.api.service.QuestService;
 import com.ssafy.db.entity.Quest.Quest;
-import com.ssafy.db.entity.Quest.QuestUser;
+import com.ssafy.db.entity.Quest.QuestDaily;
+import com.ssafy.db.entity.Quest.QuestWeekly;
 import com.ssafy.db.entity.User.UserProfile;
 import com.ssafy.db.repository.QuestRepository;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 //@CrossOrigin(origins = "*", allowedHeaders = "*")     // 프론트 cors 에러 잡아주는 코드
+@Api(value = "Quest API", tags = {"Quest"})
 @RestController
 @RequestMapping("api/quest")
 @RequiredArgsConstructor
@@ -29,19 +31,32 @@ public class QuestController {
     @Autowired
     QuestRepository questRepo;
 
-    // 유저의 QuestList 보여주기
-    @GetMapping("/{nickname}")
-    @ApiOperation(value = "Quest 조회", notes = "Quest를 조회한다.")
+    @GetMapping("/daily/{nickname}")
+    @ApiOperation(value = "Daily Quest 조회", notes = "Daily Quest를 조회한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 401, message = "인증 실패"),
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<?> getQuestUserList(@PathVariable String nickname) {
-        List<QuestUser> questUserList = questService.getQuests(nickname);
+    public ResponseEntity<?> getDailyQuestList(@PathVariable String nickname) {
+        List<QuestDaily> questDailyList = questService.getDailyQuests(nickname);
 
-        return ResponseEntity.status(200).body(questUserList);
+        return ResponseEntity.status(200).body(questDailyList);
+    }
+
+    @GetMapping("/weekly/{nickname}")
+    @ApiOperation(value = "Weekly Quest 조회", notes = "Weekly Quest를 조회한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<?> getWeeklyQuestList(@PathVariable String nickname) {
+        List<QuestWeekly> questWeeklyList = questService.getWeeklyQuests(nickname);
+
+        return ResponseEntity.status(200).body(questWeeklyList);
     }
 
     // Quest 생성 // key 1 : daily / key 2: weekly
@@ -89,23 +104,38 @@ public class QuestController {
         return "200 OK!" ;
     }
 
-    // Quest 완료 체크 계산식 추가
-    @PutMapping("/check")
-    @ApiOperation(value = "Quest 완료", notes = "해당 Quest를 완료한다.")
+    // Quest 완료
+    @PutMapping("/daily")
+    @ApiOperation(value = "Daily Quest 완료", notes = "해당 Quest를 완료한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 401, message = "인증 실패"),
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public String checkQuest(@RequestParam String nickname, @RequestParam Long questUser_id, @RequestParam Long quest_id) {
-        QuestUser quest = questService.checkUpdateQuest(questUser_id);
+    public String checkDailyQuest(@RequestParam String nickname, @RequestParam Long questDaily_id, @RequestParam Long quest_id) {
+        QuestDaily quest = questService.checkDailyQuest(questDaily_id);
         questService.questPointAssignment(nickname, quest_id);
 
         return "IsCheck: " + quest.getIscheck() ;
     }
 
-    // Quest 위치 등록 / 수정
+    // Quest 완료
+    @PutMapping("/weekly")
+    @ApiOperation(value = "Weekly Quest 완료", notes = "해당 Quest를 완료한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public String checkWeeklyQuest(@RequestParam String nickname, @RequestParam Long questWeekly_id, @RequestParam Long quest_id) {
+        QuestWeekly quest = questService.checkWeeklyQuest(questWeekly_id);
+        questService.questPointAssignment(nickname, quest_id);
+
+        return "IsCheck: " + quest.getIscheck() ;
+    }
+
     @PutMapping("/location")
     @ApiOperation(value = "Quest 위치등록", notes = "해당 Quest를 위치등록한다.")
     @ApiResponses({
@@ -132,6 +162,20 @@ public class QuestController {
         UserProfile userProfile = questService.registerFinalDatetime(nickname, finish_time);
 
         return "OWNER: " + userProfile.getNickname() + " FinishTime: " + userProfile.getFinish_datetime();
+    }
+
+    @PutMapping("/pedometer")
+    @ApiOperation(value = "Quest 만보기 등록", notes = "만보기를 등록한다.")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public String questRegisterPedometer(String nickname, @RequestParam int pedometer) {
+        UserProfile userProfile = questService.registerPedometer(nickname, pedometer);
+
+        return "OWNER: " + userProfile.getNickname() + " Pedometer: " + userProfile.getPedometer();
     }
 
 //    // Quest Object 뽑아 올수 있는지 테스트

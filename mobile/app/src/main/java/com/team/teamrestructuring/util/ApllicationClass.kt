@@ -9,8 +9,7 @@ import com.kakao.sdk.common.KakaoSdk
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.NaverMapSdk
 import com.team.teamrestructuring.R
-import com.team.teamrestructuring.dto.User
-import com.team.teamrestructuring.dto.UserProfile
+import com.team.teamrestructuring.dto.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
@@ -25,7 +24,9 @@ class ApplicationClass : Application(){
         //lateinit var sharedPreferencesUtil:SharedPreferencesUtil
         var instance : ApplicationClass? = null
         lateinit var currentUser : User
+        var petData:PetData? = null
         var isNew : Boolean = false
+        lateinit var sharedPreferencesUtil:SharedPreferencesUtil
     }
 
     override fun onCreate() {
@@ -47,8 +48,7 @@ class ApplicationClass : Application(){
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
-        //KakaoSdk.init(this,getString(R.string.NATIVE_APP_KEY))
-        //sharedPreferencesUtil = SharedPreferencesUtil(applicationContext)
+        sharedPreferencesUtil = SharedPreferencesUtil(applicationContext)
     }
     override fun onTerminate() {
         super.onTerminate()

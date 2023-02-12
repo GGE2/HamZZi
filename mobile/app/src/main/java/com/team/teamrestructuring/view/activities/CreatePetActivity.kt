@@ -29,8 +29,8 @@ class CreatePetActivity : AppCompatActivity(),CreatePetDialog.CreatePetDialogInt
         val intent = Intent(this,HomeActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         }
-        Log.d(TAG, "onYesButtonClick: ")
         startActivity(intent)
+        overridePendingTransition(R.anim.horizon_exit,R.anim.none)
     }
 
 

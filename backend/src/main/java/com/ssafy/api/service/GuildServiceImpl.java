@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service @Transactional
@@ -59,6 +60,8 @@ public class GuildServiceImpl implements GuildService {
         GuildUser guildUser = new GuildUser();
 
         guild.setGuild_name(guildName);
+        guild.setPersonnel(1);
+        guild.setAdmin_nickname(nickname);
         guildRepo.saveGuild(guild);
 
         guildUser.setNickname(nickname);
@@ -80,6 +83,9 @@ public class GuildServiceImpl implements GuildService {
         guildUser.setNickname(user_nickname);
         guildUser.setGuild(guild);
         guildRepo.saveGuildUser(guildUser);
+        int personnel = guild.getPersonnel();
+        guild.setPersonnel(personnel + 1);
+        guildRepo.saveGuild(guild);
 
         return true;
     }
@@ -90,6 +96,11 @@ public class GuildServiceImpl implements GuildService {
 
         if(checkAdmin(nickname) || guildUser.getGuild().getGuild_id() != guild_id) {return false;}
         guildRepo.removeGuildUser(nickname);
+
+        Guild guild = guildRepo.findById(guild_id);
+        int personnel = guild.getPersonnel();
+        guild.setPersonnel(personnel - 1);
+        guildRepo.saveGuild(guild);
 
         return true;
     }
@@ -118,11 +129,16 @@ public class GuildServiceImpl implements GuildService {
     }
 
     @Override
-    public boolean kickUser(String nickname) {
+    public boolean kickUser(String nickname, Long guild_id) {
         /* 어드민이나 길드 미소속 유저는 강퇴 불가능 */
         if(canJoinGuild(nickname) || checkAdmin(nickname)) { return false; }
 
         guildRepo.removeGuildUser(nickname);
+
+        Guild guild = guildRepo.findById(guild_id);
+        int personnel = guild.getPersonnel();
+        guild.setPersonnel(personnel - 1);
+        guildRepo.saveGuild(guild);
 
         return true;
     }

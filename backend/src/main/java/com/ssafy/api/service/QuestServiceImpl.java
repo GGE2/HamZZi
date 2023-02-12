@@ -1,9 +1,9 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.request.QuestRequest;
-import com.ssafy.api.request.QuestUserRequest;
 import com.ssafy.db.entity.Quest.Quest;
-import com.ssafy.db.entity.Quest.QuestUser;
+import com.ssafy.db.entity.Quest.QuestDaily;
+import com.ssafy.db.entity.Quest.QuestWeekly;
 import com.ssafy.db.entity.User.UserProfile;
 import com.ssafy.db.repository.QuestRepository;
 import com.ssafy.db.repository.UserRepository;
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @Transactional
@@ -49,17 +48,27 @@ public class QuestServiceImpl implements QuestService {
     public void createQuestUser(String nickname) {
         List<Long> quest_ids = getQuestId();
         for (Long quest_id:quest_ids) {
-            QuestUser questUser = new QuestUser();
+            QuestDaily questDaily = new QuestDaily();
+            QuestWeekly questWeekly = new QuestWeekly();
+
             UserProfile userProfile = userRepo.findByNickname(nickname);
 
-            questUser.setNickname(userProfile.getNickname());
-            questUser.setQuest(questRepo.findById(quest_id));
-            questUser.setIscheck(false);
-            questRepo.saveQuestUser(questUser);
+            questDaily.setNickname(userProfile.getNickname());
+            questWeekly.setNickname(userProfile.getNickname());
+
+            String type = questRepo.findById(quest_id).getType();
+            if (type.equals("daily")) {
+                questDaily.setQuest(questRepo.findById(quest_id));
+                questDaily.setIscheck(false);
+                questRepo.saveQuestDaily(questDaily);
+            } else {
+                questWeekly.setQuest(questRepo.findById(quest_id));
+                questWeekly.setIscheck(false);
+                questRepo.saveQuestWeekly(questWeekly);
+            }
         }
     }
 
-    // 위치 등록(수정)
     @Override
     public UserProfile registerLocation(String nickname, double latitude, double longitude, String location) {
         
@@ -74,7 +83,6 @@ public class QuestServiceImpl implements QuestService {
         return userProfile;
     }
 
-    // 시간 등록(수정)
     @Override
     public UserProfile registerFinalDatetime(String nickname, int finish_datetime) {
         UserProfile userProfile = userRepo.findByNickname(nickname);
@@ -85,16 +93,33 @@ public class QuestServiceImpl implements QuestService {
         return userProfile;
     }
 
-    // 유저의 QuestList 보여주기
     @Override
-    public List<QuestUser> getQuests(String nickname) {
-        List<QuestUser> quests = questRepo.questUserList(nickname);
-        List<QuestUser> questList = new ArrayList<>();
+    public UserProfile registerPedometer(String nickname, int pedometer) {
+        UserProfile userProfile = userRepo.findByNickname(nickname);
+
+        userProfile.setPedometer(pedometer);
+        userRepo.saveUserProfile(userProfile);
+
+        return userProfile;
+    }
+
+    @Override
+    public List<QuestDaily> getDailyQuests(String nickname) {
+        List<QuestDaily> quests = questRepo.dailyQuestUserList(nickname);
+        List<QuestDaily> questList = new ArrayList<>();
         questList.addAll(quests);
 
         return questList;
     }
-    
+    @Override
+    public List<QuestWeekly> getWeeklyQuests(String nickname) {
+        List<QuestWeekly> quests = questRepo.weeklyQuestUserList(nickname);
+        List<QuestWeekly> questList = new ArrayList<>();
+        questList.addAll(quests);
+
+        return questList;
+    }
+
     // quest list 보여주기
     @Override
     public List<Quest> getQuest() {
@@ -112,12 +137,21 @@ public class QuestServiceImpl implements QuestService {
 
     // quest 완료 및 UserProfile point 업데이트
     @Override
-    public QuestUser checkUpdateQuest(Long questUser_id) {
-        QuestUser questUser = questRepo.findQuestUserById(questUser_id);
-        Boolean isCheck = questUser.getIscheck();
-        questUser.setIscheck(!isCheck);
-        questRepo.saveQuestUser(questUser);
-        return questUser;
+    public QuestDaily checkDailyQuest(Long questDaily_id) {
+        QuestDaily questDaily = questRepo.findQuestDailyById(questDaily_id);
+        Boolean isCheck = questDaily.getIscheck();
+        questDaily.setIscheck(!isCheck);
+        questRepo.saveQuestDaily(questDaily);
+        return questDaily;
+    }
+
+    @Override
+    public QuestWeekly checkWeeklyQuest(Long questWeekly_id) {
+        QuestWeekly questWeekly = questRepo.findQuestWeeklyById(questWeekly_id);
+        Boolean isCheck = questWeekly.getIscheck();
+        questWeekly.setIscheck(!isCheck);
+        questRepo.saveQuestWeekly(questWeekly);
+        return questWeekly;
     }
 
     // UserProfile point 업데이트
@@ -148,6 +182,4 @@ public class QuestServiceImpl implements QuestService {
             user.setRest_point(3);
         }
     }
-
-
 }

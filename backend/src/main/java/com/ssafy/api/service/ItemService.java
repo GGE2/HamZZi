@@ -4,6 +4,7 @@ import com.ssafy.api.request.ItemRequest;
 import com.ssafy.api.request.ItemUserRequest;
 import com.ssafy.db.entity.Item.Item;
 import com.ssafy.db.entity.Item.ItemUser;
+import com.ssafy.db.entity.User.UserProfile;
 
 import java.util.List;
 
@@ -34,15 +35,9 @@ public interface ItemService {
 
     /**
      * 가지고 있는 아이템을 장착시키거나 해제하는 put 요청
-     * @param itemUser_id
-     * @return ItemUser
-     */
-    ItemUser updateWear(Long itemUser_id);
-
-    /**
-     * Nickname으로 wear이 true인 것들을 가져오기
      * @param nickname
+     * @param item_id
      * @return
      */
-    List<ItemUser> findByTrue(String nickname);
+    UserProfile updateWear(String nickname, int item_id);
 }

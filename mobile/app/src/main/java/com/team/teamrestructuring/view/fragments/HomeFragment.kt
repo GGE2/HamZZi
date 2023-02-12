@@ -113,7 +113,7 @@ class HomeFragment : Fragment(),CreateFriendDialog.CreateFriendDialogInterface,C
     }
     
     private fun setPetStat(){
-        //binding.textviewHomeName.text = ApplicationClass.currentUser.userProfile.user_nickname
+        binding.textviewHomeName.text = ApplicationClass.petData?.pet?.pet_name
     }
 
     /**

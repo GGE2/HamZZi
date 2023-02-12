@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/more_horiz/baseline_more_horiz_24.xml" />
+                                      <entry key="url" value="file:$USER_HOME$/Library/Android/sdk/icons/material/materialicons/info/baseline_info_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,9 +28,9 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="100f0f" />
-                            <entry key="outputName" value="ic_baseline_more_horiz_24" />
-                            <entry key="sourceFile" value="C:\git\Team9\mobile" />
+                            <entry key="color" value="72402b" />
+                            <entry key="outputName" value="app_info" />
+                            <entry key="sourceFile" value="/C:\git\Team9\mobile" />
                           </map>
                         </option>
                       </PersistentState>

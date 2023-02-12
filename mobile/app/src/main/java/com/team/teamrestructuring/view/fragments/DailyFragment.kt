@@ -16,6 +16,7 @@ import com.team.teamrestructuring.dto.QuestEnum
 import com.team.teamrestructuring.service.QuestService
 import com.team.teamrestructuring.util.ApplicationClass
 import com.team.teamrestructuring.util.CreateQuestResultDialog
+import com.team.teamrestructuring.view.activities.HomeActivity
 import com.team.teamrestructuring.view.adapters.DailyQuestAdapter
 import retrofit2.Call
 import retrofit2.Callback
@@ -38,7 +39,7 @@ class DailyFragment : Fragment() ,CreateQuestResultDialog.CreateResultListener{
 
     companion object {
 
-        private const val TAG = "DatilyFragment_지훈"
+        private const val TAG = "DailyFragment_지훈"
         lateinit var questAdapter: DailyQuestAdapter
         /**
          * Use this factory method to create a new instance of
@@ -108,7 +109,7 @@ class DailyFragment : Fragment() ,CreateQuestResultDialog.CreateResultListener{
                             minute = res.substring(3 until 5).toInt()
                         }
                         //장소와 시간을 등록한 경우
-                        if(ApplicationClass.currentUser.userProfile.time!=-1&&ApplicationClass.currentUser.userProfile.latitude!=0.0){
+                        if(ApplicationClass.currentUser.userProfile.time!=0 && ApplicationClass.currentUser.userProfile.latitude!=0.0){
                             if(ApplicationClass.currentUser.userProfile.time>hour*60+minute){
                                 if(QuestFragment.distance<70){
                                     val dialog = CreateQuestResultDialog(this@DailyFragment,"퀘스트를 성공하셨습니다",QuestEnum.TRUE,data)
@@ -133,6 +134,22 @@ class DailyFragment : Fragment() ,CreateQuestResultDialog.CreateResultListener{
                             dialog.show(activity!!.supportFragmentManager,"등록 요구 알람")
                         }
 
+                    }
+                    //2번일 경우
+                    1->{
+                        Log.d(TAG, "onClick: ${ApplicationClass.sharedPreferencesUtil.getPedometer("walk_data",0)}")
+                        val walk_count = HomeActivity.current_counter-ApplicationClass.sharedPreferencesUtil.getPedometer("walk_data",0)
+                        if(walk_count>=5000){
+                            val dialog = CreateQuestResultDialog(this@DailyFragment,"퀘스트를 성공하셨습니다",QuestEnum.TRUE,data)
+                            dialog.isCancelable = false
+                            dialog.show(activity!!.supportFragmentManager,"성공 알람")
+                        }else{
+                            val dialog = CreateQuestResultDialog(this@DailyFragment,
+                                    "오늘 총 걸음수는 ${walk_count}보 입니다.\n" +
+                                            "퀘스트를 완료하기 위해선 ${5000-walk_count}보만 더 걸어보세요.",QuestEnum.NOT_YET,data)
+                            dialog.isCancelable = false
+                            dialog.show(activity!!.supportFragmentManager,"미성공")
+                        }
                     }
                 }
             }

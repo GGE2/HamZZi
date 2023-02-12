@@ -5,6 +5,7 @@ import com.ssafy.api.request.PetStatRequest;
 import com.ssafy.api.service.PetService;
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.Pet.Pet;
+import com.ssafy.db.entity.Pet.PetData;
 import com.ssafy.db.entity.Pet.PetInfo;
 import com.ssafy.db.entity.Pet.PetStat;
 import io.swagger.annotations.*;
@@ -54,7 +55,7 @@ public class PetController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     /* Pet-조회 API: 로그인한 사용자의 활성화된 펫을 조회한다 */
-    public List<Object> getActivatePet(@PathVariable String nickname) {
+    public PetData getActivatePet(@PathVariable String nickname) {
 
         Pet pet = petService.ActivatePet(nickname);
         if(pet == null) {return null;}
@@ -64,12 +65,13 @@ public class PetController {
         PetInfo petInfo = petService.petInfoData(pet_id);
         PetStat petStat = petService.petStatData(pet_id);
 
-        List<Object> list = new ArrayList<>();
-        list.add(pet);
-        list.add(petInfo);
-        list.add(petStat);
+        PetData petData = new PetData();
+        petData.setPet(pet);
+        petData.setPetInfo(petInfo);
+        petData.setPetStat(petStat);
 
-        return list;
+
+        return petData;
     }
 
     @GetMapping("trophy/{nickname}")
