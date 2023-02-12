@@ -7,6 +7,7 @@ import com.ssafy.db.entity.Quest.QuestDaily;
 import com.ssafy.db.entity.Quest.QuestWeekly;
 import com.ssafy.db.entity.User.UserProfile;
 import com.ssafy.db.repository.QuestRepository;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 //@CrossOrigin(origins = "*", allowedHeaders = "*")     // 프론트 cors 에러 잡아주는 코드
+@Api(value = "Quest API", tags = {"Quest"})
 @RestController
 @RequestMapping("api/quest")
 @RequiredArgsConstructor

@@ -1,8 +1,10 @@
 package com.ssafy.api.service;
 
 import com.ssafy.api.request.TodoRequest;
+import com.ssafy.db.entity.Count.CountWeekly;
 import com.ssafy.db.entity.Todo.Todo;
 import com.ssafy.db.entity.User.UserProfile;
+import com.ssafy.db.repository.CountRepository;
 import com.ssafy.db.repository.TodoRepository;
 import com.ssafy.db.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +25,9 @@ public class TodoServiceImpl implements TodoService{
 
     @Autowired
     UserRepository userRepo;
+
+    @Autowired
+    CountRepository countRepo;
 
     @Override
     public Todo todoData(Long todo_id) {
@@ -106,6 +111,13 @@ public class TodoServiceImpl implements TodoService{
         }
         userProfile.setPoint(nowPoint);
         userProfile.setRest_point(nowRestPoint);
+        userRepo.saveUserProfile(userProfile);
+
+        // todo 완료 시 weekly todo 포인트 올라가기
+        CountWeekly countWeekly = countRepo.findByWeeklyNickname(nickname);
+        int todo = countWeekly.getTodo();
+        countWeekly.setTodo(todo + 1);
+        countRepo.saveWeekly(countWeekly);
 
         return userProfile;
     }

@@ -94,7 +94,7 @@ public class ItemController {
     }
 
     @PutMapping()
-    @ApiOperation(value = "UserProfile Pet Item 수정", notes = "UserProfile Pet Item 수정한다.")
+    @ApiOperation(value = "Item 장착", notes = "UserProfile Pet Item 수정한다.")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 401, message = "인증 실패"),

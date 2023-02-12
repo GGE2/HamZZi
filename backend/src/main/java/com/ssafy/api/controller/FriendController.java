@@ -3,6 +3,7 @@ package com.ssafy.api.controller;
 import com.ssafy.api.service.FriendService;
 import com.ssafy.db.entity.Friend.Friend;
 import com.ssafy.db.entity.User.UserProfile;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Api(value = "Friend API", tags = {"Friend"})
 @RestController
 @RequestMapping("api/friend")
 @RequiredArgsConstructor

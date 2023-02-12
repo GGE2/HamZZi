@@ -5,10 +5,7 @@ import com.ssafy.api.service.TodoService;
 import com.ssafy.db.entity.Todo.Todo;
 import com.ssafy.db.entity.User.UserProfile;
 import com.ssafy.db.repository.TodoRepository;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
+@Api(value = "Todo API", tags = {"Todo"})
 @RestController
 @RequestMapping("api/todo")
 @RequiredArgsConstructor
@@ -28,7 +26,7 @@ public class TodoController {
     @Autowired
     TodoRepository todoRepository;
 
-    // 작성자와 날짜가 맞는 Todo리스트 조회(완료)
+    // 작성자와 날짜가 맞는 Todo리스트 조회
     @GetMapping("/{nickname}/{datetime}")
     @ApiOperation(value = "Todo 조회", notes = "Todo 정보를 출력한다.")
     @ApiResponses({
@@ -43,7 +41,7 @@ public class TodoController {
         return ResponseEntity.status(200).body(todo);
     }
 
-    // Todo 생성 API(완료)
+    // Todo 생성 API
     @PostMapping
     @ApiOperation(value = "Todo 생성", notes = "필요한 정보를 전부 입력한다")
     @ApiResponses({
