@@ -9,6 +9,7 @@ const GuildItem = ({
   onGetGuilduser,
   onGetGuildAdmin,
   guildName,
+  guildAdmin,
 
 }) => {
   const nickname = localStorage.getItem("nickname");
@@ -33,7 +34,7 @@ const GuildItem = ({
     <>
       <div className="GuildItem">
         <div className="div1">{guildName}</div>
-        <div className="div2">강교철~</div>
+        <div className="div2">{guildAdmin}</div>
         <div></div>
         <div className="div3">{length}</div>
         <div className="div4" onClick={onJoinGuild}><img src="guildlist/registerbtn.png" alt="" /></div>

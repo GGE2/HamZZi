@@ -34,7 +34,7 @@
 .DressButton button{
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    width: 50%;
+    width: 25%;
     border-top: none;
     border-left: none;
     border-right: none;
@@ -72,38 +72,32 @@
 }
 
 .DressItem_clicked, .ClothItem_clicked {
-    font-weight: bold;
-    background-color: #222f93;
+    
+    background-color: rgb(146, 89, 67);
     display: flex;
     justify-content: center;
     align-items: center;
-    /* margin: auto; */
     padding: 0.5em;
     margin: 0.5em;
-    border-radius: 10px;
     width: 8em;
     height: 8em;
-    scale: 0.7;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+ 
+}
+
+.DressItem_clicked img, .ClothItem_clicked img ,.DressItem_Unclicked img, .ClothItem_Unclicked img {
+    width: 8em;
+    height: 8em;
 }
 
 .DressItem_Unclicked, .ClothItem_Unclicked {
-    background-color: #222f93;
+    background-color: rgb(146, 89, 67);
     display: flex;
     justify-content: center;
     align-items: center;
-    /* margin: auto; */
     padding: 0.5em;
     margin: 0.5em;
-    border-radius: 10px;
     width: 8em;
     height: 8em;
-    scale: 0.7;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .DressButton_clicked_text {
@@ -119,5 +113,35 @@
     width: 8em;
     height: 8em;
 }
+
+.Cost {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Cost img{
+    height: 1.5em;
+}
+
+.shopitem {
+    /* background-image: url("../../public/btn.png"); */
+    /* height: 100%; */
+    /* background-size: contain; */
+    /* background-repeat: no-repeat; */
+    background-color: #ececec;
+    border-radius: 15px;
+    margin-top: 10px;
+    padding-bottom: 5px;
+}
+
+.SameItem {
+    opacity: 0.5;
+    background-color: #ececec;
+    border-radius: 15px;
+    margin-top: 10px;
+    padding-bottom: 5px;
+}
+
 
 

@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Ham from "./mainpages/Ham";
-// import Board from "./mainpages/Board";
-import axios from "axios";
 import "../styles/Main.css";
 
 import Todos from "./mainpages/boardpages/Todos";
 import Guild from "./mainpages/boardpages/Guild";
 import Quests from "./mainpages/boardpages/Quests";
-import DressRoom from "./mainpages/boardpages/DressRoom";
+import Shop from "./mainpages/boardpages/Shop";
 import Profile from "./mainpages/boardpages/Profile";
 
 import { useDispatch } from "react-redux";
@@ -35,9 +33,7 @@ const Main = () => {
   const [guildId, setGuildId] = useState(0);
   const [guildName, setGuildName] = useState("");
 
-  const [loading1, setLoading1] = useState(true);
   const [loading2, setLoading2] = useState(true);
-  const [loading3, setLoading3] = useState(true);
 
   // 화면 보여주는 플래그
   const [show, setShow] = useState({
@@ -50,7 +46,7 @@ const Main = () => {
   const [menu, setMenu] = useState([true, false, false, false, false]);
 
   const getPetInfo = (nickname) => {
-    setLoading1(true);
+    
     api
       .get(`/api/pet/${nickname}`)
       .then((res) => {
@@ -77,7 +73,7 @@ const Main = () => {
         dispatch(getCurrentStat(data));
         console.log(data);
         console.log("DISPATCHED!!");
-        setLoading1(false);
+        
       })
       .catch((err) => {
         console.log(err);
@@ -100,9 +96,9 @@ const Main = () => {
         });
         dispatch(receivePoint(res.data.point));
         SetNickName(res.data.nickname);
-        setLoading2(false);
         getPetInfo(res.data.nickname);
         onGetUserGuildInfo(res.data.nickname);
+        setLoading2(false);
       })
       .catch((err) => {
         console.log(err);
@@ -112,7 +108,7 @@ const Main = () => {
   // 유저 길드 정보 가져오기 api
   // 닉네임으로 가져옴. nickname
   const onGetUserGuildInfo = async (nickname) => {
-    setLoading3(true);
+  
     await api.get(`/api/guild/user?nickname=${nickname}`).then((res) => {
       console.log("유저 길드 정보 가져오기 api");
       console.log(res.data);
@@ -122,7 +118,7 @@ const Main = () => {
         setGuildUsers(res.data);
         setGuildName(res.data.guild.guild_name);
       }
-      setLoading3(false);
+   
     });
   };
 
@@ -218,7 +214,7 @@ const Main = () => {
 
                 {show.friendShow && <Quests user={user} />}
                 {show.profileShow && <Profile user={user} />}
-                {show.dressShow && <DressRoom user={user} />}
+                {show.dressShow && <Shop user={user} />}
               </div>
 
               <div className="buttonflex">

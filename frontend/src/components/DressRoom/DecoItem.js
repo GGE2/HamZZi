@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import ShopModal from './ShopModal';
 
-const ClothItem = ({ id, cost, onBuyItem, myItems }) => {
+const DecoItem = ({ id, cost, onBuyItem, myItems }) => {
   const [isModal, setIsModal] = useState(false);
 
   const outside = useRef();
@@ -64,4 +64,4 @@ const ClothItem = ({ id, cost, onBuyItem, myItems }) => {
   );
 };
 
-export default ClothItem;
+export default DecoItem;

@@ -153,7 +153,7 @@ const Guild = ({
   const onKickUser = async (admin, user, id) => {
     await api
       .put(
-        `/api/guild/kick?nickname_admin=${admin}&nickname_user=${user}`
+        `/api/guild/kick?nickname_admin=${admin}&nickname_user=${user}&guild_id=${id}`
       )
       .then((res) => {
         console.log("길드 강퇴 api");
