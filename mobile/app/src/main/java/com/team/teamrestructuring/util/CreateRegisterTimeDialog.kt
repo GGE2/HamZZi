@@ -17,6 +17,7 @@ import com.team.teamrestructuring.dto.Place
 import com.team.teamrestructuring.service.HomeService
 import com.team.teamrestructuring.service.PlaceService
 import com.team.teamrestructuring.service.QuestService
+import com.team.teamrestructuring.view.fragments.MyPageFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

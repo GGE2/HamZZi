@@ -8,9 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.team.teamrestructuring.R
 import com.team.teamrestructuring.databinding.FragmentWeeklyBinding
+import com.team.teamrestructuring.dto.QuestEnum
 import com.team.teamrestructuring.dto.WeeklyQuest
 import com.team.teamrestructuring.service.QuestService
 import com.team.teamrestructuring.util.ApplicationClass
+import com.team.teamrestructuring.util.CreateQuestResultDialog
+import com.team.teamrestructuring.view.activities.HomeActivity
+import com.team.teamrestructuring.view.adapters.DailyQuestAdapter
 import com.team.teamrestructuring.view.adapters.WeeklyQuestAdapter
 import retrofit2.Call
 import retrofit2.Callback
@@ -28,7 +32,7 @@ private const val TAG = "WeeklyFragment_지훈"
  * Use the [WeeklyFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class WeeklyFragment : Fragment() {
+class WeeklyFragment : Fragment(),CreateQuestResultDialog.CreateResultListener{
 
     companion object {
 
@@ -75,6 +79,28 @@ class WeeklyFragment : Fragment() {
         binding.recyclerviewWeekly.apply {
             adapter = weeklyAdapter
         }
+        weeklyAdapter.setOnQuestClickListener(object:WeeklyQuestAdapter.WeeklyQuestClickListener{
+            override fun onClick(view: View, position: Int, data: WeeklyQuest) {
+                when(position){
+                    0->{
+                        val walk_count = HomeActivity.current_counter-ApplicationClass.sharedPreferencesUtil.getPedometer("walk_data",0)
+                        if(walk_count>=50000){
+                            val dialog = CreateQuestResultDialog(this@WeeklyFragment,"퀘스트를 성공하셨습니다",
+                                QuestEnum.TRUE,data)
+                            dialog.isCancelable = false
+                            dialog.show(activity!!.supportFragmentManager,"성공 알람")
+                        }else{
+                            val dialog = CreateQuestResultDialog(this@WeeklyFragment,
+                                "오늘 총 걸음수는 ${walk_count}보 입니다.\n" +
+                                        "퀘스트를 완료하기 위해선 ${50000-walk_count}보만 더 걸어보세요.", QuestEnum.NOT_YET,data)
+                            dialog.isCancelable = false
+                            dialog.show(activity!!.supportFragmentManager,"미성공")
+                        }
+                    }
+                }
+            }
+
+        })
         getWeeklyQuest()
         return binding.root
     }
@@ -98,6 +124,10 @@ class WeeklyFragment : Fragment() {
                 }
 
             })
+    }
+
+    override fun onConfirmButtonClick() {
+
     }
 
 

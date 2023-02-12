@@ -46,6 +46,8 @@ class RegisterPlaceActivity : AppCompatActivity() , CreateConfirmDialog.CreateCo
         }
     }
 
+
+
     private fun init(){
         setAdapter()
     }

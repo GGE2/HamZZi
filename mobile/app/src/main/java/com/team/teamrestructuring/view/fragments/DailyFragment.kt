@@ -109,7 +109,7 @@ class DailyFragment : Fragment() ,CreateQuestResultDialog.CreateResultListener{
                             minute = res.substring(3 until 5).toInt()
                         }
                         //장소와 시간을 등록한 경우
-                        if(ApplicationClass.currentUser.userProfile.time!=-1&&ApplicationClass.currentUser.userProfile.latitude!=0.0){
+                        if(ApplicationClass.currentUser.userProfile.time!=0 && ApplicationClass.currentUser.userProfile.latitude!=0.0){
                             if(ApplicationClass.currentUser.userProfile.time>hour*60+minute){
                                 if(QuestFragment.distance<70){
                                     val dialog = CreateQuestResultDialog(this@DailyFragment,"퀘스트를 성공하셨습니다",QuestEnum.TRUE,data)
@@ -146,7 +146,7 @@ class DailyFragment : Fragment() ,CreateQuestResultDialog.CreateResultListener{
                         }else{
                             val dialog = CreateQuestResultDialog(this@DailyFragment,
                                     "오늘 총 걸음수는 ${walk_count}보 입니다.\n" +
-                                            "퀘스트를 완료하기 위해선 조금만 더 걸어보세요.",QuestEnum.NOT_YET,data)
+                                            "퀘스트를 완료하기 위해선 ${5000-walk_count}보만 더 걸어보세요.",QuestEnum.NOT_YET,data)
                             dialog.isCancelable = false
                             dialog.show(activity!!.supportFragmentManager,"미성공")
                         }
