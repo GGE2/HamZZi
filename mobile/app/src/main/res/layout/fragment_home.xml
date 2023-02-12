@@ -183,10 +183,6 @@
                     app:layout_constraintRight_toRightOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </FrameLayout>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </FrameLayout>

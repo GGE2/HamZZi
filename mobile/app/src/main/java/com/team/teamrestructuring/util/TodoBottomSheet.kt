@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.team.teamrestructuring.R
@@ -47,22 +48,12 @@ class TodoBottomSheet(
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-
-//        view?.findViewById<Button>(R.id.modifyBottom)?.setOnClickListener{
-//            Log.d(TAG, "함수 오나")
-//            callbackInterface?.onButtonClick()
-//            todo?.content = view?.findViewById<EditText>(R.id.modifyTextBottom)?.text.toString()
-//            modifyTodoService(todo?.todo_id!!,todo!!)
-//            dismiss()
-//        }
-        // 삭제 버튼
-        view?.findViewById<AppCompatButton>(R.id.deleteBottomButtom)?.setOnClickListener {
-
-            dismiss()
-        }
-
-
         return inflater.inflate(R.layout.todobottomdialog, container, false)
+    }
+    // 비동기 동기화 맞추기 위해 로컬 동기화 하는 함수
+    private fun localChange(){
+        TodoFragment.todoAdapter.items = todoList
+        TodoFragment.todoAdapter.notifyDataSetChanged()
     }
 
     //  함수
@@ -74,9 +65,14 @@ class TodoBottomSheet(
             Log.d(TAG, "함수 오나")
             callbackInterface?.onButtonClick()
             todo?.content = view?.findViewById<EditText>(R.id.modifyTextBottom)?.text.toString()
-            modifyTodoService(todo?.todo_id!!,todo!!)
-
-            TodoFragment.todoAdapter.items
+            todo?.content = todo?.content.toString().trim()
+            if (todo?.content!!.isEmpty()){
+                Toast.makeText(requireContext(), "수정 할 투두를 입력 해 주세요", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            modifyTodoService(todo?.todo_id!!, todo!!)
+            todoList[position!!] = todo!!
+            localChange()
             dismiss()
 
         }
@@ -84,69 +80,43 @@ class TodoBottomSheet(
         view?.findViewById<Button>(R.id.deleteBottomButtom)?.setOnClickListener {
             callbackInterface?.onButtonClick()
             deleteTodoService(todo?.todo_id!!)
+            todoList.removeAt(position!!)
+            localChange()
             dismiss()
         }
 
-//        // 확인 버튼
-//        view?.findViewById<Button>(R.id.checkBottombuttom)?.setOnClickListener {
-//            dismiss()
-//        }
     }
     interface SetOnModifyButtonInterface{
         fun onButtonClick()
     }
-    // 투두를 불러오는
-    private fun callService(nickName: String, dateTime: String) {
-//        Log.d(TAG, "확인")
-        val service = ApplicationClass.retrofit.create(TodoService::class.java)
-            .getTodo(nickName, dateTime).enqueue(object : Callback<MutableList<Todo>>{
-                override fun onResponse(
-                    call: Call<MutableList<Todo>>,
-                    response: Response<MutableList<Todo>>
-                ) {
-                    if(response.isSuccessful){
-                        TodoFragment.todoAdapter.items = response.body()!!
-                    }
-                }
 
-                override fun onFailure(call: Call<MutableList<Todo>>, t: Throwable) {
-                    Log.d(TAG, "${t.message}")
-                }
 
-            })
-    }
     // 투두를 수정하는
-    private fun modifyTodoService(id: Long, Todo: Todo){
-        Log.d(TAG, todo.toString())
+    private fun modifyTodoService(id: Int, Todo: Todo){
         val service = ApplicationClass.retrofit.create(TodoService::class.java)
-            .modifyTodo(todo?.todo_id!!,todo!!).enqueue(object:Callback<Todo>{
-                override fun onResponse(call: Call<Todo>, response: Response<Todo>) {
+            .modifyTodo(todo?.todo_id!!,todo!!).enqueue(object:Callback<String>{
+                override fun onResponse(call: Call<String>, response: Response<String>) {
                     if(response.isSuccessful){
-                        todoList[position!!] = todo!!
-                        TodoFragment.todoAdapter.items = todoList
-                        TodoFragment.todoAdapter.notifyDataSetChanged()
-                    }
-                }
+                    Log.i(TAG, "수정에 성공했습니다. ${response.body()}")
 
-                override fun onFailure(call: Call<Todo>, t: Throwable) {
+                    }
+
+                }
+                override fun onFailure(call: Call<String>, t: Throwable) {
                     Log.w(TAG, "onFailure: ${t.message}")
                 }
-
-
             })
     }
 
 
     // 투두를 삭제하는
-    private fun deleteTodoService(id: Long){
+    private fun deleteTodoService(id: Int){
         val service = ApplicationClass.retrofit.create(TodoService:: class.java)
             .deleteTodo(id).enqueue(object : Callback<String>{
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     if(response.isSuccessful){
-
                     }
                 }
-
                 override fun onFailure(call: Call<String>, t: Throwable) {
                 }
             })

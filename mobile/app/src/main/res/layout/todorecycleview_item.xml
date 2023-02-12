@@ -20,7 +20,6 @@
             android:id="@+id/textview_item_todo_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:text="오늘 할 일 입력하기"
             android:textColor="#72402b"
             android:fontFamily="@font/nexon_gothic_medium"

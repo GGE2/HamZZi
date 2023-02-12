@@ -7,13 +7,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.load.engine.executor.GlideExecutor.UncaughtThrowableStrategy.LOG
-import com.google.android.material.snackbar.Snackbar
 import com.team.teamrestructuring.databinding.FragmentTodoBinding
 import com.team.teamrestructuring.dto.Todo
 import com.team.teamrestructuring.service.TodoService
 import com.team.teamrestructuring.util.ApplicationClass
-import com.team.teamrestructuring.util.TodoAdapter
+import com.team.teamrestructuring.view.adapters.TodoAdapter
 import com.team.teamrestructuring.util.TodoBottomSheet
 import retrofit2.Call
 import retrofit2.Callback
@@ -37,27 +35,19 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
     private val calendar = Calendar.getInstance()
     private val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
     private val now = format.format(calendar.time)
-
     // 날짜 저장
     var dateStr = now
-
-    //  리사이클러뷰에서 쓸 녀석, 전역 해야지
-    lateinit var stringList: MutableList<String>
-    var todo_id : Long = -1
+    var todo_id : Int = -1
 
     // Todo 정보 저장
     var todoList: MutableList<Todo> = mutableListOf()
-    // 클릭한 날짜
-    private var nowDate = Date()
+    val nickName = ApplicationClass.currentUser.userProfile.nickname.toString()
 
-    private lateinit var nickName:String
-
-    // 더미 데이터
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        callService(nickName, dateStr)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -66,27 +56,21 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        nickName = ApplicationClass.currentUser.userProfile.nickname
-        stringList = mutableListOf<String>()
-        initRecyclerView()
+        todoList = mutableListOf()
         callService(nickName, dateStr)
-        todoAdapter.notifyDataSetChanged()
+        initRecyclerView()
         initDate()
         initInput()
-
-
     }
 
     // Todo를 가져오는 서비스
     private fun callService(nickName: String, dateTime: String){
-//        Log.d(TAG, "확인")
         val service = ApplicationClass.retrofit.create(TodoService::class.java)
             .getTodo(nickName, dateTime).enqueue(object : Callback<MutableList<Todo>>{
                 override fun onResponse(
                     call: Call<MutableList<Todo>>,
                     response: Response<MutableList<Todo>>
                 ) {
-                    Log.d(TAG, "${response}")
                     if(response.isSuccessful){
                         Log.d(TAG, "onResponse: ${response.body()}")
                         todoList = response.body() ?: mutableListOf()
@@ -94,40 +78,32 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
                             todoAdapter.items = todoList
                             todoAdapter.notifyDataSetChanged()
                         }
-
-
-
-                        Log.w(TAG, "${todoList}")
                     }
                 }
-
                 override fun onFailure(call: Call<MutableList<Todo>>, t: Throwable) {
                     Log.d(TAG, "onFailure: ${t.message}")
                 }
-
             })
 
     }
     // 투두를 만드는 서비스
     private fun createService(todo: Todo){
         val service = ApplicationClass.retrofit.create(TodoService::class.java)
-            .createTodo(todo).enqueue(object: Callback<Todo>{
-                override fun onResponse(call: Call<Todo>, response: Response<Todo>) {
+            .createTodo(todo).enqueue(object: Callback<String>{
+                override fun onResponse(call: Call<String>, response: Response<String>) {
                     if(response.isSuccessful){
-                        Log.d(TAG, "정상적으로 입력된 투두 입니다 ${todo}")
-//                        Toast.makeText(context, "입력되었습니다.", Toast.LENGTH_SHORT).show()
-//                        Snackbar.make(binding.todoXml, "입력되었습니다.", Snackbar.LENGTH_SHORT).show()
+                        Log.d(TAG, "정상적으로 입력된 투두 입니다 ${response.body()}")
                     }
                 }
-                override fun onFailure(call: Call<Todo>, t: Throwable) {
+                override fun onFailure(call: Call<String>, t: Throwable) {
                     Log.d(TAG, "입력 실패 ${t.message}")
-                    Log.d(TAG, "${todo}")
                 }
             })
     }
 
+
     // 투두를 지우는 서비스
-    private fun deleteTodoService(id: Long){
+    private fun deleteTodoService(id: Int){
         val service = ApplicationClass.retrofit.create(TodoService:: class.java)
             .deleteTodo(id).enqueue(object : Callback<String>{
                 override fun onResponse(call: Call<String>, response: Response<String>) {
@@ -141,31 +117,14 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
             })
     }
 
-    //투두를 수정하는 서비스
-    private fun modifyTodoService(id: Long, Todo: Todo){
-        val service = ApplicationClass.retrofit.create(TodoService::class.java)
-            .modifyTodo(id, Todo).enqueue(object :Callback<Todo>{
-                override fun onResponse(call: Call<Todo>, response: Response<Todo>) {
-                    if(response.isSuccessful){
-                        Log.d(TAG, "수정된 투두 입니다 ${Todo}")
-
-                    }
-                }
-
-                override fun onFailure(call: Call<Todo>, t: Throwable) {
-                    Log.d(TAG, "수정 실패 ${t.message}")
-                }
-            })
-    }
 
     //투두를 체크(완료했는 지)하는 서비스
-    private fun checkTodo(id: Long){
+    private fun checkTodo(id: Int, nickName: String,todo: Todo){
         val service = ApplicationClass.retrofit.create(TodoService::class.java)
-            .checkTodo(id).enqueue(object : Callback<String>{
+            .checkTodo(id, nickName ,todo).enqueue(object : Callback<String>{
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     if (response.isSuccessful){
                         Log.d(TAG,"투두 완료 되었습니다.")
-
 
                     }
                 }
@@ -177,22 +136,8 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
 
     }
 
-
     private fun initDate() {
         binding.apply {
-//            // 처음 초기 리스트 생성하기 위한 로직
-            nowDate = Date(calender.date)
-//            Toast.makeText(requireContext(), nowDate.toString(), Toast.LENGTH_LONG).show()
-            // 초기 날짜 설정하는 날짜
-            if (Calendar.MONTH + 1 < 10 && Calendar.DAY_OF_MONTH < 10){
-                dateStr = "${Calendar.YEAR+2022}-0${Calendar.MONTH+1}-0${Calendar.DAY_OF_MONTH}"
-            } else if (Calendar.MONTH + 1 < 10){
-                dateStr = "${Calendar.YEAR+2022}-0${Calendar.MONTH+1}-${Calendar.DAY_OF_MONTH}"
-            } else if (Calendar.DAY_OF_MONTH < 10) {
-                dateStr = "${Calendar.YEAR+2022}-${Calendar.MONTH+1}-0${Calendar.DAY_OF_MONTH}"
-            } else{
-                dateStr = "${Calendar.YEAR}-${Calendar.MONTH+1}-${Calendar.DAY_OF_MONTH}"
-            }
 
             // 클릭할때마다 날짜 바뀌면 리스트 다시 받아오는 로직
             calender.setOnDateChangeListener { calendarView, year, month, dayOfMonth ->
@@ -206,7 +151,6 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
                 }   else{
                     dateStr =  "${year}-${month+1}-${dayOfMonth}"
                 }
-                Log.i(TAG, dateStr)
                 callService(nickName, dateStr)
             }
         }
@@ -216,13 +160,11 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
             CreateTodoButton.apply {
                 setOnClickListener {
                     var nowInput = calenderText.text.toString().trim()
-                    Log.d(TAG, "initInput: ${nowInput}")
                     // 입력 값이 없을 때
                     if (nowInput.trim().isEmpty()) {
                         Toast.makeText(requireContext(), "값을 입력해주세요", Toast.LENGTH_SHORT).show()
                         return@setOnClickListener
                     }
-                    Log.d(TAG, "initInput2: ${nowInput}")
                     val todo = Todo(nowInput, dateStr, nickName)
                     // 바에 있는 값 초기화
                     calenderText.text.clear()
@@ -232,64 +174,56 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
                     todoList.add(todo)
                     todoAdapter.items = todoList
                     todoAdapter.notifyDataSetChanged()
-//                    val fragmentTransaction = fragmentManager.beginTransaction()
-//                    fragmentTransaction.detach(TodoFragment).attach(TodoFragment).commit()
-
                 }
             }
         }
     }
 
-    // 투두 리싸이클러뷰를 클릭
+    // 리사이클러뷰 클릭 투두 체크 수정 삭제
     private fun initRecyclerView() {
         binding.apply {
             todoAdapter = TodoAdapter(mutableListOf())
             todoAdapter.menuClick = object : TodoAdapter.MemuClick {
                 // 점 세개 눌렀을 때
                 override fun onClick(view: View, position: Int) {
+                    Log.i("투두", todoList[position].toString())
                     if (todoList[position].todo_id == null){
-
-                        Toast.makeText(context, "투두 수정을 위해선 잠깐만 고민을 해주세요.", Toast.LENGTH_LONG).show()
-//                        Snackbar.make(view, "투두 수정을 위해선 잠깐 고민을 해주세요", Snackbar.LENGTH_SHORT).show()
+                        Toast.makeText(context, "투두 수정을 위해선 잠깐만 고민을 해주세요.", Toast.LENGTH_SHORT).show()
                     } else{
-                        // 투두 삭제 그리고 즉시 반영 코드
-//                        todo_id = todoList[position].todo_id!!
-//                        deleteTodoService(todo_id)
-//                        todoList.removeAt(position)
-//                        todoAdapter.items = todoList
-//                        todoAdapter.notifyDataSetChanged()
-//
-
-
-                        // 투두 수정 코드
-//                        todo_id = todoList[position].todo_id!!
-//                        val dumi = Todo("더미데이터입니다", dateStr, nickName)
-//                        modifyTodoService(todo_id, dumi)
-//                        todoList[position] = dumi
-//                        todoAdapter.items = todoList
-//                        todoAdapter.notifyDataSetChanged()
-
-//                        todo_id = todoList[position].todo_id!!
-//                        checkTodo(todo_id)
-                        // 체크처리 어떻게 하지
-
                         todo_id = todoList[position].todo_id!!
-                        Log.d(TAG, todoList[position].toString())
                         // 다이어로그 코드
                         val bottomSheet = TodoBottomSheet(this@TodoFragment, todoList[position], dateStr, position, todoList)
                         bottomSheet.show(activity!!.supportFragmentManager, bottomSheet.tag)
-
                     }
-
                 }
             }
+
             todoAdapter.itemClick = object: TodoAdapter.ItemClick {
                 // 체크 눌렀을 때
                 override fun onClick(view: View, position: Int) {
-                    Toast.makeText(requireContext(), "${position}을 눌렀습니다", Toast.LENGTH_SHORT).show()
-//                    Toast.makeText(view.context, itemPosition.toString(), Toast.LENGTH_LONG).show()
-//                    Log.d("리", t`odoList[position].todo_id.toString())
-
+                    if(todoList[position].todo_id == null){
+//                        Toast.makeText(context, "투두 체크를 위해선 잠깐만 고민을 해주세요.", Toast.LENGTH_LONG).show()
+                        // 체크가 안된 투두리스트만 checkTodo 보내개
+                    } else if (todoList[position].is_check == false){
+                        Log.w(TAG, todoList[position].toString())
+                        checkTodo(todoList[position].todo_id!!, nickName,todoList[position])
+                    }
+                }
+            }
+            // 체크 박스 눌렀을 때
+            todoAdapter.boxClick = object: TodoAdapter.BoxClick {
+                override fun onClick(view: View, position: Int) {
+                    Log.i("체크박스", position.toString())
+//                    Toast.makeText(context, position, Toast.LENGTH_SHORT).show()
+                    if (todoList[position].todo_id == null) {
+//                        Toast.makeText(context, "투두 체크를 위해선 잠깐만 고민을 해주세요.", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Log.w("체크박스", todoList[position].toString())
+                        if (todoList[position].is_check == false) {
+                            Log.w(TAG, todoList[position].toString())
+                            checkTodo(todoList[position].todo_id!!, nickName,todoList[position])
+                        }
+                    }
                 }
             }
             recyclerviewTodoList.apply {
