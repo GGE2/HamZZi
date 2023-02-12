@@ -55,8 +55,8 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        todoList = mutableListOf()
         // 여기
+        todoList = mutableListOf()
         initDate()
         callService(nickName, dateStr)
         initRecyclerView()
@@ -72,7 +72,6 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
                     response: Response<MutableList<Todo>>
                 ) {
                     if(response.isSuccessful){
-
                         Log.d(TAG, "onResponse: ${response.body()}")
                         todoList = response.body() ?: mutableListOf()
                         binding.apply {
@@ -102,23 +101,6 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
             })
     }
 
-
-    // 투두를 지우는 서비스
-    private fun deleteTodoService(id: Int){
-        val service = ApplicationClass.retrofit.create(TodoService:: class.java)
-            .deleteTodo(id).enqueue(object : Callback<String>{
-                override fun onResponse(call: Call<String>, response: Response<String>) {
-                    if(response.isSuccessful){
-                        Log.d(TAG, "성공적으로 삭제 되었습니다.")
-                    }
-                }
-                override fun onFailure(call: Call<String>, t: Throwable) {
-                    Log.d(TAG, "삭제에 실패하였습니다.")
-                }
-            })
-    }
-
-
     //투두를 체크(완료했는 지)하는 서비스
     private fun checkTodo(id: Int, nickName: String,todo: Todo){
         val service = ApplicationClass.retrofit.create(TodoService::class.java)
@@ -139,8 +121,8 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
 
 // 날짜 옮길때 마다 데이트가 체크가 됨
     private fun initDate() {
+    Log.i("시간", "지금 시간${now}  달력시간${dateStr}")
         binding.apply {
-
             // 클릭할때마다 날짜 바뀌면 리스트 다시 받아오는 로직
             calender.setOnDateChangeListener { calendarView, year, month, dayOfMonth ->
                 // 달력 표준으로 변환
@@ -153,6 +135,9 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
                 }   else{
                     dateStr =  "${year}-${month+1}-${dayOfMonth}"
                 }
+
+                todoAdapter.items = mutableListOf()
+                Log.i("시간", "지금 시간${now}  달력시간${dateStr}")
                 callService(nickName, dateStr)
             }
         }
@@ -222,7 +207,10 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
                     } else if (todoList[position].is_check == false){
                         Log.w("체크박스", todoList[position].toString())
                             Log.w(TAG, todoList[position].toString())
+                        if (now == dateStr){
+                            Log.w("시간", "${now} ${dateStr} ${todoList}")
                             checkTodo(todoList[position].todo_id!!, nickName,todoList[position])
+                        }
                     }
                 }
             }
@@ -263,7 +251,6 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
     }
 
     override fun onButtonClick() {
-
     }
 }
 
