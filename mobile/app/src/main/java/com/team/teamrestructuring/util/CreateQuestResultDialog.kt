@@ -9,14 +9,8 @@ import androidx.fragment.app.DialogFragment
 import com.team.teamrestructuring.databinding.DialogConfirmPlaceBinding
 import com.team.teamrestructuring.databinding.DialogCreatePetBinding
 import com.team.teamrestructuring.databinding.DialogCreateQuestResultBinding
-import com.team.teamrestructuring.dto.DailyQuest
-import com.team.teamrestructuring.dto.Place
-import com.team.teamrestructuring.dto.QuestEnum
-import com.team.teamrestructuring.dto.User
-import com.team.teamrestructuring.service.HomeService
-import com.team.teamrestructuring.service.LoginService
-import com.team.teamrestructuring.service.PlaceService
-import com.team.teamrestructuring.service.QuestService
+import com.team.teamrestructuring.dto.*
+import com.team.teamrestructuring.service.*
 import com.team.teamrestructuring.view.fragments.DailyFragment
 import com.team.teamrestructuring.view.fragments.QuestFragment
 import retrofit2.Call
@@ -62,6 +56,7 @@ class CreateQuestResultDialog(
                 QuestEnum.TRUE->{
                     Log.d(TAG, "onCreateView: ${true}")
                     sendToServerResult()
+                    updateExp()
                     getQuestData(ApplicationClass.currentUser.userProfile.nickname)
                 }
                 QuestEnum.FALSE->{
@@ -89,6 +84,25 @@ class CreateQuestResultDialog(
 
     interface CreateResultListener{
         fun onConfirmButtonClick()
+    }
+
+    /**
+     * 펫 경험치 증가
+     */
+    private fun updateExp(){
+        val service = ApplicationClass.retrofit.create(PetService::class.java)
+            .petUpdatePetExp(ApplicationClass.petData!!.pet.pet_id,quest!!.quest.point).enqueue(object:Callback<String>{
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    if(response.isSuccessful){
+                        Log.d(TAG, "onResponse: ${response.body()!!}")
+                    }
+                }
+
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    Log.d(TAG, "onFailure: ${t.message}")
+                }
+
+            })
     }
 
     private fun getQuestData(nickname:String){

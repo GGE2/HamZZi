@@ -26,9 +26,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.messaging.FirebaseMessaging
 import com.team.teamrestructuring.R
 import com.team.teamrestructuring.databinding.ActivityHomeBinding
-import com.team.teamrestructuring.dto.User
+import com.team.teamrestructuring.dto.*
 import com.team.teamrestructuring.service.HomeService
 import com.team.teamrestructuring.service.LoginService
+import com.team.teamrestructuring.service.PetService
 import com.team.teamrestructuring.util.AlarmReceiver
 import com.team.teamrestructuring.util.ApplicationClass
 import com.team.teamrestructuring.util.CreatePetDialog
@@ -94,6 +95,26 @@ private fun requirePermission(){
         setFullScreen()
         requirePermission()
         setAlarmManager()
+        getPetInfo()
+    }
+
+
+    private fun getPetInfo(){
+        val service = ApplicationClass.retrofit.create(PetService::class.java)
+            .getPetInfo(ApplicationClass.currentUser.userProfile.nickname).enqueue(object:Callback<PetData>{
+                override fun onResponse(call: Call<PetData>, response: Response<PetData>) {
+                    if(response.isSuccessful){
+                        Log.d(TAG, "onResponse: ${response.body()!!}")
+                        ApplicationClass.petData = response.body()!!
+                    }
+                }
+                override fun onFailure(call: Call<PetData>, t: Throwable) {
+                    Log.d(TAG, "onFailure: ${t.message}")
+                }
+
+            })
+
+
     }
 
 
