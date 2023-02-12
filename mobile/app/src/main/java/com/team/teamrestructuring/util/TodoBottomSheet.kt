@@ -50,6 +50,7 @@ class TodoBottomSheet(
         super.onCreateView(inflater, container, savedInstanceState)
         return inflater.inflate(R.layout.todobottomdialog, container, false)
     }
+
     // 비동기 동기화 맞추기 위해 로컬 동기화 하는 함수
     private fun localChange(){
         TodoFragment.todoAdapter.items = todoList
