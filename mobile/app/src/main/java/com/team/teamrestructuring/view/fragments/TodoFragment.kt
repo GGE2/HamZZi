@@ -58,9 +58,9 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
         super.onViewCreated(view, savedInstanceState)
         todoList = mutableListOf()
         // 여기
-        initRecyclerView()
         initDate()
         callService(nickName, dateStr)
+        initRecyclerView()
         initInput()
     }
 
@@ -73,6 +73,8 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
                     response: Response<MutableList<Todo>>
                 ) {
                     if(response.isSuccessful){
+                        Toast.makeText(context, response.body().toString(), Toast.LENGTH_SHORT).show()
+
                         Log.d(TAG, "onResponse: ${response.body()}")
                         todoList = response.body() ?: mutableListOf()
                         binding.apply {
@@ -218,12 +220,10 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
 //                    Toast.makeText(context, position, Toast.LENGTH_SHORT).show()kk
                     if (todoList[position].todo_id == null) {
 //                        Toast.makeText(context, "투두 체크를 위해선 잠깐만 고민을 해주세요.", Toast.LENGTH_SHORT).show()
-                    } else {
+                    } else if (todoList[position].is_check == false){
                         Log.w("체크박스", todoList[position].toString())
-                        if (todoList[position].is_check == false) {
                             Log.w(TAG, todoList[position].toString())
                             checkTodo(todoList[position].todo_id!!, nickName,todoList[position])
-                        }
                     }
                 }
             }

@@ -143,6 +143,14 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="250dp"
+            android:src="@drawable/ham0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/constparent2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
