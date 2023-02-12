@@ -71,6 +71,7 @@ export default function Signup() {
         "accessToken",
         JSON.stringify(curUserInfo.user.accessToken)
       );
+      localStorage.setItem("uid", JSON.stringify(curUserInfo.user.uid));
       dispatch(
         setCredentials({
           user: curUserInfo.user.displayName,

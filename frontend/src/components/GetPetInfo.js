@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import api from './api';
+import api from "./api";
 
 // 안녕
 
@@ -9,9 +9,9 @@ const GetPetInfo = () => {
   const nickname = localStorage.getItem("nickname");
 
   api.get(`/api/pet/${nickname}`).then((res) => {
-    console.log(res.data[2]);
-    if (currentLevel !== res.data[0].level) {
-      localStorage.setItem("petLevel", res.data[0].level);
+    console.log(res.data.pet);
+    if (currentLevel !== res.data.pet.level) {
+      localStorage.setItem("petLevel", res.data.pet.level);
     }
   });
 };
