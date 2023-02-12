@@ -11,7 +11,7 @@ import com.team.teamrestructuring.databinding.FragmentTodoBinding
 import com.team.teamrestructuring.dto.Todo
 import com.team.teamrestructuring.service.TodoService
 import com.team.teamrestructuring.util.ApplicationClass
-import com.team.teamrestructuring.util.TodoAdapter
+import com.team.teamrestructuring.view.adapters.TodoAdapter
 import com.team.teamrestructuring.util.TodoBottomSheet
 import retrofit2.Call
 import retrofit2.Callback
@@ -187,24 +187,41 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
                 override fun onClick(view: View, position: Int) {
                     Log.i("투두", todoList[position].toString())
                     if (todoList[position].todo_id == null){
-                        Toast.makeText(context, "투두 수정을 위해선 잠깐만 고민을 해주세요.", Toast.LENGTH_LONG).show()
+                        Toast.makeText(context, "투두 수정을 위해선 잠깐만 고민을 해주세요.", Toast.LENGTH_SHORT).show()
                     } else{
                         todo_id = todoList[position].todo_id!!
                         // 다이어로그 코드
                         val bottomSheet = TodoBottomSheet(this@TodoFragment, todoList[position], dateStr, position, todoList)
                         bottomSheet.show(activity!!.supportFragmentManager, bottomSheet.tag)
                     }
-
                 }
             }
+
             todoAdapter.itemClick = object: TodoAdapter.ItemClick {
                 // 체크 눌렀을 때
                 override fun onClick(view: View, position: Int) {
                     if(todoList[position].todo_id == null){
-                        Toast.makeText(context, "투두 체크를 위해선 잠깐만 고민을 해주세요.", Toast.LENGTH_LONG).show()
-                    } else{
+//                        Toast.makeText(context, "투두 체크를 위해선 잠깐만 고민을 해주세요.", Toast.LENGTH_LONG).show()
+                        // 체크가 안된 투두리스트만 checkTodo 보내개
+                    } else if (todoList[position].is_check == false){
                         Log.w(TAG, todoList[position].toString())
                         checkTodo(todoList[position].todo_id!!, nickName,todoList[position])
+                    }
+                }
+            }
+            // 체크 박스 눌렀을 때
+            todoAdapter.boxClick = object: TodoAdapter.BoxClick {
+                override fun onClick(view: View, position: Int) {
+                    Log.i("체크박스", position.toString())
+//                    Toast.makeText(context, position, Toast.LENGTH_SHORT).show()
+                    if (todoList[position].todo_id == null) {
+//                        Toast.makeText(context, "투두 체크를 위해선 잠깐만 고민을 해주세요.", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Log.w("체크박스", todoList[position].toString())
+                        if (todoList[position].is_check == false) {
+                            Log.w(TAG, todoList[position].toString())
+                            checkTodo(todoList[position].todo_id!!, nickName,todoList[position])
+                        }
                     }
                 }
             }

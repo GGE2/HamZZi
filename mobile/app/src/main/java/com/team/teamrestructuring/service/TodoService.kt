@@ -17,11 +17,11 @@ interface TodoService {
 
     // 투두 클리어
     @PUT("api/todo/check/{nickname}/{id}")
-    fun checkTodo(@Path("id") id: Int, @Path("nickname") nickname: String, @Body todo: Todo): Call<String>
+    fun checkTodo(@Path("id") id: Int, @Path("nickname") nickname: String,@Body todo: Todo): Call<String>
 
     // 투두 수정
     @PUT("api/todo/{id}")
-    fun modifyTodo(@Path("id") id:Int, @Body todo: Todo): Call<Todo>
+    fun modifyTodo(@Path("id") id:Int, @Body todo: Todo): Call<String>
 
 
     // 투두 삭제
