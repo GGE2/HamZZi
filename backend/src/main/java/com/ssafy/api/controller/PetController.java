@@ -115,8 +115,8 @@ public class PetController {
     })
     /* Pet-스탯 API: 기존 펫 스탯 + 새로 입력받은 스탯만큼 더해준다 */
     public String increaseStat(
-            @RequestBody @ApiParam(value="펫 스탯 정보", required = true) PetStatRequest petStatRequest) {
-        PetStat petStat = petService.statLogic(petStatRequest);
+            @RequestBody @ApiParam(value="펫 스탯 정보", required = true) PetStatRequest petStatRequest, @RequestParam String nickname) {
+        PetStat petStat = petService.statLogic(petStatRequest, nickname);
         return petStat.getPet().getPet_name() + "\n"
                 + "(physical, artistic, intelligent, inactive, energetic, etc)" + "\n"
                 + petStat.getPhysical() +", "+ petStat.getArtistic() +", "+ petStat.getIntelligent() +", "

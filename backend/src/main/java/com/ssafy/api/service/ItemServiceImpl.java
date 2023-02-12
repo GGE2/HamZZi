@@ -102,6 +102,7 @@ public class ItemServiceImpl implements ItemService {
 
         if (point >= cost && pet_level >= item_level) {
             userProfile.setPoint(point - cost);
+            userRepo.saveUserProfile(userProfile);
             return true;
         } else {
             return false;
