@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 // import "./TodoInput.css";
 import { GrReturn } from "react-icons/gr";
 
-const TodoInput = ({ onAdd }) => {
+const TodoInput = ({ onAdd, onSearchFunc }) => {
   const textRef = useRef();
   const [text, setText] = useState("");
 
@@ -26,6 +26,17 @@ const TodoInput = ({ onAdd }) => {
     setText("");
     textRef.current.focus();
   };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+
+    if (text.length < 1) {
+      textRef.current.focus();
+      return;
+    }
+    onSearchFunc(text);
+  };
+
   return (
     <div>
       <form className="TodoInput">
@@ -38,8 +49,15 @@ const TodoInput = ({ onAdd }) => {
           ref={textRef}
         />
         {/* </div> */}
+        {/* Todo 추가 버튼 */}
+        <div className="TodoInput_btn" onClick={onSubmit}>
+          <img src="assets/buttons/addbtn.png" alt="" />
+        </div>
 
-        <div className="TodoInput_btn" onClick={onSubmit}></div>
+        {/* Todo 검색 버튼 */}
+        <div className="TodoSearch_btn" onClick={handleSearch}>
+          <img src="assets/buttons/searchbtn.png" alt="" />
+        </div>
       </form>
     </div>
   );

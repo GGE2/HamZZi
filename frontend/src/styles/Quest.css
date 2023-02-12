@@ -9,7 +9,7 @@
 /* 일간, 주간 버튼 */
 .QuestHeaderButton {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
     margin-left: 30px;
     margin-top: 20px;
@@ -23,6 +23,18 @@
 
 .QuestHeaderButton_btn1 img, .QuestHeaderButton_btn2 img{
     width: 8em;
+}
+
+.TutorialButton {
+    border-radius: 0.75rem;
+    background-color: rgb(146, 85, 59);
+    color: white;
+    border: none;
+    margin-left: auto;
+    margin-right: 3%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    cursor: pointer;
 }
 
 
@@ -78,3 +90,14 @@ textarea:disabled {
    width: 20%;  
 }
 
+
+/* 퀘스트 튜토리얼 */
+
+#flipbook {
+  width: 800px;
+  height: 400px;
+}
+
+#flipbook .turn-page {
+  background-color:#ccc;
+}
