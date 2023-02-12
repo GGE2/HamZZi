@@ -9,30 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#fff2d6">
-<<<<<<< .merge_file_ky0doH
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constparent1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="4dp"
-                android:background="@drawable/title_new_a">
-                <TextView
-                    android:id="@+id/textview_mypage_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="6dp"
-                    android:layout_marginTop="6dp"
-                    android:fontFamily="@font/mine"
-                    android:paddingStart="6dp"
-                    android:text="MYPAGE"
-                    android:textColor="#ffb100"
-                    android:textSize="50sp"
-                    android:textStyle="bold"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-=======
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constparent1"
             android:layout_width="match_parent"
@@ -55,7 +31,6 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
->>>>>>> .merge_file_gIr2Fc
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/const1"
@@ -132,11 +107,7 @@
                 android:id="@+id/textview_my_page_content_place"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-<<<<<<< .merge_file_ky0doH
-                android:text="장소가 없습니다"
-=======
                 android:text="등록된 장소가 없습니다"
->>>>>>> .merge_file_gIr2Fc
                 android:textSize="30sp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
@@ -172,16 +143,6 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-<<<<<<< .merge_file_ky0doH
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="250dp"
-            android:src="@drawable/ham0"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/constparent2"
-            app:layout_constraintBottom_toBottomOf="parent"
-            />
-=======
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constparent3"
@@ -274,13 +235,10 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
->>>>>>> .merge_file_gIr2Fc
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-<<<<<<< .merge_file_ky0doH
 </FrameLayout>
-=======
-</FrameLayout>
->>>>>>> .merge_file_gIr2Fc
+

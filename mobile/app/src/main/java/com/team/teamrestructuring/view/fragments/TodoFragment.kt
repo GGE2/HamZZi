@@ -20,10 +20,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-<<<<<<< .merge_file_yPpJmf
-
-=======
->>>>>>> .merge_file_Ja67D9
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
@@ -48,10 +44,6 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
     val nickName = ApplicationClass.currentUser.userProfile.nickname.toString()
 
 
-<<<<<<< .merge_file_yPpJmf
-=======
-
->>>>>>> .merge_file_Ja67D9
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         callService(nickName, dateStr)
@@ -64,16 +56,10 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         todoList = mutableListOf()
-<<<<<<< .merge_file_yPpJmf
         // 여기
         initDate()
         callService(nickName, dateStr)
         initRecyclerView()
-=======
-        callService(nickName, dateStr)
-        initRecyclerView()
-        initDate()
->>>>>>> .merge_file_Ja67D9
         initInput()
     }
 
@@ -86,11 +72,7 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
                     response: Response<MutableList<Todo>>
                 ) {
                     if(response.isSuccessful){
-<<<<<<< .merge_file_yPpJmf
-                        Toast.makeText(context, response.body().toString(), Toast.LENGTH_SHORT).show()
 
-=======
->>>>>>> .merge_file_Ja67D9
                         Log.d(TAG, "onResponse: ${response.body()}")
                         todoList = response.body() ?: mutableListOf()
                         binding.apply {
@@ -154,11 +136,8 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
             })
 
     }
-<<<<<<< .merge_file_yPpJmf
-// 날짜 옮길때 마다 데이트가 체크가 됨
-=======
 
->>>>>>> .merge_file_Ja67D9
+// 날짜 옮길때 마다 데이트가 체크가 됨
     private fun initDate() {
         binding.apply {
 
@@ -237,7 +216,6 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
             todoAdapter.boxClick = object: TodoAdapter.BoxClick {
                 override fun onClick(view: View, position: Int) {
                     Log.i("체크박스", position.toString())
-<<<<<<< .merge_file_yPpJmf
 //                    Toast.makeText(context, position, Toast.LENGTH_SHORT).show()kk
                     if (todoList[position].todo_id == null) {
 //                        Toast.makeText(context, "투두 체크를 위해선 잠깐만 고민을 해주세요.", Toast.LENGTH_SHORT).show()
@@ -245,17 +223,6 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
                         Log.w("체크박스", todoList[position].toString())
                             Log.w(TAG, todoList[position].toString())
                             checkTodo(todoList[position].todo_id!!, nickName,todoList[position])
-=======
-//                    Toast.makeText(context, position, Toast.LENGTH_SHORT).show()
-                    if (todoList[position].todo_id == null) {
-//                        Toast.makeText(context, "투두 체크를 위해선 잠깐만 고민을 해주세요.", Toast.LENGTH_SHORT).show()
-                    } else {
-                        Log.w("체크박스", todoList[position].toString())
-                        if (todoList[position].is_check == false) {
-                            Log.w(TAG, todoList[position].toString())
-                            checkTodo(todoList[position].todo_id!!, nickName,todoList[position])
-                        }
->>>>>>> .merge_file_Ja67D9
                     }
                 }
             }
