@@ -126,21 +126,31 @@ public class PetServiceImpl implements PetService {
     }
 
     @Override
-    public PetStat statLogic(PetStatRequest petStatRequest) {
+    public PetStat statLogic(PetStatRequest petStatRequest, String nickname) {
         Pet pet = petRepo.findById(petStatRequest.getPet_id());
         PetStat petStat = petRepo.findStatById(petStatRequest.getPet_id());
+        UserProfile userProfile = userRepo.findByNickname(nickname);
+        int point = userProfile.getPoint();
 
         /* 졸업여부 체크 */
         if(pet.is_graduate()) return null;
 
-        petStat.setPhysical(petStat.getPhysical() + petStatRequest.getPhysical());
-        petStat.setArtistic(petStat.getArtistic() + petStatRequest.getArtistic());
-        petStat.setIntelligent(petStat.getIntelligent() + petStatRequest.getIntelligent());
-        petStat.setInactive(petStat.getInactive() + petStatRequest.getInactive());
-        petStat.setEnergetic(petStat.getEnergetic() + petStatRequest.getEnergetic());
-        petStat.setEtc(petStat.getEtc() + petStatRequest.getEtc());
+        if (point >= 1) {
+            petStat.setPhysical(petStat.getPhysical() + petStatRequest.getPhysical());
+            petStat.setArtistic(petStat.getArtistic() + petStatRequest.getArtistic());
+            petStat.setIntelligent(petStat.getIntelligent() + petStatRequest.getIntelligent());
+            petStat.setInactive(petStat.getInactive() + petStatRequest.getInactive());
+            petStat.setEnergetic(petStat.getEnergetic() + petStatRequest.getEnergetic());
+            petStat.setEtc(petStat.getEtc() + petStatRequest.getEtc());
 
-        petRepo.savePetStat(petStat);
+            petRepo.savePetStat(petStat);
+
+            userProfile.setPoint(point - 1);
+            userRepo.saveUserProfile(userProfile);
+        } else {
+            return null;
+        }
+
         return petStat;
     }
 

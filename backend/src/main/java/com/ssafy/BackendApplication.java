@@ -1,5 +1,6 @@
 package com.ssafy;
 
+import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +13,7 @@ import java.nio.charset.StandardCharsets;
 
 @SpringBootApplication
 @EnableScheduling   // 스케줄러 설정
+//@EnableBatchProcessing      // 배치 기능 활성화
 public class BackendApplication {
 
     public static void main(String[] args) {
