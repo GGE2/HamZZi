@@ -30,13 +30,13 @@ const StatCtrl = () => {
     api
       .get(`/api/pet/${nickname}`)
       .then((res) => {
-        console.log(res.data[2]);
-        const physical = res.data[2].physical;
-        const artistic = res.data[2].artistic;
-        const intelligent = res.data[2].intelligent;
-        const inactive = res.data[2].inactive;
-        const energetic = res.data[2].energetic;
-        const etc = res.data[2].etc;
+        console.log(res.data.petStat);
+        const physical = res.data.petStat.physical;
+        const artistic = res.data.petStat.artistic;
+        const intelligent = res.data.petStat.intelligent;
+        const inactive = res.data.petStat.inactive;
+        const energetic = res.data.petStat.energetic;
+        const etc = res.data.petStat.etc;
         const data = {
           physical,
           artistic,

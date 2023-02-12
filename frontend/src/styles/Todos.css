@@ -7,6 +7,7 @@
     /* max-height: 70%; */
     flex-shrink: 0;
     margin-bottom: 20px;
+
 }
 
 .TodoList::-webkit-scrollbar {
@@ -94,18 +95,19 @@ border-radius: 50%;}
   } */
 
 .TodoItem {
-    display: flex;
-    justify-content: start;
-    height: 4rem;
-    margin-top: 1%;
-    margin-left: 3%;
-    margin-right: 3%;
-    padding-left: 5%;
-    align-items: center;
-    
-    border-radius: 0.75em;
-    background: url("../../public/assets/todobck.png") no-repeat;
-    background-size: cover;
+  overflow: hidden;
+  display: flex;
+  justify-content: flex-start;
+  height: 4rem;
+  margin-top: 1%;
+  margin-left: 3%;
+  margin-right: 3%;
+  padding-left: 5%;
+  align-items: center;
+  
+  border-radius: 0.75em;
+  background: url("../../public/assets/todobck.png") no-repeat;
+  background-size: cover;
 }   
 
 .TodoItem:hover:before {
@@ -145,13 +147,16 @@ border-radius: 50%;}
   border: none;
 }
 
-.TodoSetting {
-    width: 6vh;
-    height: 6vh;
-    margin-left: 200px;
-    background-color: transparent;
-    cursor: pointer;
-    justify-content: left;
+.TodoItem .TodoSetting {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  width: 6vh;
+  height: 6vh;
+  margin-left: auto;
+  background-color: transparent;
+  cursor: pointer;
+  justify-content: left;
 }
 
 .content {
@@ -174,63 +179,80 @@ p:disabled {
     height: 5%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    margin-right: auto;
 }
 
 
 /* todo input.js */
 
 .TodoInput {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    width: 100%;
-    /* border-top: 3px solid red; */
-    padding: 6px;
-    height: 5vh;
-    /* padding-left: 10px; */
+  display: flex;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: 1em;
+  margin-bottom: 10px;
+  align-items: center;
+  justify-content: start;
+  flex-wrap: nowrap;
 }
 
 .TodoHeaderButton {
-  height: 0%;
-  width: 94%;
-  position: relative;
   display: flex;
-  justify-content: start;
+  margin-left: 5%;
+  margin-top: 1em;
+  margin-bottom: 10px;
   align-items: center;
-  padding-left: 5%;
-  top: 3px;
-  /* border-top: 3px solid red; */
+  justify-content: flex-start;
+  flex-wrap: nowrap;
 }
 
-/* input[type=text] {
-  border-radius: 10px;
-  margin: 1%;
-  background-color: rgb(240, 228, 228);
-} */
-
 .TodoInput input{
-    flex-grow: 1;
-    resize: none;
-    height: 100%;
-    margin-left: 10px;
-    border-radius: 10px;
+  display: flex;
+  border-radius: 10px;
+  padding: 8px;
+  /* margin-top: 8px; */
+  background-color: white;
+  border: 1px solid gray;
+  width: 100%;
 }
 
 .TodoInput_btn {
-    /* height: 5%; */
-    background: url("../../public/assets/buttons/addbtn.png") no-repeat;
-    background-size: contain;
-    height: 90%;
-    width: 20%;
-    background-color: transparent;
-    cursor: pointer;
-    margin-left: 20px;
-    margin-right: 12px;
-    border: none
-    /* display: inline-flex; */
+  width: 5em;
+  margin-left: 10px;
+  margin-right: 10px;
     
+}
+
+.TodoInput img {
+  width: 5em;
+}
+
+.TodoSearch_btn {
+  width: 5em;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.TodoSearch_btn img {
+  width: 5em;
+}
+
+.ToHomeBtn {
+  /* display: flex;
+  position: relative; */
+  width: 30%;
+  height: 100%;
+  margin-left: auto;
+  background-color: rgb(146, 85, 59);
+  border: none;
+  border-radius: 0.75rem;
+  padding-top: 2.5%;
+  padding-bottom: 2.5%;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+  
 }
 
 .TodoDropDownMenu {
@@ -251,17 +273,15 @@ ul {
 }
 
 .HamCalendar {
-    position: relative;
-    display: flex;
-    background: url("../../public/assets/calendar.png") no-repeat;
-    background-size: contain;
-    height: 50px;
-    width: 160%;
-    background-color: transparent;
-    cursor: pointer;
-    margin-left: 0px;
-    /* margin-right: 50px; */
-    padding-right: 0%;
-    margin-bottom: 5%;
-    border: none;
+  width: 5em;
+  margin-left: 0;
+  margin-right: 10px;
 }
+
+.HamCalendar img {
+  width: 2.5em;
+}
+
+ .DateControl p {
+  width: 40%;
+ }

@@ -51,17 +51,17 @@ const Main = () => {
       .get(`/api/pet/${nickname}`)
       .then((res) => {
         console.log(res.data);
-        const physical = res.data[2].physical;
-        const artistic = res.data[2].artistic;
-        const intelligent = res.data[2].intelligent;
-        const inactive = res.data[2].inactive;
-        const energetic = res.data[2].energetic;
-        const etc = res.data[2].etc;
-        setPetName(res.data[0].pet_name);
-        localStorage.setItem("petId", res.data[0].pet_id);
-        localStorage.setItem("petName", res.data[0].pet_name);
-        localStorage.setItem("petLevel", res.data[0].level);
-        localStorage.setItem("exp", res.data[0].exp);
+        const physical = res.data.petStat.physical;
+        const artistic = res.data.petStat.artistic;
+        const intelligent = res.data.petStat.intelligent;
+        const inactive = res.data.petStat.inactive;
+        const energetic = res.data.petStat.energetic;
+        const etc = res.data.petStat.etc;
+        setPetName(res.data.pet.pet_name);
+        localStorage.setItem("petId", res.data.pet.pet_id);
+        localStorage.setItem("petName", res.data.pet.pet_name);
+        localStorage.setItem("petLevel", res.data.pet.level);
+        localStorage.setItem("exp", res.data.pet.exp);
         const data = {
           physical,
           artistic,

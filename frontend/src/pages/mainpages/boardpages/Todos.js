@@ -75,6 +75,11 @@ const Todos = () => {
     });
   };
 
+  const handleToday = () => {
+    setCaldate(new Date().toISOString().split("T")[0]);
+    getTodo();
+  };
+
   // 처음 렌더링
   useEffect(() => {
     setCaldate(new Date(+d + TIME_ZONE).toISOString().split("T")[0]);
@@ -103,9 +108,9 @@ const Todos = () => {
   // }, [todotodos]);
 
   // 특정 투두 검색 api
-  const onSearchTodo = async () => {
+  const onSearchTodo = async (text) => {
     await api
-      .get(`/api/todo/list/search?nickname=${nickname}&content=${searchword}`)
+      .get(`/api/todo/list/search?nickname=${nickname}&content=${text}`)
       .then((res) => {
         console.log("특정 투두 검색 api");
         console.log(res);
@@ -220,8 +225,8 @@ const Todos = () => {
   };
 
   // 검색했을 때
-  const onSearchFunc = () => {
-    onSearchTodo();
+  const onSearchFunc = (text) => {
+    onSearchTodo(text);
     setIsSearch(true);
   };
 
@@ -246,7 +251,7 @@ const Todos = () => {
     >
       {/* <Header data={"Todo"} type={"Todo"} /> */}
       <div className="MyBody">
-        <TodoInput onAdd={onAdd} />
+        <TodoInput onAdd={onAdd} onSearchFunc={onSearchFunc} />
         <div className="TodoHeaderButton">
           {/* <button
             onClick={CreateFlagfunc}
@@ -284,7 +289,9 @@ const Todos = () => {
             <div className="DateControl">
               {/* 달력 아이콘을 누르면 isOpen을 true */}
               {/* <button onClick={handleClick} className="Calbutton"> */}
-              <button onClick={handleClick} className="HamCalendar"></button>
+              <div onClick={handleClick} className="HamCalendar">
+                <img src="assets/calendar.png" alt="" />
+              </div>
               {/* </button> */}
               {/* <div className="DateContainer"> */}
               <div className="DateButton" onClick={decreaseMonth}>
@@ -297,6 +304,9 @@ const Todos = () => {
               </div>
               {/* </div> */}
               {/* <p class="arrow_box">내asdasdasd일</p> */}
+              <div className="ToHomeBtn" onClick={handleToday}>
+                오늘 할 일
+              </div>
             </div>
           )}
         </div>
