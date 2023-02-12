@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
+
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
@@ -56,9 +57,10 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         todoList = mutableListOf()
-        callService(nickName, dateStr)
+        // 여기
         initRecyclerView()
         initDate()
+        callService(nickName, dateStr)
         initInput()
     }
 
@@ -134,7 +136,7 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
             })
 
     }
-
+// 날짜 옮길때 마다 데이트가 체크가 됨
     private fun initDate() {
         binding.apply {
 
@@ -213,7 +215,7 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
             todoAdapter.boxClick = object: TodoAdapter.BoxClick {
                 override fun onClick(view: View, position: Int) {
                     Log.i("체크박스", position.toString())
-//                    Toast.makeText(context, position, Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(context, position, Toast.LENGTH_SHORT).show()kk
                     if (todoList[position].todo_id == null) {
 //                        Toast.makeText(context, "투두 체크를 위해선 잠깐만 고민을 해주세요.", Toast.LENGTH_SHORT).show()
                     } else {
