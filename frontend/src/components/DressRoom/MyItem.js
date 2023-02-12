@@ -2,28 +2,28 @@ import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import WearModal from "./WearModal";
 
-const MyItem = ({ id }) => {
+const MyItem = ({ id, isMyModal, setIsMyModal, onWearItem }) => {
   // console.log(imgNums[0])
   // const [isclick, setIsclick] = useState(false);
 
-  const [isModal, setIsModal] = useState(false);
+  
 
   const outside = useRef();
   const onClick = () => {
-    setIsModal(true);
+    setIsMyModal(true)
   };
 
   return (
     <>
-      {isModal && (
+      {isMyModal && (
         <div
           className="WearModal"
           ref={outside}
           onClick={(e) => {
-            if (e.target === outside.current) setIsModal(false);
+            if (e.target === outside.current) setIsMyModal(false);
           }}
         >
-          <WearModal setIsModal={setIsModal} id={id} />
+          <WearModal setIsModal={setIsMyModal} id={id} onWearItem={onWearItem}/>
         </div>
       )}
 

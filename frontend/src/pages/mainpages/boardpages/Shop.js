@@ -12,6 +12,8 @@ import DecoItem from "./../../../components/DressRoom/DecoItem";
 
 const DressRoom = () => {
   const nickname = localStorage.getItem("nickname");
+  const [isModal, setIsModal] = useState(false);
+  const [isMyModal, setIsMyModal] = useState(false);
 
   const [show, setShow] = useState({
     hatShow: true,
@@ -102,9 +104,9 @@ const DressRoom = () => {
   // 아이템 추가 이건 db용
   const onAddItem = async () => {
     await api
-      .post(`/api/item/createItem/4`, {
-        cost: 2,
-        item_id: 4,
+      .post(`/api/item/createItem/31`, {
+        cost: 1,
+        item_id: 6,
         level: 1,
       })
       .then((res) => {
@@ -115,6 +117,18 @@ const DressRoom = () => {
       });
   };
 
+  // 아이템 추가 이건 db용
+  const onWearItem = async (id) => {
+    await api
+      .put(`/api/item?nickname=${nickname}&item_id=${id}`)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  // 아이템 구매하기
   const onBuyItem = async (id) => {
     await api
       .post(`/api/item/createItemUser/${id}`, {
@@ -124,6 +138,9 @@ const DressRoom = () => {
         console.log(`아이템을 구매`);
         console.log(res);
         // setMyItem(res.data);
+        setIsModal(false) // 구매하면 모달닫기
+        onGetItemAllList(); // 상점 전체 아이템
+        onGetItemUserNickList(); // 내가 산 아이템 보기
       })
       .catch((err) => {
         console.log(err);
@@ -134,7 +151,7 @@ const DressRoom = () => {
     onGetItemAllList(); // 상점 전체 아이템
     // onGetItemUserAllList();
     onGetItemUserNickList(); // 내가 산 아이템 보기
-    // onAddItem()
+    onAddItem()
   }, []);
 
   return (
@@ -214,7 +231,8 @@ const DressRoom = () => {
               {items
                 .filter((item) => item.type === "모자")
                 .map((item, idx) => (
-                  <HatItem key={idx} id={item.item_id} onBuyItem={onBuyItem} cost={item.cost} myItems={myItems}/>
+                  <HatItem key={idx} id={item.item_id} onBuyItem={onBuyItem} cost={item.cost} myItems={myItems}
+                  isModal={isModal} setIsModal={setIsModal}/>
                 ))}
             </div>
           )}
@@ -224,7 +242,8 @@ const DressRoom = () => {
               {items
                 .filter((item) => item.type === "옷")
                 .map((item, idx) => (
-                  <ClothItem key={idx} id={item.item_id} onBuyItem={onBuyItem} cost={item.cost} myItems={myItems}/>
+                  <ClothItem key={idx} id={item.item_id} onBuyItem={onBuyItem} cost={item.cost} myItems={myItems}
+                  isModal={isModal} setIsModal={setIsModal}/>
                 ))}
             </div>
           )}
@@ -234,7 +253,8 @@ const DressRoom = () => {
               {items
                 .filter((item) => item.type === "장식")
                 .map((item, idx) => (
-                  <DecoItem key={idx} id={item.item_id} onBuyItem={onBuyItem} cost={item.cost} myItems={myItems}/>
+                  <DecoItem key={idx} id={item.item_id} onBuyItem={onBuyItem} cost={item.cost} myItems={myItems}
+                  isModal={isModal} setIsModal={setIsModal}/>
                 ))}
             </div>
           )}
@@ -242,7 +262,7 @@ const DressRoom = () => {
           {show.myShow && (
             <div className="ClothList">
               {myItems.map((item, idx) => (
-                <MyItem key={idx} id={item.item.item_id} />
+                <MyItem key={idx} id={item.item.item_id} isMyModal={isMyModal} setIsMyModal={setIsMyModal} onWearItem={onWearItem}/>
               ))}
             </div>
           )}

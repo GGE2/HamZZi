@@ -2,8 +2,8 @@ import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import ShopModal from './ShopModal';
 
-const DecoItem = ({ id, cost, onBuyItem, myItems }) => {
-  const [isModal, setIsModal] = useState(false);
+const DecoItem = ({ id, cost, onBuyItem, myItems , isModal, setIsModal}) => {
+ 
 
   const outside = useRef();
   const onClick = () => {
