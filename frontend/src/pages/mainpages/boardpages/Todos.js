@@ -15,6 +15,7 @@ import api from "./../../../components/api";
 import { useDispatch } from "react-redux";
 import { receivePoint } from "../../../pointSlice";
 import { motion } from "framer-motion";
+import $ from "jquery";
 
 const Todos = () => {
   const nickname = localStorage.getItem("nickname");
@@ -179,7 +180,11 @@ const Todos = () => {
       )
     );
     // getTodo();
-    console.log("투두를 완료했다!");
+    console.log("TodoItem" + id);
+    const target = "#TodoItem" + id;
+    $(document).ready(function () {
+      $(target).addClass("disable-div");
+    });
   };
 
   // 방명록 수정

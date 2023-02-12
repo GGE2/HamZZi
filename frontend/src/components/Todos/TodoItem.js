@@ -8,6 +8,7 @@ import { BiDotsVerticalRounded } from "react-icons/bi";
 import DropdownTodoMenu from "./DropdownTodoMenu";
 import { Reorder, useMotionValue } from "framer-motion";
 import { useRaisedShadow } from "./useRaisedShadow";
+import $ from "jquery";
 // import { OpenVidu } from "openvidu-browser";
 
 const TodoItem = ({ todos, onDel, onToggle, onEdit }) => {
@@ -45,63 +46,76 @@ const TodoItem = ({ todos, onDel, onToggle, onEdit }) => {
     setIsOpen(true);
   };
 
+  const alreadyChecked = (id) => {
+    const target = "#TodoItem" + id;
+    $(document).ready(function () {
+      $(target).addClass("disable-div");
+    });
+  };
+
   const y = useMotionValue(0);
   const boxShadow = useRaisedShadow(y);
 
   return (
-    <Reorder.Item id={todos} value={todos} style={{ boxShadow, y }}>
-      <div className="TodoItem" onClick={showDetail}>
-        <>
-          <div onClick={() => onToggle(todo_id)} className="CheckTodo">
-            {ischeck ? (
-              <button className="CheckedTodo" />
-            ) : (
-              <button className="UnCheckedTodo" />
-            )}
-          </div>
+    <>
+      <Reorder.Item id={todos} value={todos} style={{ boxShadow, y }}>
+        <div
+          className="TodoItem"
+          id={"TodoItem" + todo_id}
+          onClick={showDetail}
+        >
+          <>
+            <div onClick={() => onToggle(todo_id)} className="CheckTodo">
+              {ischeck ? (
+                (alreadyChecked(todo_id), (<button className="CheckedTodo" />))
+              ) : (
+                <button className="UnCheckedTodo" />
+              )}
+            </div>
 
-          {/* {datetime} */}
+            {/* {datetime} */}
 
-          {/* <em onClick={() => onToggle(todo_id)}>{content}</em> */}
+            {/* <em onClick={() => onToggle(todo_id)}>{content}</em> */}
 
-          <div className="content">
-            {isEdit ? (
-              <textarea
-                ref={localContentInput}
-                value={localContent}
-                onChange={(e) => setLocalContent(e.target.value)}
-                disabled={ischeck}
+            <div className="content">
+              {isEdit ? (
+                <textarea
+                  ref={localContentInput}
+                  value={localContent}
+                  onChange={(e) => setLocalContent(e.target.value)}
+                  disabled={ischeck}
+                />
+              ) : (
+                <p disabled={ischeck}>{content}</p>
+              )}
+            </div>
+
+            <div className="TodoSetting">
+              <DropdownTodoMenu
+                todo_id={todo_id}
+                onEdit={onEdit}
+                onDel={onDel}
+                toggleIsEdit={toggleIsEdit}
               />
+            </div>
+
+            {isEdit ? (
+              <>
+                <button onClick={handleQuitEdit}>수정 취소</button>
+                <button onClick={handleEdit}>수정 완료</button>
+              </>
             ) : (
-              <p disabled={ischeck}>{content}</p>
-            )}
-          </div>
-
-          <div className="TodoSetting">
-            <DropdownTodoMenu
-              todo_id={todo_id}
-              onEdit={onEdit}
-              onDel={onDel}
-              toggleIsEdit={toggleIsEdit}
-            />
-          </div>
-
-          {isEdit ? (
-            <>
-              <button onClick={handleQuitEdit}>수정 취소</button>
-              <button onClick={handleEdit}>수정 완료</button>
-            </>
-          ) : (
-            <>
-              {/* <button onClick={() => onDel(todo_id)}>
+              <>
+                {/* <button onClick={() => onDel(todo_id)}>
               <FaRegTrashAlt color="rgb(175,169,169)" size="20" />
             </button>
             <button onClick={toggleIsEdit}>수정하기</button> */}
-            </>
-          )}
-        </>
-      </div>{" "}
-    </Reorder.Item>
+              </>
+            )}
+          </>
+        </div>{" "}
+      </Reorder.Item>
+    </>
   );
 };
 
