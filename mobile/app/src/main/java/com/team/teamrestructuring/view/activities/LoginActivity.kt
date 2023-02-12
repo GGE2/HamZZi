@@ -26,6 +26,7 @@ import com.google.gson.reflect.TypeToken
 import com.kakao.auth.AuthType
 import com.kakao.auth.Session
 import com.kakao.sdk.common.util.Utility
+import com.team.teamrestructuring.R
 import com.team.teamrestructuring.databinding.ActivityLoginBinding
 import com.team.teamrestructuring.dto.User
 import com.team.teamrestructuring.dto.UserInfo
@@ -102,6 +103,7 @@ class LoginActivity : AppCompatActivity() {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
         startActivity(intent)
+        overridePendingTransition(R.anim.horizon_exit,R.anim.none)
     }
     private fun loginAndCreatePet(){
         val intent = Intent(this,CreateUserNickNameActivity::class.java).apply {
@@ -109,6 +111,7 @@ class LoginActivity : AppCompatActivity() {
         }
         Log.d(TAG, "loginAndCreatePet: ")
         startActivity(intent)
+        overridePendingTransition(R.anim.horizon_exit,R.anim.none)
 }
 
     /**

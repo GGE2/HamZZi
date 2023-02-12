@@ -50,9 +50,9 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
     // 클릭한 날짜
     private var nowDate = Date()
 
-    // 더미 데이터
+    private lateinit var nickName:String
 
-    val nickName = ApplicationClass.currentUser.userProfile.nickname.toString()
+    // 더미 데이터
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,7 +66,7 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        nickName = ApplicationClass.currentUser.userProfile.nickname
         stringList = mutableListOf<String>()
         initRecyclerView()
         callService(nickName, dateStr)

@@ -51,16 +51,12 @@ class CreateUserNickNameActivity : AppCompatActivity() ,CreateUserNickNameDialog
         }
     }
 
-    override fun onPause() {
-        super.onPause()
-
-        overridePendingTransition(0, 0)
-    }
     override fun onClick() {
         val intent = Intent(this,CreatePetActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NO_ANIMATION
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
         startActivity(intent)
+        overridePendingTransition(R.anim.horizon_exit,R.anim.none)
     }
 
 }
