@@ -83,12 +83,12 @@ class TodoAdapter (var items: MutableList<Todo>) :  RecyclerView.Adapter<TodoAda
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if(menuClick != null){
             holder.itemView.setOnClickListener {
-                v -> menuClick?.onClick(v, position)
+                    v -> menuClick?.onClick(v, position)
             }
         }
         else if(boxClick != null){
             holder.itemView.setOnClickListener {
-                v -> boxClick?.onClick(v, position)
+                    v -> boxClick?.onClick(v, position)
             }
         }
         else if(itemClick != null){

@@ -18,7 +18,11 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
+<<<<<<< HEAD
                                       <entry key="url" value="file:$USER_HOME$/Library/Android/sdk/icons/material/materialicons/do_not_disturb_on/baseline_do_not_disturb_on_24.xml" />
+=======
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/groups/baseline_groups_24.xml" />
+>>>>>>> feature/mobile/home
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,8 +32,14 @@
                         </option>
                         <option name="values">
                           <map>
+<<<<<<< HEAD
                             <entry key="outputName" value="ic_baseline_do_not_disturb_on_24" />
                             <entry key="sourceFile" value="/C:\git\Team9\mobile" />
+=======
+                            <entry key="color" value="72402b" />
+                            <entry key="outputName" value="ic_guild" />
+                            <entry key="sourceFile" value="C:\git\Team9\mobile" />
+>>>>>>> feature/mobile/home
                           </map>
                         </option>
                       </PersistentState>
