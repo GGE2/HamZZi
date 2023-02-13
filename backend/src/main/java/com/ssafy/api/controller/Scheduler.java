@@ -37,14 +37,14 @@ public class Scheduler {
         countRepo.weeklyTableClear();
     }
 
-    @Scheduled(cron = "5 0 0 * * *")        // 테이블 리셋 후에 생성하기 위해 좀 더 시간을 줬음(더미 데이터 넣어보고 얼마나 걸리는지 체크하면 좋을듯)
+    @Scheduled(cron = "10 0 0 * * *")        // 테이블 리셋 후에 생성하기 위해 좀 더 시간을 줬음(더미 데이터 넣어보고 얼마나 걸리는지 체크하면 좋을듯)
     public void CreateTable() {
         log.info("매일 추가");
         questService.resetBeforeCreateQuestUser();
         countService.resetBeforeCreateCountDaily();
     }
 
-    @Scheduled(cron = "0 0 0 * * 1")
+    @Scheduled(cron = "10 0 0 * * 1")
     public void createWeekly() {
         log.info("매주 추가");
         countService.resetBeforeCreateCountWeekly();
