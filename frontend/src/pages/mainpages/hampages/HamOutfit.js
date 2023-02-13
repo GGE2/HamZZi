@@ -7,11 +7,14 @@ import "../../../styles/Modal.css";
 import html2canvas from "html2canvas";
 import api from "./../../../components/api";
 import Draggable from "react-draggable";
+import { useSelector } from "react-redux";
+import { selectCurrentHamLevel } from "../../../hamStatSlice";
 
 // GrAdd
 const HamOutfit = ({ Wear, getAllProfile }) => {
   const nickname = localStorage.getItem("nickname");
-  const level = localStorage.getItem("petLevel");
+  console.log(useSelector(selectCurrentHamLevel));
+  const level = useSelector(selectCurrentHamLevel);
   const [isCreate, setIsCreate] = useState(false);
   const [isModal, setIsModal] = useState(false);
 
@@ -69,7 +72,7 @@ const HamOutfit = ({ Wear, getAllProfile }) => {
   const trackPos = (data) => {
     setPosition_back({ x: data.x, y: data.y });
   };
-  console.log(position_back);
+  // console.log(position_back);
 
   const test = (e, data) => {
     trackPos(data);
@@ -133,7 +136,12 @@ const HamOutfit = ({ Wear, getAllProfile }) => {
               onStart={handleStart}
               onStop={handleEnd}
             > */}
-              <img src={`wear/${level+Wear.hat + Wear.dress+Wear.background}.gif`} alt="" />
+            <img
+              src={`wear/${
+                level + Wear.hat + Wear.dress + Wear.background
+              }.gif`}
+              alt=""
+            />
             {/* </Draggable> */}
           </div>
           {/* <div className="HamHat">

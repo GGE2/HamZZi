@@ -10,6 +10,7 @@ import {
   increaseEnergetic,
   clearStat,
   getCurrentStat,
+  getPetLevel,
 } from "./../../../../hamStatSlice";
 import axios from "axios";
 import GetPetInfo from "../../../../components/GetPetInfo";
@@ -38,6 +39,7 @@ const StatCtrl = () => {
         const inactive = res.data.petStat.inactive;
         const energetic = res.data.petStat.energetic;
         const etc = res.data.petStat.etc;
+        const level = res.data.pet.level;
         const data = {
           physical,
           artistic,
@@ -47,6 +49,7 @@ const StatCtrl = () => {
           etc,
         };
         dispatch(getCurrentStat(data));
+        dispatch(getPetLevel(level));
         console.log("DISPATCHED!!");
       })
       .catch((err) => {
@@ -57,35 +60,59 @@ const StatCtrl = () => {
   const handlePhysical = () => {
     dispatch(increasePhysical(petId));
     dispatch(grantPoint());
+    api.get(`/api/pet/${nickname}`).then((res) => {
+      dispatch(getPetLevel(res.data.pet.level));
+    });
   };
   const handleArtistic = () => {
     dispatch(increaseArtistic(petId));
     dispatch(grantPoint());
+    api.get(`/api/pet/${nickname}`).then((res) => {
+      dispatch(getPetLevel(res.data.pet.level));
+    });
   };
   const handleIntelligent = () => {
     dispatch(increaseIntelligent(petId));
     dispatch(grantPoint());
+    api.get(`/api/pet/${nickname}`).then((res) => {
+      dispatch(getPetLevel(res.data.pet.level));
+    });
   };
   const handleInactive = () => {
     dispatch(increaseInactive(petId));
     dispatch(grantPoint());
+    api.get(`/api/pet/${nickname}`).then((res) => {
+      dispatch(getPetLevel(res.data.pet.level));
+    });
   };
   const handleEnergetic = () => {
     dispatch(increaseEnergetic(petId));
     dispatch(grantPoint());
+    api.get(`/api/pet/${nickname}`).then((res) => {
+      dispatch(getPetLevel(res.data.pet.level));
+    });
   };
   const handleEtc = () => {
     dispatch(increaseEtc(petId));
     dispatch(grantPoint());
+    api.get(`/api/pet/${nickname}`).then((res) => {
+      dispatch(getPetLevel(res.data.pet.level));
+    });
   };
 
   const handleClear = () => {
     dispatch(clearStat(petId));
+    api.get(`/api/pet/${nickname}`).then((res) => {
+      dispatch(getPetLevel(res.data.pet.level));
+    });
   };
   const handleExp = () => {
     api.put(`/api/pet/exp?pet_id=${petId}&exp=${15}`).then((res) => {
       console.log(res);
       GetPetInfo();
+      api.get(`/api/pet/${nickname}`).then((res) => {
+        dispatch(getPetLevel(res.data.pet.level));
+      });
     });
   };
 
