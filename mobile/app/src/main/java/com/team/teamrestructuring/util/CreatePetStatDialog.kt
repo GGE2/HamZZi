@@ -72,15 +72,16 @@ class CreatePetStatDialog(
         val radarChart = binding.radarchatPetStat
 
         var datas:MutableList<RadarEntry> = mutableListOf()
-        datas.add(RadarEntry(20.0f))
-        datas.add(RadarEntry(30.0f))
-        datas.add(RadarEntry(20.0f))
-        datas.add(RadarEntry(30.0f))
-        datas.add(RadarEntry(20.0f))
-        datas.add(RadarEntry(30.0f))
+        datas.add(RadarEntry(ApplicationClass.petData?.petStat?.physical!!.toFloat()))
+        datas.add(RadarEntry(ApplicationClass.petData?.petStat?.artistic!!.toFloat()))
+        datas.add(RadarEntry(ApplicationClass.petData?.petStat?.intelligent!!.toFloat()))
+        datas.add(RadarEntry(ApplicationClass.petData?.petStat?.inactive!!.toFloat()))
+        datas.add(RadarEntry(ApplicationClass.petData?.petStat?.energetic!!.toFloat()))
+        datas.add(RadarEntry(ApplicationClass.petData?.petStat?.etc!!.toFloat()))
+
 
         val dataSet = RadarDataSet(datas,"스탯")
-        dataSet.color = Color.BLUE
+        dataSet.color = Color.MAGENTA
 
         var data = RadarData()
         data.addDataSet(dataSet)
