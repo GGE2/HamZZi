@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:$USER_HOME$/Library/Android/sdk/icons/material/materialicons/info/baseline_info_24.xml" />
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/groups/baseline_groups_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -29,8 +29,8 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="72402b" />
-                            <entry key="outputName" value="app_info" />
-                            <entry key="sourceFile" value="/C:\git\Team9\mobile" />
+                            <entry key="outputName" value="ic_guild" />
+                            <entry key="sourceFile" value="C:\git\Team9\mobile" />
                           </map>
                         </option>
                       </PersistentState>
