@@ -151,23 +151,25 @@
             app:layout_constraintTop_toBottomOf="@id/constparent2"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent">
+
+
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
-                android:layout_height="280sp">
-                <ImageView
-                    android:layout_width="180sp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ham0"
-                    android:layout_gravity="left"
-                    />
-                <ImageView
-                    android:layout_width="180sp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ham2"
-                    android:layout_gravity="right"
-                    />
-            </androidx.appcompat.widget.LinearLayoutCompat>
+                android:layout_height="280sp"
+                tools:layout_editor_absoluteX="115dp"
+                tools:layout_editor_absoluteY="0dp">
 
+                <ImageView
+                    android:id="@+id/graduate_pet01"
+                    android:layout_width="180sp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ham0" />
+                <ImageView
+                    android:id="@+id/graduate_pet02"
+                    android:layout_width="180sp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ham2" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
             <View
                 android:layout_width="match_parent"
