@@ -70,7 +70,7 @@ const TodoItem = ({ todos, onDel, onToggle, onEdit }) => {
           onClick={showDetail}
         >
           <>
-            <div onClick={() => newCheck()} className="CheckTodo">
+            <div onClick={() =>newCheck()} className="CheckTodo">
               {ischeck ? (
                 (alreadyChecked(todo_id), (<button className="CheckedTodo" />))
               ) : (

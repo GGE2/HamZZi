@@ -18,7 +18,8 @@ import { motion } from "framer-motion";
 import $ from "jquery";
 
 const Todos = () => {
-  const nickname = localStorage.getItem("nickname");
+  // const nickname = 
+  const [nickname, setNickname] = useState(localStorage.getItem("nickname"))
   const user = JSON.parse(localStorage.getItem("user"));
   const [todo_menu, setTodoMenu] = useState([true, false]);
   const [searchword, setSearchWord] = useState(null);
@@ -162,6 +163,7 @@ const Todos = () => {
   };
 
   const onToggle = (id) => {
+    
     api.put(`/api/todo/check/${nickname}/${id}`).then(() => {
       // 포인트 받아온 뒤 redux에 반영
       api.get(`/api/user/mypage?email=${user}`).then((res) => {

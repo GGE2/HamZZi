@@ -11,7 +11,7 @@ import { selectCurrentHamStat, getCurrentStat } from "./../../hamStatSlice";
 const Ham = (props) => {
   return (
     <div className="Ham">
-      <HamHeader />
+      <HamHeader onDeleteUser={props.onDeleteUser}/>
 
       <HamOutfit Wear={props.Wear} getAllProfile={props.getAllProfile}/>
       <HamStatus petName={props.petName} />

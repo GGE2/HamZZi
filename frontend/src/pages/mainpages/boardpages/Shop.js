@@ -10,8 +10,9 @@ import LoadingModal from "../../../components/LoadingModal";
 import MyItem from "./../../../components/DressRoom/MyItem";
 import DecoItem from "./../../../components/DressRoom/DecoItem";
 
-const DressRoom = ({ getAllProfile ,getShopUpdate}) => {
+const DressRoom = ({ getAllProfile ,getShopUpdate, Wear}) => {
   const nickname = localStorage.getItem("nickname");
+  const level = localStorage.getItem("petLevel");
   // const [isModal, setIsModal] = useState(false);
   // const [isMyModal, setIsMyModal] = useState(false);
 
@@ -94,24 +95,6 @@ const DressRoom = ({ getAllProfile ,getShopUpdate}) => {
         console.log(res.data);
         setMyItem(res.data);
         
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  // 아이템 추가 이건 db용
-  const onAddItem = async () => {
-    await api
-      .post(`/api/item/createItem/9`, {
-        cost: 1,
-        item_id: 3,
-        level: 1,
-      })
-      .then((res) => {
-        console.log(res);
-        // getAllProfile()
-        getShopUpdate()
       })
       .catch((err) => {
         console.log(err);
@@ -245,6 +228,9 @@ const DressRoom = ({ getAllProfile ,getShopUpdate}) => {
                     cost={item.cost}
                     myItems={myItems}
                     setShow={setShow}
+                    type={item.type}
+                    petlevel={level}
+                    itemlevel={item.level}
                   />
                 ))}
             </div>
@@ -262,6 +248,9 @@ const DressRoom = ({ getAllProfile ,getShopUpdate}) => {
                     cost={item.cost}
                     myItems={myItems}
                     setShow={setShow}
+                    type={item.type}
+                    petlevel={level}
+                    itemlevel={item.level}
                   />
                 ))}
             </div>
@@ -279,6 +268,9 @@ const DressRoom = ({ getAllProfile ,getShopUpdate}) => {
                     cost={item.cost}
                     myItems={myItems}
                     setShow={setShow}
+                    type={item.type}
+                    petlevel={level}
+                    itemlevel={item.level}
                   />
                 ))}
             </div>
@@ -290,8 +282,10 @@ const DressRoom = ({ getAllProfile ,getShopUpdate}) => {
                 <MyItem
                   key={idx}
                   id={item.item.item_id}
+                  type={item.item.type}
                   onWearItem={onWearItem}
                   setShow={setShow}
+                  Wear={Wear}
                   
                 />
               ))}

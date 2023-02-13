@@ -189,6 +189,14 @@ const Main = () => {
     });
   };
 
+  // 회원탈퇴
+  const onDeleteUser = async () => {
+    await api.delete(`/api/user/delete?email=${email}`).then((res) => {
+      console.log("유저 삭제");
+      console.log(res.data);
+    });
+  };
+
   useEffect(() => {
     // callData()
     getAllProfile();
@@ -272,6 +280,7 @@ const Main = () => {
                   petName={petName}
                   Wear={Wear}
                   getAllProfile={getAllProfile}
+                  onDeleteUser={onDeleteUser}
                 />
               </div>
 
@@ -290,7 +299,7 @@ const Main = () => {
                 {show.friendShow && <Quests user={user} />}
                 {show.profileShow && <Profile user={user} />}
                 {show.dressShow && (
-                  <Shop user={user} getAllProfile={getAllProfile} getShopUpdate={getShopUpdate}/>
+                  <Shop user={user} getAllProfile={getAllProfile} getShopUpdate={getShopUpdate} Wear={Wear}/>
                 )}
               </div>
 

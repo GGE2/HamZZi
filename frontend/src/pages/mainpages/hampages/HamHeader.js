@@ -4,7 +4,7 @@ import DropdownMenu from "./../../../components/GuestBook/DropdownMenu";
 import { useSelector } from "react-redux";
 import { selectCurrentPoint } from "./../../../pointSlice";
 
-const HamHeader = () => {
+const HamHeader = ({onDeleteUser}) => {
   const point = useSelector(selectCurrentPoint);
 
   return (
@@ -18,7 +18,7 @@ const HamHeader = () => {
         <b>500000</b>
       </div> */}
       <div className="Profile">
-        <DropdownMenu />
+        <DropdownMenu onDeleteUser={onDeleteUser}/>
       </div>
     </div>
   );

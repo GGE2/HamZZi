@@ -5,10 +5,16 @@ import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { useNavigate } from "react-router";
 import { motion } from "framer-motion";
 
-const DropdownMenu = () => {
+const DropdownMenu = ({onDeleteUser}) => {
   const navigate = useNavigate();
   const [myPageIsOpen, myPageRef, myPageHandler] = useDetectClose(false);
   const LogoutAuth = () => {
+    localStorage.clear();
+    navigate("/");
+  };
+
+  const DeleteUser = () => {
+    onDeleteUser()
     localStorage.clear();
     navigate("/");
   };
@@ -29,15 +35,15 @@ const DropdownMenu = () => {
         <Menu isDropped={myPageIsOpen}>
           <Ul>
             <Li>
-              <LinkWrapper onClick={LogoutAuth} href="#1-2">
+              <LinkWrapper onClick={LogoutAuth}>
                 로그아웃
               </LinkWrapper>
             </Li>
-            <Li>
+            {/* <Li>
               <LinkWrapper2 href="#1-3">정보수정</LinkWrapper2>
-            </Li>
+            </Li> */}
             <Li>
-              <LinkWrapper href="#1-3">회원탈퇴</LinkWrapper>
+              <LinkWrapper onClick={DeleteUser}>회원탈퇴</LinkWrapper>
             </Li>
           </Ul>
         </Menu>
