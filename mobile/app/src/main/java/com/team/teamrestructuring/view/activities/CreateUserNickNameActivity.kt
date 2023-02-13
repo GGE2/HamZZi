@@ -1,24 +1,33 @@
 package com.team.teamrestructuring.view.activities
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowInsetsController
+import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import com.team.teamrestructuring.R
 import com.team.teamrestructuring.util.CreateUserNickNameDialog
 
 class CreateUserNickNameActivity : AppCompatActivity() ,CreateUserNickNameDialog.CreateUserNickNameDialog{
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_user_nick_name)
+        requirePermission()
         showRegisterUserNickNameDialog()
         setFullScreen()
 
     }
-
+    @RequiresApi(Build.VERSION_CODES.M)
+    private fun requirePermission(){
+        if(ContextCompat.checkSelfPermission(this,android.Manifest.permission.ACTIVITY_RECOGNITION)== PackageManager.PERMISSION_DENIED)
+            requestPermissions(arrayOf(android.Manifest.permission.ACTIVITY_RECOGNITION),0)
+    }
 
     private fun showRegisterUserNickNameDialog(){
         val dialog1 = CreateUserNickNameDialog(this@CreateUserNickNameActivity)

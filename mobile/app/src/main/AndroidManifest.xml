@@ -22,6 +22,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TeamRestructuring"
         tools:targetApi="31">
+
+
         <activity
             android:name=".view.activities.RegisterPlaceActivity"
             android:exported="false">
@@ -76,6 +78,12 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
+        <service android:name=".service.StepService"
+            android:enabled="true"
+            android:exported="true">
+
+        </service>
 
         <service
             android:name=".service.FcmService"

@@ -13,14 +13,14 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat.getSystemService
+import com.bumptech.glide.Glide
 import com.team.teamrestructuring.R
 import com.team.teamrestructuring.databinding.FragmentHomeBinding
+import com.team.teamrestructuring.dto.PetData
 import com.team.teamrestructuring.dto.User
 import com.team.teamrestructuring.service.LoginService
-import com.team.teamrestructuring.util.ApplicationClass
-import com.team.teamrestructuring.util.CreateFriendDialog
-import com.team.teamrestructuring.util.CreatePetDialog
-import com.team.teamrestructuring.util.CreatePetStatDialog
+import com.team.teamrestructuring.service.PetService
+import com.team.teamrestructuring.util.*
 import com.team.teamrestructuring.view.activities.GuildActivity
 import com.team.teamrestructuring.view.activities.HomeActivity
 import retrofit2.Call
@@ -38,7 +38,7 @@ private const val TAG = "HomeFragment_지훈"
  * Use the [HomeFragment.newInstance] factory method to
  *훈
  */
-class HomeFragment : Fragment(),CreateFriendDialog.CreateFriendDialogInterface,CreatePetStatDialog.CreatePetDialogInterface{
+class HomeFragment : Fragment(),CreateFriendDialog.CreateFriendDialogInterface,CreatePetStatDialog.CreatePetDialogInterface,CreatePetStatUpdateDialog.CreateStatUpdateInterface{
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -79,6 +79,11 @@ class HomeFragment : Fragment(),CreateFriendDialog.CreateFriendDialogInterface,C
             dialog.isCancelable = false
             dialog.show(activity?.supportFragmentManager!!,"CreatePetStatDialog")
         }
+        binding.buttonHomeChangeStat.setOnClickListener {
+            val dialog = CreatePetStatUpdateDialog(this@HomeFragment)
+            dialog.isCancelable = false
+            dialog.show(activity?.supportFragmentManager!!,"CreatePetStatUpdateDialog")
+        }
         init()
     }
 
@@ -113,7 +118,29 @@ class HomeFragment : Fragment(),CreateFriendDialog.CreateFriendDialogInterface,C
 
     override fun onResume() {
         super.onResume()
+        Log.d(TAG, "onResume: ")
+        getPetInfo()
         setPetStat()
+    }
+
+
+    private fun getPetInfo(){
+        val service = ApplicationClass.retrofit.create(PetService::class.java)
+            .getPetInfo(ApplicationClass.currentUser.userProfile.nickname).enqueue(object:Callback<PetData>{
+                override fun onResponse(call: Call<PetData>, response: Response<PetData>) {
+                    if(response.isSuccessful){
+                        Log.d(TAG, "onResponse: ${response.body()!!}")
+                        ApplicationClass.petData = response.body()!!
+                        HomeFragment.exp = response.body()!!.pet.exp
+                    }
+                }
+                override fun onFailure(call: Call<PetData>, t: Throwable) {
+                    Log.d(TAG, "onFailure: ${t.message}")
+                }
+
+            })
+
+
     }
     
     private fun setPetStat(){
@@ -124,18 +151,22 @@ class HomeFragment : Fragment(),CreateFriendDialog.CreateFriendDialogInterface,C
         when(ApplicationClass.petData?.pet?.level){
             1->{
                 binding.progressbarMainStat.max = 14
+                Glide.with(this).load(R.raw.pet_lv1).into(binding.imageviewMainPet)
                 binding.textviewMainStat.text = "${ApplicationClass.petData?.pet?.exp}/14"
             }
             2->{
                 binding.progressbarMainStat.max = 30
+                Glide.with(this).load(R.raw.pet_lv2).into(binding.imageviewMainPet)
                 binding.textviewMainStat.text = "${ApplicationClass.petData?.pet?.exp}/30"
             }
             3->{
                 binding.progressbarMainStat.max = 60
+                Glide.with(this).load(R.raw.pet_lv3).into(binding.imageviewMainPet)
                 binding.textviewMainStat.text = "${ApplicationClass.petData?.pet?.exp}/60"
             }
             4->{
                 binding.progressbarMainStat.max = 66
+                Glide.with(this).load(R.raw.pet_lv4).into(binding.imageviewMainPet)
                 binding.textviewMainStat.text = "${ApplicationClass.petData?.pet?.exp}/66"
             }
         }

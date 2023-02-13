@@ -1,7 +1,11 @@
 package com.team.teamrestructuring.util
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Color
+import android.graphics.Point
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -9,8 +13,11 @@ import androidx.fragment.app.DialogFragment
 import com.team.teamrestructuring.databinding.DialogCreatePetBinding
 import com.team.teamrestructuring.databinding.DialogCreateUpdateStatBinding
 import com.team.teamrestructuring.dto.CreatePet
+import com.team.teamrestructuring.dto.PetData
+import com.team.teamrestructuring.dto.UpdatePetStat
 import com.team.teamrestructuring.service.HomeService
 import com.team.teamrestructuring.service.PetService
+import com.team.teamrestructuring.view.fragments.HomeFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,6 +35,11 @@ class CreatePetStatUpdateDialog(
         this.createStatUpdateInterface= createStatUpdateInterface
     }
 
+    override fun onResume() {
+        super.onResume()
+        context?.dialogFragmentResize(this@CreatePetStatUpdateDialog,0.8f,0.45f)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,13 +47,78 @@ class CreatePetStatUpdateDialog(
     ): View? {
         _binding = DialogCreateUpdateStatBinding.inflate(inflater,container,false)
         val view = binding.root
-
+        var count = ApplicationClass.currentUser.userProfile.point
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         setFullScreen()
 
-        
+        binding.textviewStatCount.text = "잔여 스탯 : ${count}"
+        binding.buttonAddArtistic.setOnClickListener {
+            if(count>0){
+            count--
+            binding.textviewStatCount.text = "잔여 스탯 : ${count}"
+            val data = UpdatePetStat(1,0,0,0,0,
+            ApplicationClass.petData?.pet?.pet_id!!,0)
+            updateStat(data)
+            }
+        }
+        binding.buttonAddEnergetic.setOnClickListener {
+            if(count>0) {
+                count--
+                binding.textviewStatCount.text = "잔여 스탯 : ${count}"
+                val data = UpdatePetStat(
+                    0, 1, 0, 0, 0,
+                    ApplicationClass.petData?.pet?.pet_id!!, 0
+                )
+                updateStat(data)
+            }
+        }
+        binding.buttonAddInactive.setOnClickListener {
+            if(count>0) {
+                count--
+                binding.textviewStatCount.text = "잔여 스탯 : ${count}"
+                val data = UpdatePetStat(
+                    0, 0, 0, 1, 0,
+                    ApplicationClass.petData?.pet?.pet_id!!, 0
+                )
+                updateStat(data)
+            }
+        }
+        binding.buttonAddIntelligent.setOnClickListener {
+            if(count>0){
+            count--
+            binding.textviewStatCount.text = "잔여 스탯 : ${count}"
+            val data = UpdatePetStat(0,0,0,0,1,
+                ApplicationClass.petData?.pet?.pet_id!!,0)
+            updateStat(data)
+            }
+        }
+        binding.buttonAddPhysical.setOnClickListener {
+            if(count>0){
+            count--
+            binding.textviewStatCount.text = "잔여 스탯 : ${count}"
+            val data = UpdatePetStat(0,0,0,0,0,
+                ApplicationClass.petData?.pet?.pet_id!!,1)
+            updateStat(data)
+            }
+        }
+        binding.buttonAddEtc.setOnClickListener {
+            if(count>0){
+                count--
+                binding.textviewStatCount.text = "잔여 스탯 : ${count}"
+                val data = UpdatePetStat(0,0,1,0,0,
+                    ApplicationClass.petData?.pet?.pet_id!!,1)
+                updateStat(data)
+            }
+        }
 
-
+        binding.buttonStatCancle.setOnClickListener {
+            getPetInfo()
+            dismiss()
+        }
+        binding.buttonStatOk.setOnClickListener {
+            getPetInfo()
+            dismiss()
+        }
         /*binding.buttonPetCreate.setOnClickListener {
             val pet = CreatePet(binding.edittextDialogFind.text.toString(),ApplicationClass.currentUser.userProfile.nickname)
             sendToServerPetNickname(pet)
@@ -49,6 +126,45 @@ class CreatePetStatUpdateDialog(
         }*/
 
         return view
+    }
+
+
+    private fun getPetInfo(){
+        val service = ApplicationClass.retrofit.create(PetService::class.java)
+            .getPetInfo(ApplicationClass.currentUser.userProfile.nickname).enqueue(object:Callback<PetData>{
+                @SuppressLint("LongLogTag")
+                override fun onResponse(call: Call<PetData>, response: Response<PetData>) {
+                    if(response.isSuccessful){
+                        Log.d(TAG, "onResponse: ${response.body()!!}")
+                        ApplicationClass.petData = response.body()!!
+                        HomeFragment.exp = response.body()!!.pet.exp
+                    }
+                }
+                @SuppressLint("LongLogTag")
+                override fun onFailure(call: Call<PetData>, t: Throwable) {
+                    Log.d(TAG, "onFailure: ${t.message}")
+                }
+
+            })
+
+
+    }
+    private fun updateStat(data : UpdatePetStat){
+        val service = ApplicationClass.retrofit.create(PetService::class.java)
+            .updatePetStat(ApplicationClass.currentUser.userProfile.nickname,data).enqueue(object:Callback<String>{
+                @SuppressLint("LongLogTag")
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    if(response.isSuccessful){
+                        Log.d(TAG, "onResponse: ${response.body()!!}")
+                    }
+                }
+
+                @SuppressLint("LongLogTag")
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    Log.d(TAG, "onFailure: ${t.message}")
+                }
+
+            })
     }
 
     override fun onDestroyView() {
@@ -74,6 +190,32 @@ class CreatePetStatUpdateDialog(
 
         //dialog?.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE)
 
+    }
+    fun Context.dialogFragmentResize(dialogFragment: DialogFragment, width:Float, height:Float){
+        val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
+
+        if(Build.VERSION.SDK_INT<30){
+            val display = windowManager.defaultDisplay
+            val size = Point()
+
+            display.getSize(size)
+
+            val window = dialogFragment.dialog?.window
+
+            val x = (size.x*width).toInt()
+            val y = (size.y*height).toInt()
+            window?.setLayout(x,y)
+        }else{
+            val rect = windowManager.currentWindowMetrics.bounds
+
+            val window = dialogFragment.dialog?.window
+
+            val x = (rect.width() * width).toInt()
+            val y = (rect.height() * height).toInt()
+
+            window?.setLayout(x,y)
+
+        }
     }
 
 

@@ -14,6 +14,7 @@ import com.team.teamrestructuring.databinding.FragmentDailyBinding
 import com.team.teamrestructuring.dto.DailyQuest
 import com.team.teamrestructuring.dto.QuestEnum
 import com.team.teamrestructuring.service.QuestService
+import com.team.teamrestructuring.service.StepService
 import com.team.teamrestructuring.util.ApplicationClass
 import com.team.teamrestructuring.util.CreateQuestResultDialog
 import com.team.teamrestructuring.view.activities.HomeActivity
@@ -137,8 +138,7 @@ class DailyFragment : Fragment() ,CreateQuestResultDialog.CreateResultListener{
                     }
                     //2번일 경우
                     1->{
-                        Log.d(TAG, "onClick: ${ApplicationClass.sharedPreferencesUtil.getPedometer("walk_data",0)}")
-                        val walk_count = HomeActivity.current_counter-ApplicationClass.sharedPreferencesUtil.getPedometer("walk_data",0)
+                        val walk_count = StepService.mStepCounter
                         if(walk_count>=5000){
                             val dialog = CreateQuestResultDialog(this@DailyFragment,"퀘스트를 성공하셨습니다",QuestEnum.TRUE,data)
                             dialog.isCancelable = false

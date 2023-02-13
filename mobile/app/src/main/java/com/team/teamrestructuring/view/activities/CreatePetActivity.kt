@@ -10,6 +10,7 @@ import android.view.WindowInsets
 import android.view.WindowInsetsController
 import com.team.teamrestructuring.R
 import com.team.teamrestructuring.databinding.ActivityCreatePetBinding
+import com.team.teamrestructuring.service.StepService
 import com.team.teamrestructuring.util.CreatePetDialog
 import com.team.teamrestructuring.util.CreateUserNickNameDialog
 
@@ -21,6 +22,8 @@ class CreatePetActivity : AppCompatActivity(),CreatePetDialog.CreatePetDialogInt
         super.onCreate(savedInstanceState)
         binding = ActivityCreatePetBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val intent = Intent(this, StepService::class.java)
+        startService(intent)
         showRegisterPetDialog()
         setFullScreen()
     }

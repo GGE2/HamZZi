@@ -8,5 +8,4 @@ data class UpdatePetStat(
     var intelligent : Int,
     var pet_id : Long,
     var physical : Int,
-
 )
