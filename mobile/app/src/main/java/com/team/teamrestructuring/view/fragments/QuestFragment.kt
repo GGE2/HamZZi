@@ -138,7 +138,6 @@ class QuestFragment : Fragment(),OnMapReadyCallback{
     private fun setTabLayout(){
 
         tabLayout.setTabTextColors(Color.parseColor("#000000"),Color.parseColor("#FFFFFF"))
-
         tabLayout.addTab(tabLayout.newTab().setText("DAILY"))
         tabLayout.addTab(tabLayout.newTab().setText("WEEKLY"))
 

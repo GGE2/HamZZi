@@ -38,7 +38,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_margin="10dp"
         app:layout_constraintRight_toLeftOf="@id/button_dialog_create_time_ok"
-        app:layout_constraintTop_toBottomOf="@id/textview_dialog_create_time"/>
+        app:layout_constraintTop_toBottomOf="@id/textview_dialog_create_time"
+        app:layout_constraintBottom_toBottomOf="parent"/>
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_dialog_create_time_ok"
         android:layout_width="0dp"
@@ -51,6 +52,7 @@
         android:layout_margin="10dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textview_dialog_create_time"
-        app:layout_constraintLeft_toRightOf="@id/button_dialog_create_time_cancle"/>
+        app:layout_constraintLeft_toRightOf="@id/button_dialog_create_time_cancle"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
