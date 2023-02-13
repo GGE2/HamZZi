@@ -285,3 +285,10 @@ ul {
  .DateControl p {
   width: 40%;
  }
+
+ .disable-div {
+  pointer-events: none;
+  color: gray;
+  text-decoration: line-through;
+  text-decoration-color: gray;
+ }
