@@ -1,29 +1,36 @@
 import React, { useRef, useEffect, useState } from "react";
 
-
-
-const ShopModal = ({setIsModal, id, onWearItem}) => {
-
-
-
-
+const WearModal = ({ setIsModal, pid, onWearItem, setShow }) => {
   const onCloseModal = () => {
-    setIsModal(false)
-  }
+    setIsModal(false);
+  };
 
-
-
+  const onWear = () => {
+    onWearItem(pid,setShow);
+    // setShow({
+    //   hatShow: false,
+    //   clothShow: false,
+    //   decoShow: false,
+    //   myShow: true,
+    // });
+  };
 
   return (
     <div className="WearmodalBody">
-      <div className="WearTitle"><img src={`hamzzibody/hamzzi${id + 1}.png`} alt="" /></div>
-      
-      <div>정말 착용 할건가요? <button onClick={()=>onWearItem(id)}>착용</button></div>
-      {/* <div>안녕하세용</div> */}
-      <div id="WearmodalCloseBtn" onClick={onCloseModal}>x</div>
+      <div className="WearTitle">
+        <img src={`hamzzibody/hamzzi${pid + 1}.png`} alt="" />
+      </div>
+
+      <div className="ShopModalBtnList">
+        <div className="ShopModalBtn" onClick={onWear}>
+          <img src="shop/wearbtn.png" alt="" />
+        </div>
+        <div className="ShopModalBtn" onClick={onCloseModal}>
+          <img src="shop/cancelbtn.png" alt="" />
+        </div>
+      </div>
     </div>
   );
-
 };
 
-export default ShopModal;
+export default WearModal;

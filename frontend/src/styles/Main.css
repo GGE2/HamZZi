@@ -115,6 +115,12 @@ border-bottom-right-radius: 10px;
   /* background-color: #f9fbe7; */
 }
 
+.buttonflex button:hover {
+
+  text-decoration: underline;
+  /* background-color: #f9fbe7; */
+}
+
 /* 보드 페이지에 하단 버튼 리스트 /
 .BoardButton {
 width: 100%;

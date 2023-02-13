@@ -13,7 +13,7 @@ const Ham = (props) => {
     <div className="Ham">
       <HamHeader />
 
-      <HamOutfit />
+      <HamOutfit Wear={props.Wear} getAllProfile={props.getAllProfile}/>
       <HamStatus petName={props.petName} />
     </div>
   );

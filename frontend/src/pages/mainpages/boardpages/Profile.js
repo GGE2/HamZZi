@@ -60,16 +60,6 @@ const Profile = () => {
     );
   };
 
-  // 회원 정보 조회 api
-  // const getMypage = async () => {
-  //   const email2 = JSON.parse(email);
-  //   // console.log(typeof(email), email)
-  //   await axios.get(`http://3.35.88.23:8080/api/user/mypage?email=${email2}`)
-  //   .then((res)=>{
-  //     console.log(res.data)
-  //   })
-  // }
-
   // UID 체크 api
   const getUID = async () => {
     const email2 = JSON.parse(email);
@@ -83,7 +73,7 @@ const Profile = () => {
 
   useEffect(() => {
     // getMypage()
-    getUID();
+    // getUID();
   }, []);
 
   const [position, setPosition] = useState({ x: 0, y: 0 }); // box의 포지션 값

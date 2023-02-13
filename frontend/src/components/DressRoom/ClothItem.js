@@ -2,13 +2,16 @@ import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import ShopModal from './ShopModal';
 
-const ClothItem = ({ id, cost, onBuyItem, myItems, isModal, setIsModal }) => {
+const ClothItem = ({ id, cost, onBuyItem, myItems, }) => {
 
+  const [isModal, setIsModal] = useState(false);
 
   const outside = useRef();
   const onClick = () => {
     setIsModal(true);
   };
+
+  const saveid = id
 
   return (
     <>
@@ -19,17 +22,14 @@ const ClothItem = ({ id, cost, onBuyItem, myItems, isModal, setIsModal }) => {
           if (e.target === outside.current) setIsModal(false);
         }}
       >
-        <ShopModal setIsModal={setIsModal} onBuyItem={onBuyItem} id={id} />
+        <ShopModal setIsModal={setIsModal} onBuyItem={onBuyItem} id={saveid} />
       </div>}
 
     {myItems.some((item) => item.item.item_id === id) ? (
       // 구매한 아이템
       <div className="SameItem">
         <motion.div
-          whileHover={{
-            scale: 1.03,
-            transition: { duration: 0.2 },
-          }}
+     
           // className="DressItem"
           className="DressItem_clicked"
           // onClick={onClick}
@@ -56,7 +56,7 @@ const ClothItem = ({ id, cost, onBuyItem, myItems, isModal, setIsModal }) => {
         </motion.div>
         <div className="Cost">
           <img src={`coin.png`} alt="" />
-          {cost}
+          {cost}{id}
         </div>
       </div>
     )}

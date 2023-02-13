@@ -2,10 +2,10 @@ import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import WearModal from "./WearModal";
 
-const MyItem = ({ id, isMyModal, setIsMyModal, onWearItem }) => {
+const MyItem = ({ id,  onWearItem, setShow }) => {
   // console.log(imgNums[0])
   // const [isclick, setIsclick] = useState(false);
-
+  const [isMyModal, setIsMyModal] = useState(false);
   
 
   const outside = useRef();
@@ -23,7 +23,7 @@ const MyItem = ({ id, isMyModal, setIsMyModal, onWearItem }) => {
             if (e.target === outside.current) setIsMyModal(false);
           }}
         >
-          <WearModal setIsModal={setIsMyModal} id={id} onWearItem={onWearItem}/>
+          <WearModal setShow={setShow} setIsModal={setIsMyModal} pid={id} onWearItem={onWearItem}/>
         </div>
       )}
 
@@ -37,6 +37,7 @@ const MyItem = ({ id, isMyModal, setIsMyModal, onWearItem }) => {
           className="DressItem_Unclicked"
           onClick={onClick}
         >
+      
           <img src={`hamzzibody/hamzzi${id + 1}.png`} alt="" />
         </motion.div>
       </div>

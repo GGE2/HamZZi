@@ -20,19 +20,20 @@
     /* z-index: 100; */
     display: flex;
     flex-direction: column;
-    width: 20em;
-    height: 10em;
+    width: 15em;
+    height: 14em;
     position: absolute;
     background-color: white ;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-    padding: 40px;
+    padding: 30px;
     text-align: center;
     /* justify-content: center; */
     align-items: center;
     transform: translate(-50%, -50%);
-    /* border-radius: 10px; */
+    border-radius: 10px;
+    border: 10px solid rgb(146, 89, 67);
     box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
   }
   
@@ -52,24 +53,26 @@
     height: 8em;
   }
   
-  .ShopContent{
-    display: flex;
-    justify-content: start;
-    font-size: 20px;
-    /* margin-bottom: 30px; */
-  }
+.ShopModalBtnList {
+  width: 90%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 1em;
+}
+
+.ShopModalBtn {
+  width: 6em;
+  cursor: pointer;
+  /* mar */
+}
+
+
+.ShopModalBtn img{
+  width: 6em;
+}
   
-  .ShopReword{
-    font-size: 30px;
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    bottom: 0;
-  }
-  
-  .ShopReword2{
-    
-  }
+
    
   #ShopmodalCloseBtn {
     position: absolute;

@@ -20,6 +20,15 @@ const Main = () => {
   const [petName, setPetName] = useState("");
   const [name, setName] = useState("");
   const email = JSON.parse(localStorage.getItem("user"));
+  const uid = JSON.parse(localStorage.getItem("uid"));
+
+  // 아이템 착용하는거
+  const [Wear, setWear] = useState({
+    hat: 0,
+    dress: 0,
+    background: 0,
+  });
+
   // const nickname = localStorage.getItem("nickname");
   const [nickname, SetNickName] = useState();
   const dispatch = useDispatch();
@@ -46,7 +55,6 @@ const Main = () => {
   const [menu, setMenu] = useState([true, false, false, false, false]);
 
   const getPetInfo = (nickname) => {
-    
     api
       .get(`/api/pet/${nickname}`)
       .then((res) => {
@@ -73,7 +81,6 @@ const Main = () => {
         dispatch(getCurrentStat(data));
         console.log(data);
         console.log("DISPATCHED!!");
-        
       })
       .catch((err) => {
         console.log(err);
@@ -105,10 +112,71 @@ const Main = () => {
       });
   };
 
+  // 유저
+  const getAllProfile = () => {
+    setLoading2(true);
+    api
+      .get(`/api/user/info/${uid}`)
+      .then((res) => {
+        console.log("회원 모든 정보 조회 api");
+        console.log(res.data);
+        localStorage.setItem("nickname", res.data.userProfile.nickname);
+        setUser({
+          // guild: res.data.guild,
+          point: res.data.userProfile.point,
+          nickname: res.data.userProfile.nickname,
+          rest_point: res.data.userProfile.rest_point,
+        });
+        dispatch(receivePoint(res.data.userProfile.point));
+        SetNickName(res.data.userProfile.nickname);
+        getPetInfo(res.data.userProfile.nickname);
+        onGetUserGuildInfo(res.data.userProfile.nickname);
+        setWear({
+          hat: res.data.userProfile.hat,
+          dress: res.data.userProfile.dress,
+          background: res.data.userProfile.background,
+        });
+        setLoading2(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  // // 유저
+  const getShopUpdate = () => {
+    setLoading2(true);
+    api
+      .get(`/api/user/info/${uid}`)
+      .then((res) => {
+        console.log("회원 모든 정보 조회 api");
+        console.log(res.data);
+        // localStorage.setItem("nickname", res.data.userProfile.nickname);
+        setUser({
+          // guild: res.data.guild,
+          point: res.data.userProfile.point,
+          nickname: res.data.userProfile.nickname,
+          rest_point: res.data.userProfile.rest_point,
+        });
+        dispatch(receivePoint(res.data.userProfile.point));
+        // SetNickName(res.data.userProfile.nickname);
+        // getPetInfo(res.data.userProfile.nickname);
+        // onGetUserGuildInfo(res.data.userProfile.nickname);
+        setWear({
+          hat: res.data.userProfile.hat,
+          dress: res.data.userProfile.dress,
+          background: res.data.userProfile.background,
+        });
+        setLoading2(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   // 유저 길드 정보 가져오기 api
   // 닉네임으로 가져옴. nickname
   const onGetUserGuildInfo = async (nickname) => {
-  
     await api.get(`/api/guild/user?nickname=${nickname}`).then((res) => {
       console.log("유저 길드 정보 가져오기 api");
       console.log(res.data);
@@ -118,13 +186,13 @@ const Main = () => {
         setGuildUsers(res.data);
         setGuildName(res.data.guild.guild_name);
       }
-   
     });
   };
 
   useEffect(() => {
     // callData()
-    getProfile();
+    getAllProfile();
+    // getProfile();
     // getPetInfo();
     //     onGetUserGuildInfo(); // 유저 길드 정보 가져오기
   }, []);
@@ -132,6 +200,10 @@ const Main = () => {
   useEffect(() => {
     getPetInfo();
   }, [name]);
+
+  // useEffect(() => {
+  //   getAllProfile();
+  // }, [Wear.hat, Wear.dress, Wear.background]);
 
   // 메뉴 선택 함수
   const onClickTodo = () => {
@@ -196,14 +268,17 @@ const Main = () => {
           {loading2 === false ? (
             <>
               <div className="Hamster">
-                <Ham petName={petName} />
+                <Ham
+                  petName={petName}
+                  Wear={Wear}
+                  getAllProfile={getAllProfile}
+                />
               </div>
 
               <div className="Screen">
                 {show.todoShow && <Todos user={user} />}
                 {show.guildShow && (
                   <Guild
-                    // user={user}
                     setGuildUsers={setGuildUsers}
                     guildUsers={guildUsers}
                     guildId={guildId}
@@ -214,7 +289,9 @@ const Main = () => {
 
                 {show.friendShow && <Quests user={user} />}
                 {show.profileShow && <Profile user={user} />}
-                {show.dressShow && <Shop user={user} />}
+                {show.dressShow && (
+                  <Shop user={user} getAllProfile={getAllProfile} getShopUpdate={getShopUpdate}/>
+                )}
               </div>
 
               <div className="buttonflex">
