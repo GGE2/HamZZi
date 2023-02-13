@@ -78,6 +78,7 @@ const Todos = () => {
 
   const handleToday = () => {
     setCaldate(new Date().toISOString().split("T")[0]);
+    setStartDate(new Date());
     getTodo();
   };
 
