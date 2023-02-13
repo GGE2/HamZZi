@@ -50,9 +50,9 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
     companion object{
         const val channel_id = "team_channel"
         const val REQUEST_CODE = 1001
+        lateinit var binding : ActivityHomeBinding
     }
     private lateinit var auth:FirebaseAuth
-    private lateinit var binding : ActivityHomeBinding
 
 
     private val frameLayout:FrameLayout by lazy{

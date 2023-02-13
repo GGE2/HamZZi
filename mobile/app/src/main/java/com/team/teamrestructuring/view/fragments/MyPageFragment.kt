@@ -75,8 +75,13 @@ class MyPageFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        if(ApplicationClass.currentUser.userProfile.location!=null)
-            binding.textviewMyPageContentPlace.text = ApplicationClass.currentUser.userProfile.location
+        if(ApplicationClass.currentUser.userProfile.location!=null) {
+            var location = binding.textviewMyPageContentPlace.text
+            if(location.length>12){
+               location = location.substring(0,12)+"..."
+                binding.textviewMyPageContentPlace.text = location
+            }
+        }
     }
 
     private fun setListener(){

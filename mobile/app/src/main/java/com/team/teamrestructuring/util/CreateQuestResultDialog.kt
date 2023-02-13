@@ -11,6 +11,7 @@ import com.team.teamrestructuring.databinding.DialogCreatePetBinding
 import com.team.teamrestructuring.databinding.DialogCreateQuestResultBinding
 import com.team.teamrestructuring.dto.*
 import com.team.teamrestructuring.service.*
+import com.team.teamrestructuring.view.activities.HomeActivity
 import com.team.teamrestructuring.view.fragments.DailyFragment
 import com.team.teamrestructuring.view.fragments.QuestFragment
 import com.team.teamrestructuring.view.fragments.WeeklyFragment
@@ -92,6 +93,8 @@ class CreateQuestResultDialog(
                     }else{
                         getWeeklyQuestData()
                     }
+                    if(quest!!.quest.quest_id.toInt()==1)
+                        HomeActivity.binding.viewpagerMainPager.currentItem = 3
                 }
             }
             dismiss()
