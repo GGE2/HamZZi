@@ -27,6 +27,6 @@ public interface PetService {
 
     /* 스탯, 타입과 경험치 로직 */
     Pet expLevelLogic(Long pet_id, int exp);
-    PetInfo typeSettingLogic(PetStat petStat);
+    PetInfo typeSettingLogic(String nickname);
     PetStat statLogic(PetStatRequest petStatRequest, String nickname);
 }

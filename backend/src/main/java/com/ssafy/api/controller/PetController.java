@@ -92,7 +92,7 @@ public class PetController {
     }
     //////////////////////////////////////////////////////////////////////////////////////////////////////
     @PutMapping("/exp")
-    @ApiOperation(value = "펫 경험치 증가", notes = "입력받은 pet_id를 가진 펫의 경험치와 레벨을 증가시킨다")
+    @ApiOperation(value = "펫 경험치 증가 - Type 1부터 순서대로 physical, artistic, intelligent, inactive, energetic, etc", notes = "입력받은 pet_id를 가진 펫의 경험치와 레벨을 증가시킨다")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 401, message = "인증 실패"),
@@ -100,9 +100,10 @@ public class PetController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     /* Pet-경험치 API: 펫을 조회하고 입력받은 경험치만큼 올려준다(레벨도!!) */
-    public String increaseExpLevel(Long pet_id, int exp) {
+    public String increaseExpLevel(Long pet_id, int exp, @RequestParam String nickname) {
         Pet pet = petService.expLevelLogic(pet_id, exp);
-        return pet.getPet_name() + ": Lv" + pet.getLevel() + " Exp:" + pet.getExp();
+        PetInfo petInfo = petService.typeSettingLogic(nickname);
+        return pet.getPet_name() + ": Lv" + pet.getLevel() + " Exp:" + pet.getExp() + " PetType: " + petInfo.getType();
     }
 
     @PutMapping("/stat")

@@ -35,6 +35,25 @@ public class PetRepositorySupport implements PetRepository {
                 .getSingleResult();
         } catch (NoResultException e) {return null;}
     }
+
+    @Override
+    public PetInfo findByInfoNickname(String nickname) {
+        try { return em.createQuery("select p from PetInfo p where p.pet.nickname=:nickname and p.pet.is_graduate=:is_graduate", PetInfo.class)
+                .setParameter("nickname", nickname)
+                .setParameter("is_graduate", false)
+                .getSingleResult();
+        } catch (NoResultException e) {return null;}
+    }
+
+    @Override
+    public PetStat findByStatNickname(String nickname) {
+        try { return em.createQuery("select p from PetStat p where p.pet.nickname=:nickname and p.pet.is_graduate=:is_graduate", PetStat.class)
+                .setParameter("nickname", nickname)
+                .setParameter("is_graduate", false)
+                .getSingleResult();
+        } catch (NoResultException e) {return null;}
+    }
+
     @Override
     public List<PetInfo> graduatePetList(String nickname) {
         return em.createQuery("select pi from PetInfo pi LEFT JOIN pi.pet p "

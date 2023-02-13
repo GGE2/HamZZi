@@ -14,6 +14,9 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -120,9 +123,45 @@ public class PetServiceImpl implements PetService {
         return pet;
     }
 
+    /**
+     * expLevelLogic 올릴때 같이 요청
+     * @param nickname
+     * @return petInfo
+     */
     @Override
-    public PetInfo typeSettingLogic(PetStat petStat) {
-        return null;
+    public PetInfo typeSettingLogic(String nickname) {
+        Pet pet = petRepo.findByNickname(nickname);
+        PetInfo petInfo = petRepo.findByInfoNickname(nickname);
+        PetStat petStat = petRepo.findByStatNickname(nickname);
+
+        int physical = petStat.getPhysical();
+        int artistic = petStat.getArtistic();
+        int intelligent = petStat.getIntelligent();
+        int inactive = petStat.getInactive();
+        int energetic = petStat.getEnergetic();
+        int etc = petStat.getEtc();
+
+        int[] arr = {physical, artistic, intelligent, inactive, energetic, etc};
+        int max = arr[0];
+        int maxIndex = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] > max) {max = arr[i]; maxIndex = i;}
+        }
+
+        if (pet.getLevel() >= 4) {
+            switch (maxIndex) {
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                    petInfo.setType(maxIndex + 1); break;
+            }
+        }
+        petRepo.savePetInfo(petInfo);
+
+        return petInfo;
     }
 
     @Override
@@ -167,6 +206,4 @@ public class PetServiceImpl implements PetService {
         petRepo.savePet(pet);
         return pet;
     }
-
-
 }
