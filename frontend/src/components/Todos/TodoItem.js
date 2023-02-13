@@ -53,6 +53,11 @@ const TodoItem = ({ todos, onDel, onToggle, onEdit }) => {
     });
   };
 
+  const newCheck = () => {
+    onToggle(todo_id)
+    handleQuitEdit()
+  }
+
   const y = useMotionValue(0);
   const boxShadow = useRaisedShadow(y);
 
@@ -65,7 +70,7 @@ const TodoItem = ({ todos, onDel, onToggle, onEdit }) => {
           onClick={showDetail}
         >
           <>
-            <div onClick={() => onToggle(todo_id)} className="CheckTodo">
+            <div onClick={() => newCheck()} className="CheckTodo">
               {ischeck ? (
                 (alreadyChecked(todo_id), (<button className="CheckedTodo" />))
               ) : (
@@ -90,22 +95,40 @@ const TodoItem = ({ todos, onDel, onToggle, onEdit }) => {
               )}
             </div>
 
-            <div className="TodoSetting">
-              <DropdownTodoMenu
+            {/* <div className="TodoSetting"> */}
+              {/* <DropdownTodoMenu
                 todo_id={todo_id}
                 onEdit={onEdit}
                 onDel={onDel}
                 toggleIsEdit={toggleIsEdit}
-              />
-            </div>
+              /> */}
+             
+              
+            {/* </div> */}
 
             {isEdit ? (
               <>
-                <button onClick={handleQuitEdit}>수정 취소</button>
-                <button onClick={handleEdit}>수정 완료</button>
+              <div className="TodoSetting">
+                {/* <button onClick={handleEdit}>수정 완료</button>
+                <button onClick={handleQuitEdit}>수정 취소</button> */}
+                <div onClick={handleEdit} className="SetTodoBtn">
+                <img src="assets/buttons/completebtn.png" alt="" />
+             </div>
+              <div onClick={handleQuitEdit} className="SetTodoBtn">
+                <img src="assets/buttons/cancelbtn.png" alt="" />
+             </div>
+                </div>
               </>
             ) : (
               <>
+              <div className="TodoSetting">
+             <div onClick={toggleIsEdit} className="SetTodoBtn">
+                <img src="assets/buttons/editbtn.png" alt="" />
+             </div>
+              <div onClick={()=>onDel(todo_id)} className="SetTodoBtn">
+                <img src="assets/buttons/deletebtn.png" alt="" />
+             </div>
+              </div>
                 {/* <button onClick={() => onDel(todo_id)}>
               <FaRegTrashAlt color="rgb(175,169,169)" size="20" />
             </button>

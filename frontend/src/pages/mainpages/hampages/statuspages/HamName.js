@@ -10,7 +10,7 @@ const HamName = (props) => {
   useEffect(() => {}, []);
 
   return (
-    <div>
+    <div className="HamName">
       {/* <BsPencil color={"red"} /> */}
       {props.petName}
     </div>

@@ -50,7 +50,7 @@
 /* 퀘스트 아이템 */
 .QuestItem {
     display: flex;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #803a21;
     justify-content: space-around;
     align-items: center;
     /* height: 100px; */

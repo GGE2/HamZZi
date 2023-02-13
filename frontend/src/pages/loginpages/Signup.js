@@ -172,7 +172,7 @@ export default function Signup() {
   return (
     <>
       <div className="contentWrap">
-        <div className="siginup_titleWrap">HAMZZI</div>
+
         <div className="siginup_inputTitle">이메일 주소</div>
         <div className="siginup_inputWrap">
           <input

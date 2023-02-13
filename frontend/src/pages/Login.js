@@ -26,13 +26,16 @@ const Login = () => {
       {token ? navigate("/main") : null}
       <div className="loginbody">
         {/* <div className="loginback"> */}
+        <div className="backimg">
+          <img src="title.png" alt="" />
+        </div>
 
         {loginflag ? (
           <div className="loginback">
             <div className="selectlogin">
               <button
                 // className="selectBtn1"
-                style={{ borderRight: "1px solid black" }}
+                style={{ borderRight: "1px solid #803a21" }}
                 onClick={onClickSelectLogin}
                 className={loginflag ? "selectBtn1" : "selectBtn2"}
               >
@@ -55,7 +58,7 @@ const Login = () => {
             <div className="selectlogin">
               <button
                 // className="selectBtn1"
-                style={{ borderRight: "1px solid black" }}
+                style={{ borderRight: "1px solid #803a21" }}
                 onClick={onClickSelectLogin}
                 className={loginflag ? "selectBtn1" : "selectBtn2"}
               >

@@ -140,7 +140,7 @@ const LinkWrapper2 = styled.div`
     text-decoration: underline;
   }
   &:after {
-    border-top: 3px solid black;
+    border-top: 3px solid 803a21;
     border: 12px solid transparent;
     border-top-width: 0;
     border-bottom-color: gray;

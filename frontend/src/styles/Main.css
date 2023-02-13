@@ -41,7 +41,7 @@ width: 75%;
 height: 85%;
 position: fixed;
 display: flex;
-border: 3px solid black;
+border: 3px solid #803a21;
 background-color: rgb(146, 89, 67);
 border-radius: 10px;
 
@@ -50,10 +50,10 @@ border-radius: 10px;
 .Back .Hamster {
   background-color: #f9fbe7;
   /* background-color: #f9fbe7; */
-border-top: solid 3px black;
-border-left: solid 3px black;
-border-bottom: solid 3px black;
-border-right: solid 3px black;
+border-top: solid 3px #803a21;
+border-left: solid 3px #803a21;
+border-bottom: solid 3px #803a21;
+border-right: solid 3px #803a21;
 /* border-top-left-radius: 15px;
 border-bottom-left-radius: 15px; */
 border-radius: 10px;
@@ -73,10 +73,8 @@ display: flex;
 flex-direction: column;
 text-align: center;
 width: 65%;
-border: solid 3px black;
-/* border-bottom: 3px solid black;
-border-top: 3px solid black;
-border-left: 3px solid black; */
+border: solid 3px #803a21;
+
 border-top-left-radius: 10px;
 border-top-right-radius: 10px;
 border-bottom-right-radius: 10px;
@@ -104,9 +102,9 @@ position: relative;
   width: 6em;
   text-align: center;
   border: none;
-  border-top: solid 3px black;
-  border-right: solid 3px black;
-  border-bottom: solid 3px black;
+  border-top: solid 3px #803a21;
+  border-right: solid 3px #803a21;
+  border-bottom: solid 3px #803a21;
   border-top-right-radius: 10px;
 border-bottom-right-radius: 10px;
  
@@ -134,15 +132,7 @@ border-top: 3px solid black;
 white-space: pre;
 cursor: pointer;
 border: none;
-/* border-top: 5px solid red; /
-/ border-right: 1px solid black;
-border-left: 1px solid black; /
-/ border-bottom: 1px solid red; /
-padding-right: 5px;
-background-color: #f9fbe7;
-height: auto;
-width: 20%;
-/ border: 1px solid black; */
+
 
 transition-property: color, background-color;
 }
@@ -154,7 +144,7 @@ transition-property: color, background-color;
 }
 
 .BoardButto--active1 {
-  color: black;
+  color: #803a21;
   background-color: orange;
   text-decoration:underline
 }
@@ -166,13 +156,13 @@ transition-property: color, background-color;
 }
 
 .BoardButto--active3 {
-  color: black;
+  color: #803a21;
   background-color: yellow;
   text-decoration:underline
 }
 
 .BoardButto--active4 {
-  color: black;
+  color: #803a21;
   background-color: white;
   text-decoration:underline
 }

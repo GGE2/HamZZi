@@ -9,11 +9,14 @@ const HamHeader = () => {
 
   return (
     <div className="Hamheader">
-      <p>내 포인트: {point} </p>
-      <div className="HamAchievement">
+      <div className="Costt">
+        <img src={`coin.png`} alt="" />
+        {point}
+      </div>
+      {/* <div className="HamAchievement">
         <GiAchievement size={"40"} color={"orange"} />
         <b>500000</b>
-      </div>
+      </div> */}
       <div className="Profile">
         <DropdownMenu />
       </div>

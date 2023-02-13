@@ -1,7 +1,7 @@
 .TodoList {
     overflow: scroll;
     /* margin-bottom:30px;   */
-    border-top: 3px solid black;
+    border-top: 3px solid #803a21;
     flex-wrap: wrap;
     height: 411px;
     /* max-height: 70%; */
@@ -40,7 +40,7 @@ display: none;}
     justify-content: center;
     width: 4vw;
     background-color: transparent;
-    border: 1px black;
+    border: 1px #803a21;
     cursor: pointer;
     /* margin-left: 20%; */
     align-items: center;
@@ -102,7 +102,7 @@ border-radius: 50%;}
   margin-top: 1%;
   margin-left: 3%;
   margin-right: 3%;
-  padding-left: 5%;
+  padding-left: 3%;
   align-items: center;
   
   border-radius: 0.75em;
@@ -151,16 +151,34 @@ border-radius: 50%;}
   overflow: hidden;
   display: flex;
   align-items: center;
-  width: 6vh;
-  height: 6vh;
+  /* width: 6vh;
+  height: 6vh; */
   margin-left: auto;
+  /* margin-right: 3%; */
+  padding-right: 3%;
   background-color: transparent;
   cursor: pointer;
   justify-content: left;
 }
 
+.SetTodoBtn {
+  width: 5em;
+  padding-right: 10px;
+  /* height: 5em; */
+ }
+
+ .SetTodoBtn img{
+  width: 5em;
+  
+  /* height: 5em; */
+ }
+
 .content {
     margin-left: 1rem; 
+}
+
+.content textarea {
+  resize: none;
 }
 
 p:disabled {
@@ -170,7 +188,7 @@ p:disabled {
 }
 
 .todoline{
-    border: 1px solid black;
+    border: 1px solid #803a21;
     height: 15px;
 }
 
@@ -211,6 +229,7 @@ p:disabled {
   display: flex;
   border-radius: 10px;
   padding: 8px;
+  margin-left: 10px;
   /* margin-top: 8px; */
   background-color: white;
   border: 1px solid gray;
@@ -230,7 +249,7 @@ p:disabled {
 
 .TodoSearch_btn {
   width: 5em;
-  margin-left: 10px;
+  /* margin-left: 10px; */
   margin-right: 10px;
 }
 
@@ -256,6 +275,7 @@ p:disabled {
 }
 
 .TodoDropDownMenu {
+  display: flex;
     overflow: visible;
 }
 
@@ -292,3 +312,4 @@ ul {
   text-decoration: line-through;
   text-decoration-color: gray;
  }
+

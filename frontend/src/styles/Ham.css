@@ -36,7 +36,7 @@ animation: rotate_image 10s linear infinite;
 }
 /* 햄 header 부분 : 업적  */
 .Hamheader {
-    /* border-bottom: 3px solid black; */
+    
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -84,6 +84,19 @@ animation: rotate_image 10s linear infinite;
 .HamBody img {
    height: 100%;
    /* width: 100%; */
+}
+
+.Costt {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 0.5em;
+    font-size: 17px;
+}
+
+.Costt img {
+    width: 2em;
+    margin-right: 10px;
 }
 
 .HamBody {
@@ -154,7 +167,7 @@ animation: rotate_image 10s linear infinite;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 3px solid black;
+    border: 3px solid #803a21;
     width: 50%;
     height: 50%;
     cursor: pointer;
@@ -166,7 +179,7 @@ animation: rotate_image 10s linear infinite;
 
 .PetCreate:hover {
     /* background-color: #808080; */
-    box-shadow: 0 0 10px black;
+    box-shadow: 0 0 10px #803a21;
 }
 
 .HamModal {
@@ -187,7 +200,7 @@ animation: rotate_image 10s linear infinite;
 
   /* 모달창 디자인 */
   background-color: gray;
-  border: 1px solid black;
+  border: 1px solid #803a21;
   border-radius: 8px;
 }
 
@@ -211,3 +224,8 @@ animation: rotate_image 10s linear infinite;
     background-position: center;
 }
 
+/* 이름 사이즈 */
+.HamName {
+    font-weight: bold;
+    font-size: 20px;
+}

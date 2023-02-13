@@ -298,21 +298,21 @@ const Main = () => {
                 <button
                   className={menu[0] ? "BoardButto--active0" : ""}
                   onClick={onClickTodo}
-                  style={{ borderRight: "3px solid black" }}
+                  style={{ borderRight: "3px solid #803a21" }}
                 >
                   Todo
                 </button>
                 <button
                   className={menu[1] ? "BoardButto--active1" : ""}
                   onClick={onClickGuild}
-                  style={{ borderRight: "3px solid black" }}
+                  style={{ borderRight: "3px solid #803a21" }}
                 >
                   Guild
                 </button>
                 <button
                   className={menu[2] ? "BoardButto--active2" : ""}
                   onClick={onClickFriend}
-                  style={{ borderRight: "3px solid black" }}
+                  style={{ borderRight: "3px solid #803a21" }}
                 >
                   Quest
                 </button>

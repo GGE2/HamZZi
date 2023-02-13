@@ -133,7 +133,7 @@ const HamOutfit = ({ Wear, getAllProfile }) => {
               onStart={handleStart}
               onStop={handleEnd}
             > */}
-              <img src={`chara/hamzzi/hamzzi${level}.png`} alt="" />
+              <img src={`type/${level+'000'}.gif`} alt="" />
             {/* </Draggable> */}
           </div>
           {/* <div className="HamHat">
@@ -146,6 +146,7 @@ const HamOutfit = ({ Wear, getAllProfile }) => {
               <img src={`chara/hat/hat1.png`} alt="" />
             </Draggable>
           </div>
+          <div className=""></div>
 
           <div className="HamCloths">
             <Draggable
