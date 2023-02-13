@@ -34,6 +34,7 @@ import com.team.teamrestructuring.util.AlarmReceiver
 import com.team.teamrestructuring.util.ApplicationClass
 import com.team.teamrestructuring.util.CreatePetDialog
 import com.team.teamrestructuring.view.adapters.ViewPagerAdapter
+import com.team.teamrestructuring.view.fragments.HomeFragment
 import com.team.teamrestructuring.view.fragments.QuestFragment
 import retrofit2.Call
 import retrofit2.Callback
@@ -106,6 +107,7 @@ private fun requirePermission(){
                     if(response.isSuccessful){
                         Log.d(TAG, "onResponse: ${response.body()!!}")
                         ApplicationClass.petData = response.body()!!
+                        HomeFragment.exp = response.body()!!.pet.exp
                     }
                 }
                 override fun onFailure(call: Call<PetData>, t: Throwable) {

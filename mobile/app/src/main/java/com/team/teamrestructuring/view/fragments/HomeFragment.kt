@@ -1,6 +1,7 @@
 package com.team.teamrestructuring.view.fragments
 
 import android.app.AlertDialog
+import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -31,7 +32,7 @@ import retrofit2.Response
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 private const val TAG = "HomeFragment_지훈"
-private const val petName : String = "햄최몇"
+
 /**
  * A simple [Fragment] subclass.
  * Use the [HomeFragment.newInstance] factory method to
@@ -67,11 +68,11 @@ class HomeFragment : Fragment(),CreateFriendDialog.CreateFriendDialogInterface,C
         super.onViewCreated(view, savedInstanceState)
 
 
-        binding.buttonHomeFind.setOnClickListener {
+        /*binding.buttonHomeFind.setOnClickListener {
             val dialog = CreateFriendDialog(this@HomeFragment)
             dialog.isCancelable = false
             dialog.show(activity?.supportFragmentManager!!,"CreateFriendDialog")
-        }
+        }*/
 
         binding.buttonHomeStat.setOnClickListener {
             val dialog = CreatePetStatDialog(this@HomeFragment)
@@ -80,9 +81,7 @@ class HomeFragment : Fragment(),CreateFriendDialog.CreateFriendDialogInterface,C
         }
         init()
     }
-    private fun petNickName(){
 
-    }
 
     private fun init(){
         createIntent()
@@ -111,9 +110,36 @@ class HomeFragment : Fragment(),CreateFriendDialog.CreateFriendDialogInterface,C
 
             })
     }
+
+    override fun onResume() {
+        super.onResume()
+        setPetStat()
+    }
     
     private fun setPetStat(){
+
         binding.textviewHomeName.text = ApplicationClass.petData?.pet?.pet_name
+        binding.buttonHomeLevel.text = ApplicationClass.petData?.pet?.level.toString()
+        binding.progressbarMainStat.progress = exp
+        when(ApplicationClass.petData?.pet?.level){
+            1->{
+                binding.progressbarMainStat.max = 14
+                binding.textviewMainStat.text = "${ApplicationClass.petData?.pet?.exp}/14"
+            }
+            2->{
+                binding.progressbarMainStat.max = 30
+                binding.textviewMainStat.text = "${ApplicationClass.petData?.pet?.exp}/30"
+            }
+            3->{
+                binding.progressbarMainStat.max = 60
+                binding.textviewMainStat.text = "${ApplicationClass.petData?.pet?.exp}/60"
+            }
+            4->{
+                binding.progressbarMainStat.max = 66
+                binding.textviewMainStat.text = "${ApplicationClass.petData?.pet?.exp}/66"
+            }
+        }
+
     }
 
     /**
@@ -124,15 +150,17 @@ class HomeFragment : Fragment(),CreateFriendDialog.CreateFriendDialogInterface,C
         /**
          * Guild 버튼 클릭시 GuildActivity로 이동
          */
-        binding.buttonHomeGuild.setOnClickListener {
+        /*binding.buttonHomeGuild.setOnClickListener {
             val intent = Intent(activity,GuildActivity::class.java)
             startActivity(intent)
-        }
+        }*/
+
     }
 
 
 
     companion object {
+        var exp = 0
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.

@@ -3,11 +3,11 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="oval">
     <!--배경색 -->
-    <solid android:color="#7cac54" ></solid>
+    <solid android:color="#FFCE3B" ></solid>
     <!--테두리 색 + 테두리 너비-->
     <stroke
         android:width="3dp"
-        android:color="#FACC2E" />
+        android:color="#F8E3DA" />
     <!--꼭지점 휘는 각도-->
     <corners
         android:topLeftRadius="50dp"
