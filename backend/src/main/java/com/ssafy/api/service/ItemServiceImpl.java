@@ -124,4 +124,16 @@ public class ItemServiceImpl implements ItemService {
         userRepo.saveUserProfile(userProfile);
         return userProfile;
     }
+
+    @Override
+    public UserProfile clearWear(String nickname) {
+        UserProfile userProfile = userRepo.findByNickname(nickname);
+        userProfile.setHat(0);
+        userProfile.setDress(0);
+        userProfile.setBackground(0);
+        userRepo.saveUserProfile(userProfile);
+        return userProfile;
+    }
+
+
 }
