@@ -92,7 +92,7 @@ public class PetController {
     }
     //////////////////////////////////////////////////////////////////////////////////////////////////////
     @PutMapping("/exp")
-    @ApiOperation(value = "펫 경험치 증가 - Type 1부터 순서대로 physical, artistic, intelligent, inactive, energetic, etc", notes = "입력받은 pet_id를 가진 펫의 경험치와 레벨을 증가시킨다")
+    @ApiOperation(value = "펫 경험치 증가 - Type 앞의 3개가 1 나머지 2 physical, artistic, energetic, inactive, intelligent, etc", notes = "입력받은 pet_id를 가진 펫의 경험치와 레벨을 증가시킨다")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 401, message = "인증 실패"),

@@ -141,7 +141,7 @@ public class PetServiceImpl implements PetService {
         int energetic = petStat.getEnergetic();
         int etc = petStat.getEtc();
 
-        int[] arr = {physical, artistic, intelligent, inactive, energetic, etc};
+        int[] arr = {physical, artistic, energetic, inactive, intelligent, etc};
         int max = arr[0];
         int maxIndex = 0;
         for (int i = 0; i < arr.length; i++) {
@@ -153,10 +153,11 @@ public class PetServiceImpl implements PetService {
                 case 0:
                 case 1:
                 case 2:
+                    petInfo.setType(1); break;
                 case 3:
                 case 4:
                 case 5:
-                    petInfo.setType(maxIndex + 1); break;
+                    petInfo.setType(2); break;
             }
         }
         petRepo.savePetInfo(petInfo);
