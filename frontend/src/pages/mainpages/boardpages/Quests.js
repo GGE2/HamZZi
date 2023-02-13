@@ -4,18 +4,21 @@ import QuestList from "./../../../components/Quest/QuestList";
 import QuestTutorial from "../../../components/Quest/QuestTutorial";
 import "../../../styles/Quest.css";
 import { useRef } from "react";
+import api from "./../../../components/api";
 
 const Quests = () => {
   const [quests, setQuest] = useState([]);
   const [disable, setDisabled] = useState(true);
   const [tutorial, setTutorial] = useState(false);
   const outside = useRef();
+  const nickname = localStorage.getItem("nickname");
 
   // 퀘스트 데이터 리스트 가져오기
   const getQuest = () => {
-    axios
-      .get("https://jsonplaceholder.typicode.com/posts")
-      .then((res) => setQuest(res.data));
+    api.get(`/api/quest/daily/${nickname}`).then((res) => {
+      console.log(res.data);
+      setQuest(res.data);
+    });
   };
 
   const handleTutorial = () => {

@@ -15,6 +15,7 @@ import axios from "axios";
 import GetPetInfo from "../../../../components/GetPetInfo";
 import api from "./../../../../components/api";
 import { selectCurrentPoint } from "./../../../../pointSlice";
+import { grantPoint } from "./../../../../pointSlice";
 
 const StatCtrl = () => {
   // const [localStat, setLocalStat] = useState();
@@ -55,21 +56,27 @@ const StatCtrl = () => {
 
   const handlePhysical = () => {
     dispatch(increasePhysical(petId));
+    dispatch(grantPoint());
   };
   const handleArtistic = () => {
     dispatch(increaseArtistic(petId));
+    dispatch(grantPoint());
   };
   const handleIntelligent = () => {
     dispatch(increaseIntelligent(petId));
+    dispatch(grantPoint());
   };
   const handleInactive = () => {
     dispatch(increaseInactive(petId));
+    dispatch(grantPoint());
   };
   const handleEnergetic = () => {
     dispatch(increaseEnergetic(petId));
+    dispatch(grantPoint());
   };
   const handleEtc = () => {
     dispatch(increaseEtc(petId));
+    dispatch(grantPoint());
   };
 
   const handleClear = () => {

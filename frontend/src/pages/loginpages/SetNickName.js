@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import "../../styles/Modal.css";
-import api from './../../components/api';
+import api from "./../../components/api";
 
 const SetNickName = () => {
   const [nickName, SetNickName] = useState("");
@@ -10,7 +10,7 @@ const SetNickName = () => {
   const [modal, setModal] = useState(true);
   const navigate = useNavigate();
   const email = JSON.parse(localStorage.getItem("user"));
-  console.log(typeof nickName, nickName);
+  // console.log(typeof nickName, nickName);
   const handleChange = (e) => {
     setText(e.target.value);
     SetNickName(e.target.value);
@@ -24,13 +24,25 @@ const SetNickName = () => {
     e.preventDefault();
     api
       // 요청 주소 수정 예정
-      .put(
-        `/api/user/nickname?nickname=${nickName}&email=${email}`
-      )
+      .put(`/api/user/nickname?nickname=${nickName}&email=${email}`)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         localStorage.setItem("nickname", nickName);
-        navigate("/petName");
+        api
+          .post(`/api/quest/user/${nickName}`)
+          .then((res) => {
+            // console.log("퀘스트 입니다!!!!!!!!!", res);
+            api
+              .post(`/api/count?nickname=${nickName}`, {
+                nickname: nickName,
+              })
+              .then(() => {
+                navigate("/petName");
+              });
+          })
+          .catch((err) => {
+            console.error(err);
+          });
       })
       .catch((err) => {
         console.log(err);
