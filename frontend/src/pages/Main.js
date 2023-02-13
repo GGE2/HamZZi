@@ -10,7 +10,7 @@ import Profile from "./mainpages/boardpages/Profile";
 
 import { useDispatch } from "react-redux";
 // import { setCredentials } from "../authSlice";
-import { getCurrentStat } from "../hamStatSlice";
+import { getCurrentStat, getPetLevel } from "../hamStatSlice";
 import api from "./../components/api";
 import LoadingModal from "./../components/LoadingModal";
 import { receivePoint } from "../pointSlice";
@@ -69,6 +69,7 @@ const Main = () => {
         localStorage.setItem("petId", res.data.pet.pet_id);
         localStorage.setItem("petName", res.data.pet.pet_name);
         localStorage.setItem("petLevel", res.data.pet.level);
+        dispatch(getPetLevel(res.data.pet.level));
         localStorage.setItem("exp", res.data.pet.exp);
         const data = {
           physical,
@@ -290,7 +291,11 @@ const Main = () => {
                 {show.friendShow && <Quests user={user} />}
                 {show.profileShow && <Profile user={user} />}
                 {show.dressShow && (
-                  <Shop user={user} getAllProfile={getAllProfile} getShopUpdate={getShopUpdate}/>
+                  <Shop
+                    user={user}
+                    getAllProfile={getAllProfile}
+                    getShopUpdate={getShopUpdate}
+                  />
                 )}
               </div>
 

@@ -50,14 +50,6 @@
     
 /* 퀘스트 아이템 */
 .QuestItem {
-<<<<<<< HEAD
-    display: flex;
-    border-bottom: 1px solid #803a21;
-    justify-content: space-around;
-    align-items: center;
-    /* height: 100px; */
-    /* overflow: scroll; */
-=======
    overflow: hidden;
   display: flex;
   justify-content: flex-start;
@@ -73,7 +65,6 @@
   background-size: cover;
   /* background-color: transparent; */
   z-index: 30;
->>>>>>> feature/frontend/quest
 }
 
 

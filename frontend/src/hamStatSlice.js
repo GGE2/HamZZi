@@ -1,10 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-import { grantPoint } from "./pointSlice";
 import GetPetInfo from "./components/GetPetInfo";
 import increaseExp from "./components/increaseExp";
 import api from "./components/api";
-import { useDispatch } from "react-redux";
 
 const nickname = localStorage.getItem("nickname");
 
@@ -17,8 +14,14 @@ const hamStatSlice = createSlice({
     inactive: 0,
     energetic: 0,
     etc: 0,
+    level: 1,
   },
   reducers: {
+    getPetLevel: (state, action) => {
+      const level = action.payload;
+      state.level = level;
+    },
+
     clearStat: (state, action) => {
       const petId = action.payload;
       state.physical = 0;
@@ -168,6 +171,7 @@ const hamStatSlice = createSlice({
 });
 
 export const {
+  getPetLevel,
   getCurrentStat,
   increasePhysical,
   increaseArtistic,
@@ -181,3 +185,4 @@ export const {
 export default hamStatSlice.reducer;
 
 export const selectCurrentHamStat = (state) => state.hamStat;
+export const selectCurrentHamLevel = (state) => state.hamStat.level;
