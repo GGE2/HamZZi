@@ -3,7 +3,7 @@ import React, { useState, useRef } from "react";
 import QuestModal from "./QuestModal";
 import "../../styles/QuestModal.css";
 
-const QuestItem = ({ content }) => {
+const QuestItem = ({ content, completed }) => {
   const [isCheck, setCheck] = useState(false);
 
   const onclickQcheck = () => {
@@ -21,13 +21,9 @@ const QuestItem = ({ content }) => {
     setIsModal(true);
   };
 
-
-
-
   return (
     <div className="QuestItem">
-
-{isModal && (
+      {isModal && (
         <div
           className="QuestModal"
           ref={outside}
@@ -35,15 +31,25 @@ const QuestItem = ({ content }) => {
             if (e.target === outside.current) setIsModal(false);
           }}
         >
-          <QuestModal content={content} setIsModal={setIsModal} setIsCreate={setIsCreate} />
+          <QuestModal
+            content={content}
+            setIsModal={setIsModal}
+            setIsCreate={setIsCreate}
+            onClick={onOpenModal}
+          />
         </div>
       )}
-
-
-      <textarea onClick={onOpenModal} readonly defaultValue={content} disabled={isCheck}></textarea> 
+      {/* {content} */}
+      <div
+        onClick={onOpenModal}
+        readOnly
+        defaultValue={content}
+        disabled={isCheck}
+      >
+        {content}
+      </div>
     </div>
   );
 };
-
 
 export default QuestItem;

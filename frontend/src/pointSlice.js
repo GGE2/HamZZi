@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import api from "./components/api";
 
 const pointSlice = createSlice({
   name: "point",

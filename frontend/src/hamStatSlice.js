@@ -1,8 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { grantPoint } from "./pointSlice";
 import GetPetInfo from "./components/GetPetInfo";
 import increaseExp from "./components/increaseExp";
-import api from './components/api';
+import api from "./components/api";
+import { useDispatch } from "react-redux";
+
+const nickname = localStorage.getItem("nickname");
 
 const hamStatSlice = createSlice({
   name: "hamStat",
@@ -23,8 +27,8 @@ const hamStatSlice = createSlice({
       state.inactive = 0;
       state.energetic = 0;
       state.etc = 0;
-      axios
-        .put(`http://3.35.88.23:8080/api/pet/stat`, {
+      api
+        .put(`/api/pet/stat?nickname=${nickname}`, {
           artistic: state.artistic,
           energetic: state.energetic,
           etc: state.etc,
@@ -52,7 +56,7 @@ const hamStatSlice = createSlice({
       const petId = action.payload;
       state.physical += 1;
       api
-        .put(`/api/pet/stat`, {
+        .put(`/api/pet/stat?nickname=${nickname}`, {
           artistic: 0,
           energetic: 0,
           etc: 0,
@@ -74,7 +78,7 @@ const hamStatSlice = createSlice({
       const petId = action.payload;
       state.artistic += 1;
       api
-        .put(`/api/pet/stat`, {
+        .put(`/api/pet/stat?nickname=${nickname}`, {
           artistic: 1,
           energetic: 0,
           etc: 0,
@@ -92,7 +96,7 @@ const hamStatSlice = createSlice({
       const petId = action.payload;
       state.intelligent += 1;
       api
-        .put(`/api/pet/stat`, {
+        .put(`/api/pet/stat?nickname=${nickname}`, {
           artistic: 0,
           energetic: 0,
           etc: 0,
@@ -110,7 +114,7 @@ const hamStatSlice = createSlice({
       const petId = action.payload;
       state.inactive += 1;
       api
-        .put(`/api/pet/stat`, {
+        .put(`/api/pet/stat?nickname=${nickname}`, {
           artistic: 0,
           energetic: 0,
           etc: 0,
@@ -128,7 +132,7 @@ const hamStatSlice = createSlice({
       const petId = action.payload;
       state.energetic += 1;
       api
-        .put(`/api/pet/stat`, {
+        .put(`/api/pet/stat?nickname=${nickname}`, {
           artistic: 0,
           energetic: 1,
           etc: 0,
@@ -146,7 +150,7 @@ const hamStatSlice = createSlice({
       const petId = action.payload;
       state.etc += 1;
       api
-        .put(`/api/pet/stat`, {
+        .put(`/api/pet/stat?nickname=${nickname}`, {
           artistic: 0,
           energetic: 0,
           etc: 1,

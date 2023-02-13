@@ -70,7 +70,7 @@ const Todos = () => {
     await api.get(`/api/todo/${nickname}/${calDate}`).then((res) => {
       // console.log(res);
       console.log("db에서 todolist 가져오기");
-      console.log(nickname);
+      // console.log(nickname);
       console.log(res.data);
       setTodos(res.data);
     });

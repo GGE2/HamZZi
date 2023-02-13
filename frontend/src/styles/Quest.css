@@ -43,30 +43,30 @@
 .QuestList {
     overflow: scroll;
     height: min-content;
+    z-index: 1;
 }
 .QuestList::-webkit-scrollbar {
     display: none;}
     
 /* 퀘스트 아이템 */
 .QuestItem {
-    display: flex;
-    border-bottom: 1px solid black;
-    justify-content: space-around;
-    align-items: center;
-    /* height: 100px; */
-    /* overflow: scroll; */
+   overflow: hidden;
+  display: flex;
+  justify-content: flex-start;
+  height: 4rem;
+  margin-top: 1%;
+  margin-left: 3%;
+  margin-right: 3%;
+  padding-left: 5%;
+  align-items: center;
+  
+  border-radius: 0.75em;
+  background: url("../../public/assets/todobck.png") no-repeat;
+  background-size: cover;
+  /* background-color: transparent; */
+  z-index: 30;
 }
 
-.QuestItem textarea{
-    height: 100px;
-    overflow: hidden;
-    flex-basis: 80%;
-    border: none;
-    resize: none;
-    background-color: transparent;
-    outline: 0;
-    
-}
 
 .noselect {
     cursor: default;
