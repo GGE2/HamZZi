@@ -180,6 +180,7 @@ public class QuestServiceImpl implements QuestService {
         for (String userProfile:userProfiles) {
             UserProfile user = userRepo.findByNickname(userProfile);
             user.setRest_point(3);
+            userRepo.saveUserProfile(user);
         }
     }
 }

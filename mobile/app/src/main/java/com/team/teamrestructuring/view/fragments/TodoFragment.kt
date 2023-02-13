@@ -102,9 +102,9 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
     }
 
     //투두를 체크(완료했는 지)하는 서비스
-    private fun checkTodo(id: Int, nickName: String,todo: Todo){
+    private fun checkTodo(id: Int, nickName: String){
         val service = ApplicationClass.retrofit.create(TodoService::class.java)
-            .checkTodo(id, nickName ,todo).enqueue(object : Callback<String>{
+            .checkTodo(id, nickName).enqueue(object : Callback<String>{
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     if (response.isSuccessful){
                         Log.d(TAG,"투두 완료 되었습니다.")
@@ -119,9 +119,9 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
 
     }
 
-// 날짜 옮길때 마다 데이트가 체크가 됨
+    // 날짜 옮길때 마다 데이트가 체크가 됨
     private fun initDate() {
-    Log.i("시간", "지금 시간${now}  달력시간${dateStr}")
+        Log.i("시간", "지금 시간${now}  달력시간${dateStr}")
         binding.apply {
             // 클릭할때마다 날짜 바뀌면 리스트 다시 받아오는 로직
             calender.setOnDateChangeListener { calendarView, year, month, dayOfMonth ->
@@ -193,7 +193,7 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
                         // 체크가 안된 투두리스트만 checkTodo 보내개
                     } else if (todoList[position].is_check == false){
                         Log.w(TAG, todoList[position].toString())
-                        checkTodo(todoList[position].todo_id!!, nickName,todoList[position])
+                        checkTodo(todoList[position].todo_id!!, nickName)
                     }
                 }
             }
@@ -206,10 +206,10 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
 //                        Toast.makeText(context, "투두 체크를 위해선 잠깐만 고민을 해주세요.", Toast.LENGTH_SHORT).show()
                     } else if (todoList[position].is_check == false){
                         Log.w("체크박스", todoList[position].toString())
-                            Log.w(TAG, todoList[position].toString())
+                        Log.w(TAG, todoList[position].toString())
                         if (now == dateStr){
                             Log.w("시간", "${now} ${dateStr} ${todoList}")
-                            checkTodo(todoList[position].todo_id!!, nickName,todoList[position])
+                            checkTodo(todoList[position].todo_id!!, nickName)
                         }
                     }
                 }
@@ -253,5 +253,3 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
     override fun onButtonClick() {
     }
 }
-
-

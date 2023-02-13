@@ -17,7 +17,7 @@ interface TodoService {
 
     // 투두 클리어
     @PUT("api/todo/check/{nickname}/{id}")
-    fun checkTodo(@Path("id") id: Int, @Path("nickname") nickname: String,@Body todo: Todo): Call<String>
+    fun checkTodo(@Path("id") id: Int, @Path("nickname") nickname: String): Call<String>
 
     // 투두 수정
     @PUT("api/todo/{id}")
