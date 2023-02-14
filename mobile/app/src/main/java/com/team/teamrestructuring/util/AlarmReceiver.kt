@@ -15,9 +15,8 @@ class AlarmReceiver:BroadcastReceiver(){
         if(intent?.extras?.get("code")==HomeActivity.REQUEST_CODE){
             Log.d("지훈", "onReceive: ")
             var data = intent?.extras?.get("data") as Int
-            ApplicationClass.sharedPreferencesUtil.setPedometer("walk_data",data)
-            StepService.mStepCounter = 0
-            StepService.MyBinder().getService().setAlarmManager()
+            ApplicationClass.sharedPreferencesUtil.setPedometer("walk_counter",data)
+
         }
     }
 }

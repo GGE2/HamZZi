@@ -13,6 +13,7 @@ import com.team.teamrestructuring.dto.*
 import com.team.teamrestructuring.service.*
 import com.team.teamrestructuring.view.activities.HomeActivity
 import com.team.teamrestructuring.view.fragments.DailyFragment
+import com.team.teamrestructuring.view.fragments.HomeFragment
 import com.team.teamrestructuring.view.fragments.QuestFragment
 import com.team.teamrestructuring.view.fragments.WeeklyFragment
 import retrofit2.Call
@@ -70,13 +71,14 @@ class CreateQuestResultDialog(
                     Log.d(TAG, "onCreateView: ${true}")
                     if(quest!=null) {
                         sendToServerResult()
-                        updateExp()
+                        //updateExp()
                         getQuestData(ApplicationClass.currentUser.userProfile.nickname)
                     }else{
                         sendToServerWeeklyResult()
-                        updateExp()
+                        //updateExp()
                         getWeeklyQuestData()
                     }
+
                 }
                 QuestEnum.FALSE->{
                     if(quest!=null){
@@ -90,14 +92,14 @@ class CreateQuestResultDialog(
                 else -> {
                     if(quest!=null) {
                         getQuestData(ApplicationClass.currentUser.userProfile.nickname)
+                        if(quest!!.quest.quest_id.toInt()==1)
+                            HomeActivity.binding.viewpagerMainPager.currentItem = 3
                     }else{
                         getWeeklyQuestData()
                     }
-                    if(quest!!.quest.quest_id.toInt()==1)
-                        HomeActivity.binding.viewpagerMainPager.currentItem = 3
+                    dismiss()
                 }
             }
-            dismiss()
         }
 
         return view
@@ -114,24 +116,27 @@ class CreateQuestResultDialog(
         fun onConfirmButtonClick()
     }
 
-    /**
-     * 펫 경험치 증가
-     */
-    private fun updateExp(){
-        val service = ApplicationClass.retrofit.create(PetService::class.java)
-            .petUpdatePetExp(ApplicationClass.petData!!.pet.pet_id,quest!!.quest.point).enqueue(object:Callback<String>{
-                override fun onResponse(call: Call<String>, response: Response<String>) {
+    private fun getCurrentUserInfo(){
+        val service = ApplicationClass.retrofit.create(LoginService::class.java)
+            .getUserInfo(ApplicationClass.currentUser.uid).enqueue(object:Callback<User>{
+                override fun onResponse(call: Call<User>, response: Response<User>) {
                     if(response.isSuccessful){
-                        Log.d(TAG, "onResponse: ${response.body()!!}")
+                        val data = response.body()!!
+                        ApplicationClass.currentUser = data
+                        Log.d(TAG, "onResponse: ${ApplicationClass.currentUser}")
+                        dismiss()
+
                     }
                 }
 
-                override fun onFailure(call: Call<String>, t: Throwable) {
+                override fun onFailure(call: Call<User>, t: Throwable) {
                     Log.d(TAG, "onFailure: ${t.message}")
                 }
 
             })
     }
+
+
 
     private fun getWeeklyQuestData(){
         val service = ApplicationClass.retrofit.create(QuestService::class.java)
@@ -180,6 +185,8 @@ class CreateQuestResultDialog(
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     if(response.isSuccessful){
                         Log.d(TAG, "Weekly Result: ${response.body()!!}")
+                        getCurrentUserInfo()
+                        HomeFragment().setPetStat()
                     }
                 }
 
@@ -196,6 +203,7 @@ class CreateQuestResultDialog(
                override fun onResponse(call: Call<String>, response: Response<String>) {
                    if(response.isSuccessful){
                        Log.d(TAG, "Daily Result: ${response.body()!!}")
+                       getCurrentUserInfo()
                    }
                }
 
@@ -205,6 +213,26 @@ class CreateQuestResultDialog(
 
            })
    }
+
+    private fun getPetInfo(){
+        val service = ApplicationClass.retrofit.create(PetService::class.java)
+            .getPetInfo(ApplicationClass.currentUser.userProfile.nickname).enqueue(object:Callback<PetData>{
+                override fun onResponse(call: Call<PetData>, response: Response<PetData>) {
+                    if(response.isSuccessful){
+                        Log.d(TAG, "onResponse: ${response.body()!!}")
+                        ApplicationClass.petData = response.body()!!
+                        HomeFragment.exp = response.body()!!.pet.exp
+                    }
+                }
+                override fun onFailure(call: Call<PetData>, t: Throwable) {
+                    Log.d(TAG, "onFailure: ${t.message}")
+                }
+
+            })
+
+
+    }
+
     /**
      * Dialog 생성시 하단 네비게이션 뷰 및 상태바 생성x
      */

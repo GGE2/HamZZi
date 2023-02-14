@@ -138,7 +138,7 @@ class DailyFragment : Fragment() ,CreateQuestResultDialog.CreateResultListener{
                     }
                     //2번일 경우
                     1->{
-                        val walk_count = StepService.mStepCounter
+                        val walk_count = StepService.mStepCounter - HomeActivity.sCount
                         if(walk_count>=5000){
                             val dialog = CreateQuestResultDialog(this@DailyFragment,"퀘스트를 성공하셨습니다",QuestEnum.TRUE,data)
                             dialog.isCancelable = false

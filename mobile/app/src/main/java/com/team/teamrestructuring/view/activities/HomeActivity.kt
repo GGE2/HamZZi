@@ -31,9 +31,11 @@ import com.team.teamrestructuring.service.HomeService
 import com.team.teamrestructuring.service.LoginService
 import com.team.teamrestructuring.service.PetService
 import com.team.teamrestructuring.service.StepService
+
 import com.team.teamrestructuring.util.AlarmReceiver
 import com.team.teamrestructuring.util.ApplicationClass
 import com.team.teamrestructuring.util.CreatePetDialog
+import com.team.teamrestructuring.util.SharedPreferencesUtil
 import com.team.teamrestructuring.view.adapters.ViewPagerAdapter
 import com.team.teamrestructuring.view.fragments.HomeFragment
 import com.team.teamrestructuring.view.fragments.QuestFragment
@@ -51,9 +53,13 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
         const val channel_id = "team_channel"
         const val REQUEST_CODE = 1001
         lateinit var binding : ActivityHomeBinding
+        var sCount = 0
     }
     private lateinit var auth:FirebaseAuth
-
+    override fun onResume() {
+        super.onResume()
+        sCount = ApplicationClass.sharedPreferencesUtil.getPedometer("walk_counter",-1)
+    }
 
     private val frameLayout:FrameLayout by lazy{
         binding.framelayoutMainFrame
@@ -68,8 +74,11 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
         auth = FirebaseAuth.getInstance()
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         init()
         Log.d(TAG, "onCreate: ${ApplicationClass.currentUser}")
+        val intent = Intent(this,StepService::class.java)
+        startService(intent)
     }
 
 
@@ -98,7 +107,7 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
                     }
                 }
                 override fun onFailure(call: Call<PetData>, t: Throwable) {
-                    Log.d(TAG, "onFailure: ${t.message}")
+                    Log.d(TAG, "onFailure:123 ${t.message}")
                 }
 
             })
