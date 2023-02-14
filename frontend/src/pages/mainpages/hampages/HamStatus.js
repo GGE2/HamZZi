@@ -91,10 +91,8 @@ const HamStatus = (props) => {
         <HamName petName={props.petName} />
         {/* <ApexChart type="radar"  /> */}
 
-    
-          <HamExp />
-          {/* <HamLevel /> */}
-       
+        <HamExp />
+        {/* <HamLevel /> */}
 
         {level === "5" && (
           <button
@@ -112,7 +110,11 @@ const HamStatus = (props) => {
             height={"100%"}
           />
           <button className="StatButton">
-            <IoStatsChart onClick={showStat} size={"100%"} color={"rgb(146, 89, 67)"} />
+            <IoStatsChart
+              onClick={showStat}
+              size={"100%"}
+              color={"rgb(146, 89, 67)"}
+            />
             {isOpen && (
               <div
                 className="Modal"

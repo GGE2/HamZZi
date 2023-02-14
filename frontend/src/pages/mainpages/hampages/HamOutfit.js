@@ -138,7 +138,7 @@ const HamOutfit = ({ Wear, getAllProfile }) => {
             > */}
             <img
               src={`wear/${
-                level + Wear.hat + Wear.dress + Wear.background
+                JSON.stringify(level) + Wear.hat + Wear.dress + Wear.background
               }.gif`}
               alt=""
             />

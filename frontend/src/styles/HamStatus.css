@@ -46,3 +46,23 @@
 .ExpBar img {
     height: 5em;
 }
+
+.StatCtrlBody {
+    overflow: hidden;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    
+    border-radius: 0.75em;
+    background: url("../../public/hamzziStatus/statwindow.png") no-repeat;
+    background-size: cover;
+}
+
+.StatElement {
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+}

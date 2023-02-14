@@ -7,17 +7,42 @@ import { useRef } from "react";
 import api from "./../../../components/api";
 
 const Quests = () => {
-  const [quests, setQuest] = useState([]);
-  const [disable, setDisabled] = useState(true);
+  const nickname = localStorage.getItem("nickname");
+  const [dailyQuests, setDailyQuest] = useState([]);
+  const [weeklyQuests, setWeeklyQuest] = useState([]);
+  const [show, setShow] = useState({
+    dailyShow: true,
+    weeklyShow: false,
+  });
   const [tutorial, setTutorial] = useState(false);
   const outside = useRef();
-  const nickname = localStorage.getItem("nickname");
+
+  const handleDaily = () => {
+    setShow({
+      dailyShow: true,
+      weeklyShow: false,
+    });
+  };
+
+  const handleWeekly = () => {
+    setShow({
+      dailyShow: false,
+      weeklyShow: true,
+    });
+  };
 
   // 퀘스트 데이터 리스트 가져오기
-  const getQuest = () => {
+  const getDailyQuest = () => {
     api.get(`/api/quest/daily/${nickname}`).then((res) => {
       console.log(res.data);
-      setQuest(res.data);
+      setDailyQuest(res.data);
+    });
+  };
+
+  const getWeeklyQuest = () => {
+    api.get(`/api/quest/weekly/${nickname}`).then((res) => {
+      console.log(res.data);
+      setWeeklyQuest(res.data);
     });
   };
 
@@ -26,7 +51,8 @@ const Quests = () => {
   };
 
   useEffect(() => {
-    getQuest();
+    getDailyQuest();
+    getWeeklyQuest();
   }, []);
 
   return (
@@ -34,10 +60,10 @@ const Quests = () => {
       <div className="Quests">
         {/* 화면 상단 버튼 그룹 */}
         <div className="QuestHeaderButton">
-          <div className="QuestHeaderButton_btn1">
+          <div className="QuestHeaderButton_btn1" onClick={handleDaily}>
             <img src="dailyB.png" alt="" />
           </div>
-          <div className="QuestHeaderButton_btn2">
+          <div className="QuestHeaderButton_btn2" onClick={handleWeekly}>
             <img src="weeklyB.png" alt="" />
           </div>
           <button className="TutorialButton" onClick={handleTutorial}>
@@ -46,9 +72,18 @@ const Quests = () => {
         </div>
 
         {/* 퀘스트 목록 출력 */}
-        <div className="QuestList">
-          <QuestList questList={quests} />
-        </div>
+        {show.dailyShow && (
+          <div className="QuestList">
+            <QuestList questList={dailyQuests} />
+          </div>
+        )}
+
+        {show.weeklyShow && (
+          <div className="QuestList">
+            <QuestList questList={weeklyQuests} />
+          </div>
+        )}
+
         {tutorial && (
           <div
             className="Modal"
