@@ -10,9 +10,14 @@ import android.view.View
 import android.view.ViewGroup
 import com.team.teamrestructuring.R
 import com.team.teamrestructuring.databinding.FragmentMyPageBinding
+import com.team.teamrestructuring.service.MyPageService
 import com.team.teamrestructuring.util.ApplicationClass
 import com.team.teamrestructuring.util.CreateRegisterTimeDialog
 import com.team.teamrestructuring.view.activities.RegisterPlaceActivity
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.create
 
 private const val TAG = "MyPageFragment_지훈"
 private const val ARG_PARAM1 = "param1"
@@ -64,6 +69,11 @@ class MyPageFragment : Fragment() {
             3->binding.imageviewMyPageIconLevel.setImageResource(R.drawable.lv_logo_3)
             4->binding.imageviewMyPageIconLevel.setImageResource(R.drawable.lvlogo_4)
         }
+    }
+    private fun graduate(){
+        val nickName = ApplicationClass.currentUser.userProfile.nickname.toString()
+        val service = ApplicationClass.retrofit.create(MyPageService::class.java)
+            .getTrophy(nickName).enqueue(
     }
 
     private fun setUserData(){

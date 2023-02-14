@@ -109,12 +109,15 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     if (response.isSuccessful){
                         Log.d(TAG,"투두 완료 되었습니다.")
+
                     }
                 }
+
                 override fun onFailure(call: Call<String>, t: Throwable) {
                     Log.d(TAG, "투두 완료에 실패했습니다.")
                 }
             })
+
     }
 
     // 날짜 옮길때 마다 데이트가 체크가 됨
