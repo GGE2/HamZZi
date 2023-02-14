@@ -60,6 +60,7 @@ class MyPageFragment : Fragment() {
         setListener()
         setUserData()
         setLevelIcon()
+        graduate()
     }
 
     private fun setLevelIcon(){
@@ -70,11 +71,37 @@ class MyPageFragment : Fragment() {
             4->binding.imageviewMyPageIconLevel.setImageResource(R.drawable.lvlogo_4)
         }
     }
-//    private fun graduate(){
-//        val nickName = ApplicationClass.currentUser.userProfile.nickname.toString()
-//        val service = ApplicationClass.retrofit.create(MyPageService::class.java)
-//            .getTrophy(nickName).enqueue(
-//    }
+    private fun graduate(){
+        val nickName = ApplicationClass.currentUser.userProfile.nickname.toString()
+        val service = ApplicationClass.retrofit.create(MyPageService::class.java)
+            .getTrophy(nickName).enqueue(object : Callback<MutableList<String>> {
+                override fun onResponse(
+                    call: Call<MutableList<String>>,
+                    response: Response<MutableList<String>>
+                ) {
+                    if (response.isSuccessful){
+                        val petlist = response.body()
+                        Log.d("졸업", petlist.toString())
+//                        for (pet in petlist){
+//                            val type = pet["type"]
+//                            binding.apply {
+//                                val left = binding.graduatePet01
+//                                val right = binding.graduatePet02
+//                                if (type == 1){
+//                                    left.setImageResource(R.drawable.ham5100)
+//                                } else if (type == 2){
+//                                    right.setImageResource(R.drawable.ham5200)
+//                                }
+//                            }
+//                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<MutableList<String>>, t: Throwable) {
+                    Log.d("졸업", t.toString())
+                }
+            })
+    }
 
     private fun setUserData(){
         binding.textviewMyPageContentLevel.text = ApplicationClass.currentUser.userProfile.nickname
