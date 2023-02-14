@@ -6,6 +6,7 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.PUT
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface MyPageService {
@@ -15,4 +16,9 @@ interface MyPageService {
         @Header("Authorization") key : String,
         @Query("query") query : String
     ): Call<ResultSearchPlace>
+
+    @GET("pet/trophy/{nickname}")
+    fun getTrophy(
+        @Path("nickname") nickname: String
+    ): Call<MutableList<String>>
 }

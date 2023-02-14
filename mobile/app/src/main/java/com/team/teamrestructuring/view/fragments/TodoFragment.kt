@@ -33,8 +33,10 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
 
     //현재 시간
     private val calendar = Calendar.getInstance()
+    private val todayCalendar = Calendar.getInstance()
     private val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
     private val now = format.format(calendar.time)
+
     // 날짜 저장
     var dateStr = now
     var todo_id : Int = -1
@@ -46,7 +48,6 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        callService(nickName, dateStr)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -200,6 +201,24 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
             // 체크 박스 눌렀을 때
             todoAdapter.boxClick = object: TodoAdapter.BoxClick {
                 override fun onClick(view: View, position: Int) {
+                    binding.apply {
+
+                        // 날짜객체 데이 기준으로 비교
+                        Log.d("하이하이", "투데이${now}")
+                        Log.i("하이하이", "날짜${dateStr}")
+
+
+                        if (todayCalendar == null) {
+                            return
+                        }
+                        if (now != dateStr){
+                            return
+                        }
+                    }
+
+
+
+
                     Log.i("체크박스", position.toString())
 //                    Toast.makeText(context, position, Toast.LENGTH_SHORT).show()kk
                     if (todoList[position].todo_id == null) {

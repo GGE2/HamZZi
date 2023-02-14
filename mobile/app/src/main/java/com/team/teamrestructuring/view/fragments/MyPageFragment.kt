@@ -10,9 +10,14 @@ import android.view.View
 import android.view.ViewGroup
 import com.team.teamrestructuring.R
 import com.team.teamrestructuring.databinding.FragmentMyPageBinding
+import com.team.teamrestructuring.service.MyPageService
 import com.team.teamrestructuring.util.ApplicationClass
 import com.team.teamrestructuring.util.CreateRegisterTimeDialog
 import com.team.teamrestructuring.view.activities.RegisterPlaceActivity
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.create
 
 private const val TAG = "MyPageFragment_지훈"
 private const val ARG_PARAM1 = "param1"
@@ -55,6 +60,7 @@ class MyPageFragment : Fragment() {
         setListener()
         setUserData()
         setLevelIcon()
+        graduate()
     }
 
     private fun setLevelIcon(){
@@ -64,6 +70,37 @@ class MyPageFragment : Fragment() {
             3->binding.imageviewMyPageIconLevel.setImageResource(R.drawable.lv_logo_3)
             4->binding.imageviewMyPageIconLevel.setImageResource(R.drawable.lvlogo_4)
         }
+    }
+    private fun graduate(){
+        val nickName = ApplicationClass.currentUser.userProfile.nickname.toString()
+        val service = ApplicationClass.retrofit.create(MyPageService::class.java)
+            .getTrophy(nickName).enqueue(object : Callback<MutableList<String>> {
+                override fun onResponse(
+                    call: Call<MutableList<String>>,
+                    response: Response<MutableList<String>>
+                ) {
+                    if (response.isSuccessful){
+                        val petlist = response.body()
+                        Log.d("졸업", petlist.toString())
+//                        for (pet in petlist){
+//                            val type = pet["type"]
+//                            binding.apply {
+//                                val left = binding.graduatePet01
+//                                val right = binding.graduatePet02
+//                                if (type == 1){
+//                                    left.setImageResource(R.drawable.ham5100)
+//                                } else if (type == 2){
+//                                    right.setImageResource(R.drawable.ham5200)
+//                                }
+//                            }
+//                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<MutableList<String>>, t: Throwable) {
+                    Log.d("졸업", t.toString())
+                }
+            })
     }
 
     private fun setUserData(){

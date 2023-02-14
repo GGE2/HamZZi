@@ -46,16 +46,13 @@ class TodoAdapter (var items: MutableList<Todo>) :  RecyclerView.Adapter<TodoAda
                         todo_check.isClickable = false
                         todo_text.setTextColor(Color.parseColor("#c0c0c0"))
                     } else {
-
                         todo_text.setTextColor(Color.parseColor("#72402b"))
                     }
                 }
             }
         }
     }
-    fun checkTodo(){
 
-    }
 
 
     interface ItemClick {

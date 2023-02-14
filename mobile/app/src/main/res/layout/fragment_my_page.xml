@@ -162,7 +162,7 @@
                     android:id="@+id/graduate_pet01"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ham0"
+                    android:src="@drawable/shadowa"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toLeftOf="@id/graduate_pet02"/>
                 <ImageView
@@ -171,7 +171,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintLeft_toRightOf="@id/graduate_pet01"
                     app:layout_constraintRight_toRightOf="parent"
-                    android:src="@drawable/ham2" />
+                    android:src="@drawable/shadowb" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <View
