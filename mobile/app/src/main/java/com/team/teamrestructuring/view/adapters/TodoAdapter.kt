@@ -12,13 +12,13 @@ import com.team.teamrestructuring.R
 import com.team.teamrestructuring.dto.Todo
 
 class TodoAdapter (var items: MutableList<Todo>) :  RecyclerView.Adapter<TodoAdapter.ViewHolder>(){
+    private lateinit var todoItemClickListener : TodoItemClickListener
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         fun bindItems(item : Todo){
             val todo_text = itemView.findViewById<TextView>(R.id.textview_item_todo_title)
             todo_text.text = item.content
             val todo_check = itemView.findViewById<CheckBox>(R.id.radio_item_todo_check)
             val todo_menu = itemView.findViewById<Button>(R.id.button_item_todo_modify_delete)
-
             // todo check 가 됐을 때
             if (item.is_check){
                 todo_text.setTextColor(Color.parseColor("#c0c0c0"))
@@ -30,10 +30,10 @@ class TodoAdapter (var items: MutableList<Todo>) :  RecyclerView.Adapter<TodoAda
                 todo_text.setTextColor(Color.parseColor("#72402b"))
             }
             todo_menu.setOnClickListener() {
-                menuClick?.onClick(todo_menu, layoutPosition)
+                todoItemClickListener.onClick(itemView,layoutPosition,item)
             }
 
-            // 버튼을 눌었을 때 이벤트 처리
+            /*// 버튼을 눌었을 때 이벤트 처리
             todo_check.setOnCheckedChangeListener { buttonView, isChecked ->
                 // todoFragment 에서 작동
                 boxClick?.onClick(todo_check, layoutPosition)
@@ -49,16 +49,19 @@ class TodoAdapter (var items: MutableList<Todo>) :  RecyclerView.Adapter<TodoAda
                         todo_text.setTextColor(Color.parseColor("#72402b"))
                     }
                 }
-            }
+
+
+            }*/
         }
     }
 
-
-
-    interface ItemClick {
-        fun onClick(view: View, position: Int)
+    fun setOnTodoClickListener(todoItemClickListener:TodoItemClickListener){
+        this.todoItemClickListener = todoItemClickListener
     }
-    var itemClick : ItemClick? = null
+
+    interface TodoItemClickListener {
+        fun onClick(view: View, position: Int,data:Todo)
+    }
 
     interface MemuClick {
         fun onClick(view: View, position: Int)
@@ -86,11 +89,6 @@ class TodoAdapter (var items: MutableList<Todo>) :  RecyclerView.Adapter<TodoAda
         else if(boxClick != null){
             holder.itemView.setOnClickListener {
                     v -> boxClick?.onClick(v, position)
-            }
-        }
-        else if(itemClick != null){
-            holder.itemView.setOnClickListener{
-                    v -> itemClick?.onClick(v, position)
             }
         }
         holder.bindItems(items[position])

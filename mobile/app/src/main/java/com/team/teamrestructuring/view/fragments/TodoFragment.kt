@@ -39,10 +39,7 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
 
     // 날짜 저장
     var dateStr = now
-    var todo_id : Int = -1
 
-    // Todo 정보 저장
-    var todoList: MutableList<Todo> = mutableListOf()
     val nickName = ApplicationClass.currentUser.userProfile.nickname.toString()
 
 
@@ -59,9 +56,14 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
         // 여기
         todoList = mutableListOf()
         initDate()
-        callService(nickName, dateStr)
+        //callService(nickName, dateStr)
         initRecyclerView()
         initInput()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        callService(ApplicationClass.currentUser.userProfile.nickname,dateStr)
     }
 
     // Todo를 가져오는 서비스
@@ -73,37 +75,37 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
                     response: Response<MutableList<Todo>>
                 ) {
                     if(response.isSuccessful){
-                        Log.d(TAG, "onResponse: ${response.body()}")
-                        todoList = response.body() ?: mutableListOf()
-                        binding.apply {
-                            todoAdapter.items = todoList
-                            todoAdapter.notifyDataSetChanged()
-                        }
+                        Log.d(TAG, "Call onResponse: ${response.body()}")
+                        todoAdapter.items = response.body()!!
+                        todoAdapter.notifyDataSetChanged()
                     }
                 }
                 override fun onFailure(call: Call<MutableList<Todo>>, t: Throwable) {
-                    Log.d(TAG, "onFailure: ${t.message}")
+                    Log.d(TAG, "Call onFailure: ${t.message}")
                 }
             })
 
     }
+
     // 투두를 만드는 서비스
     private fun createService(todo: Todo){
         val service = ApplicationClass.retrofit.create(TodoService::class.java)
-            .createTodo(todo).enqueue(object: Callback<String>{
-                override fun onResponse(call: Call<String>, response: Response<String>) {
+            .createTodo(todo).enqueue(object : Callback<Todo>{
+                override fun onResponse(call: Call<Todo>, response: Response<Todo>) {
                     if(response.isSuccessful){
-                        Log.d(TAG, "정상적으로 입력된 투두 입니다 ${response.body()}")
+                        Log.d(TAG, "Create onResponse: ${response.body()!!}")
                     }
                 }
-                override fun onFailure(call: Call<String>, t: Throwable) {
-                    Log.d(TAG, "입력 실패 ${t.message}")
+
+                override fun onFailure(call: Call<Todo>, t: Throwable) {
+                    Log.d(TAG, "Create onFailure: ${t.message}")
                 }
+
             })
     }
 
     //투두를 체크(완료했는 지)하는 서비스
-    private fun checkTodo(id: Int, nickName: String){
+    private fun checkTodo(id: Long, nickName: String){
         val service = ApplicationClass.retrofit.create(TodoService::class.java)
             .checkTodo(id, nickName).enqueue(object : Callback<String>{
                 override fun onResponse(call: Call<String>, response: Response<String>) {
@@ -156,12 +158,15 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
                     val todo = Todo(nowInput, dateStr, nickName)
                     // 바에 있는 값 초기화
                     calenderText.text.clear()
+                    Log.d(TAG, "initInput: ${todo.toString()}")
                     createService(todo)
+                    callService(ApplicationClass.currentUser.userProfile.nickname,
+                    dateStr)
                     // 로컬 리스트에 받아오고 어차피 받아오는 와중에 비동기 통신이 가니깐
                     // 로컬에서 처리하니깐 리소스가 들든다 like 레트로핏, 코루틴 라이브데이터
-                    todoList.add(todo)
+                   /* todoList.add(todo)
                     todoAdapter.items = todoList
-                    todoAdapter.notifyDataSetChanged()
+                    todoAdapter.notifyDataSetChanged()*/
                 }
             }
         }
@@ -169,7 +174,7 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
 
     // 리사이클러뷰 클릭 투두 체크 수정 삭제
     private fun initRecyclerView() {
-        binding.apply {
+        /*binding.apply {
             todoAdapter = TodoAdapter(mutableListOf())
             todoAdapter.menuClick = object : TodoAdapter.MemuClick {
                 // 점 세개 눌렀을 때
@@ -185,8 +190,22 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
                     }
                 }
             }
+            */
 
-            todoAdapter.itemClick = object: TodoAdapter.ItemClick {
+            todoAdapter = TodoAdapter(todoList)
+            todoAdapter.setOnTodoClickListener(object : TodoAdapter.TodoItemClickListener{
+                override fun onClick(view: View, position: Int, data: Todo) {
+                    val bottomSheet = TodoBottomSheet(this@TodoFragment, todoList[position], dateStr, position, todoList)
+                    bottomSheet.show(activity!!.supportFragmentManager, bottomSheet.tag)
+                }
+
+            })
+
+            binding.recyclerviewTodoList.apply {
+                adapter = todoAdapter
+            }
+
+           /* todoAdapter.itemClick = object: TodoAdapter.ItemClick {
                 // 체크 눌렀을 때
                 override fun onClick(view: View, position: Int) {
                     if(todoList[position].todo_id == null){
@@ -197,9 +216,9 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
                         checkTodo(todoList[position].todo_id!!, nickName)
                     }
                 }
-            }
+            }*/
             // 체크 박스 눌렀을 때
-            todoAdapter.boxClick = object: TodoAdapter.BoxClick {
+            /*todoAdapter.boxClick = object: TodoAdapter.BoxClick {
                 override fun onClick(view: View, position: Int) {
                     binding.apply {
 
@@ -236,9 +255,8 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
             recyclerviewTodoList.apply {
                 adapter = todoAdapter
                 layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
-            }
+            }*/
         }
-    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -249,7 +267,9 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
     }
 
     companion object {
-        lateinit var todoAdapter: TodoAdapter
+        lateinit var todoAdapter : TodoAdapter
+        // Todo 정보 저장
+        var todoList: MutableList<Todo> = mutableListOf()
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
@@ -272,3 +292,4 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
     override fun onButtonClick() {
     }
 }
+

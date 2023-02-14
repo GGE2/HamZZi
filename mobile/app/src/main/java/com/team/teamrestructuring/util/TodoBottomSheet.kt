@@ -94,7 +94,7 @@ class TodoBottomSheet(
 
 
     // 투두를 수정하는
-    private fun modifyTodoService(id: Int, Todo: Todo){
+    private fun modifyTodoService(id: Long, Todo: Todo){
         val service = ApplicationClass.retrofit.create(TodoService::class.java)
             .modifyTodo(todo?.todo_id!!,todo!!).enqueue(object:Callback<String>{
                 override fun onResponse(call: Call<String>, response: Response<String>) {
@@ -112,7 +112,7 @@ class TodoBottomSheet(
 
 
     // 투두를 삭제하는
-    private fun deleteTodoService(id: Int){
+    private fun deleteTodoService(id:Long){
         val service = ApplicationClass.retrofit.create(TodoService:: class.java)
             .deleteTodo(id).enqueue(object : Callback<String>{
                 override fun onResponse(call: Call<String>, response: Response<String>) {
