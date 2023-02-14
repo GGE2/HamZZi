@@ -9,7 +9,7 @@ import Shop from "./mainpages/boardpages/Shop";
 import Profile from "./mainpages/boardpages/Profile";
 
 import { useDispatch } from "react-redux";
-import { getCurrentStat, getPetLevel } from "../hamStatSlice";
+import { getCurrentStat, getPetLevel, getPetType } from "../hamStatSlice";
 import api from "./../components/api";
 import LoadingModal from "./../components/LoadingModal";
 import { receivePoint } from "../pointSlice";
@@ -74,6 +74,7 @@ const Main = () => {
         localStorage.setItem("petName", res.data.pet.pet_name);
         localStorage.setItem("petLevel", res.data.pet.level);
         dispatch(getPetLevel(res.data.pet.level));
+        dispatch(getPetType(res.data.petInfo.type));
         localStorage.setItem("exp", res.data.pet.exp);
         const data = {
           physical,

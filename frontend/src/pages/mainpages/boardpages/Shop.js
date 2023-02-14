@@ -10,9 +10,7 @@ import LoadingModal from "../../../components/LoadingModal";
 import MyItem from "./../../../components/DressRoom/MyItem";
 import DecoItem from "./../../../components/DressRoom/DecoItem";
 
-
-
-const DressRoom = ({ getAllProfile ,getShopUpdate, Wear}) => {
+const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
   const nickname = localStorage.getItem("nickname");
   const level = localStorage.getItem("petLevel");
   // const [isModal, setIsModal] = useState(false);
@@ -97,7 +95,6 @@ const DressRoom = ({ getAllProfile ,getShopUpdate, Wear}) => {
         console.log(`보유아이템`);
         console.log(res.data);
         setMyItem(res.data);
-        
       })
       .catch((err) => {
         console.log(err);
@@ -110,15 +107,15 @@ const DressRoom = ({ getAllProfile ,getShopUpdate, Wear}) => {
       .put(`/api/item?nickname=${nickname}&item_id=${id}`)
       .then((res) => {
         console.log(res);
-        getAllProfile()
+        getAllProfile();
         // getShopUpdate()
-        onCheckMy()
+        onCheckMy();
       })
       .catch((err) => {
         console.log(err);
       });
   };
-  
+
   // 아이템 구매하기
   const onBuyItem = async (id) => {
     await api
@@ -132,7 +129,7 @@ const DressRoom = ({ getAllProfile ,getShopUpdate, Wear}) => {
         // setIsModal(false) // 구매하면 모달닫기
         onGetItemAllList(); // 상점 전체 아이템
         onGetItemUserNickList(); // 내가 산 아이템 보기
-        getAllProfile()
+        getAllProfile();
         // getShopUpdate()
       })
       .catch((err) => {
@@ -141,7 +138,9 @@ const DressRoom = ({ getAllProfile ,getShopUpdate, Wear}) => {
   };
 
   useEffect(() => {
-    setTimeout(()=>{ setLoading(false) }, 700)
+    setTimeout(() => {
+      setLoading(false);
+    }, 700);
   });
 
   useEffect(() => {
@@ -162,12 +161,12 @@ const DressRoom = ({ getAllProfile ,getShopUpdate, Wear}) => {
         <LoadingModal />
       ) : (
         <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ y: -100, opacity: 0 }}
-        transition={{ duration: 1 }}
-        variants={variants}
-      >
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ y: -100, opacity: 0 }}
+          transition={{ duration: 1 }}
+          variants={variants}
+        >
           <div className="DressButton">
             <motion.button
               className={
@@ -304,7 +303,6 @@ const DressRoom = ({ getAllProfile ,getShopUpdate, Wear}) => {
                   onWearItem={onWearItem}
                   setShow={setShow}
                   Wear={Wear}
-                  
                 />
               ))}
             </div>
