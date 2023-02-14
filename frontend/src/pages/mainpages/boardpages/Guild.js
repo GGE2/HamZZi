@@ -5,6 +5,8 @@ import CreateGuild from "./../../../components/Guild/NoGuildNoAdmin/CreateGuild"
 import GuildNoAdmin from "./../../../components/Guild/GuildNoAdmin/GuildNoAdmin";
 import GuildAdmin from "../../../components/Guild/GuildAdmin/GuildAdmin";
 import api from './../../../components/api';
+import { motion } from "framer-motion";
+import LoadingModal from './../../../components/LoadingModal';
 
 
 const Guild = ({
@@ -20,7 +22,14 @@ const Guild = ({
 
   const [guilds, setGuilds] = useState([]);
   // const [keyword, setKeyword] = useState("");
-  const [loading, setLoading] = useState(null)
+  const [loading, setLoading] = useState(true);
+  const variants = {
+    hidden: { opacity: 0 },
+    visibie: { opacity: 1 },
+  };
+  useEffect(() => {
+    setTimeout(()=>{ setLoading(false) }, 700)
+  });
   const nickname = localStorage.getItem("nickname");
 
   // console.log("유저");
@@ -42,7 +51,7 @@ const Guild = ({
         console.log("특정 길드 검색 api");
         console.log(res);
         setGuilds(res.data);
-        setLoading(false)
+        // setLoading(false)
       });
   };
 
@@ -54,7 +63,7 @@ const Guild = ({
         console.log("길드 세부정보 api");
         console.log(res);
         // setGuilds(res.data);
-        setLoading(false)
+        // setLoading(false)
       });
   };
 
@@ -67,7 +76,7 @@ const Guild = ({
           console.log(res.data[0]);
           setAdmin(res.data[0]);
           // setGuilds(res.data);
-          setLoading(false)
+          // setLoading(false)
         });
     };
     // 길드 세부정보 -사 용자 api
@@ -79,7 +88,7 @@ const Guild = ({
           console.log(res.data);
           setUsers(res.data);
           // setGuilds(res.data);
-          setLoading(false)
+          // setLoading(false)
         });
     };
 
@@ -100,7 +109,7 @@ const Guild = ({
           guild: null,
           nickname: nickname,
         });
-        setLoading(false)
+        // setLoading(false)
         // setGuilds(res.data);
       });
   };
@@ -125,7 +134,7 @@ const Guild = ({
         });
         onGetGuildAdmin(id);
         onGetGuilduser(id);
-        setLoading(false)
+        // setLoading(false)
       });
   };
   // 길드 삭제 api
@@ -182,14 +191,18 @@ const Guild = ({
 
   return (
     <>
-      {/* <Header data={"길드"} type={"Guild"} /> */}
+   {loading ? (
+        <LoadingModal />
+      ) :
+      <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ y: -100, opacity: 0 }}
+      transition={{ duration: 1 }}
+      variants={variants}
+    >
       <div className="MyBody">
-        {/* <CreateGuild
-            guilds={guilds}
-            onSearchGuild={onSearchGuild}
-            setKeyword={setKeyword}
-          /> */}
-        {/* 길드 x 길드장 x */}
+
 
 
         {guildUsers.admin === false && guildUsers.guild === null && (
@@ -235,7 +248,7 @@ const Guild = ({
         <button>rtc</button></div>
         <GuildPersons persons={persons} />
       </div> */}
-      </div>
+      </div></motion.div>}
     </>
   );
 };

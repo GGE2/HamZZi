@@ -39,7 +39,7 @@ const Main = () => {
   const [guildId, setGuildId] = useState(0);
   const [guildName, setGuildName] = useState("");
 
-  const [loading2, setLoading2] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   // 화면 보여주는 플래그
   const [show, setShow] = useState({
@@ -95,7 +95,7 @@ const Main = () => {
   };
 
   const getProfile = () => {
-    setLoading2(true);
+    setLoading(true);
     api
       .get(`/api/user/mypage?email=${email}`)
       .then((res) => {
@@ -112,7 +112,7 @@ const Main = () => {
         SetNickName(res.data.nickname);
         getPetInfo(res.data.nickname);
         onGetUserGuildInfo(res.data.nickname);
-        setLoading2(false);
+        // setLoading2(false);
       })
       .catch((err) => {
         console.log(err);
@@ -121,7 +121,7 @@ const Main = () => {
 
   // 유저
   const getAllProfile = () => {
-    setLoading2(true);
+    setLoading(true);
     api
       .get(`/api/user/info/${uid}`)
       .then((res) => {
@@ -142,7 +142,7 @@ const Main = () => {
           hat: res.data.userProfile.hat,
           dress: res.data.userProfile.dress,
         });
-        setLoading2(false);
+        // setLoading2(false);
       })
       .catch((err) => {
         console.log(err);
@@ -151,7 +151,7 @@ const Main = () => {
 
   // // 유저
   const getShopUpdate = () => {
-    setLoading2(true);
+    setLoading(true);
     api
       .get(`/api/user/info/${uid}`)
       .then((res) => {
@@ -173,7 +173,7 @@ const Main = () => {
         // getPetInfo(res.data.userProfile.nickname);
         // onGetUserGuildInfo(res.data.userProfile.nickname);
         getPetInfo(res.data.userProfile.nickname, res.data.userProfile.hat, res.data.userProfile.dress);
-        setLoading2(false);
+        // setLoading2(false);
       })
       .catch((err) => {
         console.log(err);
@@ -215,9 +215,9 @@ const Main = () => {
     getPetInfo();
   }, [name]);
 
-  // useEffect(() => {
-  //   getAllProfile();
-  // }, [Wear.hat, Wear.dress, Wear.background]);
+  useEffect(() => {
+    setTimeout(()=>{ setLoading(false) }, 1500)
+  });
 
   // 메뉴 선택 함수
   const onClickTodo = () => {
@@ -279,7 +279,7 @@ const Main = () => {
     <div className="app">
       <div className="Board">
         <div className="Back">
-          {loading2 === false ? (
+          {loading === false ? (
             <>
               <div className="Hamster">
                 <Ham

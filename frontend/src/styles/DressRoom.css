@@ -1,5 +1,5 @@
 .DressRoom {
-    background-color: white;
+    background-color: #f9fbe7;
     height: 100%;
     border-radius: 7px;
     display: flex;
@@ -39,7 +39,7 @@
     border-left: none;
     border-right: none;
     cursor: pointer;
-    background-color: white;
+    background-color: #f9fbe7;
     height: 4em;
     
     

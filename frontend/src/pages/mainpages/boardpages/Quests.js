@@ -6,6 +6,9 @@ import "../../../styles/Quest.css";
 import { useRef } from "react";
 import api from "./../../../components/api";
 
+import { motion } from "framer-motion";
+import LoadingModal from './../../../components/LoadingModal';
+
 const Quests = () => {
   const nickname = localStorage.getItem("nickname");
   const [dailyQuests, setDailyQuest] = useState([]);
@@ -13,6 +16,14 @@ const Quests = () => {
   const [show, setShow] = useState({
     dailyShow: true,
     weeklyShow: false,
+  });
+  const [loading, setLoading] = useState(true);
+  const variants = {
+    hidden: { opacity: 0 },
+    visibie: { opacity: 1 },
+  };
+  useEffect(() => {
+    setTimeout(()=>{ setLoading(false) }, 700)
   });
   const [tutorial, setTutorial] = useState(false);
   const outside = useRef();
@@ -57,6 +68,16 @@ const Quests = () => {
 
   return (
     <>
+    {loading ? (
+        <LoadingModal />
+      ) :
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ y: -100, opacity: 0 }}
+        transition={{ duration: 1 }}
+        variants={variants}
+      >
       <div className="Quests">
         {/* 화면 상단 버튼 그룹 */}
         <div className="QuestHeaderButton">
@@ -97,7 +118,7 @@ const Quests = () => {
             <QuestTutorial />
           </div>
         )}
-      </div>
+      </div></motion.div>}
     </>
   );
 };

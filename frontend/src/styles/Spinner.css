@@ -1,11 +1,11 @@
-@keyframes spinner {
+/* @keyframes spinner {
     0% {
       transform: rotate(0deg);
     }
     100% {
       transform: rotate(360deg);
     }
-  }
+  } */
   .spinner-container {
     position: absolute;
     top: 50%;
@@ -14,10 +14,17 @@
   }
   .loading-spinner {
     display: flex;
-    width: 100px;
-    height: 100px;
-    border: 10px solid #f3f3f3; /* Light grey */
-    border-top: 10px solid #383636; /* Black */
-    border-radius: 50%;
-    animation: spinner 1.5s linear infinite;
+    width: 20em;
+    /* height: 30em; */
+    /* z-index: 300; */
+    /* background-image: url('../../public/spin.gif'); */
+    /* border: 10px solid #f3f3f3; 
+    border-top: 10px solid #383636; 
+    border-radius: 50%; */
+    /* animation: spinner 1.5s linear infinite; */
+  }
+  
+  .loading-spinner img {
+    width: 20em;
+    /* height: 30em; */
   }

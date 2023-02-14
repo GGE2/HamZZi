@@ -10,6 +10,8 @@ import LoadingModal from "../../../components/LoadingModal";
 import MyItem from "./../../../components/DressRoom/MyItem";
 import DecoItem from "./../../../components/DressRoom/DecoItem";
 
+
+
 const DressRoom = ({ getAllProfile ,getShopUpdate, Wear}) => {
   const nickname = localStorage.getItem("nickname");
   const level = localStorage.getItem("petLevel");
@@ -24,6 +26,7 @@ const DressRoom = ({ getAllProfile ,getShopUpdate, Wear}) => {
   });
 
   const [loading, setLoading] = useState(true);
+
   // 전체 아이템
   const [items, setItem] = useState([]);
   const [myItems, setMyItem] = useState([]);
@@ -79,7 +82,7 @@ const DressRoom = ({ getAllProfile ,getShopUpdate, Wear}) => {
         console.log(`전체 아이템`);
         console.log(res);
         setItem(res.data);
-        setLoading(false);
+        // setLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -107,8 +110,8 @@ const DressRoom = ({ getAllProfile ,getShopUpdate, Wear}) => {
       .put(`/api/item?nickname=${nickname}&item_id=${id}`)
       .then((res) => {
         console.log(res);
-        // getAllProfile()
-        getShopUpdate()
+        getAllProfile()
+        // getShopUpdate()
         onCheckMy()
       })
       .catch((err) => {
@@ -129,13 +132,17 @@ const DressRoom = ({ getAllProfile ,getShopUpdate, Wear}) => {
         // setIsModal(false) // 구매하면 모달닫기
         onGetItemAllList(); // 상점 전체 아이템
         onGetItemUserNickList(); // 내가 산 아이템 보기
-        // getAllProfile()
-        getShopUpdate()
+        getAllProfile()
+        // getShopUpdate()
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
+  useEffect(() => {
+    setTimeout(()=>{ setLoading(false) }, 700)
+  });
 
   useEffect(() => {
     onGetItemAllList(); // 상점 전체 아이템
@@ -144,12 +151,23 @@ const DressRoom = ({ getAllProfile ,getShopUpdate, Wear}) => {
     // onAddItem()
   }, []);
 
+  const variants = {
+    hidden: { opacity: 0 },
+    visibie: { opacity: 1 },
+  };
+
   return (
     <div className="DressRoom">
       {loading ? (
         <LoadingModal />
       ) : (
-        <>
+        <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ y: -100, opacity: 0 }}
+        transition={{ duration: 1 }}
+        variants={variants}
+      >
           <div className="DressButton">
             <motion.button
               className={
@@ -291,7 +309,7 @@ const DressRoom = ({ getAllProfile ,getShopUpdate, Wear}) => {
               ))}
             </div>
           )}
-        </>
+        </motion.div>
       )}
     </div>
   );

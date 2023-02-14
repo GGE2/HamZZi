@@ -16,6 +16,7 @@ import { useDispatch } from "react-redux";
 import { receivePoint } from "../../../pointSlice";
 import { motion } from "framer-motion";
 import $ from "jquery";
+import LoadingModal from './../../../components/LoadingModal';
 
 const Todos = () => {
   // const nickname = 
@@ -24,7 +25,11 @@ const Todos = () => {
   const [todo_menu, setTodoMenu] = useState([true, false]);
   const [searchword, setSearchWord] = useState(null);
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    setTimeout(()=>{ setLoading(false) }, 700)
+  });
   const getStringDate = (date) => {
     return date.toISOString().slice(0, 10);
   };
@@ -250,6 +255,10 @@ const Todos = () => {
   };
 
   return (
+    <>
+    {loading ? (
+      <LoadingModal />
+    ) :
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -332,7 +341,7 @@ const Todos = () => {
           setTodos={setTodos}
         />
       </div>
-    </motion.div>
+    </motion.div>}</>
   );
 };
 
