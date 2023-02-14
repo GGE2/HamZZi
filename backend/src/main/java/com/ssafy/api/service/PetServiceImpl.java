@@ -153,11 +153,11 @@ public class PetServiceImpl implements PetService {
                 case 0:
                 case 1:
                 case 2:
-                    petInfo.setType(1); break;
+                    petInfo.setType(2); break;
                 case 3:
                 case 4:
                 case 5:
-                    petInfo.setType(2); break;
+                    petInfo.setType(1); break;
             }
         }
         petRepo.savePetInfo(petInfo);

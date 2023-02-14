@@ -61,6 +61,7 @@ class TodoBottomSheet(
     // 콜백 함수를 만들어 처리해야한다
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        view?.findViewById<EditText>(R.id.modifyTextBottom)?.hint = todo?.content.toString()
         // 수정 버튼
         view?.findViewById<Button>(R.id.modifyBottom)?.setOnClickListener {
             Log.d(TAG, "함수 오나")

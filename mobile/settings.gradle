@@ -22,5 +22,6 @@ dependencyResolutionManagement {
         }
     }
 }
+
 rootProject.name = "TeamRestructuring"
 include ':app'
