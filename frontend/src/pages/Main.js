@@ -164,6 +164,10 @@ const Main = () => {
           nickname: res.data.userProfile.nickname,
           rest_point: res.data.userProfile.rest_point,
         });
+        setWear({
+          hat: res.data.userProfile.hat,
+          dress: res.data.userProfile.dress,
+        });
         dispatch(receivePoint(res.data.userProfile.point));
         // SetNickName(res.data.userProfile.nickname);
         // getPetInfo(res.data.userProfile.nickname);

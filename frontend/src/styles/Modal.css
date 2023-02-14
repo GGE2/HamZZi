@@ -16,15 +16,18 @@
 }
  
 /* modal창 */
-.modalBody {
+.modalbody {
   /* z-index: 100; */
   display: flex;
   flex-direction: column;
   width: 30em;
   height: 20em;
   position: absolute;
-  background: url("../../public/hamzziStatus/statwindow.png") no-repeat;
+  background: url("../../public/hamzziStatus/statwindow.png") ;
+  /* background: url("../../public/room2.gif") ; */
+  /* background-repeat: no-repeat; */
   background-size: cover;
+  /* resize: both; */
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -46,4 +49,11 @@
  
 #modalCloseBtn:hover {
   cursor: pointer;
+}
+
+.StatElement {
+  display: flex;
+  padding: 0 4em;
+  font-size: 24px;
+  justify-content: space-between;
 }

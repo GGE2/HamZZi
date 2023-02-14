@@ -127,30 +127,38 @@ const StatCtrl = () => {
       (
       <div className="modalbody">
         {/* <div className="StatCtrlBody"> */}
-        <h3>StatCtrl</h3>
+        <h1>스탯창</h1>
         <div className="StatElement">
-          Physical: {status.physical}
+          Physical
+          <div>{status.physical}
           {point > 0 ? <button onClick={handlePhysical}>+</button> : null}
+          </div>
         </div>
         <div className="StatElement">
-          Artistic: {status.artistic}
+          Artistic
+          <div>{status.artistic}
           {point > 0 ? <button onClick={handleArtistic}>+</button> : null}
+          </div>
         </div>
         <div className="StatElement">
-          Intelligent: {status.intelligent}
-          {point > 0 ? <button onClick={handleIntelligent}>+</button> : null}
+          Intelligent
+          <div>{status.intelligent}
+          {point > 0 ? <button onClick={handleIntelligent}>+</button> : null}</div>
         </div>
         <div className="StatElement">
-          Inactive: {status.inactive}
-          {point > 0 ? <button onClick={handleInactive}>+</button> : null}
+          Inactive
+          <div>{status.inactive}
+          {point > 0 ? <button onClick={handleInactive}>+</button> : null}</div>
         </div>
         <div className="StatElement">
-          Energetic: {status.energetic}
-          {point > 0 ? <button onClick={handleEnergetic}>+</button> : null}
+          Energetic
+          <div>{status.energetic}
+          {point > 0 ? <button onClick={handleEnergetic}>+</button> : null}</div>
         </div>
         <div className="StatElement">
-          Etc: {status.etc}
-          {point > 0 ? <button onClick={handleEtc}>+</button> : null}
+          Etc
+          <div>{status.etc}
+          {point > 0 ? <button onClick={handleEtc}>+</button> : null}</div>
         </div>
         <button onClick={handleClear}>CLEAR</button>
         <button onClick={handleExp}>EXP UP</button>
