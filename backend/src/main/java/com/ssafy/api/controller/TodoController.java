@@ -50,11 +50,23 @@ public class TodoController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public String createTodo(
-            @RequestBody @ApiParam(value = "todo 생성", required = true) TodoRequest todoInfo) {
+    public Long createTodo(
+            @RequestBody @ApiParam(value = "todo 생성 웹", required = true) TodoRequest todoInfo) {
         Todo todo = todoService.createTodo(todoInfo);
 
-        return "ID: " + todo.getTodo_id() + " OWNER: " + todo.getNickname() + " CONTENT: " + todo.getContent() ;
+        return todo.getTodo_id();
+    }
+
+    @PostMapping("/Mobile")
+    @ApiOperation(value = "Todo 생성 모바일", notes = "필요한 정보를 전부 입력한다")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "인증 실패"),
+            @ApiResponse(code = 404, message = "사용자 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public Todo createTodoM(@RequestBody @ApiParam(value = "todo 생성", required = true) TodoRequest todoInfo) {
+        return todoService.createTodo(todoInfo);
     }
 
     // Todo ischeck 바꾸기(완료) / 계산식 (완료)

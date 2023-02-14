@@ -99,7 +99,8 @@ public class QuestController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public String createQuestUser(@PathVariable String nickname) {
-        questService.createQuestUser(nickname);
+        questService.createDailyUser(nickname);
+        questService.createWeeklyUser(nickname);
 
         return "200 OK!" ;
     }

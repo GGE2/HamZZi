@@ -8,6 +8,7 @@ import com.ssafy.db.entity.Pet.Pet;
 import com.ssafy.db.entity.Pet.PetData;
 import com.ssafy.db.entity.Pet.PetInfo;
 import com.ssafy.db.entity.Pet.PetStat;
+import com.ssafy.db.repository.PetRepository;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class PetController {
 
     @Autowired
     PetService petService;
+
+    @Autowired
+    PetRepository petRepo;
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////
     @PostMapping()
@@ -118,10 +122,12 @@ public class PetController {
     public String increaseStat(
             @RequestBody @ApiParam(value="펫 스탯 정보", required = true) PetStatRequest petStatRequest, @RequestParam String nickname) {
         PetStat petStat = petService.statLogic(petStatRequest, nickname);
+        PetInfo petInfo = petRepo.findByInfoNickname(nickname);
         return petStat.getPet().getPet_name() + "\n"
                 + "(physical, artistic, intelligent, inactive, energetic, etc)" + "\n"
                 + petStat.getPhysical() +", "+ petStat.getArtistic() +", "+ petStat.getIntelligent() +", "
-                + petStat.getInactive() +", "+ petStat.getEnergetic() +", "+ petStat.getEtc();
+                + petStat.getInactive() +", "+ petStat.getEnergetic() +", "+ petStat.getEtc()+"\n"
+                + " PetType: " + petInfo.getType();
     }
 
     //Pet 졸업로직 만들기
@@ -144,9 +150,4 @@ public class PetController {
 
         return petName + " graduated";
     }
-
-
-
-    // PetInfo type 몇 이상&레벨 반영
-    // behavior 스킵/랜덤
 }
