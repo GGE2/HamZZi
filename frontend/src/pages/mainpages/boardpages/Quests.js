@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import QuestList from "./../../../components/Quest/QuestList";
-import QuestTutorial from "../../../components/Quest/QuestTutorial";
 import "../../../styles/Quest.css";
 import { useRef } from "react";
 import api from "./../../../components/api";
 
 import { motion } from "framer-motion";
-import LoadingModal from './../../../components/LoadingModal';
+import LoadingModal from "./../../../components/LoadingModal";
 
 const Quests = () => {
   const nickname = localStorage.getItem("nickname");
@@ -23,7 +22,9 @@ const Quests = () => {
     visibie: { opacity: 1 },
   };
   useEffect(() => {
-    setTimeout(()=>{ setLoading(false) }, 700)
+    setTimeout(() => {
+      setLoading(false);
+    }, 700);
   });
   const [tutorial, setTutorial] = useState(false);
   const outside = useRef();
@@ -68,57 +69,45 @@ const Quests = () => {
 
   return (
     <>
-    {loading ? (
+      {loading ? (
         <LoadingModal />
-      ) :
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ y: -100, opacity: 0 }}
-        transition={{ duration: 1 }}
-        variants={variants}
-      >
-      <div className="Quests">
-        {/* 화면 상단 버튼 그룹 */}
-        <div className="QuestHeaderButton">
-          <div className="QuestHeaderButton_btn1" onClick={handleDaily}>
-            <img src="dailyB.png" alt="" />
-          </div>
-          <div className="QuestHeaderButton_btn2" onClick={handleWeekly}>
-            <img src="weeklyB.png" alt="" />
-          </div>
-          <button className="TutorialButton" onClick={handleTutorial}>
-            TUTORIAL
-          </button>
-        </div>
+      ) : (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ y: -100, opacity: 0 }}
+          transition={{ duration: 1 }}
+          variants={variants}
+        >
+          <div className="Quests">
+            {/* 화면 상단 버튼 그룹 */}
+            <div className="QuestHeaderButton">
+              <div className="QuestHeaderButton_btn1" onClick={handleDaily}>
+                <img src="dailyB.png" alt="" />
+              </div>
+              <div className="QuestHeaderButton_btn2" onClick={handleWeekly}>
+                <img src="weeklyB.png" alt="" />
+              </div>
+              <button className="TutorialButton" onClick={handleTutorial}>
+                TUTORIAL
+              </button>
+            </div>
 
-        {/* 퀘스트 목록 출력 */}
-        {show.dailyShow && (
-          <div className="QuestList">
-            <QuestList questList={dailyQuests} />
-          </div>
-        )}
+            {/* 퀘스트 목록 출력 */}
+            {show.dailyShow && (
+              <div className="QuestList">
+                <QuestList questList={dailyQuests} />
+              </div>
+            )}
 
-        {show.weeklyShow && (
-          <div className="QuestList">
-            <QuestList questList={weeklyQuests} />
+            {show.weeklyShow && (
+              <div className="QuestList">
+                <QuestList questList={weeklyQuests} />
+              </div>
+            )}
           </div>
-        )}
-
-        {tutorial && (
-          <div
-            className="Modal"
-            ref={outside}
-            onClick={(e) => {
-              if (e.target === outside.current) {
-                setTutorial(false);
-              }
-            }}
-          >
-            <QuestTutorial />
-          </div>
-        )}
-      </div></motion.div>}
+        </motion.div>
+      )}
     </>
   );
 };
