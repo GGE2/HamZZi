@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="투두를 수정하시겠습니까"
-        android:textColorHint="#72402b"
+        android:textColorHint="#c0c0c0"
         android:textColor="#72402b"
         android:fontFamily="@font/kakao_regular"
         android:layout_margin="30sp"
