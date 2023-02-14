@@ -53,7 +53,7 @@ const Login = () => {
             <Google />
             <Kakao />
             <div className="qrcode">
-              <img src="QRCodeImg.jpg" alt="" />
+              <img src="QRCodeImg1.png" alt="" />
             </div>
             {/* </div> */}
           </div>
