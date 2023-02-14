@@ -8,10 +8,9 @@ const HamExp = () => {
   const petLevel = localStorage.getItem("petLevel");
 
   return (
-
     <>
       <div className="HamExp">
-        {petLevel}
+        <div className="PetName">{petLevel}</div>
         <div className="ProgressBar">
           <ProgressBar
             completed={level}
@@ -21,20 +20,19 @@ const HamExp = () => {
             // barContainerClassName="container"
             // completedClassName="barCompleted"
             // labelClassName="label"
-           
+
             bgColor="yellow"
             height="20px"
             width="14.8em"
             // margin="5px"
             labelColor="#000"
-            baseBgColor="rgb(146,85,56)"  //
+            baseBgColor="rgb(146,85,56)" //
           />
         </div>
         <div className="ExpBar">
           <img src="hamzziStatus/expbar.png" alt="" />
         </div>
       </div>
-
     </>
   );
 };

@@ -9,6 +9,7 @@ import "../../styles/LoginForm.css";
 // import Google from "./features/auth/Google";
 // import Kakaopop from "./features/auth/Kakaopop";
 // import LoginForm from './LoginForm';
+import api from "./../../components/api";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");

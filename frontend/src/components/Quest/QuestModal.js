@@ -42,20 +42,8 @@ const QuestModal = ({ content, point, setIsModal, setIsCreate }) => {
       <div className="QuestReword">
         보상
         <div className="QuestReword2">
-          {point === 1 ? (
-            <img src="coin.png" alt="" />
-          ) : point === 2 ? (
-            <div>
-              <img src="coin.png" alt="" />
-              <img src="coin.png" alt="" />
-            </div>
-          ) : (
-            <div>
-              <img src="coin.png" alt="" />
-              <img src="coin.png" alt="" />
-              <img src="coin.png" alt="" />
-            </div>
-          )}
+          <img src="coin.png" alt="" />
+          <div>x {point}</div>
         </div>
       </div>
 

@@ -51,8 +51,12 @@
   font-size: 30px;
   position: absolute;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -20%);
   bottom: 0;
+}
+
+.QuestReword img{
+  margin-top: 0.5rem;
 }
 
 .QuestReword2{

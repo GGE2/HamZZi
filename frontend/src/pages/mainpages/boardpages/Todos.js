@@ -16,11 +16,11 @@ import { useDispatch } from "react-redux";
 import { receivePoint } from "../../../pointSlice";
 import { motion } from "framer-motion";
 import $ from "jquery";
-import LoadingModal from './../../../components/LoadingModal';
+import LoadingModal from "./../../../components/LoadingModal";
 
 const Todos = () => {
-  // const nickname = 
-  const [nickname, setNickname] = useState(localStorage.getItem("nickname"))
+  // const nickname =
+  const [nickname, setNickname] = useState(localStorage.getItem("nickname"));
   const user = JSON.parse(localStorage.getItem("user"));
   // const [todo_menu, setTodoMenu] = useState([true, false]);
   // const [searchword, setSearchWord] = useState(null);
@@ -28,7 +28,9 @@ const Todos = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setTimeout(()=>{ setLoading(false) }, 700)
+    setTimeout(() => {
+      setLoading(false);
+    }, 700);
   });
 
   // const getStringDate = (date) => {
@@ -170,7 +172,6 @@ const Todos = () => {
   };
 
   const onToggle = (id) => {
-    
     api.put(`/api/todo/check/${nickname}/${id}`).then(() => {
       // 포인트 받아온 뒤 redux에 반영
       api.get(`/api/user/mypage?email=${user}`).then((res) => {
@@ -258,21 +259,21 @@ const Todos = () => {
 
   return (
     <>
-    {loading ? (
-      <LoadingModal />
-    ) :
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ y: -100, opacity: 0 }}
-      transition={{ duration: 1 }}
-      variants={variants}
-    >
-      {/* <Header data={"Todo"} type={"Todo"} /> */}
-      <div className="MyBody">
-        <TodoInput onAdd={onAdd} onSearchFunc={onSearchFunc} />
-        <div className="TodoHeaderButton">
-          {/* <button
+      {loading ? (
+        <LoadingModal />
+      ) : (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ y: -100, opacity: 0 }}
+          transition={{ duration: 1 }}
+          variants={variants}
+        >
+          {/* <Header data={"Todo"} type={"Todo"} /> */}
+          <div className="MyBody">
+            <TodoInput onAdd={onAdd} onSearchFunc={onSearchFunc} />
+            <div className="TodoHeaderButton">
+              {/* <button
             onClick={CreateFlagfunc}
             className={todo_menu[0] ? "TodoButton--active" : null}
           >
@@ -285,9 +286,10 @@ const Todos = () => {
             투두 검색
           </button> */}
 
-          {/* {todo_menu[0] && (
+              {/* {todo_menu[0] && (
           <button onClick={onCreateGuild}>생성하기</button>
         )} */}
+<<<<<<< HEAD
           {/* {todo_menu[1] && (
             <>
               <form onSubmit="return false;">
@@ -316,34 +318,74 @@ const Todos = () => {
               <div className="DateButton" onClick={decreaseMonth}>
                 <AiFillCaretLeft className="DateButton_left" size={"55%"} />
               </div>
+=======
+              {todo_menu[1] && (
+                <>
+                  <form onSubmit="return false;">
+                    <input
+                      type="text"
+                      placeholder="투두 이름을 입력하세요"
+                      onChange={onKeyword}
+                    />
+                  </form>
+                  {isSearch ? (
+                    <button onClick={onSearchCancelFunc}>취소</button>
+                  ) : (
+                    <button onClick={onSearchFunc}>검색하기</button>
+                  )}
+                </>
+              )}
+              {todo_menu[0] && (
+                <div className="DateControl">
+                  {/* 달력 아이콘을 누르면 isOpen을 true */}
+                  {/* <button onClick={handleClick} className="Calbutton"> */}
+                  <div onClick={handleClick} className="HamCalendar">
+                    <img src="assets/calendar.png" alt="" />
+                  </div>
+                  {/* </button> */}
+                  {/* <div className="DateContainer"> */}
+                  <div className="DateButton" onClick={decreaseMonth}>
+                    <AiFillCaretLeft className="DateButton_left" size={"55%"} />
+                  </div>
+>>>>>>> 21a47d61451b44dfcf7e59b57d8f94747fb055dc
 
-              <p>{calDate}</p>
-              <div className="DateButton" onClick={increaseMonth}>
-                <AiFillCaretRight className="DateButton_right" size={"55%"} />
-              </div>
-              {/* </div> */}
-              {/* <p class="arrow_box">내asdasdasd일</p> */}
-              <div className="ToHomeBtn" onClick={handleToday}>
-                오늘 할 일
-              </div>
+                  <p>{calDate}</p>
+                  <div className="DateButton" onClick={increaseMonth}>
+                    <AiFillCaretRight
+                      className="DateButton_right"
+                      size={"55%"}
+                    />
+                  </div>
+                  {/* </div> */}
+                  {/* <p class="arrow_box">내asdasdasd일</p> */}
+                  <div className="ToHomeBtn" onClick={handleToday}>
+                    오늘 할 일
+                  </div>
+                </div>
+              )}
             </div>
+<<<<<<< HEAD
           {/* )} */}
         </div>
+=======
+>>>>>>> 21a47d61451b44dfcf7e59b57d8f94747fb055dc
 
-        {isOpen && (
-          <DatePicker selected={startDate} onChange={handleChange} inline />
-        )}
+            {isOpen && (
+              <DatePicker selected={startDate} onChange={handleChange} inline />
+            )}
 
-        <TodoList
-          Caldate={calDate}
-          todos={todos}
-          onDel={onDel}
-          onToggle={onToggle}
-          onEdit={onEdit}
-          setTodos={setTodos}
-        />
-      </div>
-    </motion.div>}</>
+            <TodoList
+              Caldate={calDate}
+              todos={todos}
+              onDel={onDel}
+              onToggle={onToggle}
+              onEdit={onEdit}
+              setTodos={setTodos}
+            />
+          </div>
+        </motion.div>
+      )}
+    </>
   );
 };
 
