@@ -29,6 +29,14 @@
     align-items: center;
 }
 
+.PetName {
+    padding-top: 0.3rem;
+    margin-right: 9.8rem;
+    color: #91310e;
+    font-size: larger;
+    font-weight: bold;
+}
+
 .ProgressBar{
     /* width: 1em; */
     /* margin-left: 10%; */

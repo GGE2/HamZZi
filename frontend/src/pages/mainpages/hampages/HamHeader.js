@@ -4,8 +4,9 @@ import DropdownMenu from "./../../../components/GuestBook/DropdownMenu";
 import { useSelector } from "react-redux";
 import { selectCurrentPoint } from "./../../../pointSlice";
 
-const HamHeader = ({onDeleteUser}) => {
+const HamHeader = ({ onDeleteUser }) => {
   const point = useSelector(selectCurrentPoint);
+  const nickname = localStorage.getItem("nickname");
 
   return (
     <div className="Hamheader">
@@ -13,12 +14,10 @@ const HamHeader = ({onDeleteUser}) => {
         <img src={`coin.png`} alt="" />
         {point}
       </div>
-      {/* <div className="HamAchievement">
-        <GiAchievement size={"40"} color={"orange"} />
-        <b>500000</b>
-      </div> */}
+      <div> {nickname} </div>
+
       <div className="Profile">
-        <DropdownMenu onDeleteUser={onDeleteUser}/>
+        <DropdownMenu onDeleteUser={onDeleteUser} />
       </div>
     </div>
   );

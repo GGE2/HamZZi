@@ -3,7 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import "../../styles/Modal.css";
-import api from './../../components/api';
+import api from "./../../components/api";
 
 const PetName = () => {
   const [petName, setPetName] = useState("");
@@ -36,7 +36,6 @@ const PetName = () => {
         <div className="modalbody">
           <h1>햄스터 이름</h1>
           <h2>당신의 햄스터의 이름을 정해주세요</h2>
-          <p>햄스터 이름은 언제든지 수정할 수 있습니다</p>
           <form onSubmit={handleSubmit}>
             <input
               type="text"

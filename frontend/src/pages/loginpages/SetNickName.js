@@ -57,7 +57,7 @@ const SetNickName = () => {
         <div className="modalbody">
           <h1>환영합니다!</h1>
           <h2>닉네임을 설정해 주세요</h2>
-          <p>설정하신 닉네임은 다시 바꿀 수 없습니다</p>
+          <p>햄최몇에서 사용될 당신의 이름입니다</p>
           <form onSubmit={handleSubmit}>
             <input
               name="nickname"
