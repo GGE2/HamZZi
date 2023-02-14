@@ -7,7 +7,11 @@ import "../../../styles/HamStatus.css";
 import Chart from "react-apexcharts";
 import { IoStatsChart } from "react-icons/io5";
 import { useSelector, useDispatch } from "react-redux";
-import { selectCurrentHamStat, clearStat } from "./../../../hamStatSlice";
+import {
+  selectCurrentHamStat,
+  clearStat,
+  getPetType,
+} from "./../../../hamStatSlice";
 
 import api from "./../../../components/api";
 
@@ -35,6 +39,7 @@ const HamStatus = ({ setWear }) => {
       localStorage.setItem("petName", null);
       localStorage.setItem("petLevel", null);
       localStorage.setItem("exp", null);
+      dispatch(getPetType(0));
 
       window.location.replace("/main");
     });

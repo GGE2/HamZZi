@@ -8,7 +8,7 @@ import api from "./../../../components/api";
 import { useSelector } from "react-redux";
 import {
   selectCurrentHamLevel,
-  // selectCurrentPetType,
+  selectCurrentPetType,
 } from "../../../hamStatSlice";
 
 // GrAdd
@@ -17,6 +17,7 @@ const HamOutfit = ({ Wear }) => {
   const nickname = localStorage.getItem("nickname");
   console.log(useSelector(selectCurrentHamLevel));
   const level = useSelector(selectCurrentHamLevel);
+  const type = useSelector(selectCurrentPetType);
   const [isCreate, setIsCreate] = useState(false);
   const [isModal, setIsModal] = useState(false);
   console.log(Wear);
@@ -88,7 +89,8 @@ const HamOutfit = ({ Wear }) => {
               src={`wearlist/${
                 JSON.stringify(level) +
                 Wear.hat +
-                Wear.dress 
+                Wear.dress +
+                JSON.stringify(type)
                 // JSON.stringify(type)
               }.gif`}
               alt=""

@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import GetPetInfo from "./components/GetPetInfo";
 import increaseExp from "./components/increaseExp";
 import api from "./components/api";
-import { selectCurrentPoint } from './pointSlice';
+import { selectCurrentPoint } from "./pointSlice";
 
 const nickname = localStorage.getItem("nickname");
 
@@ -23,7 +23,6 @@ const hamStatSlice = createSlice({
       const type = action.payload;
       state.type = type;
     },
-
 
     getPetLevel: (state, action) => {
       const level = action.payload;
