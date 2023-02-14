@@ -1,20 +1,21 @@
 import React, { useState, useEffect, useRef } from "react";
 import HamExp from "./statuspages/HamExp";
 import HamLevel from "./statuspages/HamLevel";
-import HamName from "./statuspages/HamName";
+
 import StatCtrl from "./statuspages/StatCtrl";
 import "../../../styles/HamStatus.css";
 import Chart from "react-apexcharts";
 import { IoStatsChart } from "react-icons/io5";
 import { useSelector, useDispatch } from "react-redux";
 import { selectCurrentHamStat, clearStat } from "./../../../hamStatSlice";
-import axios from "axios";
+
 import api from "./../../../components/api";
 
-const HamStatus = (props) => {
+const HamStatus = ({ setWear}) => {
   const hamstat = useSelector(selectCurrentHamStat);
   const level = localStorage.getItem("petLevel");
   const petId = localStorage.getItem("petId");
+  const petLevel = localStorage.getItem("petLevel");
   const petName = localStorage.getItem("petName");
   const nickname = localStorage.getItem("nickname");
   const [isOpen, setIsOpen] = useState(false);
@@ -23,12 +24,18 @@ const HamStatus = (props) => {
 
   const handleGraduate = () => {
     api.put(`/api/pet/graduate?pet_id=${petId}`).then(() => {
+      setWear({
+        hat: 0,
+        dress: 0,
+        type: 0,
+      });
       console.log("graduated");
       dispatch(clearStat());
       localStorage.setItem("petId", null);
       localStorage.setItem("petName", null);
       localStorage.setItem("petLevel", null);
       localStorage.setItem("exp", null);
+      
       window.location.replace("/main");
     });
   };
@@ -88,21 +95,20 @@ const HamStatus = (props) => {
   return (
     <>
       <div className="HamStatus">
-        <HamName petName={props.petName} />
-        {/* <ApexChart type="radar"  /> */}
-
-    
-          <HamExp />
-          {/* <HamLevel /> */}
+        <div className="HamName">
+         
+          {petName}
+        </div>
+       
+        <HamExp />
        
 
         {level === "5" && (
-          <button
-            style={{ position: "relative", top: "30px" }}
-            onClick={handleGraduate}
-          >
-            graduate
-          </button>
+          <>
+            <div className="graduatebtn" onClick={handleGraduate}>
+              <img src="graduateB.png" alt="" />
+            </div>
+          </>
         )}
         <div className="HamChart">
           <Chart
@@ -112,7 +118,11 @@ const HamStatus = (props) => {
             height={"100%"}
           />
           <button className="StatButton">
-            <IoStatsChart onClick={showStat} size={"100%"} color={"rgb(146, 89, 67)"} />
+            <IoStatsChart
+              onClick={showStat}
+              size={"100%"}
+              color={"rgb(146, 89, 67)"}
+            />
             {isOpen && (
               <div
                 className="Modal"

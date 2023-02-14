@@ -11,6 +11,8 @@ import { useNavigate } from "react-router-dom";
 import { setCredentials } from "../../authSlice";
 import api from "./../../components/api";
 
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
+
 export default function Signup() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -88,7 +90,7 @@ export default function Signup() {
       console.log(err.code);
       switch (err.code) {
         case "auth/weak-password":
-          setErrorMsg("비밀번호는 6자리 이상이어야 합니다");
+          setErrorMsg("비밀번호는 8자리 이상이어야 합니다");
           break;
         case "auth/invalid-email":
           setErrorMsg("잘못된 이메일 주소입니다");
@@ -114,13 +116,14 @@ export default function Signup() {
   // 이메일 유효성 검사
   const handleEmail = (e) => {
     const currentEmail = e.target.value;
+    console.log(currentEmail)
     setEmail(currentEmail);
-    // console.log(email);
+    console.log(email);
     const regex =
       /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
     if (currentEmail === "") {
       setEmailMessage("");
-      setEmailValid(true);
+      setEmailValid(false);
     } else if (!regex.test(e.target.value)) {
       setEmailMessage("이메일의 형식이 올바르지 않습니다!");
       setEmailValid(false);
@@ -139,7 +142,7 @@ export default function Signup() {
     const regex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
     if (currentPassword === "") {
       setPasswordMessage("");
-      setPasswordValid(true);
+      setPasswordValid(false);
     } else if (!regex.test(e.target.value)) {
       setPasswordMessage(
         "숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!"
@@ -157,7 +160,7 @@ export default function Signup() {
     setPasswordConfirm(currentPasswordConfirm);
     if (currentPasswordConfirm === "") {
       setPasswordConfirmMessage("");
-      setPasswordConfirmValid(true);
+      setPasswordConfirmValid(false);
     } else if (password !== currentPasswordConfirm) {
       setPasswordConfirmMessage("비밀번호가 똑같지 않아요!");
       setPasswordConfirmValid(false);
@@ -180,9 +183,11 @@ export default function Signup() {
             type="text"
             value={email}
             onChange={handleEmail}
+            placeholder="ssafy123@naver.com"
           />
+          {emailValid ? <div className="error_icon"><AiOutlineCheckCircle color="orange"/></div> : <div className="error_icon"><AiOutlineCloseCircle color="#dadada"/></div> }
         </div>
-        <div className="siginup_errorMessageWrap">{emailMessage}</div>
+        {/* <div className="siginup_errorMessageWrap">{emailMessage}</div> */}
 
         <div className="siginup_inputTitle">비밀번호</div>
         <div className="siginup_inputWrap">
@@ -191,11 +196,13 @@ export default function Signup() {
             type="password"
             value={password}
             onChange={handlePw}
+            placeholder="숫자,영문자,특수문자 8자리 이상"
           />
+          {passwordValid ? <div className="error_icon"><AiOutlineCheckCircle color="orange"/></div> : <div className="error_icon"><AiOutlineCloseCircle color="#dadada"/></div> }
         </div>
-        <div className="siginup_errorMessageWrap">{passwordMessage}</div>
+        {/* <div className="siginup_errorMessageWrap">{passwordMessage}</div> */}
 
-        <div>비밀번호 확인</div>
+        <div className="siginup_inputTitle">비밀번호 확인</div>
         <div className="siginup_inputWrap">
           <input
             className="siginup_input"
@@ -203,8 +210,9 @@ export default function Signup() {
             value={passwordConfirm}
             onChange={handlePasswordConfirm}
           />
+          {passwordConfirmValid ? <div className="error_icon"><AiOutlineCheckCircle color="orange"/></div> : <div className="error_icon"><AiOutlineCloseCircle color="#dadada"/></div> }
         </div>
-        <div className="siginup_errorMessageWrap">{passwordConfirmMessage}</div>
+        {/* <div className="siginup_errorMessageWrap">{passwordConfirmMessage}</div> */}
       </div>
 
       <button

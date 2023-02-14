@@ -32,6 +32,8 @@ const StatCtrl = () => {
     api
       .get(`/api/pet/${nickname}`)
       .then((res) => {
+        console.log('스탯')
+        console.log(res.data)
         console.log(res.data.petStat);
         const physical = res.data.petStat.physical;
         const artistic = res.data.petStat.artistic;
@@ -107,7 +109,7 @@ const StatCtrl = () => {
     });
   };
   const handleExp = () => {
-    api.put(`/api/pet/exp?pet_id=${petId}&exp=${15}`).then((res) => {
+    api.put(`/api/pet/exp?pet_id=${petId}&exp=${15}&nickname=${nickname}`).then((res) => {
       console.log(res);
       GetPetInfo();
       api.get(`/api/pet/${nickname}`).then((res) => {

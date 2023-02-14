@@ -30,19 +30,33 @@
 }
 
 .ProgressBar{
-    /* width: 100%; */
+    /* width: 1em; */
     /* margin-left: 10%; */
-    margin-top: 60px;
+    margin-top: 50px;
     position: absolute;
     z-index: 1;
 }
 
 .ExpBar {
-    height: 4em;
+    height: 3em;
     position: absolute;
-    /* z-index: 10; */
+    
 }
 
 .ExpBar img {
-    height: 5em;
+    height: 4em;
+}
+
+.graduatebtn {
+    width: 5em;
+    position: relative;
+    top: 22%;
+    cursor: pointer;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+}
+
+.graduatebtn img { 
+    width: 5em;
 }

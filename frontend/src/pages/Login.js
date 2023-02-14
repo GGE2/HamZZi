@@ -5,8 +5,8 @@ import LoginForm from "./loginpages/LoginForm";
 import Signup from "./loginpages/Signup";
 import "../styles/Login.css";
 import { useNavigate } from "react-router";
-import Main from "./Main";
-import { Link } from "react-router-dom";
+// import Main from "./Main";
+// import { Link } from "react-router-dom";
 
 const Login = () => {
   const [loginflag, setloginflag] = useState(true);
@@ -25,13 +25,13 @@ const Login = () => {
     <>
       {token ? navigate("/main") : null}
       <div className="loginbody">
-        {/* <div className="loginback"> */}
         <div className="backimg">
           <img src="title.png" alt="" />
         </div>
 
         {loginflag ? (
           <div className="loginback">
+            {/* <div className="backback"> */}
             <div className="selectlogin">
               <button
                 // className="selectBtn1"
@@ -52,6 +52,10 @@ const Login = () => {
             <LoginForm />
             <Google />
             <Kakao />
+            <div className="qrcode">
+              <img src="QRCodeImg.jpg" alt="" />
+            </div>
+            {/* </div> */}
           </div>
         ) : (
           <div className="loginback">

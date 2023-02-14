@@ -45,16 +45,13 @@ const ClothItem = ({
         // 구매한 아이템
         <div className="SameItem">
           <motion.div
-            // className="DressItem"
+          
             className="DressItem_clicked"
-            // onClick={onClick}
+           
           >
             <img src={`chara/cloth/cloth${id}.png`} alt="" />
           </motion.div>
-          <div className="Cost">
-            <img src={`coin.png`} alt="" />
-            {cost}
-          </div>
+          보유중
         </div>
       ) : (
         <>

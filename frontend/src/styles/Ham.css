@@ -67,7 +67,7 @@ animation: rotate_image 10s linear infinite;
 
 /* 햄 outfit 이height: 100%;미지 크기 설정 */
 .HamOutfit{
-    height: 50%;
+    height: 45%;
     display: flex;
     justify-content: center;
     align-items: center;

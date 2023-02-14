@@ -5,8 +5,9 @@ import api from './api';
 
 const increaseExp = () => {
   const petId = localStorage.getItem("petId");
+  const nickname = localStorage.getItem("nickname")
   api
-    .put(`/api/pet/exp?pet_id=${petId}&exp=${5}`)
+    .put(`/api/pet/exp?pet_id=${petId}&exp=${5}&nickname=${nickname}`)
     .then((res) => {
       console.log(res);
       GetPetInfo();

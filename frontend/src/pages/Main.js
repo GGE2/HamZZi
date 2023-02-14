@@ -9,12 +9,10 @@ import Shop from "./mainpages/boardpages/Shop";
 import Profile from "./mainpages/boardpages/Profile";
 
 import { useDispatch } from "react-redux";
-// import { setCredentials } from "../authSlice";
-import { getCurrentStat, getPetLevel } from "../hamStatSlice";
+import { getCurrentStat, getPetLevel, getPetType } from "../hamStatSlice";
 import api from "./../components/api";
 import LoadingModal from "./../components/LoadingModal";
 import { receivePoint } from "../pointSlice";
-// import SetNickName from './loginpages/SetNickName';
 
 const Main = () => {
   const [petName, setPetName] = useState("");
@@ -26,7 +24,6 @@ const Main = () => {
   const [Wear, setWear] = useState({
     hat: 0,
     dress: 0,
-    background: 0,
   });
 
   // const nickname = localStorage.getItem("nickname");
@@ -59,6 +56,13 @@ const Main = () => {
       .get(`/api/pet/${nickname}`)
       .then((res) => {
         console.log(res.data);
+        dispatch(getPetType(res.data.petInfo.type));
+        // setWear({
+        //   type: res.data.petInfo.type,
+        //   // dress: res.data.userProfile.dress,
+        //   hat: hat,
+        //   dress: dress,    
+        // });
         const physical = res.data.petStat.physical;
         const artistic = res.data.petStat.artistic;
         const intelligent = res.data.petStat.intelligent;
@@ -79,7 +83,9 @@ const Main = () => {
           energetic,
           etc,
         };
+        
         dispatch(getCurrentStat(data));
+        
         console.log(data);
         console.log("DISPATCHED!!");
       })
@@ -135,7 +141,6 @@ const Main = () => {
         setWear({
           hat: res.data.userProfile.hat,
           dress: res.data.userProfile.dress,
-          background: res.data.userProfile.background,
         });
         setLoading2(false);
       })
@@ -163,11 +168,7 @@ const Main = () => {
         // SetNickName(res.data.userProfile.nickname);
         // getPetInfo(res.data.userProfile.nickname);
         // onGetUserGuildInfo(res.data.userProfile.nickname);
-        setWear({
-          hat: res.data.userProfile.hat,
-          dress: res.data.userProfile.dress,
-          background: res.data.userProfile.background,
-        });
+        getPetInfo(res.data.userProfile.nickname, res.data.userProfile.hat, res.data.userProfile.dress);
         setLoading2(false);
       })
       .catch((err) => {
@@ -282,6 +283,7 @@ const Main = () => {
                   Wear={Wear}
                   getAllProfile={getAllProfile}
                   onDeleteUser={onDeleteUser}
+                  setWear={setWear}
                 />
               </div>
 

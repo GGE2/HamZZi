@@ -49,10 +49,7 @@ const DecoItem = ({
           >
             <img src={`chara/cloth/cloth${id}.png`} alt="" />
           </motion.div>
-          <div className="Cost">
-            <img src={`coin.png`} alt="" />
-            {cost}
-          </div>
+          보유중
         </div>
       ) : (
         <>

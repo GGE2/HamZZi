@@ -14,7 +14,7 @@ const Ham = (props) => {
       <HamHeader onDeleteUser={props.onDeleteUser}/>
 
       <HamOutfit Wear={props.Wear} getAllProfile={props.getAllProfile}/>
-      <HamStatus petName={props.petName} />
+      <HamStatus petName={props.petName} setWear={props.setWear}/>
     </div>
   );
 };

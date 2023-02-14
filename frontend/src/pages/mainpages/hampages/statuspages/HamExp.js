@@ -1,11 +1,10 @@
 import React from "react";
 import ProgressBar from "@ramonak/react-progress-bar";
-import axios from "axios";
 
 const HamExp = () => {
-  const experience = localStorage.getItem("exp");
+  // const experience = localStorage.getItem("exp");
   const level = localStorage.getItem("petLevel");
-  const petId = localStorage.getItem("petId");
+  // const petId = localStorage.getItem("petId");
   const petLevel = localStorage.getItem("petLevel");
 
   return (
@@ -24,8 +23,8 @@ const HamExp = () => {
             // labelClassName="label"
            
             bgColor="yellow"
-            height="25px"
-            width="18.5em"
+            height="20px"
+            width="14.8em"
             // margin="5px"
             labelColor="#000"
             baseBgColor="rgb(146,85,56)"  //

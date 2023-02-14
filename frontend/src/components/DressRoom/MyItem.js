@@ -42,6 +42,7 @@ const MyItem = ({ id, onWearItem, setShow, type,Wear }) => {
             장착중
           </motion.div>
         </div> */}
+        
 
 
         {type === "모자" && Wear.hat === id ? (
@@ -49,7 +50,7 @@ const MyItem = ({ id, onWearItem, setShow, type,Wear }) => {
             <div className="SameItem">
           <motion.div
             className="DressItem_clicked"
-            onClick={onClick}
+      
           >
             <img src={`chara/hat/hat${id}.png`} alt="" />
           </motion.div>
@@ -70,12 +71,12 @@ const MyItem = ({ id, onWearItem, setShow, type,Wear }) => {
           </motion.div>
           착용 가능
         </div> : 
-          (type === "옷" && Wear.dress) ? 
+          (type === "옷" && Wear.dress === id) ? 
           <>
             <div className="SameItem">
           <motion.div
             className="DressItem_clicked"
-            onClick={onClick}
+      
           >
             <img src={`chara/cloth/cloth${id}.png`} alt="" />
           </motion.div>
@@ -98,7 +99,7 @@ const MyItem = ({ id, onWearItem, setShow, type,Wear }) => {
          <div className="SameItem">
           <motion.div
             className="DressItem_clicked"
-            onClick={onClick}
+         
           >
             <img src={`chara/cloth/cloth${id}.png`} alt="" />
           </motion.div>
