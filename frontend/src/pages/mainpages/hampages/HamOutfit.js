@@ -8,20 +8,20 @@ import api from "./../../../components/api";
 import { useSelector } from "react-redux";
 import {
   selectCurrentHamLevel,
-  selectCurrentPetType,
+  // selectCurrentPetType,
 } from "../../../hamStatSlice";
 
 // GrAdd
 const HamOutfit = ({ Wear }) => {
-  const type = useSelector(selectCurrentPetType);
+  // const type = useSelector(selectCurrentPetType);
   const nickname = localStorage.getItem("nickname");
   console.log(useSelector(selectCurrentHamLevel));
   const level = useSelector(selectCurrentHamLevel);
   const [isCreate, setIsCreate] = useState(false);
   const [isModal, setIsModal] = useState(false);
   console.log(Wear);
-  console.log("타입");
-  console.log(type);
+  // console.log("타입");
+  // console.log(type);
 
   const outside = useRef();
   // 캐릭터 생성 창을 누르면 모달창을 띄워서 펫 이름을 받는다.
@@ -88,8 +88,8 @@ const HamOutfit = ({ Wear }) => {
               src={`wearlist/${
                 JSON.stringify(level) +
                 Wear.hat +
-                Wear.dress +
-                JSON.stringify(type)
+                Wear.dress 
+                // JSON.stringify(type)
               }.gif`}
               alt=""
             />

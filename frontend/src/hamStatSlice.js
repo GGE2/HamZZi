@@ -16,13 +16,13 @@ const hamStatSlice = createSlice({
     energetic: 0,
     etc: 0,
     level: 1,
-    type: 0,
+    // type: 0,
   },
   reducers: {
-    getPetType: (state, action) => {
-      const type = action.payload;
-      state.type = type;
-    },
+    // getPetType: (state, action) => {
+    //   const type = action.payload;
+    //   state.type = type;
+    // },
 
 
     getPetLevel: (state, action) => {
@@ -179,7 +179,7 @@ const hamStatSlice = createSlice({
 });
 
 export const {
-  getPetType,
+  // getPetType,
   getPetLevel,
   getCurrentStat,
   increasePhysical,
@@ -195,4 +195,4 @@ export default hamStatSlice.reducer;
 
 export const selectCurrentHamStat = (state) => state.hamStat;
 export const selectCurrentHamLevel = (state) => state.hamStat.level;
-export const selectCurrentPetType = (state) => state.hamStat.type;
+// export const selectCurrentPetType = (state) => state.hamStat.type;

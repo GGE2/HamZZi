@@ -9,7 +9,7 @@ import Shop from "./mainpages/boardpages/Shop";
 import Profile from "./mainpages/boardpages/Profile";
 
 import { useDispatch } from "react-redux";
-import { getCurrentStat, getPetLevel, getPetType } from "../hamStatSlice";
+import { getCurrentStat, getPetLevel } from "../hamStatSlice";
 import api from "./../components/api";
 import LoadingModal from "./../components/LoadingModal";
 import { receivePoint } from "../pointSlice";
@@ -56,7 +56,7 @@ const Main = () => {
       .get(`/api/pet/${nickname}`)
       .then((res) => {
         console.log(res.data);
-        dispatch(getPetType(res.data.petInfo.type));
+        // dispatch(getPetType(res.data.petInfo.type));
         // setWear({
         //   type: res.data.petInfo.type,
         //   // dress: res.data.userProfile.dress,
