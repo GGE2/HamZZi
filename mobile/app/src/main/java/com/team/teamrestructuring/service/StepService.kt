@@ -41,10 +41,10 @@ class StepService : Service(),SensorEventListener{
 
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR)
-        alarmManager = getSystemService(android.content.Context.ALARM_SERVICE) as AlarmManager
+        alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         if(sensor!=null){
-            sensorManager.registerListener(this,sensor,SensorManager.SENSOR_DELAY_GAME)
+            sensorManager.registerListener(this,sensor,SensorManager.SENSOR_DELAY_NORMAL)
         }
 
     }
@@ -75,7 +75,7 @@ class StepService : Service(),SensorEventListener{
 
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
-        alarmManager = getSystemService(android.content.Context.ALARM_SERVICE) as AlarmManager
+        alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         if(sensor!=null){
             sensorManager.registerListener(this,sensor,SensorManager.SENSOR_DELAY_GAME)

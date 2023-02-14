@@ -36,7 +36,7 @@ private const val TAG = "HomeFragment_지훈"
 /**
  * A simple [Fragment] subclass.
  * Use the [HomeFragment.newInstance] factory method to
- *훈
+ *
  */
 class HomeFragment : Fragment(),CreateFriendDialog.CreateFriendDialogInterface,CreatePetStatDialog.CreatePetDialogInterface,CreatePetStatUpdateDialog.CreateStatUpdateInterface{
     // TODO: Rename and change types of parameters

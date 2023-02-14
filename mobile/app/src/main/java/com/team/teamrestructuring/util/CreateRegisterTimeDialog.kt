@@ -68,7 +68,7 @@ class CreateRegisterTimeDialog(
 
     override fun onResume() {
         super.onResume()
-        context?.dialogFragmentResize(this@CreateRegisterTimeDialog,1f,0.36f)
+        context?.dialogFragmentResize(this@CreateRegisterTimeDialog,1f,0.45f)
     }
 
 

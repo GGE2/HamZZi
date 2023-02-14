@@ -28,6 +28,10 @@ public class Scheduler {
         questRepo.dailyTableClear();
         countRepo.dailyTableClear();
         questService.resetRestPoint();
+
+        log.info("매일 추가");
+        questService.resetBeforeCreateQuestUser();
+        countService.resetBeforeCreateCountDaily();
     }
 
     @Scheduled(cron = "0 0 0 * * 1")        // 초(0~59), 분(0~59), 시간(0~23), 일(1~31), 월(1, 12), 요일(0: 일요일,  1: 월요일 ...)
@@ -35,13 +39,6 @@ public class Scheduler {
         log.info("매주 초기화");
         questRepo.weeklyTableClear();
         countRepo.weeklyTableClear();
-    }
-
-    @Scheduled(cron = "10 0 0 * * *")        // 테이블 리셋 후에 생성하기 위해 좀 더 시간을 줬음(더미 데이터 넣어보고 얼마나 걸리는지 체크하면 좋을듯)
-    public void CreateTable() {
-        log.info("매일 추가");
-        questService.resetBeforeCreateQuestUser();
-        countService.resetBeforeCreateCountDaily();
     }
 
     @Scheduled(cron = "10 0 0 * * 1")

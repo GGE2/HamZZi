@@ -40,4 +40,5 @@ public interface ItemService {
      * @return
      */
     UserProfile updateWear(String nickname, int item_id);
+    UserProfile clearWear(String nickname);
 }

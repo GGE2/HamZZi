@@ -70,11 +70,11 @@ class MyPageFragment : Fragment() {
             4->binding.imageviewMyPageIconLevel.setImageResource(R.drawable.lvlogo_4)
         }
     }
-    private fun graduate(){
-        val nickName = ApplicationClass.currentUser.userProfile.nickname.toString()
-        val service = ApplicationClass.retrofit.create(MyPageService::class.java)
-            .getTrophy(nickName).enqueue(
-    }
+//    private fun graduate(){
+//        val nickName = ApplicationClass.currentUser.userProfile.nickname.toString()
+//        val service = ApplicationClass.retrofit.create(MyPageService::class.java)
+//            .getTrophy(nickName).enqueue(
+//    }
 
     private fun setUserData(){
         binding.textviewMyPageContentLevel.text = ApplicationClass.currentUser.userProfile.nickname
@@ -85,8 +85,13 @@ class MyPageFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        if(ApplicationClass.currentUser.userProfile.location!=null)
-            binding.textviewMyPageContentPlace.text = ApplicationClass.currentUser.userProfile.location
+        if(ApplicationClass.currentUser.userProfile.location!=null) {
+            var location = binding.textviewMyPageContentPlace.text
+            if(location.length>12){
+               location = location.substring(0,12)+"..."
+                binding.textviewMyPageContentPlace.text = location
+            }
+        }
     }
 
     private fun setListener(){

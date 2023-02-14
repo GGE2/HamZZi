@@ -22,6 +22,8 @@ public interface PetRepository {
     /* Pet 엔티티 검색 */
     Pet findById(Long pet_id);
     Pet findByNickname(String nickname);
+    PetInfo findByInfoNickname(String nickname);
+    PetStat findByStatNickname(String nickname);
     List<PetInfo> graduatePetList(String nickname);
 
     /* PetStat 엔티티 검색 */
