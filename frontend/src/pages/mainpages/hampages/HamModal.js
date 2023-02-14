@@ -30,7 +30,7 @@ const HamModal = ({ setIsModal, setIsCreate }) => {
   };
 
   return (
-    <div className="modalBody">
+    <div className="modalbody">
       <h1>햄스터 이름</h1>
       <h2>당신의 햄스터의 이름을 정해주세요</h2>
       <p>햄스터 이름은 언제든지 수정할 수 있습니다</p>
