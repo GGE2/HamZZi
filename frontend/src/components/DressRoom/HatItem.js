@@ -1,40 +1,73 @@
 import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import ShopModal from './ShopModal';
+import ShopModal from "./ShopModal";
 
 import { BiLockAlt } from "react-icons/bi";
+import WearModal from "./WearModal";
+// import { useSelector } from 'react-redux';
+// import { selectCurrentHamLevel } from "../../hamStatSlice";
 
-
-const HatItem = ({ id, cost, onBuyItem, myItems, type, petlevel, itemlevel}) => {
- 
+const HatItem = ({
+  id,
+  cost,
+  onBuyItem,
+  myItems,
+  type,
+  petLevel,
+  itemlevel,
+  onWearItem,
+}) => {
   const [isModal, setIsModal] = useState(false);
+  const [isModal2, setIsModal2] = useState(false);
+  // const petLevel = useSelector(selectCurrentHamLevel)
 
   const outside = useRef();
   const onClick = () => {
     setIsModal(true);
   };
 
-
   return (
     <>
-      {isModal && <div
+      {isModal && (
+        <div
           className="ShopModal"
           ref={outside}
           onClick={(e) => {
             if (e.target === outside.current) setIsModal(false);
           }}
         >
-          <ShopModal setIsModal={setIsModal} onBuyItem={onBuyItem} id={id} cost={cost} type={type}/>
-        </div>}
+          <ShopModal
+            setIsModal={setIsModal}
+            setIsModal2={setIsModal2}
+            onBuyItem={onBuyItem}
+            id={id}
+            cost={cost}
+            type={type}
+          />
+        </div>
+      )}
+
+      {isModal2 && (
+        <div
+          className="WearModal"
+          ref={outside}
+          onClick={(e) => {
+            if (e.target === outside.current) setIsModal2(false);
+          }}
+        >
+          <WearModal
+            type={type}
+            setIsModal={isModal2}
+            id={id}
+            onWearItem={onWearItem}
+          />
+        </div>
+      )}
 
       {myItems.some((item) => item.item.item_id === id) ? (
         // 구매한 아이템
         <div className="SameItem">
-          <motion.div
-    
-            className="DressItem_clicked"
-        
-          >
+          <motion.div className="DressItem_clicked">
             <img src={`chara/hat/hat${id}.png`} alt="" />
           </motion.div>
           {/* <div className="Cost">
@@ -45,18 +78,13 @@ const HatItem = ({ id, cost, onBuyItem, myItems, type, petlevel, itemlevel}) => 
         </div>
       ) : (
         <>
-          {petlevel < itemlevel ? (
+          {petLevel < itemlevel ? (
             <div className="SameItem">
-              
-            <motion.div
-              // className="DressItem"
-              className="DressItem_clicked"
-              // onClick={onClick}
-            >
-              <img src={`chara/hat/hat${id}.png`} alt="" />
-            </motion.div>
-            <BiLockAlt />
-          </div>
+              <motion.div className="DressItem_clicked">
+                <img src={`chara/hat/hat${id}.png`} alt="" />
+              </motion.div>
+              <BiLockAlt />
+            </div>
           ) : (
             <div className="shopitem">
               <motion.div
@@ -78,11 +106,7 @@ const HatItem = ({ id, cost, onBuyItem, myItems, type, petlevel, itemlevel}) => 
           )}
         </>
       )}
-
-
-
     </>
-    
   );
 };
 

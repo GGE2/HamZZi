@@ -106,6 +106,9 @@ animation: rotate_image 10s linear infinite;
    /* width: 10em; */
    height: 100%;
    width: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
    background-repeat: no-repeat;
     background-size: cover;
     position: absolute;

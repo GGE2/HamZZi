@@ -1,11 +1,17 @@
 import React, { useRef, useEffect, useState } from "react";
 
-const ShopModal = ({ setIsModal, onBuyItem, id, cost, type }) => {
+const ShopModal = ({ setIsModal, setIsModal2,onBuyItem, id, cost, type }) => {
   const onCloseModal = () => {
     setIsModal(false);
   };
 
   console.log(id);
+
+  const buybuy = () => {
+    onBuyItem(id)
+    setIsModal2(true)
+    setIsModal(false)
+  }
 
   return (
     <div className="ShopmodalBody">
@@ -21,7 +27,7 @@ const ShopModal = ({ setIsModal, onBuyItem, id, cost, type }) => {
         {cost}
       </div>
       <div className="ShopModalBtnList">
-        <div className="ShopModalBtn" onClick={() => onBuyItem(id)}>
+        <div className="ShopModalBtn" onClick={buybuy}>
           <img src="shop/buybtn.png" alt="" />
         </div>
         <div className="ShopModalBtn" onClick={onCloseModal}>

@@ -84,12 +84,14 @@ const TodoItem = ({ todos, onDel, onToggle, onEdit }) => {
 
             <div className="content">
               {isEdit ? (
+                <form onSubmit={handleEdit}>
                 <textarea
                   ref={localContentInput}
                   value={localContent}
                   onChange={(e) => setLocalContent(e.target.value)}
                   disabled={ischeck}
                 />
+                </form>
               ) : (
                 <p disabled={ischeck}>{content}</p>
               )}

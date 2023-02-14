@@ -45,7 +45,7 @@ const CreateGuild = ({
     <>
       <div className="onCreateGuildHeaderButton">
         <div className="inputWrapGuild div1">
-          <form className="inputt">
+          <form className="inputt" onSubmit={() => onSearchGuild(GuildName)}>
             <input
               type="text"
               placeholder="길드 이름을 입력하세요"

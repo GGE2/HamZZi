@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import ShopModal from "./ShopModal";
 
 import { BiLockAlt } from "react-icons/bi";
+import WearModal from "./WearModal";
 
 const ClothItem = ({
   id,
@@ -10,10 +11,12 @@ const ClothItem = ({
   onBuyItem,
   myItems,
   type,
-  petlevel,
+  petLevel,
   itemlevel,
+  onWearItem,
 }) => {
   const [isModal, setIsModal] = useState(false);
+  const [isModal2, setIsModal2] = useState(false);
 
   const outside = useRef();
   const onClick = () => {
@@ -41,31 +44,44 @@ const ClothItem = ({
         </div>
       )}
 
+      {isModal2 && (
+        <div
+          className="WearModal"
+          ref={outside}
+          onClick={(e) => {
+            if (e.target === outside.current) setIsModal2(false);
+          }}
+        >
+          <WearModal
+            type={type}
+            setIsModal={isModal2}
+            id={id}
+            onWearItem={onWearItem}
+          />
+        </div>
+      )}
+
       {myItems.some((item) => item.item.item_id === id) ? (
         // 구매한 아이템
         <div className="SameItem">
-          <motion.div
-          
-            className="DressItem_clicked"
-           
-          >
+          <motion.div className="DressItem_clicked">
             <img src={`chara/cloth/cloth${id}.png`} alt="" />
           </motion.div>
           보유중
         </div>
       ) : (
         <>
-          {petlevel < itemlevel ? (
+          {petLevel < itemlevel ? (
             <div className="SameItem">
-            <motion.div
-              // className="DressItem"
-              className="DressItem_clicked"
-              // onClick={onClick}
-            >
-              <img src={`chara/cloth/cloth${id}.png`} alt="" />
-            </motion.div>
-            <BiLockAlt />
-          </div>
+              <motion.div
+                // className="DressItem"
+                className="DressItem_clicked"
+                // onClick={onClick}
+              >
+                <img src={`chara/cloth/cloth${id}.png`} alt="" />
+              </motion.div>
+              <BiLockAlt />
+            </div>
           ) : (
             <div className="shopitem">
               <motion.div

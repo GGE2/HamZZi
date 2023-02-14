@@ -87,9 +87,7 @@ const Quests = () => {
           <div className="QuestHeaderButton_btn2" onClick={handleWeekly}>
             <img src="weeklyB.png" alt="" />
           </div>
-          <button className="TutorialButton" onClick={handleTutorial}>
-            TUTORIAL
-          </button>
+         
         </div>
 
         {/* 퀘스트 목록 출력 */}
@@ -105,7 +103,7 @@ const Quests = () => {
           </div>
         )}
 
-        {tutorial && (
+        {/* {tutorial && (
           <div
             className="Modal"
             ref={outside}
@@ -117,7 +115,7 @@ const Quests = () => {
           >
             <QuestTutorial />
           </div>
-        )}
+        )} */}
       </div></motion.div>}
     </>
   );

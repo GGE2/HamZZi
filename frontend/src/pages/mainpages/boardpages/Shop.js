@@ -9,20 +9,46 @@ import api from "../../../components/api";
 import LoadingModal from "../../../components/LoadingModal";
 import MyItem from "./../../../components/DressRoom/MyItem";
 import DecoItem from "./../../../components/DressRoom/DecoItem";
+import {
+  selectCurrentHamLevel,
+  selectCurrentHamStat,
+} from "../../../hamStatSlice";
+import { selectCurrentPoint } from "../../../pointSlice";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  getCheckHat,
+  getCheckCloth,
+  getCheckDeco,
+  getCheckMy,
+  selectCurrentshopShow,
+  selectCurrenthatShow,
+  selectCurrentclothShow,
+  selectCurrentdecoShow,
+  selectCurrentmyShow,
+} from "./../../../shopSlice";
 
-
-
-const DressRoom = ({ getAllProfile ,getShopUpdate, Wear}) => {
+const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
   const nickname = localStorage.getItem("nickname");
-  const level = localStorage.getItem("petLevel");
-  // const [isModal, setIsModal] = useState(false);
-  // const [isMyModal, setIsMyModal] = useState(false);
+  const petLevel = useSelector(selectCurrentHamLevel);
+  const point = useSelector(selectCurrentPoint);
+  const ham = useSelector(selectCurrentHamStat);
+  const shopshoww = useSelector(selectCurrentshopShow);
+  const hat = useSelector(selectCurrenthatShow);
+  const cloth = useSelector(selectCurrentclothShow);
+  const deco = useSelector(selectCurrentdecoShow);
+  const my = useSelector(selectCurrentmyShow);
+  // getCheckCloth
+
+  console.log(123123);
+  console.log(shopshoww);
+  console.log(ham);
+  const dispatch = useDispatch();
 
   const [show, setShow] = useState({
-    hatShow: true,
-    clothShow: false,
-    decoShow: false,
-    myShow: false,
+    hatShow: hat,
+    clothShow: cloth,
+    decoShow: deco,
+    myShow: my,
   });
 
   const [loading, setLoading] = useState(true);
@@ -31,46 +57,54 @@ const DressRoom = ({ getAllProfile ,getShopUpdate, Wear}) => {
   const [items, setItem] = useState([]);
   const [myItems, setMyItem] = useState([]);
   // 버튼 눌림 css
-  const [menu, setMenu] = useState([true, false, false, false]);
+  const [menu, setMenu] = useState([hat, cloth, deco, my]);
 
   const onCheckHat = () => {
-    setShow({
-      hatShow: true,
-      clothShow: false,
-      decoShow: false,
-      myShow: false,
-    });
-    setMenu([true, false, false, false]);
+    dispatch(getCheckHat());
+    // console.log(shopshoww);
+    // setShow({
+    //   hatShow: true,
+    //   clothShow: false,
+    //   decoShow: false,
+    //   myShow: false,
+    // });
+    // setMenu([true, false, false, false]);
   };
 
   const onCheckCloth = () => {
-    setShow({
-      hatShow: false,
-      clothShow: true,
-      decoShow: false,
-      myShow: false,
-    });
-    setMenu([false, true, false, false]);
+    dispatch(getCheckCloth());
+    // console.log(shopshoww);
+    // setShow({
+    //   hatShow: false,
+    //   clothShow: true,
+    //   decoShow: false,
+    //   myShow: false,
+    // });
+    // setMenu([false, true, false, false]);
   };
 
   const onCheckDeco = () => {
-    setShow({
-      hatShow: false,
-      clothShow: false,
-      decoShow: true,
-      myShow: false,
-    });
-    setMenu([false, false, true, false]);
+    dispatch(getCheckDeco());
+    // console.log(shopshoww);
+    // setShow({
+    //   hatShow: false,
+    //   clothShow: false,
+    //   decoShow: true,
+    //   myShow: false,
+    // });
+    // setMenu([false, false, true, false]);
   };
 
   const onCheckMy = () => {
-    setShow({
-      hatShow: false,
-      clothShow: false,
-      decoShow: false,
-      myShow: true,
-    });
-    setMenu([false, false, false, true]);
+    dispatch(getCheckMy());
+    // console.log(shopshoww);
+    // setShow({
+    //   hatShow: false,
+    //   clothShow: false,
+    //   decoShow: false,
+    //   myShow: true,
+    // });
+    // setMenu([false, false, false, true]);
   };
 
   // 아이템 전체 리스트 조회
@@ -97,7 +131,6 @@ const DressRoom = ({ getAllProfile ,getShopUpdate, Wear}) => {
         console.log(`보유아이템`);
         console.log(res.data);
         setMyItem(res.data);
-        
       })
       .catch((err) => {
         console.log(err);
@@ -110,15 +143,15 @@ const DressRoom = ({ getAllProfile ,getShopUpdate, Wear}) => {
       .put(`/api/item?nickname=${nickname}&item_id=${id}`)
       .then((res) => {
         console.log(res);
-        getAllProfile()
-        // getShopUpdate()
-        onCheckMy()
+        // getAllProfile()
+        getShopUpdate();
+        onCheckMy();
       })
       .catch((err) => {
         console.log(err);
       });
   };
-  
+
   // 아이템 구매하기
   const onBuyItem = async (id) => {
     await api
@@ -132,7 +165,7 @@ const DressRoom = ({ getAllProfile ,getShopUpdate, Wear}) => {
         // setIsModal(false) // 구매하면 모달닫기
         onGetItemAllList(); // 상점 전체 아이템
         onGetItemUserNickList(); // 내가 산 아이템 보기
-        getAllProfile()
+        // getAllProfile()
         // getShopUpdate()
       })
       .catch((err) => {
@@ -141,7 +174,9 @@ const DressRoom = ({ getAllProfile ,getShopUpdate, Wear}) => {
   };
 
   useEffect(() => {
-    setTimeout(()=>{ setLoading(false) }, 700)
+    setTimeout(() => {
+      setLoading(false);
+    }, 700);
   });
 
   useEffect(() => {
@@ -150,6 +185,11 @@ const DressRoom = ({ getAllProfile ,getShopUpdate, Wear}) => {
     onGetItemUserNickList(); // 내가 산 아이템 보기
     // onAddItem()
   }, []);
+
+  useEffect(() => {
+    onGetItemAllList(); // 상점 전체 아이템
+    onGetItemUserNickList(); // 내가 산 아이템 보기
+  }, [point]);
 
   const variants = {
     hidden: { opacity: 0 },
@@ -162,22 +202,23 @@ const DressRoom = ({ getAllProfile ,getShopUpdate, Wear}) => {
         <LoadingModal />
       ) : (
         <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ y: -100, opacity: 0 }}
-        transition={{ duration: 1 }}
-        variants={variants}
-      >
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ y: -100, opacity: 0 }}
+          transition={{ duration: 1 }}
+          variants={variants}
+          className="DressRoomMotion"
+        >
           <div className="DressButton">
             <motion.button
               className={
-                menu[0] ? "DressButton_clicked" : "DressButton_Unclicked"
+                hat ? "DressButton_clicked" : "DressButton_Unclicked"
               }
               onClick={onCheckHat}
             >
               <div
                 className={
-                  menu[0]
+                  hat
                     ? "DressButton_clicked_text"
                     : "DressButton_Unclicked_text"
                 }
@@ -187,13 +228,13 @@ const DressRoom = ({ getAllProfile ,getShopUpdate, Wear}) => {
             </motion.button>
             <motion.button
               className={
-                menu[1] ? "DressButton_clicked" : "DressButton_Unclicked"
+                cloth ? "DressButton_clicked" : "DressButton_Unclicked"
               }
               onClick={onCheckCloth}
             >
               <div
                 className={
-                  menu[1]
+                  cloth
                     ? "DressButton_clicked_text"
                     : "DressButton_Unclicked_text"
                 }
@@ -203,13 +244,13 @@ const DressRoom = ({ getAllProfile ,getShopUpdate, Wear}) => {
             </motion.button>
             <motion.button
               className={
-                menu[2] ? "DressButton_clicked" : "DressButton_Unclicked"
+                deco ? "DressButton_clicked" : "DressButton_Unclicked"
               }
               onClick={onCheckDeco}
             >
               <div
                 className={
-                  menu[2]
+                  deco
                     ? "DressButton_clicked_text"
                     : "DressButton_Unclicked_text"
                 }
@@ -219,13 +260,13 @@ const DressRoom = ({ getAllProfile ,getShopUpdate, Wear}) => {
             </motion.button>
             <motion.button
               className={
-                menu[3] ? "DressButton_clicked" : "DressButton_Unclicked"
+                my ? "DressButton_clicked" : "DressButton_Unclicked"
               }
               onClick={onCheckMy}
             >
               <div
                 className={
-                  menu[3]
+                  my
                     ? "DressButton_clicked_text"
                     : "DressButton_Unclicked_text"
                 }
@@ -234,7 +275,7 @@ const DressRoom = ({ getAllProfile ,getShopUpdate, Wear}) => {
               </div>{" "}
             </motion.button>
           </div>
-          {show.hatShow && (
+          {hat && (
             <div className="DressList">
               {items
                 .filter((item) => item.type === "모자")
@@ -245,16 +286,16 @@ const DressRoom = ({ getAllProfile ,getShopUpdate, Wear}) => {
                     onBuyItem={onBuyItem}
                     cost={item.cost}
                     myItems={myItems}
-                    setShow={setShow}
                     type={item.type}
-                    petlevel={level}
+                    petLevel={petLevel}
                     itemlevel={item.level}
+                    onWearItem={onWearItem}
                   />
                 ))}
             </div>
           )}
 
-          {show.clothShow && (
+          {cloth && (
             <div className="ClothList">
               {items
                 .filter((item) => item.type === "옷")
@@ -265,16 +306,16 @@ const DressRoom = ({ getAllProfile ,getShopUpdate, Wear}) => {
                     onBuyItem={onBuyItem}
                     cost={item.cost}
                     myItems={myItems}
-                    setShow={setShow}
                     type={item.type}
-                    petlevel={level}
+                    petLevel={petLevel}
                     itemlevel={item.level}
+                    onWearItem={onWearItem}
                   />
                 ))}
             </div>
           )}
 
-          {show.decoShow && (
+          {deco && (
             <div className="ClothList">
               {items
                 .filter((item) => item.type === "장식")
@@ -285,16 +326,16 @@ const DressRoom = ({ getAllProfile ,getShopUpdate, Wear}) => {
                     onBuyItem={onBuyItem}
                     cost={item.cost}
                     myItems={myItems}
-                    setShow={setShow}
                     type={item.type}
-                    petlevel={level}
+                    petLevel={petLevel}
                     itemlevel={item.level}
+                    onWearItem={onWearItem}
                   />
                 ))}
             </div>
           )}
 
-          {show.myShow && (
+          {my && (
             <div className="ClothList">
               {myItems.map((item, idx) => (
                 <MyItem
@@ -302,9 +343,9 @@ const DressRoom = ({ getAllProfile ,getShopUpdate, Wear}) => {
                   id={item.item.item_id}
                   type={item.item.type}
                   onWearItem={onWearItem}
-                  setShow={setShow}
                   Wear={Wear}
-                  
+                  petLevel={petLevel}
+                  itemlevel={item.item.level}
                 />
               ))}
             </div>

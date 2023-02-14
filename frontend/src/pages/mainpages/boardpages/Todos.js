@@ -22,17 +22,19 @@ const Todos = () => {
   // const nickname = 
   const [nickname, setNickname] = useState(localStorage.getItem("nickname"))
   const user = JSON.parse(localStorage.getItem("user"));
-  const [todo_menu, setTodoMenu] = useState([true, false]);
-  const [searchword, setSearchWord] = useState(null);
+  // const [todo_menu, setTodoMenu] = useState([true, false]);
+  // const [searchword, setSearchWord] = useState(null);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setTimeout(()=>{ setLoading(false) }, 700)
   });
-  const getStringDate = (date) => {
-    return date.toISOString().slice(0, 10);
-  };
+
+  // const getStringDate = (date) => {
+  //   return date.toISOString().slice(0, 10);
+  // };
+
   // 달력 열기
   const [startDate, setStartDate] = useState(new Date());
   const [isOpen, setIsOpen] = useState(false);
@@ -135,10 +137,10 @@ const Todos = () => {
     };
     await api.post("/api/todo", newTodos).then((res) => {
       console.log(res.data);
-      console.log(parseInt(res.data.slice(4, 7)));
+      // console.log(parseInt(res.data.slice(4, 7)));
       // no = parseInt(res.data.slice(4,7))
       setAddTodo({
-        todo_id: no,
+        todo_id: res.data,
         content: text,
         datetime: calDate,
         ischeck: false,
@@ -224,18 +226,18 @@ const Todos = () => {
     setStartDate(yesterday);
   };
 
-  const CreateFlagfunc = () => {
-    setTodoMenu([true, false]);
-  };
+  // const CreateFlagfunc = () => {
+  //   setTodoMenu([true, false]);
+  // };
 
-  const SearchFlagfunc = () => {
-    setTodoMenu([false, true]);
-  };
+  // const SearchFlagfunc = () => {
+  //   setTodoMenu([false, true]);
+  // };
 
-  const onKeyword = (e) => {
-    console.log(e.target.value);
-    setSearchWord(e.target.value);
-  };
+  // const onKeyword = (e) => {
+  //   console.log(e.target.value);
+  //   setSearchWord(e.target.value);
+  // };
 
   // 검색했을 때
   const onSearchFunc = (text) => {
@@ -244,10 +246,10 @@ const Todos = () => {
   };
 
   // 검색 취소
-  const onSearchCancelFunc = () => {
-    getTodo();
-    setIsSearch(false);
-  };
+  // const onSearchCancelFunc = () => {
+  //   getTodo();
+  //   setIsSearch(false);
+  // };
 
   const variants = {
     hidden: { opacity: 0 },
@@ -286,7 +288,7 @@ const Todos = () => {
           {/* {todo_menu[0] && (
           <button onClick={onCreateGuild}>생성하기</button>
         )} */}
-          {todo_menu[1] && (
+          {/* {todo_menu[1] && (
             <>
               <form onSubmit="return false;">
                 <input
@@ -302,7 +304,7 @@ const Todos = () => {
               )}
             </>
           )}
-          {todo_menu[0] && (
+          {todo_menu[0] && ( */}
             <div className="DateControl">
               {/* 달력 아이콘을 누르면 isOpen을 true */}
               {/* <button onClick={handleClick} className="Calbutton"> */}
@@ -325,7 +327,7 @@ const Todos = () => {
                 오늘 할 일
               </div>
             </div>
-          )}
+          {/* )} */}
         </div>
 
         {isOpen && (

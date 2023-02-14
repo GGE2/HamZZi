@@ -240,6 +240,7 @@ p:disabled {
   width: 5em;
   margin-left: 10px;
   margin-right: 10px;
+  cursor: pointer;
     
 }
 
@@ -251,6 +252,7 @@ p:disabled {
   width: 5em;
   /* margin-left: 10px; */
   margin-right: 10px;
+  cursor: pointer;
 }
 
 .TodoSearch_btn img {
@@ -296,6 +298,7 @@ ul {
   width: 5em;
   margin-left: 0;
   margin-right: 10px;
+  cursor: pointer;
 }
 
 .HamCalendar img {

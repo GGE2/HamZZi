@@ -142,48 +142,49 @@ const StatCtrl = () => {
         <h1>스탯창</h1>
         <div className="StatElement">
           Physical
-          <div>
+          <div className="statbtnbox">
             {status.physical}
-            {point > 0 ? <button onClick={handlePhysical}>+</button> : null}
+            {point > 0 ?   <div className="statimg" onClick={handlePhysical}><img src="plusbtn.png" alt="" /></div> : null}
           </div>
         </div>
         <div className="StatElement">
           Artistic
-          <div>
+          <div className="statbtnbox">
             {status.artistic}
-            {point > 0 ? <button onClick={handleArtistic}>+</button> : null}
+            {point > 0 ?   <div className="statimg" onClick={handleArtistic}><img src="plusbtn.png" alt="" /></div> : null}
           </div>
         </div>
         <div className="StatElement">
           Intelligent
-          <div>
+          <div className="statbtnbox">
             {status.intelligent}
-            {point > 0 ? <button onClick={handleIntelligent}>+</button> : null}
+            {point > 0 ?   <div className="statimg" onClick={handleIntelligent}><img src="plusbtn.png" alt="" /></div> : null}
           </div>
         </div>
         <div className="StatElement">
           Inactive
-          <div>
+          <div className="statbtnbox">
             {status.inactive}
-            {point > 0 ? <button onClick={handleInactive}>+</button> : null}
+            {point > 0 ?   <div className="statimg" onClick={handleInactive}><img src="plusbtn.png" alt="" /></div>: null}
           </div>
         </div>
         <div className="StatElement">
           Energetic
-          <div>
+          <div className="statbtnbox">
             {status.energetic}
-            {point > 0 ? <button onClick={handleEnergetic}>+</button> : null}
+            {/* {point > 0 ? <button onClick={handleEnergetic}>+</button> : null} */}
+            {point > 0 ?   <div className="statimg" onClick={handleEnergetic}><img src="plusbtn.png" alt="" /></div> : null}
           </div>
         </div>
         <div className="StatElement">
           Etc
-          <div>
+          <div className="statbtnbox">
             {status.etc}
-            {point > 0 ? <button onClick={handleEtc}>+</button> : null}
+            {point > 0 ?   <div className="statimg" onClick={handleEtc}><img src="plusbtn.png" alt="" /></div> : null}
           </div>
         </div>
-        <button onClick={handleClear}>CLEAR</button>
-        <button onClick={handleExp}>EXP UP</button>
+        {/* <button onClick={handleClear}>CLEAR</button>
+        <button onClick={handleExp}>EXP UP</button> */}
         {/* </div> */}
       </div>
       )

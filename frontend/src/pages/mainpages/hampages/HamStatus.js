@@ -14,6 +14,7 @@ import {
 } from "./../../../hamStatSlice";
 
 import api from "./../../../components/api";
+import HamModal from './HamModal';
 
 const HamStatus = ({ setWear }) => {
   const hamstat = useSelector(selectCurrentHamStat);
@@ -26,13 +27,24 @@ const HamStatus = ({ setWear }) => {
   const outside = useRef();
   const dispatch = useDispatch(clearStat());
 
+  const [isModal, setIsModal] = useState(false);
+
+  const graduatee = () => {
+    ResetItem()       // 장착한 아이템 초기화
+    handleGraduate()  // 졸업해서 데이터 비우기
+    // 새로 만들기
+    setIsModal(true);
+  }
+
+  const ResetItem = () => {
+    api.put(`/api/item/clear?nickname=${nickname}`).then((res) => {
+      console.log(res)
+      // setIsModal(true);
+    });
+  };
+
   const handleGraduate = () => {
     api.put(`/api/pet/graduate?pet_id=${petId}`).then(() => {
-      setWear({
-        hat: 0,
-        dress: 0,
-        type: 0,
-      });
       console.log("graduated");
       dispatch(clearStat());
       localStorage.setItem("petId", null);
@@ -40,10 +52,14 @@ const HamStatus = ({ setWear }) => {
       localStorage.setItem("petLevel", null);
       localStorage.setItem("exp", null);
       dispatch(getPetType(0));
+      // setIsModal(true);
 
-      window.location.replace("/main");
+      // window.location.replace("/main");
     });
   };
+
+
+
   const state = {
     options: {
       fill: {
@@ -99,6 +115,20 @@ const HamStatus = ({ setWear }) => {
 
   return (
     <>
+
+      {/* 모달창 띄우기 */}
+      {isModal && (
+        <div
+          className="Modal"
+          ref={outside}
+          onClick={(e) => {
+            if (e.target === outside.current) setIsModal(false);
+          }}
+        >
+          <HamModal setIsModal={setIsModal} />
+        </div>
+      )}
+
       <div className="HamStatus">
         <div className="HamName">{petName}</div>
 
@@ -106,7 +136,7 @@ const HamStatus = ({ setWear }) => {
 
         {level === "5" && (
           <>
-            <div className="graduatebtn" onClick={handleGraduate}>
+            <div className="graduatebtn" onClick={graduatee}>
               <img src="graduateB.png" alt="" />
             </div>
           </>
@@ -126,7 +156,7 @@ const HamStatus = ({ setWear }) => {
             />
             {isOpen && (
               <div
-                className="Modal"
+                className="Modal2"
                 ref={outside}
                 onClick={(e) => {
                   if (e.target === outside.current) {

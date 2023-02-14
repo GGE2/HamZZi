@@ -3,6 +3,8 @@ import { useNavigate } from "react-router";
 import axios from "axios";
 import "../../styles/Modal.css";
 import api from "./../../components/api";
+import "../../styles/LoginForm.css";
+import { motion } from "framer-motion";
 
 const SetNickName = () => {
   const [nickName, SetNickName] = useState("");
@@ -51,24 +53,56 @@ const SetNickName = () => {
         alert("사용할 수 없는 이름입니다!");
       });
   };
+
+  const variants = {
+    hidden: { opacity: 0 },
+    visibie: { opacity: 1 },
+  };
+
   return (
     <>
+     <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ y: -100, opacity: 0 }}
+      transition={{ duration: 0.5 }}
+      variants={variants}
+    >
       <div className="Modal">
         <div className="modalbody">
           <h1>환영합니다!</h1>
           <h2>닉네임을 설정해 주세요</h2>
-          <p>설정하신 닉네임은 다시 바꿀 수 없습니다</p>
+          <p>*설정하신 닉네임은 다시 바꿀 수 없습니다*</p>
           <form onSubmit={handleSubmit}>
-            <input
-              name="nickname"
-              placeholder="닉네임입력"
-              onChange={handleChange}
-              value={text}
-            />
-            <button type="submit"> 설정하기</button>
+            <div className="nickinputWrap">
+              <input
+                className="input"
+                name="nickname"
+                placeholder="닉네임입력"
+                onChange={handleChange}
+                value={text}
+              />
+            </div>
+            <div className="setnickimg" type="submit" onClick={handleSubmit}>
+              {" "}
+              <img src="guildlist/createbtn.png" alt="" />
+            </div>
+
+            {/* <button type="submit"> 설정하기</button> */}
           </form>
+          {/* <div className="inputWrap">
+            <input
+              className="input"
+              type="text"
+              placeholder="email"
+              placeholder="test@gmail.com"
+              value={email}
+              onChange={handleEmail}
+            />
+          </div> */}
         </div>
       </div>
+      </motion.div>
     </>
   );
 };

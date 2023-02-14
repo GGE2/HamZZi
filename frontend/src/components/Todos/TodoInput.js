@@ -39,7 +39,7 @@ const TodoInput = ({ onAdd, onSearchFunc }) => {
 
   return (
     <div>
-      <form className="TodoInput">
+      <form className="TodoInput" onSubmit={onSubmit}>
         {/* <div className="TodoInput_input"> */}
         <input
           type="text"

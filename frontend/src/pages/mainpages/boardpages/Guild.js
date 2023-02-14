@@ -146,8 +146,6 @@ const Guild = ({
       .then((res) => {
         console.log("길드 삭제 api");
         console.log(res);
-        
-        // setGuilds(res.data);
         getGuildList();
         setGuildUsers({
           admin: false,
@@ -170,7 +168,6 @@ const Guild = ({
         getGuildList();
         onGetGuildAdmin(id);
         onGetGuilduser(id);
-        // setGuilds(res.data);
         setLoading(false)
       });
   };
@@ -179,14 +176,8 @@ const Guild = ({
     setLoading(true)
     onGetUserGuildInfo();
     getGuildList();
-
     onGetGuildAdmin(guildId); // 길드 관리자 가져오기
     onGetGuilduser(guildId); // 길드원 리스트 가져오기
-
-    // onGetGuildDetail();
-    // onLeaveGuild()
-
-    // onSearchGuild()
   }, []);
 
   return (
@@ -202,8 +193,6 @@ const Guild = ({
       variants={variants}
     >
       <div className="MyBody">
-
-
 
         {guildUsers.admin === false && guildUsers.guild === null && (
           <CreateGuild
@@ -240,14 +229,6 @@ const Guild = ({
             guildName={guildName}
           />
         )}
-
-        {/* {user.isGuild} */}
-        {/* <Header data={"Guild"} type={"Guild"} />
-      <div className="MyBody">
-        <div className="GuildHeaderButton">길드 이름
-        <button>rtc</button></div>
-        <GuildPersons persons={persons} />
-      </div> */}
       </div></motion.div>}
     </>
   );

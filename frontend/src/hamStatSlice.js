@@ -17,6 +17,7 @@ const hamStatSlice = createSlice({
     etc: 0,
     level: 1,
     type: 0,
+   
   },
   reducers: {
     getPetType: (state, action) => {

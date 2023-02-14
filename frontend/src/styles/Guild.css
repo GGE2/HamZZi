@@ -314,6 +314,7 @@
     width: 5em;
     margin-left: 10px;
     margin-right: 10px;
+    cursor: pointer;
 }
 
 .searchbtn img{
@@ -323,6 +324,7 @@
 .createbtn {
     width: 5em;
     margin-right: 10px;
+    cursor: pointer;
 }
 
 .createbtn img{

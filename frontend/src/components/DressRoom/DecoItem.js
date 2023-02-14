@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import ShopModal from "./ShopModal";
 
 import { BiLockAlt } from "react-icons/bi";
+import WearModal from "./WearModal";
 
 const DecoItem = ({
   id,
@@ -10,10 +11,12 @@ const DecoItem = ({
   onBuyItem,
   myItems,
   type,
-  petlevel,
+  petLevel,
   itemlevel,
+  onWearItem,
 }) => {
   const [isModal, setIsModal] = useState(false);
+  const [isModal2, setIsModal2] = useState(false);
 
   const outside = useRef();
   const onClick = () => {
@@ -38,6 +41,22 @@ const DecoItem = ({
           />
         </div>
       )}
+      {isModal2 && (
+        <div
+          className="WearModal"
+          ref={outside}
+          onClick={(e) => {
+            if (e.target === outside.current) setIsModal2(false);
+          }}
+        >
+          <WearModal
+            type={type}
+            setIsModal={isModal2}
+            id={id}
+            onWearItem={onWearItem}
+          />
+        </div>
+      )}
 
       {myItems.some((item) => item.item.item_id === id) ? (
         // 구매한 아이템
@@ -53,7 +72,7 @@ const DecoItem = ({
         </div>
       ) : (
         <>
-          {petlevel < itemlevel ? (
+          {petLevel < itemlevel ? (
             <div className="SameItem">
               <motion.div
                 // className="DressItem"

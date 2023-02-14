@@ -21,8 +21,7 @@ const HamOutfit = ({ Wear }) => {
   const [isCreate, setIsCreate] = useState(false);
   const [isModal, setIsModal] = useState(false);
   console.log(Wear);
-  // console.log("타입");
-  // console.log(type);
+
 
   const outside = useRef();
   // 캐릭터 생성 창을 누르면 모달창을 띄워서 펫 이름을 받는다.
@@ -62,7 +61,7 @@ const HamOutfit = ({ Wear }) => {
   return (
     <>
       {/* 모달창 띄우기 */}
-      {isModal && (
+      {/* {isModal && (
         <div
           className="Modal"
           ref={outside}
@@ -72,17 +71,17 @@ const HamOutfit = ({ Wear }) => {
         >
           <HamModal setIsModal={setIsModal} setIsCreate={setIsCreate} />
         </div>
-      )}
+      )} */}
       {/* 펫이 없으면 만드는 추가 */}
-      {!isCreate && (
+      {/* {!isCreate && (
         <div className="HamOutfit">
           <div className="PetCreate" onClick={onclickCreatePet}>
             <GrAdd size={"50%"} />
           </div>
         </div>
-      )}
+      )} */}
       {/* 펫이 있으면 펫 출력 */}
-      {isCreate && (
+      {/* {isCreate && ( */}
         <div className="HamOutfit" id="div">
           <div className="HamBody">
             <img
@@ -99,11 +98,11 @@ const HamOutfit = ({ Wear }) => {
           </div>
 
           {/* 사진 찍기 */}
-          {/* <button className="test" onClick={onCapture}>
+          <button className="test" onClick={onCapture}>
             click
-          </button> */}
+          </button>
         </div>
-      )}
+      {/* )} */}
     </>
   );
 };

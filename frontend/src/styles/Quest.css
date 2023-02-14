@@ -19,6 +19,7 @@
 .QuestHeaderButton_btn1, .QuestHeaderButton_btn2 {
     width: 8em;
     margin-right: 10px;
+    cursor: pointer;
 }
 
 .QuestHeaderButton_btn1 img, .QuestHeaderButton_btn2 img{

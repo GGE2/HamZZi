@@ -283,9 +283,11 @@ const Main = () => {
 
   return (
     <div className="app">
-      <div className="Board">
-        <div className="Back">
+      {/* <div className="Board">
+        <div className="Back"> */}
+            <div className="Board">
           {loading === false ? (
+            <div className="Back">
             <>
               <div className="Hamster">
                 <Ham
@@ -310,7 +312,7 @@ const Main = () => {
                 )}
 
                 {show.friendShow && <Quests user={user} />}
-                {show.profileShow && <Profile user={user} />}
+                {/* {show.profileShow && <Profile user={user} />} */}
                 {show.dressShow && (
                   <Shop
                     user={user}
@@ -343,12 +345,12 @@ const Main = () => {
                 >
                   Quest
                 </button>
-                <button
+                {/* <button
                   className={menu[3] ? "BoardButto--active3" : ""}
                   onClick={onClickProfile}
                 >
                   Room
-                </button>
+                </button> */}
                 <button
                   className={menu[4] ? "BoardButto--active4" : ""}
                   onClick={onClickDressRoom}
@@ -357,10 +359,12 @@ const Main = () => {
                 </button>
               </div>
             </>
+            </div>
           ) : (
             <LoadingModal />
-          )}
-        </div>
+            )}
+        {/* </div>
+      </div> */}
       </div>
     </div>
   );

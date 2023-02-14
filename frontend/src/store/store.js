@@ -14,6 +14,8 @@ import storage from "redux-persist/lib/storage";
 import authReducer from "../authSlice";
 import pointReducer from "../pointSlice";
 import hamStatReducer from "../hamStatSlice";
+import shopShowReducer from "../shopSlice";
+
 
 const persistConfig = {
   key: "root",
@@ -21,10 +23,12 @@ const persistConfig = {
   storage, // localStorage
 };
 
+
 const rootReducer = combineReducers({
   auth: authReducer,
   point: pointReducer,
   hamStat: hamStatReducer,
+  shopShow: shopShowReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -10,14 +10,18 @@
     width: 5em;
     height: 5em;
 }
-
+.DressRoomMotion {
+    height: 100%;
+}
 
 .DressList, .ClothList{
     display: grid;
+    /* height: 100%; */
+    /* height: 31.7em; */
     width: 100%;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    /* justify-content: center;
-    align-items: center; */
+    /* justify-content: center; */
+    /* align-items: center; */
     place-items: center;
     overflow: scroll;
 }
@@ -129,7 +133,7 @@
     /* height: 100%; */
     /* background-size: contain; */
     /* background-repeat: no-repeat; */
-    background-color: #ececec;
+    /* background-color: #ececec; */
     border-radius: 15px;
     margin-top: 10px;
     padding-bottom: 5px;
@@ -137,7 +141,7 @@
 
 .SameItem {
     opacity: 0.5;
-    background-color: #ececec;
+    /* background-color: #ececec; */
     border-radius: 15px;
     margin-top: 10px;
     padding-bottom: 5px;

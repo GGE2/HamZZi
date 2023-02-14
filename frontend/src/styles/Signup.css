@@ -57,7 +57,7 @@
   .siginup_bottomButton {
     width: 100%;
     height: 3em;
-    /* border: none; */
+    border: none;
     font-weight: 700;
     /* background-color: #9230f4; */
     background-color: orange;
