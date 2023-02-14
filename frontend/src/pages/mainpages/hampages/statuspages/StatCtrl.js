@@ -11,8 +11,8 @@ import {
   clearStat,
   getCurrentStat,
   getPetLevel,
+  getPetType,
 } from "./../../../../hamStatSlice";
-import axios from "axios";
 import GetPetInfo from "../../../../components/GetPetInfo";
 import api from "./../../../../components/api";
 import { selectCurrentPoint } from "./../../../../pointSlice";
@@ -32,8 +32,8 @@ const StatCtrl = () => {
     api
       .get(`/api/pet/${nickname}`)
       .then((res) => {
-        console.log('스탯')
-        console.log(res.data)
+        console.log("스탯");
+        console.log(res.data);
         console.log(res.data.petStat);
         const physical = res.data.petStat.physical;
         const artistic = res.data.petStat.artistic;
@@ -109,13 +109,17 @@ const StatCtrl = () => {
     });
   };
   const handleExp = () => {
-    api.put(`/api/pet/exp?pet_id=${petId}&exp=${15}&nickname=${nickname}`).then((res) => {
-      console.log(res);
-      GetPetInfo();
-      api.get(`/api/pet/${nickname}`).then((res) => {
-        dispatch(getPetLevel(res.data.pet.level));
+    api
+      .put(`/api/pet/exp?pet_id=${petId}&exp=${15}&nickname=${nickname}`)
+      .then((res) => {
+        console.log("경험치 올리기", res);
+        GetPetInfo();
+        api.get(`/api/pet/${nickname}`).then((res) => {
+          console.log("펫 레벨 가져오기", res.data.pet.level);
+          dispatch(getPetLevel(res.data.pet.level));
+          dispatch(getPetType(res.data.petInfo.type));
+        });
       });
-    });
   };
 
   useEffect(() => {
@@ -130,35 +134,45 @@ const StatCtrl = () => {
         <h1>스탯창</h1>
         <div className="StatElement">
           Physical
-          <div>{status.physical}
-          {point > 0 ? <button onClick={handlePhysical}>+</button> : null}
+          <div>
+            {status.physical}
+            {point > 0 ? <button onClick={handlePhysical}>+</button> : null}
           </div>
         </div>
         <div className="StatElement">
           Artistic
-          <div>{status.artistic}
-          {point > 0 ? <button onClick={handleArtistic}>+</button> : null}
+          <div>
+            {status.artistic}
+            {point > 0 ? <button onClick={handleArtistic}>+</button> : null}
           </div>
         </div>
         <div className="StatElement">
           Intelligent
-          <div>{status.intelligent}
-          {point > 0 ? <button onClick={handleIntelligent}>+</button> : null}</div>
+          <div>
+            {status.intelligent}
+            {point > 0 ? <button onClick={handleIntelligent}>+</button> : null}
+          </div>
         </div>
         <div className="StatElement">
           Inactive
-          <div>{status.inactive}
-          {point > 0 ? <button onClick={handleInactive}>+</button> : null}</div>
+          <div>
+            {status.inactive}
+            {point > 0 ? <button onClick={handleInactive}>+</button> : null}
+          </div>
         </div>
         <div className="StatElement">
           Energetic
-          <div>{status.energetic}
-          {point > 0 ? <button onClick={handleEnergetic}>+</button> : null}</div>
+          <div>
+            {status.energetic}
+            {point > 0 ? <button onClick={handleEnergetic}>+</button> : null}
+          </div>
         </div>
         <div className="StatElement">
           Etc
-          <div>{status.etc}
-          {point > 0 ? <button onClick={handleEtc}>+</button> : null}</div>
+          <div>
+            {status.etc}
+            {point > 0 ? <button onClick={handleEtc}>+</button> : null}
+          </div>
         </div>
         <button onClick={handleClear}>CLEAR</button>
         <button onClick={handleExp}>EXP UP</button>

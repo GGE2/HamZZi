@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import GetPetInfo from "./components/GetPetInfo";
 import increaseExp from "./components/increaseExp";
 import api from "./components/api";
-import { selectCurrentPoint } from './pointSlice';
+import { selectCurrentPoint } from "./pointSlice";
 
 const nickname = localStorage.getItem("nickname");
 
@@ -16,14 +16,13 @@ const hamStatSlice = createSlice({
     energetic: 0,
     etc: 0,
     level: 1,
-    // type: 0,
+    type: 0,
   },
   reducers: {
-    // getPetType: (state, action) => {
-    //   const type = action.payload;
-    //   state.type = type;
-    // },
-
+    getPetType: (state, action) => {
+      const type = action.payload;
+      state.type = type;
+    },
 
     getPetLevel: (state, action) => {
       const level = action.payload;
@@ -179,7 +178,7 @@ const hamStatSlice = createSlice({
 });
 
 export const {
-  // getPetType,
+  getPetType,
   getPetLevel,
   getCurrentStat,
   increasePhysical,
@@ -195,4 +194,4 @@ export default hamStatSlice.reducer;
 
 export const selectCurrentHamStat = (state) => state.hamStat;
 export const selectCurrentHamLevel = (state) => state.hamStat.level;
-// export const selectCurrentPetType = (state) => state.hamStat.type;
+export const selectCurrentPetType = (state) => state.hamStat.type;

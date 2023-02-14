@@ -61,7 +61,7 @@ const Main = () => {
         //   type: res.data.petInfo.type,
         //   // dress: res.data.userProfile.dress,
         //   hat: hat,
-        //   dress: dress,    
+        //   dress: dress,
         // });
         const physical = res.data.petStat.physical;
         const artistic = res.data.petStat.artistic;
@@ -83,9 +83,9 @@ const Main = () => {
           energetic,
           etc,
         };
-        
+
         dispatch(getCurrentStat(data));
-        
+
         console.log(data);
         console.log("DISPATCHED!!");
       })
@@ -172,7 +172,11 @@ const Main = () => {
         // SetNickName(res.data.userProfile.nickname);
         // getPetInfo(res.data.userProfile.nickname);
         // onGetUserGuildInfo(res.data.userProfile.nickname);
-        getPetInfo(res.data.userProfile.nickname, res.data.userProfile.hat, res.data.userProfile.dress);
+        getPetInfo(
+          res.data.userProfile.nickname,
+          res.data.userProfile.hat,
+          res.data.userProfile.dress
+        );
         setLoading2(false);
       })
       .catch((err) => {
