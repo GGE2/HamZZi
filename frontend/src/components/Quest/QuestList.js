@@ -7,8 +7,10 @@ const QuestList = ({ questList }) => {
       {questList.map((quest) => (
         <QuestItem
           key={quest.quest.quest_id}
+          questId={quest.quest.quest_id}
+          point={quest.quest.point}
           content={quest.quest.content}
-          completed={quest.ischeck}
+          completed={true}
         />
       ))}
     </div>

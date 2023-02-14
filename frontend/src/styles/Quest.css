@@ -67,6 +67,13 @@
   z-index: 30;
 }
 
+.QuestItem #1 {
+    cursor: pointer;
+    color: gray;
+    text-decoration: line-through;
+    text-decoration-color: gray;
+}
+
 
 .noselect {
     cursor: default;
@@ -77,6 +84,15 @@
     -ms-user-select: none;
     -o-user-select: none;
  }
+
+
+ .disable-div {
+    pointer-events: none;
+    color: gray;
+    text-decoration: line-through;
+    text-decoration-color: gray;
+}
+    
 
 textarea:disabled {
     color: #ced4da;

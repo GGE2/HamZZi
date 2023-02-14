@@ -1,15 +1,10 @@
 import React, { useState, useRef } from "react";
+import $ from "jquery";
 
 import QuestModal from "./QuestModal";
 import "../../styles/QuestModal.css";
 
-const QuestItem = ({ content, completed }) => {
-  const [isCheck, setCheck] = useState(false);
-
-  const onclickQcheck = () => {
-    setCheck(!isCheck);
-  };
-
+const QuestItem = ({ content, completed, questId, point }) => {
   const nickname = localStorage.getItem("nickname");
   const [isCreate, setIsCreate] = useState(false);
   const [isModal, setIsModal] = useState(false);
@@ -21,34 +16,41 @@ const QuestItem = ({ content, completed }) => {
     setIsModal(true);
   };
 
+  console.log(completed);
+
+  const isCompleted = (id) => {
+    const target = id;
+    $(document).ready(function () {
+      $(target).addClass("disable-div");
+    });
+  };
+
   return (
-    <div className="QuestItem">
-      {isModal && (
-        <div
-          className="QuestModal"
-          ref={outside}
-          onClick={(e) => {
-            if (e.target === outside.current) setIsModal(false);
-          }}
-        >
-          <QuestModal
-            content={content}
-            setIsModal={setIsModal}
-            setIsCreate={setIsCreate}
-            onClick={onOpenModal}
-          />
+    <>
+      <div className="QuestItem">
+        {completed ? isCompleted(questId) : null}
+        {isModal && (
+          <div
+            className="QuestModal"
+            ref={outside}
+            onClick={(e) => {
+              if (e.target === outside.current) setIsModal(false);
+            }}
+          >
+            <QuestModal
+              content={content}
+              point={point}
+              setIsModal={setIsModal}
+              setIsCreate={setIsCreate}
+              onClick={onOpenModal}
+            />
+          </div>
+        )}
+        <div id={questId} onClick={onOpenModal} defaultValue={content}>
+          {content}
         </div>
-      )}
-      {/* {content} */}
-      <div
-        onClick={onOpenModal}
-        readOnly
-        defaultValue={content}
-        disabled={isCheck}
-      >
-        {content}
       </div>
-    </div>
+    </>
   );
 };
 

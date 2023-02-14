@@ -1,23 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import $ from "jquery";
+import HTMLFlipBook from "react-pageflip";
 
 const QuestTutorial = () => {
-  useEffect(() => {
-    const flipbook = $("#flipbook");
-    flipbook.turn({
-      width: 800,
-      height: 600,
-      autoCenter: true,
-    });
-  }, []);
-
   return (
-    <div className="modalBody">
-      <div id="flipbook">
-        <div class="hard">Page1</div>
-        <div>Page1</div>
-        <div>Page1</div>
-      </div>
+    <div style={{ backgroundColor: "gray" }}>
+      <HTMLFlipBook width={300} height={500}>
+        <div className="page">Page 1</div>
+        <div className="page">Page 2</div>
+        <div className="page">Page 3</div>
+        <div className="page">Page 4</div>
+      </HTMLFlipBook>
     </div>
   );
 };

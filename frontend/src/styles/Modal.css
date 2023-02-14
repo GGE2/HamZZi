@@ -10,6 +10,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  align-content: center;
   z-index: 900;
   background-color: rgba(76, 76, 76, 0.7);
 }
@@ -17,16 +18,20 @@
 /* modal창 */
 .modalBody {
   /* z-index: 100; */
+  display: flex;
+  flex-direction: column;
+  width: 30em;
+  height: 20em;
   position: absolute;
-  background-color: pink ;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  background: url("../../public/hamzziStatus/statwindow.png") no-repeat;
+  background-size: cover;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   padding: 40px;
   text-align: center;
-  transform: translate(-50%, -50%);
   border-radius: 10px;
-  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+  /* box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15); */
 }
  
 #modalCloseBtn {

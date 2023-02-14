@@ -11,7 +11,7 @@ import { selectCurrentHamStat, clearStat } from "./../../../hamStatSlice";
 
 import api from "./../../../components/api";
 
-const HamStatus = ({ setWear}) => {
+const HamStatus = ({ setWear }) => {
   const hamstat = useSelector(selectCurrentHamStat);
   const level = localStorage.getItem("petLevel");
   const petId = localStorage.getItem("petId");
@@ -35,7 +35,7 @@ const HamStatus = ({ setWear}) => {
       localStorage.setItem("petName", null);
       localStorage.setItem("petLevel", null);
       localStorage.setItem("exp", null);
-      
+
       window.location.replace("/main");
     });
   };
@@ -95,13 +95,9 @@ const HamStatus = ({ setWear}) => {
   return (
     <>
       <div className="HamStatus">
-        <div className="HamName">
-         
-          {petName}
-        </div>
-       
+        <div className="HamName">{petName}</div>
+
         <HamExp />
-       
 
         {level === "5" && (
           <>

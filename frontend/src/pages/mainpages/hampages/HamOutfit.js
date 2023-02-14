@@ -6,7 +6,10 @@ import "../../../styles/Modal.css";
 import html2canvas from "html2canvas";
 import api from "./../../../components/api";
 import { useSelector } from "react-redux";
-import { selectCurrentHamLevel, selectCurrentPetType } from "../../../hamStatSlice";
+import {
+  selectCurrentHamLevel,
+  selectCurrentPetType,
+} from "../../../hamStatSlice";
 
 // GrAdd
 const HamOutfit = ({ Wear }) => {
@@ -16,9 +19,9 @@ const HamOutfit = ({ Wear }) => {
   const level = useSelector(selectCurrentHamLevel);
   const [isCreate, setIsCreate] = useState(false);
   const [isModal, setIsModal] = useState(false);
-  console.log(Wear)
-  console.log('타입')
-  console.log(type)
+  console.log(Wear);
+  console.log("타입");
+  console.log(type);
 
   const outside = useRef();
   // 캐릭터 생성 창을 누르면 모달창을 띄워서 펫 이름을 받는다.
@@ -83,13 +86,15 @@ const HamOutfit = ({ Wear }) => {
           <div className="HamBody">
             <img
               src={`wearlist/${
-                JSON.stringify(level) + Wear.hat + Wear.dress + JSON.stringify(type)
+                JSON.stringify(level) +
+                Wear.hat +
+                Wear.dress +
+                JSON.stringify(type)
               }.gif`}
               alt=""
             />
             {/* </Draggable> */}
           </div>
-    
 
           {/* 사진 찍기 */}
           {/* <button className="test" onClick={onCapture}>

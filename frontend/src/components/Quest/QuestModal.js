@@ -1,10 +1,9 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import axios from "axios";
+import { BiDotsVerticalRounded } from "react-icons/bi";
 
-
-
-const QuestModal = ({ content, setIsModal, setIsCreate }) => {
+const QuestModal = ({ content, point, setIsModal, setIsCreate }) => {
   const [petName, setPetName] = useState("");
   const nickname = localStorage.getItem("nickname");
 
@@ -13,8 +12,8 @@ const QuestModal = ({ content, setIsModal, setIsCreate }) => {
   };
 
   const onCloseModal = () => {
-    setIsModal(false)
-  }
+    setIsModal(false);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,17 +32,36 @@ const QuestModal = ({ content, setIsModal, setIsCreate }) => {
     //   });
   };
 
-  // const 
+  // const
 
   return (
+    // <img src="coin.png" alt="" />
     <div className="QuestmodalBody">
       <div className="QuestTitle">제목</div>
       <div className="QuestContent">{content}</div>
-      <div className="QuestReword">보상<div className="QuestReword2"><img src="coin.png" alt="" /></div></div>
-      
-      
-   
-      <div id="QuestmodalCloseBtn" onClick={onCloseModal}>x</div>
+      <div className="QuestReword">
+        보상
+        <div className="QuestReword2">
+          {point === 1 ? (
+            <img src="coin.png" alt="" />
+          ) : point === 2 ? (
+            <div>
+              <img src="coin.png" alt="" />
+              <img src="coin.png" alt="" />
+            </div>
+          ) : (
+            <div>
+              <img src="coin.png" alt="" />
+              <img src="coin.png" alt="" />
+              <img src="coin.png" alt="" />
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div id="QuestmodalCloseBtn" onClick={onCloseModal}>
+        x
+      </div>
     </div>
   );
 
