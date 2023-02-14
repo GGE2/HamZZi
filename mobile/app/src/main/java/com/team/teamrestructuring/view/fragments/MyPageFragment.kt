@@ -60,7 +60,7 @@ class MyPageFragment : Fragment() {
         setListener()
         setUserData()
         setLevelIcon()
-        graduate()
+        getgraduate()
     }
 
     private fun setLevelIcon(){
@@ -71,7 +71,7 @@ class MyPageFragment : Fragment() {
             4->binding.imageviewMyPageIconLevel.setImageResource(R.drawable.lvlogo_4)
         }
     }
-    private fun graduate(){
+    private fun getgraduate(){
         val nickName = ApplicationClass.currentUser.userProfile.nickname.toString()
         val service = ApplicationClass.retrofit.create(MyPageService::class.java)
             .getTrophy(nickName).enqueue(object : Callback<MutableList<String>> {
