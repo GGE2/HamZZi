@@ -71,7 +71,6 @@ const Quests = () => {
     <>
       {loading ? (
         <LoadingModal />
-<<<<<<< HEAD
       ) :
       <motion.div
         initial={{ opacity: 0 }}
@@ -91,29 +90,6 @@ const Quests = () => {
           </div>
          
         </div>
-=======
-      ) : (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ y: -100, opacity: 0 }}
-          transition={{ duration: 1 }}
-          variants={variants}
-        >
-          <div className="Quests">
-            {/* 화면 상단 버튼 그룹 */}
-            <div className="QuestHeaderButton">
-              <div className="QuestHeaderButton_btn1" onClick={handleDaily}>
-                <img src="dailyB.png" alt="" />
-              </div>
-              <div className="QuestHeaderButton_btn2" onClick={handleWeekly}>
-                <img src="weeklyB.png" alt="" />
-              </div>
-              <button className="TutorialButton" onClick={handleTutorial}>
-                TUTORIAL
-              </button>
-            </div>
->>>>>>> 21a47d61451b44dfcf7e59b57d8f94747fb055dc
 
             {/* 퀘스트 목록 출력 */}
             {show.dailyShow && (
@@ -128,27 +104,8 @@ const Quests = () => {
               </div>
             )}
           </div>
-<<<<<<< HEAD
-        )}
-
-        {/* {tutorial && (
-          <div
-            className="Modal"
-            ref={outside}
-            onClick={(e) => {
-              if (e.target === outside.current) {
-                setTutorial(false);
-              }
-            }}
-          >
-            <QuestTutorial />
-          </div>
-        )} */}
-      </div></motion.div>}
-=======
         </motion.div>
-      )}
->>>>>>> 21a47d61451b44dfcf7e59b57d8f94747fb055dc
+      }
     </>
   );
 };

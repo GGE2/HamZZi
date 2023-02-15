@@ -22,8 +22,8 @@ const Todos = () => {
   // const nickname =
   const [nickname, setNickname] = useState(localStorage.getItem("nickname"));
   const user = JSON.parse(localStorage.getItem("user"));
-  // const [todo_menu, setTodoMenu] = useState([true, false]);
-  // const [searchword, setSearchWord] = useState(null);
+  const [todo_menu, setTodoMenu] = useState([true, false]);
+  const [searchword, setSearchWord] = useState(null);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
 
@@ -32,11 +32,9 @@ const Todos = () => {
       setLoading(false);
     }, 700);
   });
-
-  // const getStringDate = (date) => {
-  //   return date.toISOString().slice(0, 10);
-  // };
-
+  const getStringDate = (date) => {
+    return date.toISOString().slice(0, 10);
+  };
   // 달력 열기
   const [startDate, setStartDate] = useState(new Date());
   const [isOpen, setIsOpen] = useState(false);
@@ -56,7 +54,7 @@ const Todos = () => {
 
   // const { current: todotodos } = useRef(todos);
   const [addTodo, setAddTodo] = useState({
-    todo_id: no,
+    todo_id: 0,
     content: "",
     datetime: calDate,
     ischeck: false,
@@ -150,7 +148,7 @@ const Todos = () => {
       });
     });
     console.log(addTodo);
-    setTodos([addTodo, ...todos]);
+    setTodos([...todos, addTodo]);
     console.log(todos);
     // getTodo();
     console.log("투두를 추가했다!");
@@ -227,18 +225,18 @@ const Todos = () => {
     setStartDate(yesterday);
   };
 
-  // const CreateFlagfunc = () => {
-  //   setTodoMenu([true, false]);
-  // };
+  const CreateFlagfunc = () => {
+    setTodoMenu([true, false]);
+  };
 
-  // const SearchFlagfunc = () => {
-  //   setTodoMenu([false, true]);
-  // };
+  const SearchFlagfunc = () => {
+    setTodoMenu([false, true]);
+  };
 
-  // const onKeyword = (e) => {
-  //   console.log(e.target.value);
-  //   setSearchWord(e.target.value);
-  // };
+  const onKeyword = (e) => {
+    console.log(e.target.value);
+    setSearchWord(e.target.value);
+  };
 
   // 검색했을 때
   const onSearchFunc = (text) => {
@@ -247,10 +245,10 @@ const Todos = () => {
   };
 
   // 검색 취소
-  // const onSearchCancelFunc = () => {
-  //   getTodo();
-  //   setIsSearch(false);
-  // };
+  const onSearchCancelFunc = () => {
+    getTodo();
+    setIsSearch(false);
+  };
 
   const variants = {
     hidden: { opacity: 0 },
@@ -289,36 +287,6 @@ const Todos = () => {
               {/* {todo_menu[0] && (
           <button onClick={onCreateGuild}>생성하기</button>
         )} */}
-<<<<<<< HEAD
-          {/* {todo_menu[1] && (
-            <>
-              <form onSubmit="return false;">
-                <input
-                  type="text"
-                  placeholder="투두 이름을 입력하세요"
-                  onChange={onKeyword}
-                />
-              </form>
-              {isSearch ? (
-                <button onClick={onSearchCancelFunc}>취소</button>
-              ) : (
-                <button onClick={onSearchFunc}>검색하기</button>
-              )}
-            </>
-          )}
-          {todo_menu[0] && ( */}
-            <div className="DateControl">
-              {/* 달력 아이콘을 누르면 isOpen을 true */}
-              {/* <button onClick={handleClick} className="Calbutton"> */}
-              <div onClick={handleClick} className="HamCalendar">
-                <img src="assets/calendar.png" alt="" />
-              </div>
-              {/* </button> */}
-              {/* <div className="DateContainer"> */}
-              <div className="DateButton" onClick={decreaseMonth}>
-                <AiFillCaretLeft className="DateButton_left" size={"55%"} />
-              </div>
-=======
               {todo_menu[1] && (
                 <>
                   <form onSubmit="return false;">
@@ -347,7 +315,6 @@ const Todos = () => {
                   <div className="DateButton" onClick={decreaseMonth}>
                     <AiFillCaretLeft className="DateButton_left" size={"55%"} />
                   </div>
->>>>>>> 21a47d61451b44dfcf7e59b57d8f94747fb055dc
 
                   <p>{calDate}</p>
                   <div className="DateButton" onClick={increaseMonth}>
@@ -364,11 +331,6 @@ const Todos = () => {
                 </div>
               )}
             </div>
-<<<<<<< HEAD
-          {/* )} */}
-        </div>
-=======
->>>>>>> 21a47d61451b44dfcf7e59b57d8f94747fb055dc
 
             {isOpen && (
               <DatePicker selected={startDate} onChange={handleChange} inline />

@@ -143,13 +143,8 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
       .put(`/api/item?nickname=${nickname}&item_id=${id}`)
       .then((res) => {
         console.log(res);
-<<<<<<< HEAD
         // getAllProfile()
         getShopUpdate();
-=======
-        getAllProfile();
-        // getShopUpdate()
->>>>>>> 21a47d61451b44dfcf7e59b57d8f94747fb055dc
         onCheckMy();
       })
       .catch((err) => {
@@ -170,12 +165,8 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
         // setIsModal(false) // 구매하면 모달닫기
         onGetItemAllList(); // 상점 전체 아이템
         onGetItemUserNickList(); // 내가 산 아이템 보기
-<<<<<<< HEAD
-        // getAllProfile()
-=======
-        getAllProfile();
->>>>>>> 21a47d61451b44dfcf7e59b57d8f94747fb055dc
-        // getShopUpdate()
+        // getAllProfile();
+        getShopUpdate()
       })
       .catch((err) => {
         console.log(err);
@@ -216,10 +207,7 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
           exit={{ y: -100, opacity: 0 }}
           transition={{ duration: 1 }}
           variants={variants}
-<<<<<<< HEAD
           className="DressRoomMotion"
-=======
->>>>>>> 21a47d61451b44dfcf7e59b57d8f94747fb055dc
         >
           <div className="DressButton">
             <motion.button
@@ -356,11 +344,8 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
                   type={item.item.type}
                   onWearItem={onWearItem}
                   Wear={Wear}
-<<<<<<< HEAD
                   petLevel={petLevel}
                   itemlevel={item.item.level}
-=======
->>>>>>> 21a47d61451b44dfcf7e59b57d8f94747fb055dc
                 />
               ))}
             </div>
