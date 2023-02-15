@@ -16,6 +16,7 @@ import com.team.teamrestructuring.util.ApplicationClass
 import com.team.teamrestructuring.util.CreateRegisterTimeDialog
 import com.team.teamrestructuring.view.activities.RegisterPlaceActivity
 import com.team.teamrestructuring.view.viewmodels.HomeViewModel
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -64,7 +65,7 @@ class MyPageFragment : Fragment() {
         setListener()
         setUserData()
         setLevelIcon()
-        graduate()
+        getgraduate()
     }
 
     private fun setLevelIcon(){
@@ -75,37 +76,44 @@ class MyPageFragment : Fragment() {
             4->binding.imageviewMyPageIconLevel.setImageResource(R.drawable.lvlogo_4)
         }
     }
-    private fun graduate(){
+    private fun getgraduate() {
         val nickName = ApplicationClass.currentUser.userProfile.nickname.toString()
         val service = ApplicationClass.retrofit.create(MyPageService::class.java)
-            .getTrophy(nickName).enqueue(object : Callback<MutableList<String>> {
-                override fun onResponse(
-                    call: Call<MutableList<String>>,
-                    response: Response<MutableList<String>>
-                ) {
-                    if (response.isSuccessful){
-                        val petlist = response.body()
-                        Log.d("졸업", petlist.toString())
-//                        for (pet in petlist){
-//                            val type = pet["type"]
-//                            binding.apply {
-//                                val left = binding.graduatePet01
-//                                val right = binding.graduatePet02
-//                                if (type == 1){
-//                                    left.setImageResource(R.drawable.ham5100)
-//                                } else if (type == 2){
-//                                    right.setImageResource(R.drawable.ham5200)
-//                                }
-//                            }
-//                        }
+        service.getTrophy(nickName).enqueue(object : Callback<MutableList<String>> {
+            override fun onResponse(
+                call: Call<MutableList<String>>,
+                response: Response<MutableList<String>>
+            ) {
+                if (response.isSuccessful) {
+                    val petlist = response.body()
+                    Log.d("졸업", petlist.toString())
+                    // 졸업한 펫이 있을 때
+                    if (!petlist.isNullOrEmpty()){
+                        for (pet in petlist) {
+                            val petObject = JSONObject(pet)
+                            val type = petObject.getInt("type")
+                            binding.apply {
+                                val left = binding.graduatePet01
+                                val right = binding.graduatePet02
+                                if (type == 1) {
+                                    left.setImageResource(R.drawable.ham5100)
+                                } else if (type == 2) {
+                                    right.setImageResource(R.drawable.ham5200)
+                                }
+                            }
+                        }
+                    } else {
+                        Log.d(TAG, response.body().toString())
                     }
                 }
+            }
 
-                override fun onFailure(call: Call<MutableList<String>>, t: Throwable) {
-                    Log.d("졸업", t.toString())
-                }
-            })
+            override fun onFailure(call: Call<MutableList<String>>, t: Throwable) {
+                Log.d("졸업", "failed")
+            }
+        })
     }
+
 
     private fun setUserData(){
         binding.textviewMyPageContentLevel.text = ApplicationClass.currentUser.userProfile.nickname
