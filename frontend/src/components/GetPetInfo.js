@@ -12,7 +12,7 @@ import {
 const GetPetInfo = () => {
   const currentLevel = localStorage.getItem("petLevel");
   const nickname = localStorage.getItem("nickname");
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   api.get(`/api/pet/${nickname}`).then((res) => {
     console.log(res.data.pet);
@@ -20,7 +20,7 @@ const GetPetInfo = () => {
     if (currentLevel !== res.data.pet.level) {
       localStorage.setItem("petLevel", res.data.pet.level);
       // localStorage.setItem("exp", res.data.pet.exp);
-      dispatch(getExp())
+      // dispatch(getExp())
     }
   });
 };

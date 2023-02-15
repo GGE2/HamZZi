@@ -9,9 +9,9 @@ const HamExp = ({graduatee}) => {
   // const petId = localStorage.getItem("petId");
   const petLevel = localStorage.getItem("petLevel");
   // const expp = localStorage.getItem("exp")
-  const expp = useSelector(selectCurrentExp)
+  // const expp = useSelector(selectCurrentExp)
   const exp = [0, 14, 30, 60, 66]
-  console.log(exp[1])
+  // console.log(exp[1])
 
   return (
     <>
@@ -24,12 +24,12 @@ const HamExp = ({graduatee}) => {
           </>
       )
           : <>
-          <div className="PetName">{petLevel}</div>
+          <div className="PetName">{level}</div>
         
         <div className="ProgressBar">
           <ProgressBar
-            completed={expp}
-            maxCompleted={exp[level]}
+            completed={level}
+            maxCompleted={5}
             customLabel={" "}
             // className="wrapper"
             // barContainerClassName="container"
