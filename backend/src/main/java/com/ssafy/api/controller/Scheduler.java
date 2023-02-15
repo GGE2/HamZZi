@@ -21,7 +21,7 @@ public class Scheduler {
     private final CountRepository countRepo;
 
     // 스케줄러 사용하려면 BackendApplication 에 @EnableScheduling annotation 달아야 함
-    // QuestUser Table 초기화
+    // QuestUser Table 초기화 @Scheduled(cron = "0 0 0 * * *")
     @Scheduled(cron = "0 0 0 * * *")        // 초 분 시간 일 월 요일
     public void resetDailyTable() {
         log.info("매일 초기화");
@@ -30,7 +30,7 @@ public class Scheduler {
         questService.resetRestPoint();
 
         log.info("매일 추가");
-        questService.resetBeforeCreateQuestUser();
+        questService.resetBeforeCreateDailyUser();
         countService.resetBeforeCreateCountDaily();
     }
 
@@ -39,11 +39,9 @@ public class Scheduler {
         log.info("매주 초기화");
         questRepo.weeklyTableClear();
         countRepo.weeklyTableClear();
-    }
 
-    @Scheduled(cron = "10 0 0 * * 1")
-    public void createWeekly() {
         log.info("매주 추가");
+        questService.resetBeforeCreateWeeklyUser();
         countService.resetBeforeCreateCountWeekly();
     }
 }

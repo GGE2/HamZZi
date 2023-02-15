@@ -22,8 +22,7 @@ class CreatePetActivity : AppCompatActivity(),CreatePetDialog.CreatePetDialogInt
         super.onCreate(savedInstanceState)
         binding = ActivityCreatePetBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val intent = Intent(this, StepService::class.java)
-        startService(intent)
+
         showRegisterPetDialog()
         setFullScreen()
     }

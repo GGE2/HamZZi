@@ -30,6 +30,8 @@ class CreatePetStatUpdateDialog(
     private var _binding: DialogCreateUpdateStatBinding? = null
     private val binding get() = _binding!!
     private var createStatUpdateInterface : CreateStatUpdateInterface? = null
+    private var count:Int = 0
+    private var initCount  = 0
 
     init{
         this.createStatUpdateInterface= createStatUpdateInterface
@@ -47,7 +49,8 @@ class CreatePetStatUpdateDialog(
     ): View? {
         _binding = DialogCreateUpdateStatBinding.inflate(inflater,container,false)
         val view = binding.root
-        var count = ApplicationClass.currentUser.userProfile.point
+        count = ApplicationClass.currentUser.userProfile.point
+         initCount = ApplicationClass.currentUser.userProfile.point
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         setFullScreen()
 
@@ -112,11 +115,12 @@ class CreatePetStatUpdateDialog(
         }
 
         binding.buttonStatCancle.setOnClickListener {
-            getPetInfo()
             dismiss()
         }
         binding.buttonStatOk.setOnClickListener {
-            getPetInfo()
+            createStatUpdateInterface!!.onYesButtonClick()
+            ApplicationClass.currentUser.userProfile.point = count
+            updateExp()
             dismiss()
         }
         /*binding.buttonPetCreate.setOnClickListener {
@@ -129,26 +133,6 @@ class CreatePetStatUpdateDialog(
     }
 
 
-    private fun getPetInfo(){
-        val service = ApplicationClass.retrofit.create(PetService::class.java)
-            .getPetInfo(ApplicationClass.currentUser.userProfile.nickname).enqueue(object:Callback<PetData>{
-                @SuppressLint("LongLogTag")
-                override fun onResponse(call: Call<PetData>, response: Response<PetData>) {
-                    if(response.isSuccessful){
-                        Log.d(TAG, "onResponse: ${response.body()!!}")
-                        ApplicationClass.petData = response.body()!!
-                        HomeFragment.exp = response.body()!!.pet.exp
-                    }
-                }
-                @SuppressLint("LongLogTag")
-                override fun onFailure(call: Call<PetData>, t: Throwable) {
-                    Log.d(TAG, "onFailure: ${t.message}")
-                }
-
-            })
-
-
-    }
     private fun updateStat(data : UpdatePetStat){
         val service = ApplicationClass.retrofit.create(PetService::class.java)
             .updatePetStat(ApplicationClass.currentUser.userProfile.nickname,data).enqueue(object:Callback<String>{
@@ -166,6 +150,30 @@ class CreatePetStatUpdateDialog(
 
             })
     }
+
+    /**
+     * 펫 경험치 증가
+     */
+    private fun updateExp(){
+        val service = ApplicationClass.retrofit.create(PetService::class.java)
+            .petUpdatePetExp(ApplicationClass.petData!!.pet.pet_id,(initCount-count)*3,ApplicationClass.currentUser.userProfile.nickname)
+            .enqueue(object:Callback<String>{
+                @SuppressLint("LongLogTag")
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    if(response.isSuccessful){
+                        Log.d(TAG, "onResponse: ${response.body()!!}")
+                    }
+                }
+
+                @SuppressLint("LongLogTag")
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    Log.d(TAG, "onFailure: ${t.message}")
+                }
+
+            })
+    }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()

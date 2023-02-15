@@ -15,6 +15,7 @@ import android.os.IBinder
 import android.util.Log
 import androidx.annotation.RequiresApi
 import com.team.teamrestructuring.util.AlarmReceiver
+import com.team.teamrestructuring.util.ApplicationClass
 import com.team.teamrestructuring.view.activities.HomeActivity
 import java.util.*
 
@@ -23,6 +24,8 @@ private const val TAG = "StepService_지훈"
 class StepService : Service(),SensorEventListener{
 
     private var myBinder:MyBinder = MyBinder()
+
+    var check_user = ApplicationClass.sharedPreferencesUtil.getPedometer("walk_counter",-1)
 
     class MyBinder:Binder(){
         fun getService():StepService{
@@ -40,11 +43,14 @@ class StepService : Service(),SensorEventListener{
         super.onCreate()
 
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR)
+        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
         alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
         if(sensor!=null){
-            sensorManager.registerListener(this,sensor,SensorManager.SENSOR_DELAY_NORMAL)
+            sensorManager.registerListener(this,sensor,SensorManager.SENSOR_DELAY_GAME)
+        }
+        if(check_user==-1){
+            ApplicationClass.sharedPreferencesUtil.setPedometer("walk_counter", mStepCounter)
         }
 
     }
@@ -57,10 +63,17 @@ class StepService : Service(),SensorEventListener{
         return myBinder
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onSensorChanged(event: SensorEvent?) {
         Log.d(TAG, "onSensorChanged: ${mStepCounter}")
-        if(event!!.sensor.type == Sensor.TYPE_STEP_DETECTOR){
-            mStepCounter+=event.values[0].toInt()
+        if(event!!.sensor.type == Sensor.TYPE_STEP_COUNTER){
+            if(mStepCounter==0) {
+                Log.d(TAG, "onSensorChanged: ${mStepCounter}")
+                mStepCounter  = event.values[0].toInt()
+                setAlarmManager()
+            }else{
+                mStepCounter += event.values[0].toInt()
+            }
             /*if(callback!=null)
                 callback.onStepCallback(mStepCounter)*/
         }
@@ -72,7 +85,7 @@ class StepService : Service(),SensorEventListener{
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-
+        Log.d(TAG, "onStartCommand: ")
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
         alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
@@ -115,8 +128,8 @@ class StepService : Service(),SensorEventListener{
             PendingIntent.FLAG_IMMUTABLE)
 
         val cal = Calendar.getInstance()
-        cal.set(Calendar.HOUR_OF_DAY,23)
-        cal.set(Calendar.MINUTE,59)
+        cal.set(Calendar.HOUR_OF_DAY,10)
+        cal.set(Calendar.MINUTE,30)
         cal.set(Calendar.SECOND,59)
         cal.set(Calendar.MILLISECOND,999)
         alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,cal.timeInMillis,pendingIntent)

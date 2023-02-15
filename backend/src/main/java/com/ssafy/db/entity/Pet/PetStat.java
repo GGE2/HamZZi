@@ -22,20 +22,26 @@ public class PetStat {
     private Pet pet;
 
     //TYPE 1
+    @ColumnDefault(value = "0")
     private int physical;
 
     //TYPE 2
+    @ColumnDefault(value = "0")
     private int artistic;
 
     //TYPE 3
+    @ColumnDefault(value = "0")
     private int intelligent;
 
     //TYPE 4
+    @ColumnDefault(value = "0")
     private int inactive;
 
     //TYPE 5
+    @ColumnDefault(value = "0")
     private int energetic;
 
     //TYPE 6
+    @ColumnDefault(value = "0")
     private int etc;
 }

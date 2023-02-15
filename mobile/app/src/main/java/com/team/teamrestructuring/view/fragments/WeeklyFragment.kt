@@ -84,7 +84,7 @@ class WeeklyFragment : Fragment(),CreateQuestResultDialog.CreateResultListener{
             override fun onClick(view: View, position: Int, data: WeeklyQuest) {
                 when(position){
                     0->{
-                        val walk_count = StepService.mStepCounter
+                        val walk_count = StepService.mStepCounter - HomeActivity.sCount
                         if(walk_count>=50000){
                             val dialog = CreateQuestResultDialog(this@WeeklyFragment,"퀘스트를 성공하셨습니다",
                                 QuestEnum.TRUE,data)

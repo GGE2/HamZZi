@@ -14,7 +14,8 @@ public interface QuestService {
     Quest createQuest(QuestRequest questInfo, int key);
 
     // questUser 생성
-    void createQuestUser(String nickname);
+    void createDailyUser(String nickname);
+    void createWeeklyUser(String nickname);
 
     /**
      * 위치 등록
@@ -60,8 +61,11 @@ public interface QuestService {
     // point 계산
     void questPointAssignment(String nickname, Long quest_id);
 
-    // QuestUser Table 초기화 후에 다시 모든 유저에게 퀘스트 만들어주기
-    void resetBeforeCreateQuestUser();
+    /**
+     * QuestUser Table 초기화 후에 다시 모든 유저에게 Daily 퀘스트 만들어주기
+     */
+    void resetBeforeCreateDailyUser();
+    void resetBeforeCreateWeeklyUser();
 
     void resetRestPoint();
 }

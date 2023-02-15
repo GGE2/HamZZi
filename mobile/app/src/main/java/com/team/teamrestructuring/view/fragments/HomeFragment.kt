@@ -131,7 +131,6 @@ class HomeFragment : Fragment(),CreateFriendDialog.CreateFriendDialogInterface,C
                     if(response.isSuccessful){
                         Log.d(TAG, "onResponse: ${response.body()!!}")
                         ApplicationClass.petData = response.body()!!
-                        HomeFragment.exp = response.body()!!.pet.exp
                     }
                 }
                 override fun onFailure(call: Call<PetData>, t: Throwable) {
@@ -143,8 +142,7 @@ class HomeFragment : Fragment(),CreateFriendDialog.CreateFriendDialogInterface,C
 
     }
     
-    private fun setPetStat(){
-
+     fun setPetStat(){
         binding.textviewHomeName.text = ApplicationClass.petData?.pet?.pet_name
         binding.buttonHomeLevel.text = ApplicationClass.petData?.pet?.level.toString()
         binding.progressbarMainStat.progress = exp

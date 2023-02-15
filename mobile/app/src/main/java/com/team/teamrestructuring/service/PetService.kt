@@ -15,7 +15,7 @@ interface PetService {
     fun getPetInfo(@Path("nickname") nickname:String) : Call<PetData>
 
     @PUT("api/pet/exp")
-    fun petUpdatePetExp(@Query("pet_id") pet_id:Long , @Query("exp") exp : Int) : Call<String>
+    fun petUpdatePetExp(@Query("pet_id") pet_id:Long , @Query("exp") exp : Int,@Query("nickname") nickname: String) : Call<String>
 
     @PUT("api/pet/stat")
     fun updatePetStat(@Query("nickname") nickname: String , @Body data:UpdatePetStat) : Call<String>

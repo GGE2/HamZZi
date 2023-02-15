@@ -45,23 +45,32 @@ public class QuestServiceImpl implements QuestService {
     
     // questUser 생성
     @Override
-    public void createQuestUser(String nickname) {
+    public void createDailyUser(String nickname) {
         List<Long> quest_ids = getQuestId();
+        UserProfile userProfile = userRepo.findByNickname(nickname);
         for (Long quest_id:quest_ids) {
             QuestDaily questDaily = new QuestDaily();
-            QuestWeekly questWeekly = new QuestWeekly();
-
-            UserProfile userProfile = userRepo.findByNickname(nickname);
-
             questDaily.setNickname(userProfile.getNickname());
-            questWeekly.setNickname(userProfile.getNickname());
-
             String type = questRepo.findById(quest_id).getType();
             if (type.equals("daily")) {
                 questDaily.setQuest(questRepo.findById(quest_id));
                 questDaily.setIscheck(false);
                 questRepo.saveQuestDaily(questDaily);
-            } else {
+            }
+        }
+    }
+
+    @Override
+    public void createWeeklyUser(String nickname) {
+        List<Long> quest_ids = getQuestId();
+        UserProfile userProfile = userRepo.findByNickname(nickname);
+        for (Long quest_id : quest_ids) {
+            QuestWeekly questWeekly = new QuestWeekly();
+            questWeekly.setNickname(userProfile.getNickname());
+
+            String type = questRepo.findById(quest_id).getType();
+
+            if (type.equals("weekly")) {
                 questWeekly.setQuest(questRepo.findById(quest_id));
                 questWeekly.setIscheck(false);
                 questRepo.saveQuestWeekly(questWeekly);
@@ -164,12 +173,18 @@ public class QuestServiceImpl implements QuestService {
         userProfile.setPoint(nowPoint + questPoint);
     }
 
-    // QuestUser Table 초기화 후에 다시 모든 유저에게 퀘스트 만들어주기
     @Override
-    public void resetBeforeCreateQuestUser() {
+    public void resetBeforeCreateDailyUser() {
         List<String> userProfiles = questRepo.getUserNickname();
         for (String userProfile:userProfiles) {
-            createQuestUser(userProfile);
+            createDailyUser(userProfile);
+        }
+    }
+
+    public void resetBeforeCreateWeeklyUser() {
+        List<String> userProfiles = questRepo.getUserNickname();
+        for (String userProfile:userProfiles) {
+            createWeeklyUser(userProfile);
         }
     }
 
