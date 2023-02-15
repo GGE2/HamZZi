@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { getCurrentStat, getPetLevel, getPetType } from "../hamStatSlice";
 import api from "./../components/api";
 import LoadingModal from "./../components/LoadingModal";
+import LoadingModal2 from "./../components/LoadingModal2";
 import { receivePoint } from "../pointSlice";
 
 const Main = () => {
@@ -24,6 +25,7 @@ const Main = () => {
   const [Wear, setWear] = useState({
     hat: 0,
     dress: 0,
+    background: 0,
   });
 
   // const nickname = localStorage.getItem("nickname");
@@ -142,6 +144,7 @@ const Main = () => {
         setWear({
           hat: res.data.userProfile.hat,
           dress: res.data.userProfile.dress,
+          background: res.data.userProfile.background,
         });
         // setLoading2(false);
       })
@@ -168,6 +171,7 @@ const Main = () => {
         setWear({
           hat: res.data.userProfile.hat,
           dress: res.data.userProfile.dress,
+          background: res.data.userProfile.background,
         });
         dispatch(receivePoint(res.data.userProfile.point));
         // SetNickName(res.data.userProfile.nickname);
@@ -285,26 +289,28 @@ const Main = () => {
   return (
     <>
       <div className="app">
-        <div className="spring">
-          <img src="homeback/spring.png" alt="" />
-        </div>
         <div className="appboard">
           <div className="Board">
-            {loading === false ? (
-              <div className="Back">
-                <>
-                  <div className="Hamster">
-                    <Ham
-                      petName={petName}
-                      Wear={Wear}
-                      getAllProfile={getAllProfile}
-                      onDeleteUser={onDeleteUser}
-                      setWear={setWear}
-                    />
-                  </div>
-
-                  <div className="Screen">
+            <div className="Back">
+              <div className="Hamster">
+              {loading === false ?
+                <Ham
+                  petName={petName}
+                  Wear={Wear}
+                  getAllProfile={getAllProfile}
+                  onDeleteUser={onDeleteUser}
+                  setWear={setWear}
+                />
+                : null}
+              </div>
+              <div className="Screen">
+                <div className="spring">
+                  <img src="homeback/spring.png" alt="" />
+                </div>
+                {loading === false ? (
+                  <>
                     {show.todoShow && <Todos user={user} />}
+
                     {show.guildShow && (
                       <Guild
                         setGuildUsers={setGuildUsers}
@@ -316,7 +322,6 @@ const Main = () => {
                     )}
 
                     {show.friendShow && <Quests user={user} />}
-                    {/* {show.profileShow && <Profile user={user} />} */}
                     {show.dressShow && (
                       <Shop
                         user={user}
@@ -325,50 +330,44 @@ const Main = () => {
                         Wear={Wear}
                       />
                     )}
-                  </div>
-
-                  <div className="buttonflex">
-                    <button
-                      className={menu[0] ? "BoardButto--active0" : ""}
-                      onClick={onClickTodo}
-                      // style={{ borderRight: "3px solid #803a21" }}
-                    >
-                      Todo
-                    </button>
-                    <button
-                      className={menu[1] ? "BoardButto--active1" : ""}
-                      onClick={onClickGuild}
-                      // style={{ borderRight: "3px solid #803a21" }}
-                    >
-                      Guild
-                    </button>
-                    <button
-                      className={menu[2] ? "BoardButto--active2" : ""}
-                      onClick={onClickFriend}
-                      // style={{ borderRight: "3px solid #803a21" }}
-                    >
-                      Quest
-                    </button>
-                    {/* <button
+                  </>
+                ) : (
+                  <LoadingModal2 />
+                )}
+              </div>
+              <div className="buttonflex">
+                <button
+                  className={menu[0] ? "BoardButto--active0" : ""}
+                  onClick={onClickTodo}
+                >
+                  Todo
+                </button>
+                <button
+                  className={menu[1] ? "BoardButto--active1" : ""}
+                  onClick={onClickGuild}
+                >
+                  Guild
+                </button>
+                <button
+                  className={menu[2] ? "BoardButto--active2" : ""}
+                  onClick={onClickFriend}
+                >
+                  Quest
+                </button>
+                {/* <button
                   className={menu[3] ? "BoardButto--active3" : ""}
                   onClick={onClickProfile}
                 >
                   Room
                 </button> */}
-                    <button
-                      className={menu[4] ? "BoardButto--active4" : ""}
-                      onClick={onClickDressRoom}
-                    >
-                      Shop
-                    </button>
-                  </div>
-                </>
+                <button
+                  className={menu[4] ? "BoardButto--active4" : ""}
+                  onClick={onClickDressRoom}
+                >
+                  Shop
+                </button>
               </div>
-            ) : (
-              <LoadingModal />
-            )}
-            {/* </div>
-      </div> */}
+            </div>
           </div>
         </div>
       </div>

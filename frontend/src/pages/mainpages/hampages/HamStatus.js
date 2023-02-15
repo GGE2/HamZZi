@@ -48,8 +48,8 @@ const HamStatus = ({ setWear }) => {
       console.log("graduated");
       dispatch(clearStat());
       localStorage.setItem("petId", null);
-      localStorage.setItem("petName", null);
-      localStorage.setItem("petLevel", null);
+      localStorage.setItem("petName", '');
+      localStorage.setItem("petLevel", '');
       localStorage.setItem("exp", null);
       dispatch(getPetType(0));
       // setIsModal(true);
@@ -132,15 +132,15 @@ const HamStatus = ({ setWear }) => {
       <div className="HamStatus">
         <div className="HamName">{petName}</div>
 
-        <HamExp />
+        <HamExp graduatee={graduatee}/>
 
-        {level === "5" && (
+        {/* {level === "5" && (
           <>
             <div className="graduatebtn" onClick={graduatee}>
               <img src="graduateB.png" alt="" />
             </div>
           </>
-        )}
+        )} */}
         <div className="HamChart">
           <Chart
             options={state.options}

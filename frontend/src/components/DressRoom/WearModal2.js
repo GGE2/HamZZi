@@ -1,8 +1,8 @@
 import React, { useRef, useEffect, useState } from "react";
 
-const WearModal = ({ setIsModal, id, onWearItem, setShow, type }) => {
+const WearModal2 = ({ setIsModal3, id, onWearItem, setShow, type }) => {
   const onCloseModal = () => {
-    setIsModal(false);
+    setIsModal3(false);
   };
 
   const onWear = () => {
@@ -16,7 +16,7 @@ const WearModal = ({ setIsModal, id, onWearItem, setShow, type }) => {
         {type === "옷" ?  <img src={`chara/cloth/cloth${id}.png`} alt="" /> : null}
         {type === "배경" ?   <img src={`chara/deco/deco${id}.png`} alt="" /> : null}
       </div>
-
+      바로 장착하시겠습까?
       <div className="ShopModalBtnList">
         <div className="ShopModalBtn" onClick={onWear}>
           <img src="shop/wearbtn.png" alt="" />
@@ -29,4 +29,4 @@ const WearModal = ({ setIsModal, id, onWearItem, setShow, type }) => {
   );
 };
 
-export default WearModal;
+export default WearModal2;

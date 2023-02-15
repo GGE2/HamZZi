@@ -54,14 +54,17 @@ body {
 
 .spring {
     position: absolute;
-    /* z-index: 1; */
-    bottom: 3.6em;
-    left: 34em;
+    z-index: 1;
+    /* bottom: 3.6em; */
+    left: -1em;
+    height: 100%;
     /* background-color: red; */
+    
 }
 
 .spring img{
-    height: 37.6em;
+    /* position: absolute; */
+    height: 100%;
 }
 
 .postit {

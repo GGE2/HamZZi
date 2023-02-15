@@ -133,3 +133,7 @@ textarea:disabled {
 #flipbook .turn-page {
   background-color:#ccc;
 }
+
+.questmodall {
+    cursor: pointer;
+}

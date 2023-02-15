@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
-import { GrAdd } from "react-icons/gr";
+import { AiOutlineDownload } from "react-icons/ai";
+import { GrPowerReset } from "react-icons/gr";
 import HamModal from "./HamModal";
 // import SetNickName from './../../loginpages/SetNickName';
 import "../../../styles/Modal.css";
@@ -12,7 +13,7 @@ import {
 } from "../../../hamStatSlice";
 
 // GrAdd
-const HamOutfit = ({ Wear }) => {
+const HamOutfit = ({ Wear, getAllProfile }) => {
   // const type = useSelector(selectCurrentPetType);
   const nickname = localStorage.getItem("nickname");
   console.log(useSelector(selectCurrentHamLevel));
@@ -21,7 +22,6 @@ const HamOutfit = ({ Wear }) => {
   const [isCreate, setIsCreate] = useState(false);
   const [isModal, setIsModal] = useState(false);
   console.log(Wear);
-
 
   const outside = useRef();
   // 캐릭터 생성 창을 누르면 모달창을 띄워서 펫 이름을 받는다.
@@ -58,6 +58,14 @@ const HamOutfit = ({ Wear }) => {
     document.body.removeChild(link);
   };
 
+  const ResetItem = () => {
+    api.put(`/api/item/clear?nickname=${nickname}`).then((res) => {
+      console.log(res)
+      getAllProfile()
+    });
+  };
+
+
   return (
     <>
       {/* 모달창 띄우기 */}
@@ -82,25 +90,34 @@ const HamOutfit = ({ Wear }) => {
       )} */}
       {/* 펫이 있으면 펫 출력 */}
       {/* {isCreate && ( */}
-        <div className="HamOutfit" id="div">
-          <div className="HamBody">
-            <img
-              src={`wearlist/${
-                JSON.stringify(level) +
-                Wear.hat +
-                Wear.dress +
-                JSON.stringify(type)
-                // JSON.stringify(type)
-              }.gif`}
-              alt=""
-            />
-            {/* </Draggable> */}
-          </div>
-
-          {/* 사진 찍기 */}
-          <button className="test" onClick={onCapture}>
+      <div className="HamOutfit" id="div">
+        <div className="HamBody">
+          <img
+            src={`wearlist/${
+              JSON.stringify(level) +
+              Wear.hat +
+              Wear.dress +
+              JSON.stringify(type)
+              // JSON.stringify(type)
+            }.gif`}
+            alt=""
+          />
+          {/* </Draggable> */}
+        </div>
+        <div className="decoImg">
+          <img src={`chara/deco/deco${Wear.background}.png`} alt="" />
+        </div>
+        
+        {/* 사진 찍기 */}
+        {/* <button className="test" onClick={onCapture}>
             click
-          </button>
+          </button> */}
+      </div>
+      <div className="takephoto">
+          <AiOutlineDownload onClick={onCapture} size={"100%"} />
+        </div>
+        <div className="resetItem" >
+          <img src="reset.png" alt="" onClick={ResetItem}/>
         </div>
       {/* )} */}
     </>

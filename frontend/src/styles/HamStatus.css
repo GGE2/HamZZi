@@ -1,9 +1,9 @@
 .HamStatus {
-
     position: relative;
     bottom: 0;
     width: 100%;
     height: 45%;
+    padding-top: 1em;
 }
 
 .bar {
@@ -20,7 +20,6 @@
     right: 0;
     bottom: 0;
     border-radius: 40px;
-    /* border-bottom-right-radius: solid 3px #803a21; */
 }
 
 
@@ -58,15 +57,15 @@
 }
 
 .graduatebtn {
-    width: 5em;
-    position: relative;
-    top: 17%;
+    width: 6em;
+    /* position: relative; */
+    /* top: 50%; */
     cursor: pointer;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    /* left: 50%; */
+    /* transform: translate(-50%, -50%); */
     
 }
 
 .graduatebtn img { 
-    width: 5em;
+    width: 6em;
 }

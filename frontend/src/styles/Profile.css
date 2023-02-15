@@ -11,7 +11,7 @@
 /* 미니룸 꾸미기 */
 .MyBody_profile {
     height: 100%;
-    background-image: url("../../public/room2.gif");
+    /* background-image: url("../../public/room2.gif"); */
     background-repeat: no-repeat;
     background-size: cover;
     border-radius: 10px;

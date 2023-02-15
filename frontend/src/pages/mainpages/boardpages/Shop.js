@@ -145,7 +145,7 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
         console.log(res);
         // getAllProfile()
         getShopUpdate();
-        onCheckMy();
+        // onCheckMy();
       })
       .catch((err) => {
         console.log(err);
@@ -291,6 +291,8 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
                     petLevel={petLevel}
                     itemlevel={item.level}
                     onWearItem={onWearItem}
+                    onGetItemAllList={onGetItemAllList}
+                    onGetItemUserNickList={onGetItemUserNickList}
                   />
                 ))}
             </div>
@@ -311,6 +313,8 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
                     petLevel={petLevel}
                     itemlevel={item.level}
                     onWearItem={onWearItem}
+                    onGetItemAllList={onGetItemAllList}
+                    onGetItemUserNickList={onGetItemUserNickList}
                   />
                 ))}
             </div>
@@ -319,7 +323,7 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
           {deco && (
             <div className="ClothList">
               {items
-                .filter((item) => item.type === "장식")
+                .filter((item) => item.type === "배경")
                 .map((item, idx) => (
                   <DecoItem
                     key={idx}
@@ -331,6 +335,8 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
                     petLevel={petLevel}
                     itemlevel={item.level}
                     onWearItem={onWearItem}
+                    onGetItemAllList={onGetItemAllList}
+                    onGetItemUserNickList={onGetItemUserNickList}
                   />
                 ))}
             </div>

@@ -15,6 +15,7 @@ import authReducer from "../authSlice";
 import pointReducer from "../pointSlice";
 import hamStatReducer from "../hamStatSlice";
 import shopShowReducer from "../shopSlice";
+import ExpReducer from "../ExpSlice"
 
 
 const persistConfig = {
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
   point: pointReducer,
   hamStat: hamStatReducer,
   shopShow: shopShowReducer,
+  ExpReducer: ExpReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

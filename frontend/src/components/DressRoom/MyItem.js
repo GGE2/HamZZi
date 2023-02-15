@@ -87,7 +87,7 @@ const MyItem = ({ id,onWearItem, setShow, type, Wear, petLevel, itemlevel }) => 
         <>
           <div className="SameItem">
             <motion.div className="DressItem_clicked">
-              <img src={`chara/cloth/cloth${id}.png`} alt="" />
+              <img src={`chara/deco/decco${id}.png`} alt="" />
             </motion.div>
             착용 중
           </div>
@@ -102,7 +102,7 @@ const MyItem = ({ id,onWearItem, setShow, type, Wear, petLevel, itemlevel }) => 
             className="DressItem_Unclicked"
             onClick={onClick}
           >
-            <img src={`chara/cloth/cloth${id}.png`} alt="" />
+            <img src={`chara/deco/decco${id}.png`} alt="" />
           </motion.div>
           착용 가능
         </div>)
@@ -126,7 +126,7 @@ const MyItem = ({ id,onWearItem, setShow, type, Wear, petLevel, itemlevel }) => 
         ) : type === "배경"  ? (
           <div className="SameItem">
              <motion.div className="DressItem_clicked">
-                <img src={`chara/cloth/cloth${id}.png`} alt="" />
+                <img src={`chara/deco/decco${id}.png`} alt="" />
               </motion.div>
               <BiLockAlt />
           </div>

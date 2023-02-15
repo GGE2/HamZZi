@@ -1,20 +1,35 @@
 import React from "react";
 import ProgressBar from "@ramonak/react-progress-bar";
+import { useSelector } from 'react-redux';
+import { selectCurrentExp } from "../../../../ExpSlice";
 
-const HamExp = () => {
+const HamExp = ({graduatee}) => {
   // const experience = localStorage.getItem("exp");
   const level = localStorage.getItem("petLevel");
   // const petId = localStorage.getItem("petId");
   const petLevel = localStorage.getItem("petLevel");
+  // const expp = localStorage.getItem("exp")
+  const expp = useSelector(selectCurrentExp)
+  const exp = [0, 14, 30, 60, 66]
+  console.log(exp[1])
 
   return (
     <>
       <div className="HamExp">
-        <div className="PetName">{petLevel}</div>
+      {level === "5" ? (
+          <>
+            <div className="graduatebtn" onClick={graduatee}>
+              <img src="graduateB.png" alt="" />
+            </div>
+          </>
+      )
+          : <>
+          <div className="PetName">{petLevel}</div>
+        
         <div className="ProgressBar">
           <ProgressBar
-            completed={level}
-            maxCompleted={5}
+            completed={expp}
+            maxCompleted={exp[level]}
             customLabel={" "}
             // className="wrapper"
             // barContainerClassName="container"
@@ -32,6 +47,9 @@ const HamExp = () => {
         <div className="ExpBar">
           <img src="hamzziStatus/expbar.png" alt="" />
         </div>
+          </>
+        }
+        
       </div>
     </>
   );

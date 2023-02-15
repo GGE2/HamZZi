@@ -258,12 +258,12 @@ const Todos = () => {
   return (
     <>
       <div className="DressRoom2">
+        
         <div className="postit"></div>
         {loading ? (
           <>
             {" "}
             <LoadingModal />
-            
             {/* <div className="postit"></div> */}
           </>
         ) : (
