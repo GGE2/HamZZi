@@ -1,6 +1,8 @@
 package com.team.teamrestructuring.view.fragments
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +15,7 @@ import com.team.teamrestructuring.service.TodoService
 import com.team.teamrestructuring.util.ApplicationClass
 import com.team.teamrestructuring.view.adapters.TodoAdapter
 import com.team.teamrestructuring.util.TodoBottomSheet
+import android.view.inputmethod.InputMethodManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -164,16 +167,42 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
                     calenderText.text.clear()
                     Log.d(TAG, "initInput: ${todo.toString()}")
                     createService(todo)
-//                    callService(ApplicationClass.currentUser.userProfile.nickname, dateStr)
-                    // 로컬 리스트에 받아오고 어차피 받아오는 와중에 비동기 통신이 가니깐
-                    // 로컬에서 처리하니깐 리소스가 들든다 like 레트로핏, 코루틴 라이브데이터
-                   /* todoList.add(todo)
-                    todoAdapter.items = todoList
-                    todoAdapter.notifyDataSetChanged()*/
+
+                    // 입력시 키보드 숨기기
+                    val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    inputMethodManager.hideSoftInputFromWindow(calenderText.windowToken, 0)
+
                 }
+            }
+            calenderText.setOnKeyListener { v, keyCode, event ->
+                if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                    var nowInput = calenderText.text.toString().trim()
+                    if (nowInput.isEmpty()) {
+                        Toast.makeText(requireContext(), "값을 입력해주세요", Toast.LENGTH_SHORT).show()
+                        return@setOnKeyListener true
+                    }
+                    val todo = Todo(nowInput, dateStr, nickName)
+                    calenderText.text.clear()
+                    Log.d(TAG, "initInput: ${todo.toString()}")
+                    createService(todo)
+
+                    // 입력시 키보드 숨기기
+                    val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    inputMethodManager.hideSoftInputFromWindow(calenderText.windowToken, 0)
+                    return@setOnKeyListener true
+                }
+                return@setOnKeyListener false
+                //                    callService(ApplicationClass.currentUser.userProfile.nickname, dateStr)
+                // 로컬 리스트에 받아오고 어차피 받아오는 와중에 비동기 통신이 가니깐
+                // 로컬에서 처리하니깐 리소스가 들든다 like 레트로핏, 코루틴 라이브데이터
+                /* todoList.add(todo)
+                 todoAdapter.items = todoList
+                 todoAdapter.notifyDataSetChanged()*/
             }
         }
     }
+
+
 
     // 리사이클러뷰 클릭 투두 체크 수정 삭제
     private fun initRecyclerView() {
