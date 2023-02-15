@@ -22,28 +22,45 @@
   height: 100vh;
   /* filter: brightness(200%); */
   overflow: hidden;
+  
+}
+.appboard {
+
+  
+  background-image: url("../../public/homeback/bck.png");
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  /* padding-bottom: 18em;
+  padding-left: 2em; */
+  
 }
 
 .Board {
 min-width: 80%;
 min-height: 100%;
 position: relative;
+/* padding-top: 8.5em; */
+/* background-image: url("../../public/homeback/bck.png"); */
 /* background-color: rgba(63, 131, 84, 0.8); /
 / Back을 가운데 정렬 */
 display: flex;
 justify-content: center;
 align-items: center;
+
 /* filter: brightness(1%); */
 }
 
 .Back {
-width: 75%;
-height: 85%;
+width: 85%;
+height: 90%;
 position: fixed;
 display: flex;
-border: 3px solid #803a21;
-background-color: rgb(146, 89, 67);
+/* border: 3px solid #803a21;
+background-color: rgb(146, 89, 67); */
 border-radius: 10px;
+margin-left: 2em;
 
 }
 
@@ -73,15 +90,18 @@ display: flex;
 flex-direction: column;
 text-align: center;
 width: 65%;
-border: solid 3px #803a21;
+/* border-top: solid 3px #803a21;
+border-bottom: solid 3px #803a21;
+border-right: solid 3px #803a21; */
 
-border-top-left-radius: 10px;
+/* border-top-left-radius: 10px; */
 border-top-right-radius: 10px;
 border-bottom-right-radius: 10px;
-border-bottom-left-radius: 10px;
-margin: 0px;
+/* border-bottom-left-radius: 10px; */
+/* margin: 1.5em; */
 position: relative;
 /* margin-right: 1em; */
+margin-left: 3em;
 margin-top: 1.5em;
 margin-bottom: 1.5em;
 }
@@ -102,30 +122,24 @@ position: relative;
   width: 6em;
   text-align: center;
   border: none;
-  border-top: solid 3px #803a21;
+  /* border-top: solid 3px #803a21;
   border-right: solid 3px #803a21;
-  border-bottom: solid 3px #803a21;
-  border-top-right-radius: 10px;
-border-bottom-right-radius: 10px;
+  border-bottom: solid 3px #803a21; */
+  /* border-top-right-radius: 10px; */
+/* border-bottom-right-radius: 10px; */
  
   margin-bottom: 5px;
   cursor: pointer;
   /* background-color: #f9fbe7; */
+  background-color: #fbb100;
 }
 
 .buttonflex button:hover {
-
+  /* color: yellow; */
   text-decoration: underline;
   /* background-color: #f9fbe7; */
 }
 
-/* 보드 페이지에 하단 버튼 리스트 /
-.BoardButton {
-width: 100%;
-position: absolute;
-bottom: 0;
-border-top: 3px solid black;
-/ padding-bottom: 3px; */
 
 
 .BoardButton button{
@@ -134,35 +148,40 @@ cursor: pointer;
 border: none;
 
 
-transition-property: color, background-color;
+/* transition-property: color, background-color; */
 }
 
 .BoardButto--active0 {
-  color: pink;
-  background-color: red;
-  text-decoration:underline
+  color: #803a21;
+  font-weight: bold;
+  /* background-color: yellow; */
+  /* text-decoration:underline */
 }
 
 .BoardButto--active1 {
   color: #803a21;
-  background-color: orange;
-  text-decoration:underline
+  font-weight: bolder;
+  /* background-color: yellow; */
+  /* text-decoration:underline */
 }
 
 .BoardButto--active2 {
-  color: white;
-  background-color: blue;
-  text-decoration:underline
+  color: #803a21;
+  font-weight: bolder;
+  /* background-color: yellow; */
+  /* text-decoration:underline */
 }
 
 .BoardButto--active3 {
   color: #803a21;
-  background-color: yellow;
-  text-decoration:underline
+  font-weight: bolder;
+  /* background-color: red; */
+  /* text-decoration:underline */
 }
 
 .BoardButto--active4 {
   color: #803a21;
-  background-color: white;
-  text-decoration:underline
+  font-weight: bolder;
+  /* background-color: white; */
+  /* text-decoration:underline */
 }

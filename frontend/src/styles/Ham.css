@@ -33,6 +33,7 @@ animation: rotate_image 10s linear infinite;
 
 .Ham {
     height: 100%;
+    
 }
 /* 햄 header 부분 : 업적  */
 .Hamheader {
@@ -142,11 +143,11 @@ animation: rotate_image 10s linear infinite;
 }
 
  .HamChart{
-    height: 80%;
+    height: 75%;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 30px;
+    padding-top: 15px;
     /* padding-bottom: 30px; */
     /* margin-top: 7px; */
  }

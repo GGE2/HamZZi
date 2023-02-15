@@ -182,6 +182,8 @@ const Guild = ({
 
   return (
     <>
+    <div className="DressRoom2">
+    <div className="postit2"></div>
    {loading ? (
         <LoadingModal />
       ) :
@@ -230,6 +232,8 @@ const Guild = ({
           />
         )}
       </div></motion.div>}
+    </div>
+
     </>
   );
 };

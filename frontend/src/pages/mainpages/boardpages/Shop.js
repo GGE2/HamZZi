@@ -198,6 +198,7 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
 
   return (
     <div className="DressRoom">
+      <div className="postit4"></div>
       {loading ? (
         <LoadingModal />
       ) : (

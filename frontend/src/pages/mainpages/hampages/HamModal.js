@@ -41,29 +41,16 @@ const HamModal = ({ setIsModal, setIsCreate }) => {
             name="nickname"
             placeholder="햄스터 이름 입력123123"
             onChange={handleChange}
-            // value={text}
           />
         </div>
-        <div className="setnickimg" type="submit" onClick={()=>handleSubmit}>
+        <div className="setnickimg" type="submit" onClick={handleSubmit}>
           {" "}
           <img src="guildlist/createbtn.png" alt="" />
         </div>
-
-        {/* <button type="submit"> 설정하기</button> */}
       </form>
     </div>
   );
 
-  // return (
-  //   <div className="HamModal">
-  //       <input type="text" />
-  //     <button className="close" onClick={closeModal}>
-  //       X
-  //     </button>
-  //     <button onClick={CreatePet}>생성</button>
-  //     {/* <p>모달창입니다.</p> */}
-  //   </div>
-  // );
 };
 
 export default HamModal;

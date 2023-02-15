@@ -283,90 +283,96 @@ const Main = () => {
   };
 
   return (
-    <div className="app">
-      <div className="penimg"><img src="homeback/pen.png" alt="" /></div>
-            <div className="Board">
-          {loading === false ? (
-            <div className="Back">
-            <>
-              <div className="Hamster">
-                <Ham
-                  petName={petName}
-                  Wear={Wear}
-                  getAllProfile={getAllProfile}
-                  onDeleteUser={onDeleteUser}
-                  setWear={setWear}
-                />
-              </div>
+    <>
+      <div className="app">
+        <div className="spring">
+          <img src="homeback/spring.png" alt="" />
+        </div>
+        <div className="appboard">
+          <div className="Board">
+            {loading === false ? (
+              <div className="Back">
+                <>
+                  <div className="Hamster">
+                    <Ham
+                      petName={petName}
+                      Wear={Wear}
+                      getAllProfile={getAllProfile}
+                      onDeleteUser={onDeleteUser}
+                      setWear={setWear}
+                    />
+                  </div>
 
-              <div className="Screen">
-                {show.todoShow && <Todos user={user} />}
-                {show.guildShow && (
-                  <Guild
-                    setGuildUsers={setGuildUsers}
-                    guildUsers={guildUsers}
-                    guildId={guildId}
-                    onGetUserGuildInfo={onGetUserGuildInfo}
-                    guildName={guildName}
-                  />
-                )}
+                  <div className="Screen">
+                    {show.todoShow && <Todos user={user} />}
+                    {show.guildShow && (
+                      <Guild
+                        setGuildUsers={setGuildUsers}
+                        guildUsers={guildUsers}
+                        guildId={guildId}
+                        onGetUserGuildInfo={onGetUserGuildInfo}
+                        guildName={guildName}
+                      />
+                    )}
 
-                {show.friendShow && <Quests user={user} />}
-                {/* {show.profileShow && <Profile user={user} />} */}
-                {show.dressShow && (
-                  <Shop
-                    user={user}
-                    getAllProfile={getAllProfile}
-                    getShopUpdate={getShopUpdate}
-                    Wear={Wear}
-                  />
-                )}
-              </div>
+                    {show.friendShow && <Quests user={user} />}
+                    {/* {show.profileShow && <Profile user={user} />} */}
+                    {show.dressShow && (
+                      <Shop
+                        user={user}
+                        getAllProfile={getAllProfile}
+                        getShopUpdate={getShopUpdate}
+                        Wear={Wear}
+                      />
+                    )}
+                  </div>
 
-              <div className="buttonflex">
-                <button
-                  className={menu[0] ? "BoardButto--active0" : ""}
-                  onClick={onClickTodo}
-                  style={{ borderRight: "3px solid #803a21" }}
-                >
-                  Todo
-                </button>
-                <button
-                  className={menu[1] ? "BoardButto--active1" : ""}
-                  onClick={onClickGuild}
-                  style={{ borderRight: "3px solid #803a21" }}
-                >
-                  Guild
-                </button>
-                <button
-                  className={menu[2] ? "BoardButto--active2" : ""}
-                  onClick={onClickFriend}
-                  style={{ borderRight: "3px solid #803a21" }}
-                >
-                  Quest
-                </button>
-                {/* <button
+                  <div className="buttonflex">
+                    <button
+                      className={menu[0] ? "BoardButto--active0" : ""}
+                      onClick={onClickTodo}
+                      // style={{ borderRight: "3px solid #803a21" }}
+                    >
+                      Todo
+                    </button>
+                    <button
+                      className={menu[1] ? "BoardButto--active1" : ""}
+                      onClick={onClickGuild}
+                      // style={{ borderRight: "3px solid #803a21" }}
+                    >
+                      Guild
+                    </button>
+                    <button
+                      className={menu[2] ? "BoardButto--active2" : ""}
+                      onClick={onClickFriend}
+                      // style={{ borderRight: "3px solid #803a21" }}
+                    >
+                      Quest
+                    </button>
+                    {/* <button
                   className={menu[3] ? "BoardButto--active3" : ""}
                   onClick={onClickProfile}
                 >
                   Room
                 </button> */}
-                <button
-                  className={menu[4] ? "BoardButto--active4" : ""}
-                  onClick={onClickDressRoom}
-                >
-                  Shop
-                </button>
+                    <button
+                      className={menu[4] ? "BoardButto--active4" : ""}
+                      onClick={onClickDressRoom}
+                    >
+                      Shop
+                    </button>
+                  </div>
+                </>
               </div>
-            </>
-            </div>
-          ) : (
-            <LoadingModal />
+            ) : (
+              <LoadingModal />
             )}
-        {/* </div>
+            {/* </div>
       </div> */}
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

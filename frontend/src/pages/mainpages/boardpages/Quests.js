@@ -69,6 +69,8 @@ const Quests = () => {
 
   return (
     <>
+    <div className="DressRoom2">
+    <div className="postit3"></div>
       {loading ? (
         <LoadingModal />
       ) :
@@ -106,6 +108,7 @@ const Quests = () => {
           </div>
         </motion.div>
       }
+      </div>
     </>
   );
 };

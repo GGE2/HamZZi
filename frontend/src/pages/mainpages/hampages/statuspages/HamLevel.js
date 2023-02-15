@@ -3,9 +3,10 @@ import axios from "axios";
 
 const HamLevel = () => {
   const petLevel = localStorage.getItem("petLevel");
+  
   return (
     <div>
-      <button className="HamLevel">{petLevel}</button>
+      <button className="HamLevel">{petLevel === null ? "156" : petLevel}</button>
     </div>
   );
 };

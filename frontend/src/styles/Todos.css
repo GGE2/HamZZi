@@ -1,9 +1,19 @@
+/* .DressRoom2 {
+  background-color: #f9fbe7;
+  height: 100%;
+  border-radius: 7px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 5px 5px 5px;
+  position: relative;
+} */
+
 .TodoList {
     overflow: scroll;
     /* margin-bottom:30px;   */
     border-top: 3px solid #803a21;
     flex-wrap: wrap;
-    height: 411px;
+    height: 29em;
     /* max-height: 70%; */
     flex-shrink: 0;
     margin-bottom: 20px;

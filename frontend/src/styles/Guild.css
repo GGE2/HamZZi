@@ -1,6 +1,14 @@
+/* .DressRoom2 {
+    background-color: #f9fbe7;
+    height: 100%;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 5px 5px 5px;
+} */
 
 .GuildList {
-    height: 90%;
+    height: 32em;
 
     
     /* padding-left: 5%;
@@ -120,6 +128,7 @@
 .button_text1 {
     width: 3em;
     padding-right: 0.5em;
+    cursor: pointer;
 }
 
 .button_text1 img {

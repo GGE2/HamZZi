@@ -1,9 +1,12 @@
 .DressRoom {
     background-color: #f9fbe7;
     height: 100%;
-    border-radius: 7px;
+    /* border-radius: 7px; */
     display: flex;
     flex-direction: column;
+    box-shadow: 5px 5px 5px;
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px ;
 }
 
 .SwiperSlide {
