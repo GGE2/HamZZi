@@ -56,7 +56,7 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
         // 여기
         todoList = mutableListOf()
         initDate()
-        //callService(nickName, dateStr)
+        callService(nickName, dateStr)
         initRecyclerView()
         initInput()
     }
@@ -87,22 +87,24 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
 
     }
 
-    // 투두를 만드는 서비스
-    private fun createService(todo: Todo){
+    // 투두 만드는 서비스
+    private fun createService(todo: Todo) {
         val service = ApplicationClass.retrofit.create(TodoService::class.java)
-            .createTodo(todo).enqueue(object : Callback<Todo>{
-                override fun onResponse(call: Call<Todo>, response: Response<Todo>) {
-                    if(response.isSuccessful){
-                        Log.d(TAG, "Create onResponse: ${response.body()!!}")
-                    }
+        service.createTodo(todo).enqueue(object : Callback<Todo> {
+            override fun onResponse(call: Call<Todo>, response: Response<Todo>) {
+                if (response.isSuccessful) {
+                    Log.d(TAG, "Create onResponse: ${response.body()!!}")
+                } else {
+                    Log.d(TAG, "Create onResponse error: ${response.code()}")
                 }
+            }
 
-                override fun onFailure(call: Call<Todo>, t: Throwable) {
-                    Log.d(TAG, "Create onFailure: ${t.message}")
-                }
-
-            })
+            override fun onFailure(call: Call<Todo>, t: Throwable) {
+                Log.d(TAG, "Create onFailure: ${t.message}")
+            }
+        })
     }
+
 
     //투두를 체크(완료했는 지)하는 서비스
     private fun checkTodo(id: Long, nickName: String){
@@ -160,8 +162,7 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
                     calenderText.text.clear()
                     Log.d(TAG, "initInput: ${todo.toString()}")
                     createService(todo)
-                    callService(ApplicationClass.currentUser.userProfile.nickname,
-                    dateStr)
+                    callService(ApplicationClass.currentUser.userProfile.nickname, dateStr)
                     // 로컬 리스트에 받아오고 어차피 받아오는 와중에 비동기 통신이 가니깐
                     // 로컬에서 처리하니깐 리소스가 들든다 like 레트로핏, 코루틴 라이브데이터
                    /* todoList.add(todo)
@@ -191,14 +192,12 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
                 }
             }
             */
-
             todoAdapter = TodoAdapter(todoList)
             todoAdapter.setOnTodoClickListener(object : TodoAdapter.TodoItemClickListener{
                 override fun onClick(view: View, position: Int, data: Todo) {
                     val bottomSheet = TodoBottomSheet(this@TodoFragment, todoList[position], dateStr, position, todoList)
                     bottomSheet.show(activity!!.supportFragmentManager, bottomSheet.tag)
                 }
-
             })
 
             binding.recyclerviewTodoList.apply {
