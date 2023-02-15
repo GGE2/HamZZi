@@ -37,7 +37,7 @@
 .QuestTitle {
   display: flex;
   justify-content: start;
-  font-size: 40px;
+  font-size: 32px;
 }
 
 .QuestContent{

@@ -37,8 +37,8 @@ const QuestModal = ({ content, point, setIsModal, setIsCreate }) => {
   return (
     // <img src="coin.png" alt="" />
     <div className="QuestmodalBody">
-      <div className="QuestTitle">제목</div>
-      <div className="QuestContent">{content}</div>
+      {/* <div className="QuestTitle">제목</div> */}
+      <div className="QuestTitle">{content}</div>
       <div className="QuestReword">
         보상
         <div className="QuestReword2">

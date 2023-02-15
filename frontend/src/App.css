@@ -52,3 +52,13 @@ body {
     background-color: #f9fbe7;
 }
 
+.penimg {
+    position: absolute;
+    z-index: 5;
+    bottom: 0;
+    right: 0;
+}
+
+.penimg img{
+    height: 24em;
+}

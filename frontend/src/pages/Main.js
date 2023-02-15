@@ -284,8 +284,7 @@ const Main = () => {
 
   return (
     <div className="app">
-      {/* <div className="Board">
-        <div className="Back"> */}
+      <div className="penimg"><img src="homeback/pen.png" alt="" /></div>
             <div className="Board">
           {loading === false ? (
             <div className="Back">
