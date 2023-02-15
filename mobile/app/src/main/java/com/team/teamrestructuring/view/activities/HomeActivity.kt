@@ -16,6 +16,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.FrameLayout
+import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -39,6 +40,7 @@ import com.team.teamrestructuring.util.SharedPreferencesUtil
 import com.team.teamrestructuring.view.adapters.ViewPagerAdapter
 import com.team.teamrestructuring.view.fragments.HomeFragment
 import com.team.teamrestructuring.view.fragments.QuestFragment
+import com.team.teamrestructuring.view.viewmodels.HomeViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -48,6 +50,9 @@ import java.util.Calendar
 
 private const val TAG = "HomeActivity_지훈"
 class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSelectedListener,CreatePetDialog.CreatePetDialogInterface{
+
+    private val mainViewModel : HomeViewModel by viewModels()
+
 
     companion object{
         const val channel_id = "team_channel"
@@ -79,7 +84,12 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
         Log.d(TAG, "onCreate: ${ApplicationClass.currentUser}")
         val intent = Intent(this,StepService::class.java)
         startService(intent)
+
+
+
     }
+
+
 
 
 
@@ -93,6 +103,7 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
         setViewPager()
         setFullScreen()
         getPetInfo()
+
     }
 
 
@@ -262,5 +273,7 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
     override fun onDestroy() {
         super.onDestroy()
     }
+
+
 
 }

@@ -164,6 +164,8 @@
         app:layout_constraintRight_toLeftOf="@id/button_stat_ok"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"/>
+
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_stat_ok"
         android:layout_width="0dp"

@@ -8,12 +8,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import com.team.teamrestructuring.R
 import com.team.teamrestructuring.databinding.FragmentMyPageBinding
 import com.team.teamrestructuring.service.MyPageService
 import com.team.teamrestructuring.util.ApplicationClass
 import com.team.teamrestructuring.util.CreateRegisterTimeDialog
 import com.team.teamrestructuring.view.activities.RegisterPlaceActivity
+import com.team.teamrestructuring.view.viewmodels.HomeViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,7 +31,9 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class MyPageFragment : Fragment() {
-    // TODO: Rename and change types of parameters
+
+    private val mainViewModel by activityViewModels<HomeViewModel>()
+
     private var param1: String? = null
     private var param2: String? = null
 

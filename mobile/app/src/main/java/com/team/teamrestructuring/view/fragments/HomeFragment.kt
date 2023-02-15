@@ -13,6 +13,8 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat.getSystemService
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.team.teamrestructuring.R
 import com.team.teamrestructuring.databinding.FragmentHomeBinding
@@ -23,6 +25,7 @@ import com.team.teamrestructuring.service.PetService
 import com.team.teamrestructuring.util.*
 import com.team.teamrestructuring.view.activities.GuildActivity
 import com.team.teamrestructuring.view.activities.HomeActivity
+import com.team.teamrestructuring.view.viewmodels.HomeViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -39,7 +42,10 @@ private const val TAG = "HomeFragment_지훈"
  *
  */
 class HomeFragment : Fragment(),CreateFriendDialog.CreateFriendDialogInterface,CreatePetStatDialog.CreatePetDialogInterface,CreatePetStatUpdateDialog.CreateStatUpdateInterface{
-    // TODO: Rename and change types of parameters
+
+    private val mainViewModel by activityViewModels<HomeViewModel>()
+
+
     private var param1: String? = null
     private var param2: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,6 +55,7 @@ class HomeFragment : Fragment(),CreateFriendDialog.CreateFriendDialogInterface,C
             param2 = it.getString(ARG_PARAM2)
         }
     }
+
     private lateinit var createFriendDialog: CreateFriendDialog
     private lateinit var binding : FragmentHomeBinding
     private lateinit var petName : String
@@ -59,6 +66,8 @@ class HomeFragment : Fragment(),CreateFriendDialog.CreateFriendDialogInterface,C
         binding = FragmentHomeBinding.inflate(inflater,container,false)
         return binding.root
     }
+
+
 
     override fun onClick() {
 
@@ -85,12 +94,24 @@ class HomeFragment : Fragment(),CreateFriendDialog.CreateFriendDialogInterface,C
             dialog.show(activity?.supportFragmentManager!!,"CreatePetStatUpdateDialog")
         }
         init()
+
+
+    }
+
+    private fun setViewModel(){
+        mainViewModel.userData.observe(viewLifecycleOwner, Observer {
+            setPetStat()
+        })
+        mainViewModel.petData.observe(viewLifecycleOwner, {
+            Log.d(TAG, "setViewModel: ${it}")
+        })
     }
 
 
     private fun init(){
         createIntent()
         getCurrentUserInfo()
+        setViewModel()
     }
 
     /**
@@ -104,15 +125,15 @@ class HomeFragment : Fragment(),CreateFriendDialog.CreateFriendDialogInterface,C
                     if(response.isSuccessful){
                         val data = response.body()!!
                         ApplicationClass.currentUser = data
+                        mainViewModel.updateUser(data)
                         Log.d(TAG, "onResponse: ${ApplicationClass.currentUser}")
-                        setPetStat()
+                        Log.d(TAG, "viewModel res: ${ApplicationClass.currentUser}")
                     }
                 }
 
                 override fun onFailure(call: Call<User>, t: Throwable) {
                     Log.d(TAG, "onFailure: ${t.message}")
                 }
-
             })
     }
 
@@ -164,7 +185,12 @@ class HomeFragment : Fragment(),CreateFriendDialog.CreateFriendDialogInterface,C
             }
             4->{
                 binding.progressbarMainStat.max = 66
-                Glide.with(this).load(R.raw.pet_lv4).into(binding.imageviewMainPet)
+                Glide.with(this).load(R.raw.pet_lv42).into(binding.imageviewMainPet)
+                binding.textviewMainStat.text = "${ApplicationClass.petData?.pet?.exp}/66"
+            }
+            5->{
+                binding.progressbarMainStat.max = 0
+                Glide.with(this).load(R.raw.ham5200).into(binding.imageviewMainPet)
                 binding.textviewMainStat.text = "${ApplicationClass.petData?.pet?.exp}/66"
             }
         }

@@ -13,6 +13,7 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.replace
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -29,6 +30,7 @@ import com.team.teamrestructuring.R
 import com.team.teamrestructuring.databinding.FragmentQuestBinding
 import com.team.teamrestructuring.util.ApplicationClass
 import com.team.teamrestructuring.view.adapters.DailyQuestAdapter
+import com.team.teamrestructuring.view.viewmodels.HomeViewModel
 import java.lang.Math.*
 import java.util.jar.Manifest
 import kotlin.math.pow
@@ -56,7 +58,7 @@ class QuestFragment : Fragment(),OnMapReadyCallback{
     private lateinit var tabLayout : TabLayout
     private lateinit var questAdapter: DailyQuestAdapter
 
-
+    private val mainViewModel by activityViewModels<HomeViewModel>()
 
     companion object {
 
