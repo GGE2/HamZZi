@@ -8,8 +8,8 @@ import retrofit2.http.*
 
 interface TodoService {
     // 투두 가져옴
-    @GET("api/todo/{nick_name}/{datetime}")
-    fun getTodo(@Path("nick_name") nick_name: String, @Path("datetime") datetime: String): Call<MutableList<Todo>>
+    @GET("api/todo/{nickname}/{datetime}")
+    fun getTodo(@Path("nickname") nickname: String, @Path("datetime") datetime: String): Call<MutableList<Todo>>
 
     // 투두리스트 생성
     @POST("api/todo/Mobile")

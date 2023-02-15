@@ -78,6 +78,8 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
                         Log.d(TAG, "Call onResponse: ${response.body()}")
                         todoAdapter.items = response.body()!!
                         todoAdapter.notifyDataSetChanged()
+                    } else{
+                        Log.d(TAG, "Call onResponse error: ${response.body()}")
                     }
                 }
                 override fun onFailure(call: Call<MutableList<Todo>>, t: Throwable) {
@@ -89,16 +91,16 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
 
     // 투두 만드는 서비스
     private fun createService(todo: Todo) {
+        Log.d(TAG, "투두 ${todo}")
         val service = ApplicationClass.retrofit.create(TodoService::class.java)
         service.createTodo(todo).enqueue(object : Callback<Todo> {
             override fun onResponse(call: Call<Todo>, response: Response<Todo>) {
                 if (response.isSuccessful) {
                     Log.d(TAG, "Create onResponse: ${response.body()!!}")
                 } else {
-                    Log.d(TAG, "Create onResponse error: ${response.code()}")
+                    Log.d(TAG, "Create onResponse error: ${response.errorBody()}")
                 }
             }
-
             override fun onFailure(call: Call<Todo>, t: Throwable) {
                 Log.d(TAG, "Create onFailure: ${t.message}")
             }
@@ -162,7 +164,7 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
                     calenderText.text.clear()
                     Log.d(TAG, "initInput: ${todo.toString()}")
                     createService(todo)
-                    callService(ApplicationClass.currentUser.userProfile.nickname, dateStr)
+//                    callService(ApplicationClass.currentUser.userProfile.nickname, dateStr)
                     // 로컬 리스트에 받아오고 어차피 받아오는 와중에 비동기 통신이 가니깐
                     // 로컬에서 처리하니깐 리소스가 들든다 like 레트로핏, 코루틴 라이브데이터
                    /* todoList.add(todo)
