@@ -38,9 +38,11 @@ import com.team.teamrestructuring.util.ApplicationClass
 import com.team.teamrestructuring.util.CreatePetDialog
 import com.team.teamrestructuring.util.SharedPreferencesUtil
 import com.team.teamrestructuring.view.adapters.ViewPagerAdapter
-import com.team.teamrestructuring.view.fragments.HomeFragment
-import com.team.teamrestructuring.view.fragments.QuestFragment
+
+
+import com.team.teamrestructuring.view.fragments.*
 import com.team.teamrestructuring.view.viewmodels.HomeViewModel
+import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -58,6 +60,7 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
         const val channel_id = "team_channel"
         const val REQUEST_CODE = 1001
         lateinit var binding : ActivityHomeBinding
+        lateinit var viewPagerAdapter : ViewPagerAdapter
         var sCount = 0
     }
     private lateinit var auth:FirebaseAuth
@@ -108,21 +111,17 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
 
 
     private fun getPetInfo(){
-        val service = ApplicationClass.retrofit.create(PetService::class.java)
-            .getPetInfo(ApplicationClass.currentUser.userProfile.nickname).enqueue(object:Callback<PetData>{
-                override fun onResponse(call: Call<PetData>, response: Response<PetData>) {
-                    if(response.isSuccessful){
-                        Log.d(TAG, "onResponse: ${response.body()!!}")
-                        ApplicationClass.petData = response.body()!!
-                        HomeFragment.exp = response.body()!!.pet.exp
-                    }
-                }
-                override fun onFailure(call: Call<PetData>, t: Throwable) {
-                    Log.d(TAG, "onFailure:123 ${t.message}")
-                }
 
-            })
+        var job: Job? = null
 
+        job = CoroutineScope(Dispatchers.IO).launch {
+            val response = ApplicationClass.retrofit.create(PetService::class.java).getPetInfo(ApplicationClass.currentUser.userProfile.nickname)
+            withContext(Dispatchers.Main){
+                if(response.isSuccessful){
+                    ApplicationClass.petData = response.body()!!
+                }
+            }
+        }
 
     }
 
@@ -145,7 +144,11 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
      * viewPager adapter 연결
      */
     private fun setViewPager(){
-        binding.viewpagerMainPager.adapter = ViewPagerAdapter(this)
+
+        val fragments = mutableListOf(HomeFragment(),TodoFragment(),QuestFragment(),MyPageFragment())
+        viewPagerAdapter = ViewPagerAdapter(supportFragmentManager,fragments,lifecycle)
+
+        binding.viewpagerMainPager.adapter = viewPagerAdapter
         binding.viewpagerMainPager.registerOnPageChangeCallback(object :ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)

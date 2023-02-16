@@ -1,34 +1,28 @@
 package com.team.teamrestructuring.view.fragments
 
-import android.app.AlertDialog
-import android.app.Application
-import android.content.Context
-import android.content.Intent
-import android.graphics.Color
-import android.graphics.Point
-import android.graphics.drawable.ColorDrawable
+import android.content.Intent.getIntent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.appcompat.widget.AppCompatButton
-import androidx.core.content.ContextCompat.getSystemService
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.team.teamrestructuring.R
 import com.team.teamrestructuring.databinding.FragmentHomeBinding
-import com.team.teamrestructuring.dto.PetData
 import com.team.teamrestructuring.dto.User
 import com.team.teamrestructuring.service.LoginService
 import com.team.teamrestructuring.service.PetService
 import com.team.teamrestructuring.util.*
-import com.team.teamrestructuring.view.activities.GuildActivity
 import com.team.teamrestructuring.view.activities.HomeActivity
 import com.team.teamrestructuring.view.viewmodels.HomeViewModel
+import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -100,10 +94,12 @@ class HomeFragment : Fragment(),CreateFriendDialog.CreateFriendDialogInterface,C
 
     private fun setViewModel(){
         mainViewModel.userData.observe(viewLifecycleOwner, Observer {
-            setPetStat()
+            Log.d(TAG, "Observe UserData: ${it}")
+            //setPetStat()
         })
         mainViewModel.petData.observe(viewLifecycleOwner, {
-            Log.d(TAG, "setViewModel: ${it}")
+            Log.d(TAG, "Observe PetData: ${it}")
+            setPetStat()
         })
     }
 
@@ -126,8 +122,6 @@ class HomeFragment : Fragment(),CreateFriendDialog.CreateFriendDialogInterface,C
                         val data = response.body()!!
                         ApplicationClass.currentUser = data
                         mainViewModel.updateUser(data)
-                        Log.d(TAG, "onResponse: ${ApplicationClass.currentUser}")
-                        Log.d(TAG, "viewModel res: ${ApplicationClass.currentUser}")
                     }
                 }
 
@@ -141,52 +135,53 @@ class HomeFragment : Fragment(),CreateFriendDialog.CreateFriendDialogInterface,C
         super.onResume()
         Log.d(TAG, "onResume: ")
         getPetInfo()
-        setPetStat()
+        //setPetStat()
     }
 
 
     private fun getPetInfo(){
-        val service = ApplicationClass.retrofit.create(PetService::class.java)
-            .getPetInfo(ApplicationClass.currentUser.userProfile.nickname).enqueue(object:Callback<PetData>{
-                override fun onResponse(call: Call<PetData>, response: Response<PetData>) {
-                    if(response.isSuccessful){
-                        Log.d(TAG, "onResponse: ${response.body()!!}")
-                        ApplicationClass.petData = response.body()!!
-                    }
-                }
-                override fun onFailure(call: Call<PetData>, t: Throwable) {
-                    Log.d(TAG, "onFailure: ${t.message}")
-                }
 
-            })
+        var job: Job? = null
+
+        job = CoroutineScope(Dispatchers.IO).launch {
+            val response = ApplicationClass.retrofit.create(PetService::class.java).getPetInfo(ApplicationClass.currentUser.userProfile.nickname)
+            withContext(Dispatchers.Main){
+                if(response.isSuccessful){
+                    mainViewModel.updatePet(response.body()!!)
+                    Log.d(TAG, "getPetInfo: ${response.body()!!}")
+                }
+            }
+        }
 
 
     }
     
      fun setPetStat(){
-        binding.textviewHomeName.text = ApplicationClass.petData?.pet?.pet_name
-        binding.buttonHomeLevel.text = ApplicationClass.petData?.pet?.level.toString()
-        binding.progressbarMainStat.progress = exp
-        when(ApplicationClass.petData?.pet?.level){
+
+         Log.d(TAG, "setPetStat: ${mainViewModel.petData.value}")
+         binding.textviewHomeName.text = mainViewModel.petData.value?.pet?.pet_name
+         binding.buttonHomeLevel.text = mainViewModel.petData.value?.pet?.level!!.toString()
+         binding.progressbarMainStat.progress = mainViewModel.petData.value?.pet?.exp!!
+        when(mainViewModel.petData.value?.pet?.level!!){
             1->{
                 binding.progressbarMainStat.max = 14
                 Glide.with(this).load(R.raw.pet_lv1).into(binding.imageviewMainPet)
-                binding.textviewMainStat.text = "${ApplicationClass.petData?.pet?.exp}/14"
+                binding.textviewMainStat.text = "${mainViewModel.petData.value?.pet?.exp!!}/14"
             }
             2->{
                 binding.progressbarMainStat.max = 30
                 Glide.with(this).load(R.raw.pet_lv2).into(binding.imageviewMainPet)
-                binding.textviewMainStat.text = "${ApplicationClass.petData?.pet?.exp}/30"
+                binding.textviewMainStat.text = "${mainViewModel.petData.value?.pet?.exp!!}/30"
             }
             3->{
                 binding.progressbarMainStat.max = 60
                 Glide.with(this).load(R.raw.pet_lv3).into(binding.imageviewMainPet)
-                binding.textviewMainStat.text = "${ApplicationClass.petData?.pet?.exp}/60"
+                binding.textviewMainStat.text = "${mainViewModel.petData.value?.pet?.exp!!}/60"
             }
             4->{
                 binding.progressbarMainStat.max = 66
                 Glide.with(this).load(R.raw.pet_lv42).into(binding.imageviewMainPet)
-                binding.textviewMainStat.text = "${ApplicationClass.petData?.pet?.exp}/66"
+                binding.textviewMainStat.text = "${mainViewModel.petData.value?.pet?.exp!!}/66"
             }
             5->{
                 binding.progressbarMainStat.max = 0
@@ -237,7 +232,9 @@ class HomeFragment : Fragment(),CreateFriendDialog.CreateFriendDialogInterface,C
 
     override fun onYesButtonClick() {
 
+
     }
+
 
 
 }

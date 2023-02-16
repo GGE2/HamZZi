@@ -1,6 +1,7 @@
 package com.team.teamrestructuring.view.adapters
 
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,16 +12,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.team.teamrestructuring.R
 import com.team.teamrestructuring.dto.Todo
 
+private const val TAG = "TodoAdapter_지훈"
 class TodoAdapter (var items: MutableList<Todo>) :  RecyclerView.Adapter<TodoAdapter.ViewHolder>(){
     private lateinit var todoItemClickListener : TodoItemClickListener
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         fun bindItems(item : Todo){
+
             val todo_text = itemView.findViewById<TextView>(R.id.textview_item_todo_title)
             todo_text.text = item.content
             val todo_check = itemView.findViewById<CheckBox>(R.id.radio_item_todo_check)
             val todo_menu = itemView.findViewById<Button>(R.id.button_item_todo_modify_delete)
             // todo check 가 됐을 때
-            if (item.is_check){
+            if (item.ischeck){
                 todo_text.setTextColor(Color.parseColor("#c0c0c0"))
                 todo_check.isChecked = true
                 todo_check.isClickable = false

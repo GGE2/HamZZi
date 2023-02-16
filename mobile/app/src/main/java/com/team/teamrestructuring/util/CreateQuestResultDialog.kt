@@ -215,7 +215,7 @@ class CreateQuestResultDialog(
    }
 
     private fun getPetInfo(){
-        val service = ApplicationClass.retrofit.create(PetService::class.java)
+        /*val service = ApplicationClass.retrofit.create(PetService::class.java)
             .getPetInfo(ApplicationClass.currentUser.userProfile.nickname).enqueue(object:Callback<PetData>{
                 override fun onResponse(call: Call<PetData>, response: Response<PetData>) {
                     if(response.isSuccessful){
@@ -229,7 +229,7 @@ class CreateQuestResultDialog(
                 }
 
             })
-
+*/
 
     }
 

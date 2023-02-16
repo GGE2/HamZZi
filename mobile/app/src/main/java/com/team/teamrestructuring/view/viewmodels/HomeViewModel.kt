@@ -18,8 +18,15 @@ class HomeViewModel : ViewModel() {
     val userData : LiveData<User>
         get() = _userData
 
+    private val _exp : MutableLiveData<Int> = MutableLiveData()
+    val exp : LiveData<Int>
+        get() = _exp
+
     fun updatePet(data:PetData){
         _petData.postValue(data)
+    }
+    fun updateExp(data:Int){
+        _exp.postValue(data)
     }
     fun updateUser(data:User){
         _userData.postValue(data)

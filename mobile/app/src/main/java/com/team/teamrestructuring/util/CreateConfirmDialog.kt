@@ -12,6 +12,9 @@ import com.team.teamrestructuring.dto.DailyQuest
 import com.team.teamrestructuring.dto.Place
 import com.team.teamrestructuring.service.HomeService
 import com.team.teamrestructuring.service.PlaceService
+import com.team.teamrestructuring.view.activities.HomeActivity
+import com.team.teamrestructuring.view.fragments.HomeFragment
+import com.team.teamrestructuring.view.fragments.MyPageFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -46,6 +49,7 @@ class CreateConfirmDialog(
         binding.buttonConfirmDialogOk.setOnClickListener {
             createConfirmDialogInterface?.onYesButtonClick()
             sendToServerLatData()
+            HomeActivity.viewPagerAdapter.refreshFragment(3, MyPageFragment())
             dismiss()
         }
         binding.buttonConfirmDialogCancle.setOnClickListener {

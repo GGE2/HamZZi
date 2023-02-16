@@ -200,6 +200,7 @@ class LoginActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<User>, response: Response<User>) {
                     if(response.isSuccessful){
                         ApplicationClass.currentUser = response.body()!!
+                        Log.d(TAG, "login user : ${ApplicationClass.currentUser}")
                     }
                 }
 

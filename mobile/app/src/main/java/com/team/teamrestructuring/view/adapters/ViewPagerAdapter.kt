@@ -1,23 +1,32 @@
 package com.team.teamrestructuring.view.adapters
 
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.team.teamrestructuring.view.fragments.QuestFragment
-import com.team.teamrestructuring.view.fragments.HomeFragment
-import com.team.teamrestructuring.view.fragments.MyPageFragment
-import com.team.teamrestructuring.view.fragments.TodoFragment
 
-class ViewPagerAdapter(fragment:FragmentActivity) : FragmentStateAdapter(fragment){
-    override fun getItemCount(): Int = 4
+class ViewPagerAdapter(
+    fragmentManager: FragmentManager, var fragments:MutableList<Fragment>, lifecycle: Lifecycle
+) :
+    FragmentStateAdapter(fragmentManager,lifecycle) {
+    override fun getItemCount(): Int {
+        return 4
+    }
 
     override fun createFragment(position: Int): Fragment {
-        return when(position){
-            0 -> HomeFragment()
-            1 -> TodoFragment()
-            2 -> QuestFragment()
-            else -> MyPageFragment()
-        }
+        return fragments[position]
     }
+
+    fun refreshFragment(index:Int,fragment: Fragment){
+        fragments[index] = fragment
+        notifyItemChanged(index)
+    }
+
+    override fun getItemId(position: Int): Long {
+        return fragments[position].hashCode().toLong()
+    }
+
+
+
 
 }

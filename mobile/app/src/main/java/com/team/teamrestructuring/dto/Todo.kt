@@ -8,24 +8,26 @@ import com.team.teamrestructuring.util.ApplicationClass
 data class Todo(
     @Expose @SerializedName("content") var content:String,
     @Expose @SerializedName("datetime")var dateTime:String,
-    @Expose @SerializedName("user_nickname") var nickname : String
+    @Expose @SerializedName("nickname") var user_nickname : String
 ){
     @Expose
     @SerializedName("todo_id")
     var todo_id:Long = -1
 
     @Expose
-    @SerializedName("is_check")
-    var is_check:Boolean = false
+    @SerializedName("ischeck")
+    var ischeck:Boolean = false
 
-    constructor(todo_id:Long , content:String, dateTime:String,is_check:Boolean,nickname: String):this(content, dateTime, nickname){
+    constructor(todo_id:Long , content:String, dateTime:String,ischeck:Boolean,user_nickname: String):this(content, dateTime, user_nickname){
             this.todo_id = todo_id
-            this.is_check = is_check
+            this.ischeck = ischeck
+    }
+
+    override fun toString(): String {
+        return "Todo(content='$content', dateTime='$dateTime', user_nickname='$user_nickname', todo_id=$todo_id, ischeck=$ischeck)"
     }
 
 
-    // 그 외 요청시
-    constructor(todo_id:Long, content:String, dateTime:String,is_check:Boolean):this(todo_id, content, dateTime, is_check, ""){}
 }
 
 

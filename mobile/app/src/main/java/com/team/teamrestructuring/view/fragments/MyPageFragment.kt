@@ -51,6 +51,7 @@ class MyPageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         init()
 
+
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,6 +59,7 @@ class MyPageFragment : Fragment() {
     ): View? {
 
         binding = FragmentMyPageBinding.inflate(layoutInflater,container,false)
+
         return binding.root
     }
 
@@ -69,7 +71,7 @@ class MyPageFragment : Fragment() {
     }
 
     private fun setLevelIcon(){
-        when(ApplicationClass.petData?.pet?.level!!){
+        when(mainViewModel.petData?.value?.pet?.level!!){
             1-> binding.imageviewMyPageIconLevel.setImageResource(R.drawable.lv_logo_1)
             2->binding.imageviewMyPageIconLevel.setImageResource(R.drawable.lv_logo_2)
             3->binding.imageviewMyPageIconLevel.setImageResource(R.drawable.lv_logo_3)
@@ -77,7 +79,7 @@ class MyPageFragment : Fragment() {
         }
     }
     private fun getgraduate() {
-        val nickName = ApplicationClass.currentUser.userProfile.nickname.toString()
+        val nickName = mainViewModel.userData.value!!.userProfile.nickname
         val service = ApplicationClass.retrofit.create(MyPageService::class.java)
         service.getTrophy(nickName).enqueue(object : Callback<MutableList<String>> {
             override fun onResponse(
@@ -116,15 +118,15 @@ class MyPageFragment : Fragment() {
 
 
     private fun setUserData(){
-        binding.textviewMyPageContentLevel.text = ApplicationClass.currentUser.userProfile.nickname
-        binding.textviewMyPageContentCoin.text = ApplicationClass.currentUser.userProfile.point.toString()
-        if(ApplicationClass.currentUser.userProfile.location!=null)
-            binding.textviewMyPageContentPlace.text = ApplicationClass.currentUser.userProfile.location
+        binding.textviewMyPageContentLevel.text = mainViewModel.userData.value!!.userProfile.nickname
+        binding.textviewMyPageContentCoin.text = mainViewModel.userData.value!!.userProfile.point.toString()
+        if(mainViewModel.userData.value!!.userProfile!=null)
+            binding.textviewMyPageContentPlace.text = mainViewModel.userData.value!!.userProfile.location
     }
 
     override fun onResume() {
         super.onResume()
-        if(ApplicationClass.currentUser.userProfile.location!=null) {
+        if(mainViewModel.userData.value!!.userProfile.location!=null) {
             var location = binding.textviewMyPageContentPlace.text
             if(location.length>12){
                location = location.substring(0,12)+"..."

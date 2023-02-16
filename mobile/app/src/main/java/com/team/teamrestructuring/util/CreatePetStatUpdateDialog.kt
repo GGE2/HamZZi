@@ -17,6 +17,7 @@ import com.team.teamrestructuring.dto.PetData
 import com.team.teamrestructuring.dto.UpdatePetStat
 import com.team.teamrestructuring.service.HomeService
 import com.team.teamrestructuring.service.PetService
+import com.team.teamrestructuring.view.activities.HomeActivity
 import com.team.teamrestructuring.view.fragments.HomeFragment
 import retrofit2.Call
 import retrofit2.Callback
@@ -121,6 +122,7 @@ class CreatePetStatUpdateDialog(
             createStatUpdateInterface!!.onYesButtonClick()
             ApplicationClass.currentUser.userProfile.point = count
             updateExp()
+            HomeActivity.viewPagerAdapter.refreshFragment(0,HomeFragment())
             dismiss()
         }
         /*binding.buttonPetCreate.setOnClickListener {
