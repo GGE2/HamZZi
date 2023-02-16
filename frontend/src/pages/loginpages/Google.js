@@ -5,7 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../../authSlice";
-import api from './../../components/api';
+import api from "./../../components/api";
 
 function Google() {
   const [userData, setUserData] = useState(null);
@@ -25,11 +25,10 @@ function Google() {
         "accessToken",
         JSON.stringify(data.user.accessToken)
       );
+      localStorage.setItem("uid", JSON.stringify(data.user.uid));
 
       // uid 보내기
-      const dummy = await api.get(
-        `/api/user/uid/${email}`
-      );
+      const dummy = await api.get(`/api/user/uid/${email}`);
       console.log(dummy.data);
       // dummy가 true -> 기존 사용자 -> 메인페이지 이동
       // false -> 신규 사용자 -> 닉네임 설정 페이지 이동
