@@ -67,6 +67,10 @@ class MyPageFragment : Fragment() {
         setUserData()
         setLevelIcon()
         getgraduate()
+
+        mainViewModel.userData.observe(viewLifecycleOwner,{
+            setUserData()
+        })
     }
 
     private fun setLevelIcon(){

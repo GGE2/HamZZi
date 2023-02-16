@@ -43,6 +43,7 @@ class CreateUserNickNameDialog(
         binding.buttonPetNickname.setOnClickListener {
             createuserNickNameDialogInterface?.onClick()
             ApplicationClass.currentUser.userProfile.nickname = binding.edittextDialogNickname.text.toString()
+            Log.d(TAG, "Nick Activity 입력된 닉네임 : ${ApplicationClass.currentUser.userProfile.nickname}")
             sendToServerNickname(binding.edittextDialogNickname.text.toString(),ApplicationClass.currentUser.email)
             sendToServerQuestData(binding.edittextDialogNickname.text.toString())
             sendToServerCount(binding.edittextDialogNickname.text.toString())
@@ -83,7 +84,7 @@ class CreateUserNickNameDialog(
             .createQuestUser(nickname).enqueue(object : Callback<String>{
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     if(response.isSuccessful){
-                        Log.d(TAG, "onResponse: ${response.body()}")
+                        Log.d(TAG, "2.서버에 퀘스트 데이터 전송 완료 ${response.body()}")
                     }
                 }
                 override fun onFailure(call: Call<String>, t: Throwable) {
@@ -98,7 +99,7 @@ class CreateUserNickNameDialog(
             .createCount(nickname).enqueue(object : Callback<String>{
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     if(response.isSuccessful){
-                        Log.d(TAG, "Count Response: ${response.body()!!}")
+                        Log.d(TAG, "3. 서버에 count 생성 완료 ${response.body()!!}")
                     }
                 }
                 override fun onFailure(call: Call<String>, t: Throwable) {
@@ -115,7 +116,7 @@ class CreateUserNickNameDialog(
             .createNickName(nickname,email).enqueue(object : Callback<String> {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     if(response.isSuccessful){
-                        Log.d(TAG, "유저 닉네임 서버 전송 완료")
+                        Log.d(TAG, "1. 서버에 유저 닉네임 전송 완료")
                         dismiss()
                     }
                 }

@@ -235,6 +235,9 @@ class HomeFragment : Fragment(),CreateFriendDialog.CreateFriendDialogInterface,C
 
     }
 
+    override fun onYesButtonClick(emptyStat: Int) {
+        mainViewModel.userData.value!!.userProfile.point = emptyStat
+    }
 
 
 }
