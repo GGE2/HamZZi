@@ -1,9 +1,12 @@
 import React, { useRef, useEffect, useState } from "react";
 import api from "../../components/api";
+import { shopPoint } from "./../../pointSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const ShopModal = ({
   setIsModal,
   setIsModal3,
+  setIsModal4,
   onBuyItem,
   id,
   cost,
@@ -15,11 +18,13 @@ const ShopModal = ({
   // console.log("포인트", point);
   // console.log("값", cost);
 
+  // const point = useSelector(selectCurrentPoint);
+  const dispatch = useDispatch();
+
   const onCloseModal = () => {
     setIsModal(false);
   };
   const nickname = localStorage.getItem("nickname");
-  // console.log(id);
 
   const onBuyItem2 = async (id) => {
     await api
@@ -33,6 +38,7 @@ const ShopModal = ({
         // setIsModal(false) // 구매하면 모달닫기
         onGetItemAllList(); // 상점 전체 아이템
         onGetItemUserNickList(); // 내가 산 아이템 보기
+        dispatch(shopPoint(cost))
         // // getAllProfile();
         // getShopUpdate()
       })
@@ -42,9 +48,15 @@ const ShopModal = ({
   };
 
   const buybuy = () => {
+    if(point < cost) {
+      setIsModal4(true)
+      setIsModal(false);
+    }
+    else {
     onBuyItem2(id);
     setIsModal3(true);
     setIsModal(false);
+  }
   };
 
   return (
