@@ -169,6 +169,22 @@ position: relative;
   margin-bottom: 5px;
   cursor: pointer;
   /* background-color: #f9fbe7; */
+  /* background-color: #FFE7CC; */
+  background-color: #FFDDD2;
+}
+
+.buttonflex .button5 {
+
+  height: 3em;
+  width: 6em;
+  text-align: center;
+  border: none;
+
+ 
+  margin-bottom: 5px;
+  cursor: pointer;
+  /* background-color: #f9fbe7; */
+  /* background-color: #FFDDD2; */
   background-color: #FFE7CC;
 }
 
@@ -190,6 +206,9 @@ position: relative;
   text-decoration: underline;
 }
 
+.buttonflex .button5:hover {
+  text-decoration: underline;
+}
 
 
 
@@ -256,8 +275,18 @@ border: none;
 .BoardButto--active3 {
   color: #803a21;
   font-weight: bolder;
-  /* background-color: red; */
+  height: 3em;
+  width: 6em;
+  text-align: center;
+  border: none;
+
+ 
+  margin-bottom: 5px;
+  cursor: pointer;
+  /* background-color: yellow; */
   /* text-decoration:underline */
+  
+  background-color: #FFE7CC;
   
 }
 
@@ -275,5 +304,5 @@ border: none;
   /* background-color: white; */
   /* text-decoration:underline */
   
-  background-color: #FFE7CC;
+  background-color: #FFDDD2;
 }

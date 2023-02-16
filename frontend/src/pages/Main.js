@@ -14,6 +14,7 @@ import api from "./../components/api";
 import LoadingModal from "./../components/LoadingModal";
 import LoadingModal2 from "./../components/LoadingModal2";
 import { receivePoint } from "../pointSlice";
+import History from './mainpages/boardpages/History';
 
 const Main = () => {
   const [petName, setPetName] = useState("");
@@ -247,7 +248,7 @@ const Main = () => {
     setMenu([false, true, false, false, false]);
   };
 
-  const onClickFriend = () => {
+  const onClickQuest = () => {
     setShow({
       todoShow: false,
       guildShow: false,
@@ -258,7 +259,7 @@ const Main = () => {
     setMenu([false, false, true, false, false]);
   };
 
-  const onClickProfile = () => {
+  const onClickHistory = () => {
     setShow({
       todoShow: false,
       guildShow: false,
@@ -324,6 +325,7 @@ const Main = () => {
                         Wear={Wear}
                       />
                     )}
+                    {show.profileShow && <History />}
                   </>
                 ) : (
                   <LoadingModal2 />
@@ -344,22 +346,22 @@ const Main = () => {
                 </button>
                 <button
                   className={menu[2] ? "BoardButto--active2" : "button3"}
-                  onClick={onClickFriend}
+                  onClick={onClickQuest}
                 >
                   Quest
                 </button>
-                {/* <button
-                  className={menu[3] ? "BoardButto--active3" : ""}
-                  onClick={onClickProfile}
-                >
-                  Room
-                </button> */}
                 <button
                   className={menu[4] ? "BoardButto--active4" : "button4"}
                   onClick={onClickDressRoom}
-                >
+                  >
                   Shop
                 </button>
+                  <button
+                    className={menu[3] ? "BoardButto--active3" : "button5"}
+                    onClick={onClickHistory}
+                  >
+                    History
+                  </button>
               </div>
             </div>
           </div>
