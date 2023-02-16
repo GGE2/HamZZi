@@ -20,6 +20,8 @@ const Main = () => {
   const [name, setName] = useState("");
   const email = JSON.parse(localStorage.getItem("user"));
   const uid = JSON.parse(localStorage.getItem("uid"));
+  // const [point, setPoint] = useState(0)
+  // const [restpoint, setRestPoint] = useState(0)
 
   // 아이템 착용하는거
   const [Wear, setWear] = useState({
@@ -58,13 +60,6 @@ const Main = () => {
       .get(`/api/pet/${nickname}`)
       .then((res) => {
         console.log(res.data);
-        // dispatch(getPetType(res.data.petInfo.type));
-        // setWear({
-        //   type: res.data.petInfo.type,
-        //   // dress: res.data.userProfile.dress,
-        //   hat: hat,
-        //   dress: dress,
-        // });
         const physical = res.data.petStat.physical;
         const artistic = res.data.petStat.artistic;
         const intelligent = res.data.petStat.intelligent;
@@ -106,7 +101,6 @@ const Main = () => {
         console.log(res.data);
         localStorage.setItem("nickname", res.data.nickname);
         setUser({
-          // guild: res.data.guild,
           point: res.data.point,
           nickname: res.data.nickname,
           rest_point: res.data.rest_point,
@@ -115,7 +109,6 @@ const Main = () => {
         SetNickName(res.data.nickname);
         getPetInfo(res.data.nickname);
         onGetUserGuildInfo(res.data.nickname);
-        // setLoading2(false);
       })
       .catch((err) => {
         console.log(err);
@@ -309,7 +302,7 @@ const Main = () => {
                 </div>
                 {loading === false ? (
                   <>
-                    {show.todoShow && <Todos user={user} />}
+                    {show.todoShow && <Todos user={user} setUser={setUser}/>}
 
                     {show.guildShow && (
                       <Guild

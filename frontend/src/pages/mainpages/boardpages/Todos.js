@@ -17,11 +17,14 @@ import { receivePoint } from "../../../pointSlice";
 import { motion } from "framer-motion";
 import $ from "jquery";
 import LoadingModal from "./../../../components/LoadingModal";
+import { useSelector } from "react-redux";
+import { selectCurrentPoint } from "./../../../pointSlice";
 
-const Todos = () => {
+const Todos = ({user, setUser}) => {
   // const nickname =
+  const point = useSelector(selectCurrentPoint);
   const [nickname, setNickname] = useState(localStorage.getItem("nickname"));
-  const user = JSON.parse(localStorage.getItem("user"));
+  const userr = JSON.parse(localStorage.getItem("user"));
   const [todo_menu, setTodoMenu] = useState([true, false]);
   const [searchword, setSearchWord] = useState(null);
   const dispatch = useDispatch();
@@ -163,8 +166,13 @@ const Todos = () => {
   const onToggle = (id) => {
     api.put(`/api/todo/check/${nickname}/${id}`).then(() => {
       // 포인트 받아온 뒤 redux에 반영
-      api.get(`/api/user/mypage?email=${user}`).then((res) => {
+      api.get(`/api/user/mypage?email=${userr}`).then((res) => {
         console.log(res.data.point);
+        setUser({
+          ...user,
+          rest_point: user.point - 1,
+        }
+        )
         dispatch(receivePoint(res.data.point));
       });
     });
@@ -302,8 +310,13 @@ const Todos = () => {
                     <div className="ToHomeBtn" onClick={handleToday}>
                       오늘 할 일
                     </div>
+                    
                   </div>
+
                 )}
+                <div className="todaypoint">
+                    획득 가능한 포인트 : {-user.rest_point+3}/3
+                    </div>
               </div>
 
               {isOpen && (

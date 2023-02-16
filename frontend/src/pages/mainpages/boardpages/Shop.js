@@ -61,62 +61,28 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
 
   const onCheckHat = () => {
     dispatch(getCheckHat());
-    // console.log(shopshoww);
-    // setShow({
-    //   hatShow: true,
-    //   clothShow: false,
-    //   decoShow: false,
-    //   myShow: false,
-    // });
-    // setMenu([true, false, false, false]);
   };
 
   const onCheckCloth = () => {
     dispatch(getCheckCloth());
-    // console.log(shopshoww);
-    // setShow({
-    //   hatShow: false,
-    //   clothShow: true,
-    //   decoShow: false,
-    //   myShow: false,
-    // });
-    // setMenu([false, true, false, false]);
   };
 
   const onCheckDeco = () => {
     dispatch(getCheckDeco());
-    // console.log(shopshoww);
-    // setShow({
-    //   hatShow: false,
-    //   clothShow: false,
-    //   decoShow: true,
-    //   myShow: false,
-    // });
-    // setMenu([false, false, true, false]);
   };
 
   const onCheckMy = () => {
     dispatch(getCheckMy());
-    // console.log(shopshoww);
-    // setShow({
-    //   hatShow: false,
-    //   clothShow: false,
-    //   decoShow: false,
-    //   myShow: true,
-    // });
-    // setMenu([false, false, false, true]);
   };
 
   // 아이템 전체 리스트 조회
   const onGetItemAllList = async () => {
-    // setLoading(true);
     await api
       .get(`/api/item/itemAllList`)
       .then((res) => {
         console.log(`전체 아이템`);
         console.log(res);
         setItem(res.data);
-        // setLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -143,9 +109,7 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
       .put(`/api/item?nickname=${nickname}&item_id=${id}`)
       .then((res) => {
         console.log(res);
-        // getAllProfile()
         getShopUpdate();
-        // onCheckMy();
       })
       .catch((err) => {
         console.log(err);
@@ -161,11 +125,8 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
       .then((res) => {
         console.log(`아이템을 구매`);
         console.log(res);
-        // setMyItem(res.data);
-        // setIsModal(false) // 구매하면 모달닫기
         onGetItemAllList(); // 상점 전체 아이템
         onGetItemUserNickList(); // 내가 산 아이템 보기
-        // getAllProfile();
         getShopUpdate()
       })
       .catch((err) => {
@@ -181,9 +142,7 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
 
   useEffect(() => {
     onGetItemAllList(); // 상점 전체 아이템
-    // onGetItemUserAllList();
     onGetItemUserNickList(); // 내가 산 아이템 보기
-    // onAddItem()
   }, []);
 
   useEffect(() => {
