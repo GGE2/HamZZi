@@ -4,12 +4,19 @@ import useDetectClose from "../useDetectClose";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { useNavigate } from "react-router";
 import { motion } from "framer-motion";
+import { useCookies } from 'react-cookie';
 
 const DropdownMenu = ({onDeleteUser}) => {
   const navigate = useNavigate();
-  const [myPageIsOpen, myPageRef, myPageHandler] = useDetectClose(false);
+  const [myPageIsOpen, myPageRef, myPageHandler] = useDetectClose(false); 
+
+  const COOKIE_KEY = window.LOGIN_KEY; // 상수화시킨 쿠키 값을 넣어줬다.
+  
+const [, , removeCookie] = useCookies([COOKIE_KEY]); // 쓰지 않는 변수는 (공백),처리해주고 removeCookie 옵션만 사용한다
+
   const LogoutAuth = () => {
     localStorage.clear();
+    removeCookie(COOKIE_KEY, { path: '/' });
     navigate("/");
   };
 

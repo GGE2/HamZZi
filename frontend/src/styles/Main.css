@@ -117,29 +117,79 @@ margin-top: 2em;
 position: relative;
 }
 
-.buttonflex button {
+.buttonflex .button1 {
 
   height: 3em;
   width: 6em;
   text-align: center;
   border: none;
-  /* border-top: solid 3px #803a21;
-  border-right: solid 3px #803a21;
-  border-bottom: solid 3px #803a21; */
-  /* border-top-right-radius: 10px; */
-/* border-bottom-right-radius: 10px; */
+
+  margin-bottom: 5px;
+  cursor: pointer;
+  /* background-color: #f9fbe7; */
+  background-color: #D3756B;
+}
+
+.buttonflex .button2 {
+
+  height: 3em;
+  width: 6em;
+  text-align: center;
+  border: none;
+
  
   margin-bottom: 5px;
   cursor: pointer;
   /* background-color: #f9fbe7; */
-  background-color: #fbb100;
+  background-color: #F0997D;
 }
 
-.buttonflex button:hover {
-  /* color: yellow; */
-  text-decoration: underline;
-  /* background-color: #f9fbe7; */
+.buttonflex .button3 {
+
+  height: 3em;
+  width: 6em;
+  text-align: center;
+  border: none;
+
+ 
+  margin-bottom: 5px;
+  cursor: pointer;
+  background-color: #FFC3A1;
+  
 }
+
+.buttonflex .button4 {
+
+  height: 3em;
+  width: 6em;
+  text-align: center;
+  border: none;
+
+ 
+  margin-bottom: 5px;
+  cursor: pointer;
+  /* background-color: #f9fbe7; */
+  background-color: #FFE7CC;
+}
+
+.buttonflex .button1:hover {
+  text-decoration: underline;
+}
+
+.buttonflex .button2:hover {
+  text-decoration: underline;
+}
+
+
+.buttonflex .button3:hover {
+  text-decoration: underline;
+}
+
+
+.buttonflex .button4:hover {
+  text-decoration: underline;
+}
+
 
 
 
@@ -155,6 +205,15 @@ border: none;
 .BoardButto--active0 {
   color: #803a21;
   font-weight: bold;
+  
+  height: 3em;
+  width: 6em;
+  text-align: center;
+  border: none;
+  background-color: #D3756B;
+ 
+  margin-bottom: 5px;
+  cursor: pointer;
   /* background-color: yellow; */
   /* text-decoration:underline */
 }
@@ -162,15 +221,36 @@ border: none;
 .BoardButto--active1 {
   color: #803a21;
   font-weight: bolder;
+  height: 3em;
+  width: 6em;
+  text-align: center;
+  border: none;
+
+ 
+  margin-bottom: 5px;
+  cursor: pointer;
   /* background-color: yellow; */
   /* text-decoration:underline */
+  
+  background-color: #F0997D;
 }
 
 .BoardButto--active2 {
   color: #803a21;
   font-weight: bolder;
+  height: 3em;
+  width: 6em;
+  text-align: center;
+  border: none;
+
+ 
+  margin-bottom: 5px;
+  cursor: pointer;
   /* background-color: yellow; */
   /* text-decoration:underline */
+  
+  background-color: #FFC3A1;
+  
 }
 
 .BoardButto--active3 {
@@ -178,11 +258,22 @@ border: none;
   font-weight: bolder;
   /* background-color: red; */
   /* text-decoration:underline */
+  
 }
 
 .BoardButto--active4 {
   color: #803a21;
   font-weight: bolder;
+  height: 3em;
+  width: 6em;
+  text-align: center;
+  border: none;
+
+ 
+  margin-bottom: 5px;
+  cursor: pointer;
   /* background-color: white; */
   /* text-decoration:underline */
+  
+  background-color: #FFE7CC;
 }
