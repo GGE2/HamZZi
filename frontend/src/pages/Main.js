@@ -330,19 +330,19 @@ const Main = () => {
               </div>
               <div className="buttonflex">
                 <button
-                  className={menu[0] ? "BoardButto--active0" : ""}
+                  className={menu[0] ? "BoardButto--active0" : "button1"}
                   onClick={onClickTodo}
                 >
                   Todo
                 </button>
                 <button
-                  className={menu[1] ? "BoardButto--active1" : ""}
+                  className={menu[1] ? "BoardButto--active1" : "button2"}
                   onClick={onClickGuild}
                 >
                   Guild
                 </button>
                 <button
-                  className={menu[2] ? "BoardButto--active2" : ""}
+                  className={menu[2] ? "BoardButto--active2" : "button3"}
                   onClick={onClickFriend}
                 >
                   Quest
@@ -354,7 +354,7 @@ const Main = () => {
                   Room
                 </button> */}
                 <button
-                  className={menu[4] ? "BoardButto--active4" : ""}
+                  className={menu[4] ? "BoardButto--active4" : "button4"}
                   onClick={onClickDressRoom}
                 >
                   Shop
