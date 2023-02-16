@@ -21,7 +21,6 @@ const Guild = ({
   const [users, setUsers] = useState();
 
   const [guilds, setGuilds] = useState([]);
-  // const [keyword, setKeyword] = useState("");
   const [loading, setLoading] = useState(true);
   const variants = {
     hidden: { opacity: 0 },
@@ -32,8 +31,6 @@ const Guild = ({
   });
   const nickname = localStorage.getItem("nickname");
 
-  // console.log("유저");
-  // console.log(user);
   // 길드 리스트 가져오기
   const getGuildList = async () => {
     await api.get("/api/guild/list").then((res) => {
@@ -75,8 +72,6 @@ const Guild = ({
           console.log("길드 세부정보 -관리자 api");
           console.log(res.data[0]);
           setAdmin(res.data[0]);
-          // setGuilds(res.data);
-          // setLoading(false)
         });
     };
     // 길드 세부정보 -사 용자 api
@@ -87,12 +82,8 @@ const Guild = ({
           console.log("길드 세부정보 -사용자 api");
           console.log(res.data);
           setUsers(res.data);
-          // setGuilds(res.data);
-          // setLoading(false)
         });
     };
-
-
 
   // 길드 탈퇴 api
   const onLeaveGuild = async () => {
@@ -109,8 +100,6 @@ const Guild = ({
           guild: null,
           nickname: nickname,
         });
-        // setLoading(false)
-        // setGuilds(res.data);
       });
   };
 
@@ -124,7 +113,6 @@ const Guild = ({
       .then((res) => {
         console.log("관리자 임명 api");
         console.log(res);
-        // setGuilds(res.data);
         onGetUserGuildInfo(admin);
         getGuildList();
         setGuildUsers({
@@ -134,9 +122,9 @@ const Guild = ({
         });
         onGetGuildAdmin(id);
         onGetGuilduser(id);
-        // setLoading(false)
       });
   };
+
   // 길드 삭제 api
   const onDeleteGuild = async () => {
     await api

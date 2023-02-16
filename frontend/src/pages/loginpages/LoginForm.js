@@ -11,7 +11,7 @@ import "../../styles/LoginForm.css";
 // import LoginForm from './LoginForm';
 import api from "./../../components/api";
 
-export default function LoginForm() {
+export default function LoginForm({setIsModal , setIsModal2}) {
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
 
@@ -49,10 +49,12 @@ export default function LoginForm() {
     } catch (err) {
       switch (err.code) {
         case "auth/user-not-found":
-          alert("존재하지 않는 회원입니다");
+          setIsModal(true)
+          // alert("존재하지 않는 회원입니다");
           break;
         default:
-          alert("잘못 입력 하셨습니다");
+          setIsModal2(true)
+          // alert("잘못 입력 하셨습니다");
           break;
       }
     }

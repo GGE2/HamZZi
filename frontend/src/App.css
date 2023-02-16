@@ -104,6 +104,20 @@ body {
     
 }
 
+.qrcode {
+    /* width: 15em;
+    height: 15em; */
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    background-size: cover;
+}
+
+.qrcode img {
+    /* width: 15em;
+    height: 15em; */
+}
+
 .Header button {
     /* justify-content: end; */
     height: 3rem;

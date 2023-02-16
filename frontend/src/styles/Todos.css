@@ -326,3 +326,8 @@ ul {
   text-decoration-color: gray;
  }
 
+.todaypoint {
+  padding-right: 3em;
+  font-size: 20px;
+  text-shadow: 1px 1px 1px;
+}

@@ -90,6 +90,7 @@ const Quests = () => {
           <div className="QuestHeaderButton_btn2" onClick={handleWeekly}>
             <img src="weeklyB.png" alt="" />
           </div>
+          <div>*퀘스트는 모바일에서 수행 가능합니다.</div>
          
         </div>
 

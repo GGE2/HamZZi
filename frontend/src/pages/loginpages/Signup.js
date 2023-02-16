@@ -14,7 +14,7 @@ import api from "./../../components/api";
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 import Warning from './../../components/Warning';
 
-export default function Signup({setIsModal}) {
+export default function Signup({setIsModal, setIsModal4}) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // const [isModal, setIsModal] = useState(false);
@@ -92,11 +92,13 @@ export default function Signup({setIsModal}) {
       console.log(err.code);
       switch (err.code) {
         case "auth/weak-password":
-          alert("비밀번호는 8자리 이상이어야 합니다")
+          setIsModal(true)
+          // alert("비밀번호는 8자리 이상이어야 합니다")
           setErrorMsg("비밀번호는 8자리 이상이어야 합니다");
           break;
         case "auth/invalid-email":
-          alert("잘못된 이메일 주소입니다")
+          setIsModal4(true)
+          // alert("잘못된 이메일 주소입니다")
           setErrorMsg("잘못된 이메일 주소입니다");
           break;
         case "auth/email-already-in-use":

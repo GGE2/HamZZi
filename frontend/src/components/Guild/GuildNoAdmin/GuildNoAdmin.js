@@ -16,10 +16,10 @@ const GuildNoAdmin = ({
       <div className="GuildNoAdmin">
         <div className="GuildNoAdminHeader">
           <div className="titless">{(guildName)}</div>
-          <div className="button_text">
+          {/* <div className="button_text">
             
         <img src="guildlist/studyroombtn.png" alt="" />
-          </div>
+          </div> */}
         </div>
 
   

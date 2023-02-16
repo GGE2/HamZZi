@@ -12,6 +12,10 @@ import Warning from "../components/Warning";
 const Login = () => {
   const [loginflag, setloginflag] = useState(true);
   const [isModal, setIsModal] = useState(false);
+  const [isModal2, setIsModal2] = useState(false);
+  const [isModal3, setIsModal3] = useState(false);
+  const [isModal4, setIsModal4] = useState(false);
+  // const [isModal5, setIsModal5] = useState(false);
   const navigate = useNavigate();
 
   const onClickSelectLogin = () => {
@@ -41,6 +45,55 @@ const Login = () => {
           />
         </div>
       )}
+
+      {isModal2 && (
+        <div
+          className="warning"
+          ref={outside}
+          onClick={(e) => {
+            if (e.target === outside.current) setIsModal2(false);
+          }}
+        >
+          <Warning
+            setIsModal={setIsModal2}
+            content={"존재하지 않는 계정입니다"}
+            content2={"다시 한번 확인해주세요"}
+          />
+        </div>
+      )}
+
+      {isModal3 && (
+        <div
+          className="warning"
+          ref={outside}
+          onClick={(e) => {
+            if (e.target === outside.current) setIsModal3(false);
+          }}
+        >
+          <Warning
+            setIsModal={setIsModal3}
+            content={"비밀번호가 틀렸습니다"}
+            content2={"다시 한번 확인해주세요"}
+          />
+        </div>
+      )}
+
+      {isModal4 && (
+        <div
+          className="warning"
+          ref={outside}
+          onClick={(e) => {
+            if (e.target === outside.current) setIsModal4(false);
+          }}
+        >
+          <Warning
+            setIsModal={setIsModal4}
+            content={"비밀번호가 틀렸습니다"}
+            content2={"다시 한번 확인해주세요"}
+          />
+        </div>
+      )}
+
       <div className="loginbody">
         <div className="backimg">
           <img src="title.png" alt="" />
@@ -66,13 +119,11 @@ const Login = () => {
                 회원가입
               </button>
             </div>
-            <LoginForm />
+            <LoginForm setIsModal={setIsModal2} setIsModal2={setIsModal3}/>
             <Google />
-            {/* <Kakao /> */}
             <div className="qrcode">
               <img src="QRCodeImg1.png" alt="" />
             </div>
-            {/* </div> */}
           </div>
         ) : (
           <div className="loginback">
@@ -93,7 +144,7 @@ const Login = () => {
                 회원가입
               </button>
             </div>
-            <Signup setIsModal={setIsModal} />
+            <Signup setIsModal={setIsModal} setIsModal4={setIsModal4}/>
             <Google />
             {/* <Kakao /> */}
           </div>
