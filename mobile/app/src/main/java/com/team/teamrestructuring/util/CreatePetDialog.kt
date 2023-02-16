@@ -41,6 +41,7 @@ class CreatePetDialog(
 
         binding.buttonPetCreate.setOnClickListener {
             val pet = CreatePet(binding.edittextDialogFind.text.toString(),ApplicationClass.currentUser.userProfile.nickname)
+            Log.d(TAG, "CreatePetActivity")
             sendToServerPetNickname(pet)
             createPetDialogInterface?.onYesButtonClick()
         }
@@ -78,7 +79,7 @@ class CreatePetDialog(
             .createPet(pet).enqueue(object:Callback<String>{
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     if(response.isSuccessful){
-                        Log.d(TAG, "onResponse: ${response.body()!!}")
+                        Log.d(TAG, "1. 서버에 펫 닉네임 전송 완료 ${response.body()!!}")
                     }
                 }
 

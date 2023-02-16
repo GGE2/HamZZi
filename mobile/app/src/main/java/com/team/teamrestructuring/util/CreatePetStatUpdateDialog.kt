@@ -119,7 +119,7 @@ class CreatePetStatUpdateDialog(
             dismiss()
         }
         binding.buttonStatOk.setOnClickListener {
-            createStatUpdateInterface!!.onYesButtonClick()
+            createStatUpdateInterface!!.onYesButtonClick(count)
             ApplicationClass.currentUser.userProfile.point = count
             updateExp()
             HomeActivity.viewPagerAdapter.refreshFragment(0,HomeFragment())
@@ -141,7 +141,7 @@ class CreatePetStatUpdateDialog(
                 @SuppressLint("LongLogTag")
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     if(response.isSuccessful){
-                        Log.d(TAG, "onResponse: ${response.body()!!}")
+                        Log.d(TAG, "스텟 증가 완료: ${response.body()!!}")
                     }
                 }
 
@@ -185,7 +185,7 @@ class CreatePetStatUpdateDialog(
 
 
     interface CreateStatUpdateInterface{
-        fun onYesButtonClick()
+        fun onYesButtonClick(emptyStat:Int)
     }
 
     /**

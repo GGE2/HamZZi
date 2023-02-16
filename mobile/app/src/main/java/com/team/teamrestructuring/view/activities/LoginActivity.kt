@@ -174,7 +174,7 @@ class LoginActivity : AppCompatActivity() {
                         val data = response.body()!!
                         ApplicationClass.isNew = data
                         if(data){ //기존 사용자
-                            Log.d(TAG, "기존 사용자 접속")
+                            Log.d(TAG, "기존 사용자 접속: ${ApplicationClass.currentUser}")
                             getUserData(ApplicationClass.currentUser.uid)
                             loginandhome()
                         }
@@ -223,7 +223,8 @@ class LoginActivity : AppCompatActivity() {
             .insertUser(user).enqueue(object:Callback<String>{
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     if(response.isSuccessful){
-                        Log.d(TAG, "Server에 유저 데이터 전송 완료")
+                        Log.d(TAG, "신규 사용자 서버에 데이터 전송 완료 ${response.body()!!}")
+                        Log.d(TAG, "CreateUserNickNameActivity로 이동")
                         loginAndCreatePet()
                     }
                 }

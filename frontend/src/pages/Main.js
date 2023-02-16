@@ -124,6 +124,7 @@ const Main = () => {
         console.log("회원 모든 정보 조회 api");
         console.log(res.data);
         localStorage.setItem("nickname", res.data.userProfile.nickname);
+        console.log("nickname 설정!!!");
         setUser({
           // guild: res.data.guild,
           point: res.data.userProfile.point,
@@ -286,15 +287,15 @@ const Main = () => {
           <div className="Board">
             <div className="Back">
               <div className="Hamster">
-              {loading === false ?
-                <Ham
-                  petName={petName}
-                  Wear={Wear}
-                  getAllProfile={getAllProfile}
-                  onDeleteUser={onDeleteUser}
-                  setWear={setWear}
-                />
-                : null}
+                {loading === false ? (
+                  <Ham
+                    petName={petName}
+                    Wear={Wear}
+                    getAllProfile={getAllProfile}
+                    onDeleteUser={onDeleteUser}
+                    setWear={setWear}
+                  />
+                ) : null}
               </div>
               <div className="Screen">
                 <div className="spring">
@@ -302,7 +303,7 @@ const Main = () => {
                 </div>
                 {loading === false ? (
                   <>
-                    {show.todoShow && <Todos user={user} setUser={setUser}/>}
+                    {show.todoShow && <Todos user={user} setUser={setUser} />}
 
                     {show.guildShow && (
                       <Guild

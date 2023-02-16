@@ -4,7 +4,7 @@ import increaseExp from "./components/increaseExp";
 import api from "./components/api";
 import { selectCurrentPoint } from "./pointSlice";
 
-const nickname = localStorage.getItem("nickname");
+// const nickname = localStorage.getItem("nickname");
 
 const hamStatSlice = createSlice({
   name: "hamStat",
@@ -17,7 +17,6 @@ const hamStatSlice = createSlice({
     etc: 0,
     level: 1,
     type: 0,
-   
   },
   reducers: {
     getPetType: (state, action) => {
@@ -31,7 +30,7 @@ const hamStatSlice = createSlice({
     },
 
     clearStat: (state, action) => {
-      const petId = action.payload;
+      const { petId, nickname } = action.payload;
       state.physical = 0;
       state.artistic = 0;
       state.intelligent = 0;
@@ -64,7 +63,7 @@ const hamStatSlice = createSlice({
     },
 
     increasePhysical: (state, action) => {
-      const petId = action.payload;
+      const { petId, nickname } = action.payload;
       state.physical += 1;
       api
         .put(`/api/pet/stat?nickname=${nickname}`, {
@@ -86,7 +85,7 @@ const hamStatSlice = createSlice({
         });
     },
     increaseArtistic: (state, action) => {
-      const petId = action.payload;
+      const { petId, nickname } = action.payload;
       state.artistic += 1;
       api
         .put(`/api/pet/stat?nickname=${nickname}`, {
@@ -104,7 +103,7 @@ const hamStatSlice = createSlice({
         });
     },
     increaseIntelligent: (state, action) => {
-      const petId = action.payload;
+      const { petId, nickname } = action.payload;
       state.intelligent += 1;
       api
         .put(`/api/pet/stat?nickname=${nickname}`, {
@@ -122,7 +121,7 @@ const hamStatSlice = createSlice({
         });
     },
     increaseInactive: (state, action) => {
-      const petId = action.payload;
+      const { petId, nickname } = action.payload;
       state.inactive += 1;
       api
         .put(`/api/pet/stat?nickname=${nickname}`, {
@@ -140,7 +139,7 @@ const hamStatSlice = createSlice({
         });
     },
     increaseEnergetic: (state, action) => {
-      const petId = action.payload;
+      const { petId, nickname } = action.payload;
       state.energetic += 1;
       api
         .put(`/api/pet/stat?nickname=${nickname}`, {
@@ -158,7 +157,7 @@ const hamStatSlice = createSlice({
         });
     },
     increaseEtc: (state, action) => {
-      const petId = action.payload;
+      const { petId, nickname } = action.payload;
       state.etc += 1;
       api
         .put(`/api/pet/stat?nickname=${nickname}`, {
