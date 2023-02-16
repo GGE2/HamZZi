@@ -74,7 +74,9 @@ class MyPageFragment : Fragment() {
             1-> binding.imageviewMyPageIconLevel.setImageResource(R.drawable.lv_logo_1)
             2->binding.imageviewMyPageIconLevel.setImageResource(R.drawable.lv_logo_2)
             3->binding.imageviewMyPageIconLevel.setImageResource(R.drawable.lv_logo_3)
-            4->binding.imageviewMyPageIconLevel.setImageResource(R.drawable.lvlogo_4)
+            else->{
+                binding.imageviewMyPageIconLevel.setImageResource(R.drawable.lv_logo_4)
+            }
         }
     }
     private fun getgraduate() {

@@ -56,9 +56,9 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-
     private lateinit var binding : FragmentTodoBinding
     private val mainViewModel by activityViewModels<HomeViewModel>()
+
     //현재 시간
     private val calendar = Calendar.getInstance()
     private val todayCalendar = Calendar.getInstance()
