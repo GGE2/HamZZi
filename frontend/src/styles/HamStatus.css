@@ -1,9 +1,9 @@
 .HamStatus {
-    /* border-top: 3px solid black; */
     position: relative;
     bottom: 0;
     width: 100%;
-    height: 40%;
+    height: 45%;
+    padding-top: 1em;
 }
 
 .bar {
@@ -19,4 +19,53 @@
     border: none;
     right: 0;
     bottom: 0;
+    border-radius: 40px;
+}
+
+
+.HamExp {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.PetName {
+    /* padding-top: 0.1rem; */
+    margin-right: 9.6rem;
+    color: #91310e;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.ProgressBar{
+    /* width: 1em; */
+    /* margin-left: 10%; */
+    margin-top: 50px;
+    position: absolute;
+    z-index: 1;
+}
+
+.ExpBar {
+    height: 3em;
+    position: absolute;
+    
+}
+
+.ExpBar img {
+    height: 4em;
+}
+
+.graduatebtn {
+    width: 6em;
+    /* position: relative; */
+    /* top: 50%; */
+    cursor: pointer;
+    /* left: 50%; */
+    /* transform: translate(-50%, -50%); */
+    
+}
+
+.graduatebtn img { 
+    width: 6em;
 }

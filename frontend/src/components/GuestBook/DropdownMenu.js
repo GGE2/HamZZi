@@ -3,11 +3,18 @@ import styled, { css } from "styled-components";
 import useDetectClose from "../useDetectClose";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { useNavigate } from "react-router";
+import { motion } from "framer-motion";
 
-const DropdownMenu = () => {
+const DropdownMenu = ({onDeleteUser}) => {
   const navigate = useNavigate();
   const [myPageIsOpen, myPageRef, myPageHandler] = useDetectClose(false);
   const LogoutAuth = () => {
+    localStorage.clear();
+    navigate("/");
+  };
+
+  const DeleteUser = () => {
+    onDeleteUser()
     localStorage.clear();
     navigate("/");
   };
@@ -15,20 +22,28 @@ const DropdownMenu = () => {
     <>
       <DropdownContainer>
         <DropdownButton onClick={myPageHandler} ref={myPageRef}>
-          <BiDotsHorizontalRounded />
+          <motion.div
+            whileHover={{
+              scale: 1.3,
+              transition: { duration: 0.2 },
+            }}
+            whileTap={{ scale: 0.9 }}
+          >
+            <BiDotsHorizontalRounded size={"100%"} />
+          </motion.div>
         </DropdownButton>
         <Menu isDropped={myPageIsOpen}>
           <Ul>
             <Li>
-              <LinkWrapper onClick={LogoutAuth} href="#1-2">
+              <LinkWrapper onClick={LogoutAuth}>
                 로그아웃
               </LinkWrapper>
             </Li>
-            <Li>
+            {/* <Li>
               <LinkWrapper2 href="#1-3">정보수정</LinkWrapper2>
-            </Li>
+            </Li> */}
             <Li>
-              <LinkWrapper href="#1-3">회원탈퇴</LinkWrapper>
+              <LinkWrapper onClick={DeleteUser}>회원탈퇴</LinkWrapper>
             </Li>
           </Ul>
         </Menu>
@@ -44,7 +59,7 @@ const DropdownContainer = styled.div`
   text-align: center;
   display: flex;
   align-items: center;
-  padding-top: 10px;
+  // padding-top: 10px;
 `;
 
 const DropdownButton = styled.div`
@@ -54,7 +69,7 @@ const DropdownButton = styled.div`
 const Menu = styled.div`
   background: gray;
   position: absolute;
-  top: 55px;
+  top: 45px;
   left: 50%;
   width: 100px;
   text-align: center;
@@ -116,7 +131,7 @@ const LinkWrapper = styled.div`
   cursor: pointer;
 
   &:hover {
-    background-color: red;
+    text-decoration: underline;
   }
 `;
 
@@ -128,10 +143,10 @@ const LinkWrapper2 = styled.div`
   cursor: pointer;
 
   &:hover {
-    background-color: red;
+    text-decoration: underline;
   }
   &:after {
-    border-top: 3px solid black;
+    border-top: 3px solid 803a21;
     border: 12px solid transparent;
     border-top-width: 0;
     border-bottom-color: gray;

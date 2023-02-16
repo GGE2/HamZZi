@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import api from './../../components/api';
 
 const KakaoLogin = () => {
   const PARAMS = new URL(document.location).searchParams;
@@ -7,7 +8,7 @@ const KakaoLogin = () => {
 
   const kakaologin = async () => {
     try {
-      const res = await axios.post("http://3.35.88.23:8001/kakao_login/web", {
+      const res = await api.post("/kakao_login/web", {
         authorize_code: KAKAO_CODE,
       });
       console.log(res);

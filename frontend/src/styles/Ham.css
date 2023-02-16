@@ -33,11 +33,21 @@ animation: rotate_image 10s linear infinite;
 
 .Ham {
     height: 100%;
+    box-shadow: 5px 5px 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+    
 }
 /* 햄 header 부분 : 업적  */
 .Hamheader {
-    /* border-bottom: 3px solid black; */
+    /* box-shadow: 0px -2px 5px 0px inset ; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     height: 10%;
+    /* box-shadow: 0px 0px 10px ; */
     /* display: flex; */
 }
 
@@ -52,17 +62,126 @@ animation: rotate_image 10s linear infinite;
     /* border: 1px solid pink; */
     justify-content: flex-end;
     align-items: center;
-    padding-right: 1vw;
+    /* padding-right: 1vw; */
+    margin-left: 0.5em;
+}
+
+.Profile {
+    height: 3em;
+    width: 3em;
+    margin-right: 0.5em;
+}
+
+.Nickname {
+    font-weight: bold;
+    font-size: larger;
+    color: rgb(255, 177, 0);
+    text-shadow: 1px 1px 1px rgb(146, 85, 59);
+
 }
 
 /* 햄 outfit 이height: 100%;미지 크기 설정 */
 .HamOutfit{
-    height: 50%;
+    height: 45%;
     display: flex;
+    box-shadow: 0px 0px 5px !important;
+    left: 2.4em;
+    width: 80%;
+    z-index: 1;
+    background-image: url("../../public/webhamback.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    background-position: center;
     justify-content: center;
     align-items: center;
 }
 
+.HamBody img {
+   height: 100%;
+   /* width: 50%; */
+}
+
+.decoImg {
+    height: 100%;
+    padding-top: 15px;
+}
+
+.decoImg img {
+    width: 80%;
+}
+
+.Costt {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 0.5em;
+    font-size: 17px;
+}
+
+.Costt img {
+    width: 2em;
+    margin-right: 10px;
+}
+
+.HamBody {
+    z-index: 2;
+    
+   height: 100%;
+   width: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   /* background-repeat: no-repeat;
+    background-size: cover; */
+    position: absolute;
+    /* background-position: center; */
+}
+
+/* 햄스터 사진 찍기 */
+.takephoto {
+    position: absolute;
+    /* width: 50%; */
+    z-index: 1;
+    bottom: 47%;
+    right: 0;
+    width: 2.4em;
+    height: 2.4em;
+    cursor: pointer;
+}
+
+/* 햄스터 옷 리셋 */
+.resetItem {
+    position: absolute;
+    /* width: 50%; */
+    z-index: 1;
+    bottom: 53%;
+    right: 0;
+    width: 2.4em;
+    height: 2.4em;
+    cursor: pointer;
+    /* color: #803a21; */
+}
+
+.resetItem img {
+    width: 2.4em;
+    height: 2.4em;
+    /* color: #803a21; */
+}
+
+.HamCloths {
+    z-index: 3;
+    height: 5em;
+   width: 5em;
+   background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    background-position: center;
+}
+
+.test {
+    z-index: 4;
+}
 
 
 .img3 {
@@ -75,21 +194,13 @@ animation: rotate_image 10s linear infinite;
  
 }
 
-.Expbar {
-    display: flex;
-    /* justify-content: center; */
-    position: relative;
-    left: 5%;
-    margin-top: 0px;
-    /* margin-bottom: 10px; */
-}
-
  .HamChart{
-    height: 80%;
+    height: 75%;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 30px;
+    padding-top: 15px;
+    padding-left: 15px;
     /* padding-bottom: 30px; */
     /* margin-top: 7px; */
  }
@@ -105,11 +216,7 @@ animation: rotate_image 10s linear infinite;
     left: 5%;
    }
 
-.Exp{
-    width: 100%;
-    margin-left: 10%;
-    position: absolute;
-}
+
 
 
 /* 팻 생성 */
@@ -117,7 +224,7 @@ animation: rotate_image 10s linear infinite;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 3px solid black;
+    border: 3px solid #803a21;
     width: 50%;
     height: 50%;
     cursor: pointer;
@@ -129,7 +236,7 @@ animation: rotate_image 10s linear infinite;
 
 .PetCreate:hover {
     /* background-color: #808080; */
-    box-shadow: 0 0 10px black;
+    box-shadow: 0 0 10px #803a21;
 }
 
 .HamModal {
@@ -150,7 +257,7 @@ animation: rotate_image 10s linear infinite;
 
   /* 모달창 디자인 */
   background-color: gray;
-  border: 1px solid black;
+  border: 1px solid #803a21;
   border-radius: 8px;
 }
 
@@ -160,3 +267,24 @@ animation: rotate_image 10s linear infinite;
     top: 10px;
   }
 
+
+
+
+
+.HamBackGround {
+
+    z-index: 1;
+    /* background-image: url("../../public/room2.gif"); */
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    background-position: center;
+}
+
+/* 이름 사이즈 */
+.HamName {
+    font-weight: bold;
+    font-size: 20px;
+    text-shadow: 1px 1px 1px #803a21;
+    /* text-decoration: ; */
+}

@@ -1,121 +1,188 @@
 .app {
   text-align: center;
-  min-width: 100%;
-  min-height: 100%;
+  
+  min-width: 90vw;
+  min-height: 90vh;
   position: fixed;
-  /* background: repeating-linear-gradient(150deg, #7cac54, #7cac54 20px, #3f8744 0, #3f8744 40px); */
-  /* board를 가운데 정렬 */
+  /* background: repeating-linear-gradient(150deg, #7cac54, #7cac54 20px, #3f8744 0, #3f8744 40px); /
+  / board를 가운데 정렬 */
+  /* background-image: url("../../public/sawdust.png"); */
+
+  /* background-color: #888;
+  background-image: linear-gradient(45deg, #444 25%, transparent 25%, transparent 75%, #444 75%, #444), linear-gradient(45deg, #444 25%, transparent 25%, transparent 75%, #444 75%, #444);
+  background-position: 0 0, 25px 25px;
+  background-size: 50px 50px; */
+  background-color: rgb(214, 194, 164);
+  background-size: 10px, 25px, 10px 10px, 25px 25px;
+  background-image: linear-gradient(90deg, #00000001 1px, transparent 1px), linear-gradient(90deg, rgb(228,214,194) 2px, transparent 1px), linear-gradient(#00000001 1px, transparent 1px), linear-gradient(rgb(228,214,194) 2px, transparent 1px);
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100vw;
   height: 100vh;
+  /* filter: brightness(200%); */
+  overflow: hidden;
+  
+}
+.appboard {
+
+  
+  background-image: url("../../public/homeback/bck.png");
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  /* padding-bottom: 18em;
+  padding-left: 2em; */
+  
 }
 
 .Board {
 min-width: 80%;
 min-height: 100%;
 position: relative;
-/* background-color: rgba(63, 131, 84, 0.8); */
-/* Back을 가운데 정렬 */
+/* padding-top: 8.5em; */
+/* background-image: url("../../public/homeback/bck.png"); */
+/* background-color: rgba(63, 131, 84, 0.8); /
+/ Back을 가운데 정렬 */
 display: flex;
 justify-content: center;
 align-items: center;
+
+/* filter: brightness(1%); */
 }
 
 .Back {
-width: 80%;
-height: 80%;
+width: 85%;
+height: 90%;
 position: fixed;
 display: flex;
+/* border: 3px solid #803a21;
+background-color: rgb(146, 89, 67); */
+border-radius: 10px;
+margin-left: 2em;
 
 }
 
 .Back .Hamster {
   background-color: #f9fbe7;
-border-top: solid 3px black;
-border-left: solid 3px black;
-border-bottom: solid 3px black;
-border-right: solid 3px black;
+  /* background-color: #f9fbe7; */
+/* border-top: solid 3px #803a21;
+border-left: solid 3px #803a21;
+border-bottom: solid 3px #803a21;
+border-right: solid 3px #803a21; */
 /* border-top-left-radius: 15px;
 border-bottom-left-radius: 15px; */
-border-radius: 15px;
+/* border-radius: 10px; */
 text-align: center;
 width: 30%;
 margin: 0px;
 position: relative;
-margin: 1em;
+margin: 1.5em;
 
 }
 
-
 .Back .Screen {
-  border-radius: 15px;
+  /* border-radius: 15px; */
+  background-color: red;
   background-color: #f9fbe7;
 display: flex;
 flex-direction: column;
 text-align: center;
 width: 65%;
-border: solid 3px black;
-/* border-bottom-right-radius: 15px; */
-margin: 0px;
+/* border-top: solid 3px #803a21;
+border-bottom: solid 3px #803a21;
+border-right: solid 3px #803a21; */
+
+/* border-top-left-radius: 10px; */
+border-top-right-radius: 10px;
+border-bottom-right-radius: 10px;
+/* border-bottom-left-radius: 10px; */
+/* margin: 1.5em; */
 position: relative;
-margin: 1em;
+/* margin-right: 1em; */
+padding-left: 1.2em;
+margin-left: 1em;
+margin-top: 1.5em;
+margin-bottom: 1.5em;
 }
 
 .Back .buttonflex {
 display: flex;
 flex-direction: column;
-width: 5%;
-margin: 0px;
+width: 1.5em;
+/* margin-right: 1em; */
+
+margin-top: 2em;
 position: relative;
 }
 
 .buttonflex button {
 
-  height: 6vh;
-  width: 6vh;
+  height: 3em;
+  width: 6em;
   text-align: center;
   border: none;
-  border-top: solid 3px black;
-  border-right: solid 3px black;
-  border-bottom: solid 3px black;
-
+  /* border-top: solid 3px #803a21;
+  border-right: solid 3px #803a21;
+  border-bottom: solid 3px #803a21; */
+  /* border-top-right-radius: 10px; */
+/* border-bottom-right-radius: 10px; */
+ 
   margin-bottom: 5px;
   cursor: pointer;
-  background-color: #f9fbe7;
+  /* background-color: #f9fbe7; */
+  background-color: #fbb100;
+}
+
+.buttonflex button:hover {
+  /* color: yellow; */
+  text-decoration: underline;
+  /* background-color: #f9fbe7; */
 }
 
 
-
-/* 보드 페이지에 하단 버튼 리스트 */
-.BoardButton {
-width: 100%;
-position: absolute;
-bottom: 0;
-border-top: 3px solid black;
-/* padding-bottom: 3px; */
-height: 5%;
-}
 
 .BoardButton button{
 white-space: pre;
 cursor: pointer;
 border: none;
-/* border-top: 5px solid red; */
-/* border-right: 1px solid black;
-border-left: 1px solid black; */
-/* border-bottom: 1px solid red; */
-padding-right: 5px;
-background-color: #f9fbe7;
-height: auto;
-width: 20%;
-/* border: 1px solid black; */
 
-transition-property: color, background-color;
+
+/* transition-property: color, background-color; */
 }
 
-.BoardButto--active {
-  color: pink;
-  background: red;
+.BoardButto--active0 {
+  color: #803a21;
+  font-weight: bold;
+  /* background-color: yellow; */
+  /* text-decoration:underline */
+}
+
+.BoardButto--active1 {
+  color: #803a21;
+  font-weight: bolder;
+  /* background-color: yellow; */
+  /* text-decoration:underline */
+}
+
+.BoardButto--active2 {
+  color: #803a21;
+  font-weight: bolder;
+  /* background-color: yellow; */
+  /* text-decoration:underline */
+}
+
+.BoardButto--active3 {
+  color: #803a21;
+  font-weight: bolder;
+  /* background-color: red; */
+  /* text-decoration:underline */
+}
+
+.BoardButto--active4 {
+  color: #803a21;
+  font-weight: bolder;
+  /* background-color: white; */
+  /* text-decoration:underline */
 }

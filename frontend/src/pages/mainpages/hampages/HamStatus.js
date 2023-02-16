@@ -1,43 +1,64 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import HamExp from "./statuspages/HamExp";
-import HamLevel from "./statuspages/HamLevel";
-import HamName from "./statuspages/HamName";
 import StatCtrl from "./statuspages/StatCtrl";
 import "../../../styles/HamStatus.css";
 import Chart from "react-apexcharts";
 import { IoStatsChart } from "react-icons/io5";
 import { useSelector, useDispatch } from "react-redux";
-import { selectCurrentHamStat, clearStat } from "./../../../hamStatSlice";
-import axios from "axios";
+import {
+  selectCurrentHamStat,
+  clearStat,
+  getPetType,
+} from "./../../../hamStatSlice";
 
-const HamStatus = (props) => {
+import api from "./../../../components/api";
+import HamModal from './HamModal';
+
+const HamStatus = ({ setWear }) => {
   const hamstat = useSelector(selectCurrentHamStat);
   const level = localStorage.getItem("petLevel");
   const petId = localStorage.getItem("petId");
+  const petLevel = localStorage.getItem("petLevel");
   const petName = localStorage.getItem("petName");
   const nickname = localStorage.getItem("nickname");
   const [isOpen, setIsOpen] = useState(false);
   const outside = useRef();
   const dispatch = useDispatch(clearStat());
 
-  const handleGraduate = () => {
-    axios
-      .put(`http://3.35.88.23:8080/api/pet/graduate?pet_id=${petId}`)
-      .then(() => {
-        console.log("graduated");
-        dispatch(clearStat());
-        localStorage.setItem("petId", null);
-        localStorage.setItem("petName", null);
-        localStorage.setItem("petLevel", null);
-        localStorage.setItem("exp", null);
-        window.location.replace("/main");
-      });
+  const [isModal, setIsModal] = useState(false);
+
+  const graduatee = () => {
+    ResetItem()       // 장착한 아이템 초기화
+    handleGraduate()  // 졸업해서 데이터 비우기
+    // 새로 만들기
+    setIsModal(true);
+  }
+
+  const ResetItem = () => {
+    api.put(`/api/item/clear?nickname=${nickname}`).then((res) => {
+      console.log(res)
+    });
   };
+
+  const handleGraduate = () => {
+    api.put(`/api/pet/graduate?pet_id=${petId}`).then(() => {
+      console.log("graduated");
+      dispatch(clearStat());
+      localStorage.setItem("petId", null);
+      localStorage.setItem("petName", '');
+      localStorage.setItem("petLevel", '');
+      localStorage.setItem("exp", null);
+      dispatch(getPetType(0));
+    });
+  };
+
+
+
   const state = {
     options: {
       fill: {
         opacity: 0.5,
-        colors: ["#3f8744"],
+        colors: ["#c08457"],
       },
       dataLabels: {
         enabled: true,
@@ -46,7 +67,7 @@ const HamStatus = (props) => {
           borderRadius: 2,
         },
       },
-      // colors: ["#3f8744"],
+      colors: ["rgb(146, 89, 67)"],
 
       chart: {
         toolbar: {
@@ -70,7 +91,6 @@ const HamStatus = (props) => {
     ///////////////////////////////////////
     series: [
       {
-        // id: 'stat',
         data: [
           hamstat.physical,
           hamstat.artistic,
@@ -88,23 +108,32 @@ const HamStatus = (props) => {
 
   return (
     <>
-      <div className="HamStatus">
-        <HamName petName={props.petName} />
-        {/* <ApexChart type="radar"  /> */}
-        <div>
-          <div className="Expbar">
-            <HamExp />
-            <HamLevel />
-          </div>
+
+      {/* 모달창 띄우기 */}
+      {isModal && (
+        <div
+          className="Modal"
+          ref={outside}
+          onClick={(e) => {
+            if (e.target === outside.current) setIsModal(false);
+          }}
+        >
+          <HamModal setIsModal={setIsModal} />
         </div>
-        {level === "5" && (
-          <button
-            style={{ position: "relative", top: "30px" }}
-            onClick={handleGraduate}
-          >
-            graduate
-          </button>
-        )}
+      )}
+
+      <div className="HamStatus">
+        <div className="HamName">{petName}</div>
+
+        <HamExp graduatee={graduatee}/>
+
+        {/* {level === "5" && (
+          <>
+            <div className="graduatebtn" onClick={graduatee}>
+              <img src="graduateB.png" alt="" />
+            </div>
+          </>
+        )} */}
         <div className="HamChart">
           <Chart
             options={state.options}
@@ -113,10 +142,14 @@ const HamStatus = (props) => {
             height={"100%"}
           />
           <button className="StatButton">
-            <IoStatsChart onClick={showStat} size={"100%"} color={"green"} />
+            <IoStatsChart
+              onClick={showStat}
+              size={"100%"}
+              color={"rgb(146, 89, 67)"}
+            />
             {isOpen && (
               <div
-                className="Modal"
+                className="Modal2"
                 ref={outside}
                 onClick={(e) => {
                   if (e.target === outside.current) {

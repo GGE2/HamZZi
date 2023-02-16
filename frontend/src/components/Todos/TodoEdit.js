@@ -24,9 +24,9 @@ const TodoEdit = ({onCreate}) => {
         <div className='DiaryEditor'>
             <h2>방명록</h2>
             
-            <div>
+            <form onSubmit={handleSubmit}>
                 <textarea name="content" ref={contentInput} value={content} onChange={handleChangeState}></textarea>
-            </div>
+            </form>
             <div>
                 <button onClick={handleSubmit}>작성 완료</button>
             </div>

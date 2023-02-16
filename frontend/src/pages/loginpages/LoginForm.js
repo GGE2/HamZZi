@@ -9,6 +9,7 @@ import "../../styles/LoginForm.css";
 // import Google from "./features/auth/Google";
 // import Kakaopop from "./features/auth/Kakaopop";
 // import LoginForm from './LoginForm';
+import api from "./../../components/api";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
@@ -36,6 +37,7 @@ export default function LoginForm() {
         "accessToken",
         JSON.stringify(curUserInfo.user.accessToken)
       );
+      localStorage.setItem("uid", JSON.stringify(curUserInfo.user.uid));
       dispatch(
         setCredentials({
           user: curUserInfo.user.displayName,
@@ -45,7 +47,14 @@ export default function LoginForm() {
 
       navigate("/main"); // 로그인하면 메인 페이지로 이동~
     } catch (err) {
-      console.log(err);
+      switch (err.code) {
+        case "auth/user-not-found":
+          alert("존재하지 않는 회원입니다");
+          break;
+        default:
+          alert("잘못 입력 하셨습니다");
+          break;
+      }
     }
   };
 

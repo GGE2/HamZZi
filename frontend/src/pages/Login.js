@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Google from "./loginpages/Google";
 import Kakao from "./loginpages/Kakao";
 import LoginForm from "./loginpages/LoginForm";
 import Signup from "./loginpages/Signup";
 import "../styles/Login.css";
 import { useNavigate } from "react-router";
-import Main from "./Main";
-import { Link } from "react-router-dom";
+import Warning from "../components/Warning";
+// import Main from "./Main";
+// import { Link } from "react-router-dom";
 
 const Login = () => {
   const [loginflag, setloginflag] = useState(true);
-
+  const [isModal, setIsModal] = useState(false);
   const navigate = useNavigate();
 
   const onClickSelectLogin = () => {
@@ -21,18 +22,37 @@ const Login = () => {
   };
   const token = localStorage.getItem("accessToken");
 
+  const outside = useRef();
   return (
     <>
       {token ? navigate("/main") : null}
+      {isModal && (
+        <div
+          className="warning"
+          ref={outside}
+          onClick={(e) => {
+            if (e.target === outside.current) setIsModal(false);
+          }}
+        >
+          <Warning
+            setIsModal={setIsModal}
+            content={"이미 존재하는 계정입니다"}
+            content2={"다시 한번 확인해주세요"}
+          />
+        </div>
+      )}
       <div className="loginbody">
-        {/* <div className="loginback"> */}
+        <div className="backimg">
+          <img src="title.png" alt="" />
+        </div>
 
         {loginflag ? (
           <div className="loginback">
+            {/* <div className="backback"> */}
             <div className="selectlogin">
               <button
                 // className="selectBtn1"
-                style={{ borderRight: "1px solid black" }}
+                style={{ borderRight: "1px solid #803a21" }}
                 onClick={onClickSelectLogin}
                 className={loginflag ? "selectBtn1" : "selectBtn2"}
               >
@@ -48,14 +68,18 @@ const Login = () => {
             </div>
             <LoginForm />
             <Google />
-            <Kakao />
+            {/* <Kakao /> */}
+            <div className="qrcode">
+              <img src="QRCodeImg1.png" alt="" />
+            </div>
+            {/* </div> */}
           </div>
         ) : (
           <div className="loginback">
             <div className="selectlogin">
               <button
                 // className="selectBtn1"
-                style={{ borderRight: "1px solid black" }}
+                style={{ borderRight: "1px solid #803a21" }}
                 onClick={onClickSelectLogin}
                 className={loginflag ? "selectBtn1" : "selectBtn2"}
               >
@@ -69,9 +93,9 @@ const Login = () => {
                 회원가입
               </button>
             </div>
-            <Signup />
+            <Signup setIsModal={setIsModal} />
             <Google />
-            <Kakao />
+            {/* <Kakao /> */}
           </div>
         )}
       </div>

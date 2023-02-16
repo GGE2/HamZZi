@@ -14,6 +14,7 @@ function Kakao() {
     if (Kakao && !Kakao.isInitialized()) {
       await Kakao.init(jsKey);
       console.log(`kakao 초기화 ${Kakao.isInitialized()}`);
+      // 초기화 여부를 확인
     }
   };
 
@@ -56,32 +57,15 @@ function Kakao() {
       },
     });
 
-    // axios
-    //       .post("http://3.35.88.23:8080/api/kakao/sign_in", {
-    //         accessToken: res.id_token
-    //         // name: kakaoAccount.profile.nickname,
-    // email: kakaoAccount.email,
-    // name: kakaoAccount.profile.nickname,
-    //       })
-    //       .then((res) => {
-    //         console.log(res);
-    //       })
-    //       .catch((err) => {
-    //         console.log(err);
-    //       });
   };
 
   const kakaoLogout = () => {
-    // const jsKey = "b04032665604a78bb091be183ecca878";
-    // Kakao.init(jsKey);
-    // Kakao.isInitialized();
+  
 
     Kakao.Auth.logout((res) => {
       console.log(Kakao.Auth.getAccessToken()); //
       console.log(res);
-      //   localStorage.removeItem("email");
-      //   localStorage.removeItem("profileImg");
-      //   localStorage.removeItem("nickname");
+
       localStorage.clear();
       deleteCookie();
       setUser(null);

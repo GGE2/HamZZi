@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 // import "./TodoInput.css";
 import { GrReturn } from "react-icons/gr";
 
-const TodoInput = ({ onAdd }) => {
+const TodoInput = ({ onAdd, onSearchFunc }) => {
   const textRef = useRef();
   const [text, setText] = useState("");
 
@@ -16,9 +16,9 @@ const TodoInput = ({ onAdd }) => {
 
     // if (!text) return;
 
-    if(text.length < 1) {
+    if (text.length < 1) {
       textRef.current.focus();
-      return
+      return;
     }
 
     onAdd(text);
@@ -26,21 +26,37 @@ const TodoInput = ({ onAdd }) => {
     setText("");
     textRef.current.focus();
   };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+
+    if (text.length < 1) {
+      textRef.current.focus();
+      return;
+    }
+    onSearchFunc(text);
+  };
+
   return (
     <div>
-      <form className="TodoInput">
+      <form className="TodoInput" onSubmit={onSubmit}>
         {/* <div className="TodoInput_input"> */}
-          <input
-            type="text"
-            value={text}
-            placeholder="할 일을 입력하세요"
-            onChange={changeInput}
-            ref={textRef}
-          />
+        <input
+          type="text"
+          value={text}
+          placeholder="할 일을 입력하세요"
+          onChange={changeInput}
+          ref={textRef}
+        />
         {/* </div> */}
-
+        {/* Todo 추가 버튼 */}
         <div className="TodoInput_btn" onClick={onSubmit}>
-          <GrReturn className="icon" size={"100%"}></GrReturn>
+          <img src="assets/buttons/addbtn.png" alt="" />
+        </div>
+
+        {/* Todo 검색 버튼 */}
+        <div className="TodoSearch_btn" onClick={handleSearch}>
+          <img src="assets/buttons/searchbtn.png" alt="" />
         </div>
       </form>
     </div>

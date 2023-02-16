@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "../../styles/Signup.css";
 import { auth } from "../../Firebase";
 import {
@@ -9,10 +9,15 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setCredentials } from "../../authSlice";
+import api from "./../../components/api";
 
-export default function Signup() {
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
+import Warning from './../../components/Warning';
+
+export default function Signup({setIsModal}) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  // const [isModal, setIsModal] = useState(false);
 
   // 회원가입 데이터(이메일, 비밀번호, 비밀번호확인, 닉네임, 이름, 성별, 전화번호)
   const [email, setEmail] = useState("");
@@ -70,6 +75,7 @@ export default function Signup() {
         "accessToken",
         JSON.stringify(curUserInfo.user.accessToken)
       );
+      localStorage.setItem("uid", JSON.stringify(curUserInfo.user.uid));
       dispatch(
         setCredentials({
           user: curUserInfo.user.displayName,
@@ -77,24 +83,25 @@ export default function Signup() {
         })
       );
       // uid 보내기
-      const dummy = await axios.post(
-        "http://3.35.88.23:8080/api/user/register",
-        {
-          email: curUserInfo.user.email,
-          uid: curUserInfo.user.uid,
-        }
-      );
+      const dummy = await api.post("/api/user/register", {
+        email: curUserInfo.user.email,
+        uid: curUserInfo.user.uid,
+      });
       navigate("/nickname");
     } catch (err) {
       console.log(err.code);
       switch (err.code) {
         case "auth/weak-password":
-          setErrorMsg("비밀번호는 6자리 이상이어야 합니다");
+          alert("비밀번호는 8자리 이상이어야 합니다")
+          setErrorMsg("비밀번호는 8자리 이상이어야 합니다");
           break;
         case "auth/invalid-email":
+          alert("잘못된 이메일 주소입니다")
           setErrorMsg("잘못된 이메일 주소입니다");
           break;
         case "auth/email-already-in-use":
+          // alert("이미 가입되어 있는 계정입니다")
+          setIsModal(true)
           setErrorMsg("이미 가입되어 있는 계정입니다");
           break;
         default:
@@ -115,13 +122,14 @@ export default function Signup() {
   // 이메일 유효성 검사
   const handleEmail = (e) => {
     const currentEmail = e.target.value;
+    console.log(currentEmail)
     setEmail(currentEmail);
-    // console.log(email);
+    console.log(email);
     const regex =
       /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
     if (currentEmail === "") {
       setEmailMessage("");
-      setEmailValid(true);
+      setEmailValid(false);
     } else if (!regex.test(e.target.value)) {
       setEmailMessage("이메일의 형식이 올바르지 않습니다!");
       setEmailValid(false);
@@ -140,7 +148,7 @@ export default function Signup() {
     const regex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
     if (currentPassword === "") {
       setPasswordMessage("");
-      setPasswordValid(true);
+      setPasswordValid(false);
     } else if (!regex.test(e.target.value)) {
       setPasswordMessage(
         "숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!"
@@ -158,7 +166,7 @@ export default function Signup() {
     setPasswordConfirm(currentPasswordConfirm);
     if (currentPasswordConfirm === "") {
       setPasswordConfirmMessage("");
-      setPasswordConfirmValid(true);
+      setPasswordConfirmValid(false);
     } else if (password !== currentPasswordConfirm) {
       setPasswordConfirmMessage("비밀번호가 똑같지 않아요!");
       setPasswordConfirmValid(false);
@@ -167,13 +175,14 @@ export default function Signup() {
       setPasswordConfirmValid(true);
     }
   };
-
+  const outside = useRef();
   // 중복 이메일 검사
 
   return (
     <>
+    
       <div className="contentWrap">
-        <div className="siginup_titleWrap">HAMZZI</div>
+
         <div className="siginup_inputTitle">이메일 주소</div>
         <div className="siginup_inputWrap">
           <input
@@ -181,9 +190,11 @@ export default function Signup() {
             type="text"
             value={email}
             onChange={handleEmail}
+            placeholder="ssafy123@naver.com"
           />
+          {emailValid ? <div className="error_icon"><AiOutlineCheckCircle color="orange"/></div> : <div className="error_icon"><AiOutlineCloseCircle color="#dadada"/></div> }
         </div>
-        <div className="siginup_errorMessageWrap">{emailMessage}</div>
+        {/* <div className="siginup_errorMessageWrap">{emailMessage}</div> */}
 
         <div className="siginup_inputTitle">비밀번호</div>
         <div className="siginup_inputWrap">
@@ -192,11 +203,13 @@ export default function Signup() {
             type="password"
             value={password}
             onChange={handlePw}
+            placeholder="숫자,영문자,특수문자 8자리 이상"
           />
+          {passwordValid ? <div className="error_icon"><AiOutlineCheckCircle color="orange"/></div> : <div className="error_icon"><AiOutlineCloseCircle color="#dadada"/></div> }
         </div>
-        <div className="siginup_errorMessageWrap">{passwordMessage}</div>
+        {/* <div className="siginup_errorMessageWrap">{passwordMessage}</div> */}
 
-        <div>비밀번호 확인</div>
+        <div className="siginup_inputTitle">비밀번호 확인</div>
         <div className="siginup_inputWrap">
           <input
             className="siginup_input"
@@ -204,8 +217,9 @@ export default function Signup() {
             value={passwordConfirm}
             onChange={handlePasswordConfirm}
           />
+          {passwordConfirmValid ? <div className="error_icon"><AiOutlineCheckCircle color="orange"/></div> : <div className="error_icon"><AiOutlineCloseCircle color="#dadada"/></div> }
         </div>
-        <div className="siginup_errorMessageWrap">{passwordConfirmMessage}</div>
+        {/* <div className="siginup_errorMessageWrap">{passwordConfirmMessage}</div> */}
       </div>
 
       <button

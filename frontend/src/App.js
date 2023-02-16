@@ -6,7 +6,7 @@ import KakaoLogin from "./pages/loginpages/KakaoLogin";
 import RequireAuth from "./pages/loginpages/RequireAuth";
 import Loginned from "./pages/loginpages/Loginned";
 import SetNickName from "./pages/loginpages/SetNickName";
-import Prologue from "./pages/mainpages/Prologue";
+
 import PetName from "./pages/loginpages/PetName";
 
 function App() {
@@ -23,7 +23,7 @@ function App() {
 
       <Route element={<RequireAuth />}>
         <Route path="/main" element={<Main />} />
-        <Route path="/prologue" element={<Prologue />} />
+
         <Route path="/nickname" element={<SetNickName />} />
         <Route path="/petname" element={<PetName />} />
       </Route>

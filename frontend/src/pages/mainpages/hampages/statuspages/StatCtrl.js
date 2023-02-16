@@ -10,30 +10,37 @@ import {
   increaseEnergetic,
   clearStat,
   getCurrentStat,
+  getPetLevel,
+  getPetType,
 } from "./../../../../hamStatSlice";
-import axios from "axios";
 import GetPetInfo from "../../../../components/GetPetInfo";
+import api from "./../../../../components/api";
+import { selectCurrentPoint } from "./../../../../pointSlice";
+import { grantPoint } from "./../../../../pointSlice";
 
 const StatCtrl = () => {
-  // const [localStat, setLocalStat] = useState();
+
   const dispatch = useDispatch();
   const status = useSelector(selectCurrentHamStat);
-  // setLocalStat({ ...status });
-  // console.log(localStat);
+
   const nickname = localStorage.getItem("nickname");
   const petId = localStorage.getItem("petId");
+  const point = useSelector(selectCurrentPoint);
 
   const initialPetInfo = () => {
-    axios
-      .get(`http://3.35.88.23:8080/api/pet/${nickname}`)
+    api
+      .get(`/api/pet/${nickname}`)
       .then((res) => {
-        console.log(res.data[2]);
-        const physical = res.data[2].physical;
-        const artistic = res.data[2].artistic;
-        const intelligent = res.data[2].intelligent;
-        const inactive = res.data[2].inactive;
-        const energetic = res.data[2].energetic;
-        const etc = res.data[2].etc;
+        console.log("스탯");
+        console.log(res.data);
+        console.log(res.data.petStat);
+        const physical = res.data.petStat.physical;
+        const artistic = res.data.petStat.artistic;
+        const intelligent = res.data.petStat.intelligent;
+        const inactive = res.data.petStat.inactive;
+        const energetic = res.data.petStat.energetic;
+        const etc = res.data.petStat.etc;
+        const level = res.data.pet.level;
         const data = {
           physical,
           artistic,
@@ -43,6 +50,8 @@ const StatCtrl = () => {
           etc,
         };
         dispatch(getCurrentStat(data));
+        dispatch(getPetLevel(level));
+        dispatch(getPetType(res.data.petInfo.type));
         console.log("DISPATCHED!!");
       })
       .catch((err) => {
@@ -52,32 +61,71 @@ const StatCtrl = () => {
 
   const handlePhysical = () => {
     dispatch(increasePhysical(petId));
+    dispatch(grantPoint());
+    api.get(`/api/pet/${nickname}`).then((res) => {
+      dispatch(getPetLevel(res.data.pet.level));
+      dispatch(getPetType(res.data.petInfo.type));
+    });
   };
   const handleArtistic = () => {
     dispatch(increaseArtistic(petId));
+    dispatch(grantPoint());
+    api.get(`/api/pet/${nickname}`).then((res) => {
+      dispatch(getPetLevel(res.data.pet.level));
+      dispatch(getPetType(res.data.petInfo.type));
+    });
   };
   const handleIntelligent = () => {
     dispatch(increaseIntelligent(petId));
+    dispatch(grantPoint());
+    api.get(`/api/pet/${nickname}`).then((res) => {
+      dispatch(getPetLevel(res.data.pet.level));
+      dispatch(getPetType(res.data.petInfo.type));
+    });
   };
   const handleInactive = () => {
     dispatch(increaseInactive(petId));
+    dispatch(grantPoint());
+    api.get(`/api/pet/${nickname}`).then((res) => {
+      dispatch(getPetLevel(res.data.pet.level));
+      dispatch(getPetType(res.data.petInfo.type));
+    });
   };
   const handleEnergetic = () => {
     dispatch(increaseEnergetic(petId));
+    dispatch(grantPoint());
+    api.get(`/api/pet/${nickname}`).then((res) => {
+      dispatch(getPetLevel(res.data.pet.level));
+      dispatch(getPetType(res.data.petInfo.type));
+    });
   };
   const handleEtc = () => {
     dispatch(increaseEtc(petId));
+    dispatch(grantPoint());
+    api.get(`/api/pet/${nickname}`).then((res) => {
+      dispatch(getPetLevel(res.data.pet.level));
+      dispatch(getPetType(res.data.petInfo.type));
+    });
   };
 
   const handleClear = () => {
     dispatch(clearStat(petId));
+    api.get(`/api/pet/${nickname}`).then((res) => {
+      dispatch(getPetLevel(res.data.pet.level));
+      dispatch(getPetType(res.data.petInfo.type));
+    });
   };
   const handleExp = () => {
-    axios
-      .put(`http://3.35.88.23:8080/api/pet/exp?pet_id=${petId}&exp=${15}`)
+    api
+      .put(`/api/pet/exp?pet_id=${petId}&exp=${15}&nickname=${nickname}`)
       .then((res) => {
-        console.log(res);
+        console.log("경험치 올리기", res);
         GetPetInfo();
+        api.get(`/api/pet/${nickname}`).then((res) => {
+          console.log("펫 레벨 가져오기", res.data.pet.level);
+          dispatch(getPetLevel(res.data.pet.level));
+          dispatch(getPetType(res.data.petInfo.type));
+        });
       });
   };
 
@@ -88,34 +136,55 @@ const StatCtrl = () => {
   return (
     <>
       (
-      <div className="modalBody">
-        <h3>StatCtrl</h3>
-        <div>
-          Physical: {status.physical}
-          <button onClick={handlePhysical}>+</button>
+      <div className="modalbody">
+        {/* <div className="StatCtrlBody"> */}
+        <h1>스탯창</h1>
+        <div className="StatElement">
+          Physical
+          <div className="statbtnbox">
+            {status.physical}
+            {point > 0 ?   <div className="statimg" onClick={handlePhysical}><img src="plusbtn.png" alt="" /></div> : null}
+          </div>
         </div>
-        <div>
-          Artistic: {status.artistic}
-          <button onClick={handleArtistic}>+</button>
+        <div className="StatElement">
+          Artistic
+          <div className="statbtnbox">
+            {status.artistic}
+            {point > 0 ?   <div className="statimg" onClick={handleArtistic}><img src="plusbtn.png" alt="" /></div> : null}
+          </div>
         </div>
-        <div>
-          Intelligent: {status.intelligent}
-          <button onClick={handleIntelligent}>+</button>
+        <div className="StatElement">
+          Intelligent
+          <div className="statbtnbox">
+            {status.intelligent}
+            {point > 0 ?   <div className="statimg" onClick={handleIntelligent}><img src="plusbtn.png" alt="" /></div> : null}
+          </div>
         </div>
-        <div>
-          Inactive: {status.inactive}
-          <button onClick={handleInactive}>+</button>
+        <div className="StatElement">
+          Inactive
+          <div className="statbtnbox">
+            {status.inactive}
+            {point > 0 ?   <div className="statimg" onClick={handleInactive}><img src="plusbtn.png" alt="" /></div>: null}
+          </div>
         </div>
-        <div>
-          Energetic: {status.energetic}
-          <button onClick={handleEnergetic}>+</button>
+        <div className="StatElement">
+          Energetic
+          <div className="statbtnbox">
+            {status.energetic}
+            {/* {point > 0 ? <button onClick={handleEnergetic}>+</button> : null} */}
+            {point > 0 ?   <div className="statimg" onClick={handleEnergetic}><img src="plusbtn.png" alt="" /></div> : null}
+          </div>
         </div>
-        <div>
-          Etc: {status.etc}
-          <button onClick={handleEtc}>+</button>
+        <div className="StatElement">
+          Etc
+          <div className="statbtnbox">
+            {status.etc}
+            {point > 0 ?   <div className="statimg" onClick={handleEtc}><img src="plusbtn.png" alt="" /></div> : null}
+          </div>
         </div>
-        <button onClick={handleClear}>CLEAR</button>
-        <button onClick={handleExp}>EXP UP</button>
+        {/* <button onClick={handleClear}>CLEAR</button>
+        <button onClick={handleExp}>EXP UP</button> */}
+        {/* </div> */}
       </div>
       )
     </>

@@ -1,37 +1,48 @@
 import React from "react";
 // import GuildUsersNo from "./GuildUsersNo";
-import Header from './../../Header';
-import GuildUserNo from './GuildUserNo';
+
+import GuildUserNo from "./GuildUserNo";
 
 const GuildNoAdmin = ({
   admin, // 길드 관리자
   users, // 일반 길드원
   onLeaveGuild,
+  guildName
 }) => {
-  console.log(users)
+  const guildname = guildName
+  const nickname = localStorage.getItem("nickname");
   return (
     <>
-
       <div className="GuildNoAdmin">
-        일반 길드원
-        <div className="FriendHeaderButton"><button onClick={onLeaveGuild}>길드 탈퇴</button></div>
-        
+        <div className="GuildNoAdminHeader">
+          <div className="titless">{(guildName)}</div>
+          <div className="button_text">
+            
+        <img src="guildlist/studyroombtn.png" alt="" />
+          </div>
+        </div>
+
+  
+
         {/* <GuildUsersNo admin={admin} users={users} /> */}
-        <div className="GuildAdminWrap">길드장: {admin ? admin.nickname : ""}</div>
+        <div className="GuildAdminWrap">
+        <div className="GuildAdminWrap2">
+            <div className="GuildAdminWrap3">
+          <img src="./guildlist/master.png" alt="" /></div>
+          <div>길드장: {admin ? admin.nickname : ""}
+          </div>
+        </div>
+        </div>
         {/* {adminname} */}
         {/* 일반 길드원 */}
         <div className="GuildUsersWrap">
-        {users
-          ? users.map((user,idx) => (
-              <GuildUserNo
-              key={idx}
-                admin={admin}
-                user={user}
-                
-              />
-            ))
-          : ""}
-          </div>
+          
+          {users
+            ? users.map((user, idx) => (
+                <GuildUserNo key={idx} admin={admin} user={user} nickname={nickname} onLeaveGuild={onLeaveGuild}/>
+              ))
+            : ""}
+        </div>
       </div>
     </>
   );

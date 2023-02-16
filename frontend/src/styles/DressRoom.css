@@ -1,0 +1,154 @@
+.DressRoom {
+    background-color: #f9fbe7;
+    height: 100%;
+    /* border-radius: 7px; */
+    display: flex;
+    flex-direction: column;
+    box-shadow: 5px 5px 5px;
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px ;
+}
+
+.SwiperSlide {
+    width: 5em;
+    height: 5em;
+}
+.DressRoomMotion {
+    height: 100%;
+}
+
+.DressList, .ClothList{
+    display: grid;
+    /* height: 100%; */
+    /* height: 31.7em; */
+    width: 100%;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    /* justify-content: center; */
+    /* align-items: center; */
+    place-items: center;
+    overflow: scroll;
+}
+
+.DressList::-webkit-scrollbar,  .ClothList::-webkit-scrollbar{
+    display: none; /* Chrome, Safari, Opera*/
+}
+
+
+/*  드레스 메뉴 버튼 */
+.DressButton {
+    
+}
+.DressButton button{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    width: 25%;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    cursor: pointer;
+    background-color: #f9fbe7;
+    height: 4em;
+    
+    
+}
+
+.DressButton_clicked {
+    /* margin: auto; */
+    color: rgb(255, 177, 0);
+    border-bottom: 3px solid rgb(255, 177, 0);
+    
+}
+
+.DressButton_Unclicked {
+    border-bottom: 3px solid #ececec;
+}
+
+
+/* 드레스 아이템 */
+.DressItem, .ClothItem {
+    background-color: #ececec;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* margin: auto; */
+    padding: 0.5em;
+    margin: 0.5em;
+    border-radius: 10px;
+    width: 8em;
+    height: 8em;
+}
+
+.DressItem_clicked, .ClothItem_clicked {
+    
+    background-color: rgb(146, 89, 67);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5em;
+    margin: 0.5em;
+    width: 8em;
+    height: 8em;
+ 
+}
+
+.DressItem_clicked img, .ClothItem_clicked img ,.DressItem_Unclicked img, .ClothItem_Unclicked img {
+    width: 8em;
+    height: 8em;
+}
+
+.DressItem_Unclicked, .ClothItem_Unclicked {
+    background-color: rgb(146, 89, 67);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5em;
+    margin: 0.5em;
+    width: 8em;
+    height: 8em;
+}
+
+.DressButton_clicked_text {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.DressButton_Unclicked_text {
+    font-size: 24px;
+}
+
+.DressItem img, .ClothItem img{
+    width: 8em;
+    height: 8em;
+}
+
+.Cost {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Cost img{
+    height: 1.5em;
+}
+
+.shopitem {
+    /* background-image: url("../../public/btn.png"); */
+    /* height: 100%; */
+    /* background-size: contain; */
+    /* background-repeat: no-repeat; */
+    /* background-color: #ececec; */
+    border-radius: 15px;
+    margin-top: 10px;
+    padding-bottom: 5px;
+}
+
+.SameItem {
+    opacity: 0.5;
+    /* background-color: #ececec; */
+    border-radius: 15px;
+    margin-top: 10px;
+    padding-bottom: 5px;
+}
+
+
+

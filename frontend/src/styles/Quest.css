@@ -1,38 +1,95 @@
-/* 일간, 주간 버튼 */
-.QuestHeaderButton {
+/* 최상위 */
+
+.DressRoom2 {
+    background-color: #f9fbe7;
+    height: 100%;
+    /* border-radius: 7px; */
+    
+    display: flex;
+    flex-direction: column;
+    box-shadow: 5px 5px 5px;
+    position: relative;
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px ;
+}
+
+.Quests {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     
 }
 
-/* 퀘스트 리스트 */
-.Quests {
-    height: 100%;
+/* 헤더 부분 */
+/* 일간, 주간 버튼 */
+.QuestHeaderButton {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 30px;
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
+
+.QuestHeaderButton_btn1, .QuestHeaderButton_btn2 {
+    width: 8em;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.QuestHeaderButton_btn1 img, .QuestHeaderButton_btn2 img{
+    width: 8em;
+}
+
+.TutorialButton {
+    border-radius: 0.75rem;
+    background-color: rgb(146, 85, 59);
+    color: white;
+    border: none;
+    margin-left: auto;
+    margin-right: 3%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    cursor: pointer;
+}
+
+
+/* 퀘스트 리스트 */
+
 .QuestList {
     overflow: scroll;
+    height: min-content;
+    z-index: 1;
 }
 .QuestList::-webkit-scrollbar {
     display: none;}
     
 /* 퀘스트 아이템 */
 .QuestItem {
-    display: flex;
-    border-bottom: 1px solid black;
-    justify-content: space-around;
-    align-items: center;
-    /* height: 100px; */
-    /* overflow: scroll; */
+   overflow: hidden;
+  display: flex;
+  justify-content: flex-start;
+  height: 4rem;
+  margin-top: 1%;
+  margin-left: 3%;
+  margin-right: 3%;
+  padding-left: 5%;
+  align-items: center;
+  
+  border-radius: 0.75em;
+  background: url("../../public/assets/todobck.png") no-repeat;
+  background-size: cover;
+  /* background-color: transparent; */
+  z-index: 30;
 }
 
-.QuestItem textarea{
-    height: 100px;
-    overflow: hidden;
-    flex-basis: 80%;
-    border: none;
-    resize: none;
-    background-color: transparent;
-    outline: 0;
-    
+.QuestItem #1 {
+    cursor: pointer;
+    color: gray;
+    text-decoration: line-through;
+    text-decoration-color: gray;
 }
+
 
 .noselect {
     cursor: default;
@@ -43,6 +100,15 @@
     -ms-user-select: none;
     -o-user-select: none;
  }
+
+
+ .disable-div {
+    pointer-events: none;
+    color: gray;
+    text-decoration: line-through;
+    text-decoration-color: gray;
+}
+    
 
 textarea:disabled {
     color: #ced4da;
@@ -56,3 +122,18 @@ textarea:disabled {
    width: 20%;  
 }
 
+
+/* 퀘스트 튜토리얼 */
+
+#flipbook {
+  width: 800px;
+  height: 400px;
+}
+
+#flipbook .turn-page {
+  background-color:#ccc;
+}
+
+.questmodall {
+    cursor: pointer;
+}

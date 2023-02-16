@@ -1,7 +1,7 @@
 /* body 2 */
 .FriendList {
     height: 90%;
-    border: 3px solid black;
+    border: 3px solid #803a21;
     border-radius: 8px;
     
     padding-left: 5%;
@@ -45,18 +45,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom: 3px solid black;
+    border-bottom: 3px solid #803a21;
 }
 
 .FriendName {
     width: 45%;
-    /* border-right: 3px solid black; */
+    /* border-right: 3px solid #803a21; */
 }
 
 .FriendAchieve {
     width: 25%;
-    /* border-left: 3px solid black;
-    border-right: 3px solid black; */
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -65,7 +64,7 @@
 .FriendAchieve::after {
     content: "";
     height: 1rem;
-    border-right: 3px solid black;
+    border-right: 3px solid #803a21;
     padding-left: 8px;
     /* margin: 20px auto; */
 }
@@ -73,7 +72,7 @@
 .FriendAchieve::before {
     content: "";
     height: 1rem;
-    border-left: 3px solid black;
+    border-left: 3px solid #803a21;
 
 }
 

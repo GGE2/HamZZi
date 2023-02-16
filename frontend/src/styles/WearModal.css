@@ -1,0 +1,86 @@
+/* modal창 외부화면 */
+.WearModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 900;
+    background-color: rgba(76, 76, 76, 0.7);
+    /* background-color: transparent; */
+  }
+   
+  /* modal창 */
+  .WearmodalBody {
+    display: flex;
+    flex-direction: column;
+    width: 15em;
+    height: 14em;
+    position: absolute;
+    background-color: white ;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    padding: 30px;
+    text-align: center;
+    /* justify-content: center; */
+    align-items: center;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    border: 10px solid rgb(146, 89, 67);
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+  }
+  
+  .WearTitle {
+    background-color: #ececec;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5em;
+    margin: 0.5em;
+    width: 8em;
+    height: 8em;
+  }
+
+  .WearTitle img {
+    width: 8em;
+    height: 8em;
+  }
+  
+  .WearContent{
+    display: flex;
+    justify-content: start;
+    font-size: 20px;
+    /* margin-bottom: 30px; */
+  }
+  
+  .ShopReword{
+    font-size: 30px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    bottom: 0;
+  }
+  
+  .ShopReword2{
+    
+  }
+   
+  #WearmodalCloseBtn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    border: none;
+    color: rgba(0, 0, 0, 0.7);
+    background-color: transparent;
+    font-size: 20px;
+  }
+   
+  #WearmodalCloseBtn:hover {
+    cursor: pointer;
+  }

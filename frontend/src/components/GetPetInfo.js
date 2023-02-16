@@ -1,14 +1,26 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import axios from "axios";
+import api from "./api";
+// import { getPetType } from "../hamStatSlice";
+import {
+  getExp
+} from "./../ExpSlice";
+
+// 안녕
 
 const GetPetInfo = () => {
   const currentLevel = localStorage.getItem("petLevel");
   const nickname = localStorage.getItem("nickname");
+  // const dispatch = useDispatch();
 
-  axios.get(`http://3.35.88.23:8080/api/pet/${nickname}`).then((res) => {
-    console.log(res.data[2]);
-    if (currentLevel !== res.data[0].level) {
-      localStorage.setItem("petLevel", res.data[0].level);
+  api.get(`/api/pet/${nickname}`).then((res) => {
+    console.log(res.data.pet);
+    // dispatch(getPetType(res.data.petInfo.type));
+    if (currentLevel !== res.data.pet.level) {
+      localStorage.setItem("petLevel", res.data.pet.level);
+      // localStorage.setItem("exp", res.data.pet.exp);
+      // dispatch(getExp())
     }
   });
 };

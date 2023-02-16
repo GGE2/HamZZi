@@ -4,14 +4,19 @@
   .contentWrap {
     /* margin-top: 26px; */
     width: 100%;
-    flex: 1
+    /* flex: 1 */
+  }
+
+  .siginup_inputTitle {
+    margin-top: 5px;
   }
   
+/*   
   .inputTitle {
     font-size: 12px;
     font-weight: 600;
-    color: #262626
-  }
+    color: #262626;
+  } */
   
   .siginup_inputWrap {
     display: flex;
@@ -23,7 +28,7 @@
   }
   
   .siginup_inputWrap:focus-within {
-    border: 1px solid blue;
+    border: 1px solid orange;
   }
   
   .siginup_input {
@@ -51,12 +56,12 @@
   
   .siginup_bottomButton {
     width: 100%;
-    height: 48px;
+    height: 3em;
     border: none;
     font-weight: 700;
     /* background-color: #9230f4; */
-    background-color: blue;
-    border-radius: 64px;
+    background-color: orange;
+    /* border-radius: 64px; */
     color: white;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -64,6 +69,6 @@
   }
   
   .siginup_bottomButton:disabled {
-    background-color: #dadada;
+    background-color: #ffd4b1;
     color: white;
   }

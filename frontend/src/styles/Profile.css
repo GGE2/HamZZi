@@ -1,5 +1,5 @@
 .UserName {
-    border-bottom: 3px solid black;
+    border-bottom: 3px solid #803a21;
     display: flex;
     justify-content: start;
     padding-left: 10px;
@@ -11,9 +11,12 @@
 /* 미니룸 꾸미기 */
 .MyBody_profile {
     height: 100%;
-    background-image: url("../../public/room2.gif");
+    /* background-image: url("../../public/room2.gif"); */
     background-repeat: no-repeat;
     background-size: cover;
+    border-radius: 10px;
+    /* -webkit-border-radius: 50px;
+  -moz-border-radius: 50px; */
     /* background-attachment: fixed; */
     display: flex;
 }
@@ -32,14 +35,14 @@
     width: 50%;
     display: flex;
     flex-direction: column;
-    border-right: 3px solid black;
+    border-right: 3px solid #803a21;
     
 }
 
 .HamSlot {
     display: flex;
     height: 33%;
-    border-bottom: 3px solid black;
+    border-bottom: 3px solid #803a21;
 }
 
 .HamSlot2 {
@@ -70,7 +73,7 @@
 }
 
 .DiaryEditor {
-    border: 1px solid black;
+    border: 1px solid #803a21;
 }
 
 .DiaryEditor textarea {
@@ -84,7 +87,7 @@
 .DiaryItem {
     /* background-color: rgba(69, 178, 93, 1); */
     padding-bottom: 10px;
-    border-bottom: 3px solid black;
+    border-bottom: 3px solid #803a21;
     
 }
 

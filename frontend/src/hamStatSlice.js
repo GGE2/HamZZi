@@ -1,7 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 import GetPetInfo from "./components/GetPetInfo";
 import increaseExp from "./components/increaseExp";
+import api from "./components/api";
+import { selectCurrentPoint } from "./pointSlice";
+
+const nickname = localStorage.getItem("nickname");
 
 const hamStatSlice = createSlice({
   name: "hamStat",
@@ -12,8 +15,21 @@ const hamStatSlice = createSlice({
     inactive: 0,
     energetic: 0,
     etc: 0,
+    level: 1,
+    type: 0,
+   
   },
   reducers: {
+    getPetType: (state, action) => {
+      const type = action.payload;
+      state.type = type;
+    },
+
+    getPetLevel: (state, action) => {
+      const level = action.payload;
+      state.level = level;
+    },
+
     clearStat: (state, action) => {
       const petId = action.payload;
       state.physical = 0;
@@ -22,8 +38,8 @@ const hamStatSlice = createSlice({
       state.inactive = 0;
       state.energetic = 0;
       state.etc = 0;
-      axios
-        .put(`http://3.35.88.23:8080/api/pet/stat`, {
+      api
+        .put(`/api/pet/stat?nickname=${nickname}`, {
           artistic: state.artistic,
           energetic: state.energetic,
           etc: state.etc,
@@ -50,8 +66,8 @@ const hamStatSlice = createSlice({
     increasePhysical: (state, action) => {
       const petId = action.payload;
       state.physical += 1;
-      axios
-        .put(`http://3.35.88.23:8080/api/pet/stat`, {
+      api
+        .put(`/api/pet/stat?nickname=${nickname}`, {
           artistic: 0,
           energetic: 0,
           etc: 0,
@@ -72,8 +88,8 @@ const hamStatSlice = createSlice({
     increaseArtistic: (state, action) => {
       const petId = action.payload;
       state.artistic += 1;
-      axios
-        .put(`http://3.35.88.23:8080/api/pet/stat`, {
+      api
+        .put(`/api/pet/stat?nickname=${nickname}`, {
           artistic: 1,
           energetic: 0,
           etc: 0,
@@ -90,8 +106,8 @@ const hamStatSlice = createSlice({
     increaseIntelligent: (state, action) => {
       const petId = action.payload;
       state.intelligent += 1;
-      axios
-        .put(`http://3.35.88.23:8080/api/pet/stat`, {
+      api
+        .put(`/api/pet/stat?nickname=${nickname}`, {
           artistic: 0,
           energetic: 0,
           etc: 0,
@@ -108,8 +124,8 @@ const hamStatSlice = createSlice({
     increaseInactive: (state, action) => {
       const petId = action.payload;
       state.inactive += 1;
-      axios
-        .put(`http://3.35.88.23:8080/api/pet/stat`, {
+      api
+        .put(`/api/pet/stat?nickname=${nickname}`, {
           artistic: 0,
           energetic: 0,
           etc: 0,
@@ -126,8 +142,8 @@ const hamStatSlice = createSlice({
     increaseEnergetic: (state, action) => {
       const petId = action.payload;
       state.energetic += 1;
-      axios
-        .put(`http://3.35.88.23:8080/api/pet/stat`, {
+      api
+        .put(`/api/pet/stat?nickname=${nickname}`, {
           artistic: 0,
           energetic: 1,
           etc: 0,
@@ -144,8 +160,8 @@ const hamStatSlice = createSlice({
     increaseEtc: (state, action) => {
       const petId = action.payload;
       state.etc += 1;
-      axios
-        .put(`http://3.35.88.23:8080/api/pet/stat`, {
+      api
+        .put(`/api/pet/stat?nickname=${nickname}`, {
           artistic: 0,
           energetic: 0,
           etc: 1,
@@ -163,6 +179,8 @@ const hamStatSlice = createSlice({
 });
 
 export const {
+  getPetType,
+  getPetLevel,
   getCurrentStat,
   increasePhysical,
   increaseArtistic,
@@ -176,3 +194,5 @@ export const {
 export default hamStatSlice.reducer;
 
 export const selectCurrentHamStat = (state) => state.hamStat;
+export const selectCurrentHamLevel = (state) => state.hamStat.level;
+export const selectCurrentPetType = (state) => state.hamStat.type;

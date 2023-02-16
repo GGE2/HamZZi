@@ -1,35 +1,35 @@
 import React, { useEffect, useState } from "react";
 import Ham from "./mainpages/Ham";
-// import Board from "./mainpages/Board";
-import axios from "axios";
 import "../styles/Main.css";
 
 import Todos from "./mainpages/boardpages/Todos";
 import Guild from "./mainpages/boardpages/Guild";
-import Friends from "./mainpages/boardpages/Friends";
+import Quests from "./mainpages/boardpages/Quests";
+import Shop from "./mainpages/boardpages/Shop";
 import Profile from "./mainpages/boardpages/Profile";
 
-import {
-  FcSearch,
-  FcWebcam,
-  // FcConferenceCall,
-  // FcCollaboration,
-  // FcTodoList,
-  // FcRating,
-  // FcBookmark,
-} from "react-icons/fc";
-// import { BiDotsHorizontalRounded } from "react-icons/bi";
-import { BsBookmarkStar, BsBookmarkStarFill } from "react-icons/bs";
-
 import { useDispatch } from "react-redux";
-// import { setCredentials } from "../authSlice";
-import { getCurrentStat } from "../hamStatSlice";
+import { getCurrentStat, getPetLevel, getPetType } from "../hamStatSlice";
+import api from "./../components/api";
+import LoadingModal from "./../components/LoadingModal";
+import LoadingModal2 from "./../components/LoadingModal2";
+import { receivePoint } from "../pointSlice";
 
 const Main = () => {
   const [petName, setPetName] = useState("");
   const [name, setName] = useState("");
   const email = JSON.parse(localStorage.getItem("user"));
-  const nickname = localStorage.getItem("nickname");
+  const uid = JSON.parse(localStorage.getItem("uid"));
+
+  // 아이템 착용하는거
+  const [Wear, setWear] = useState({
+    hat: 0,
+    dress: 0,
+    background: 0,
+  });
+
+  // const nickname = localStorage.getItem("nickname");
+  const [nickname, SetNickName] = useState();
   const dispatch = useDispatch();
 
   const [user, setUser] = useState({});
@@ -39,6 +39,9 @@ const Main = () => {
     nickname: nickname,
   });
   const [guildId, setGuildId] = useState(0);
+  const [guildName, setGuildName] = useState("");
+
+  const [loading, setLoading] = useState(true);
 
   // 화면 보여주는 플래그
   const [show, setShow] = useState({
@@ -48,24 +51,33 @@ const Main = () => {
     profileShow: false,
   });
   // 버튼 눌림 css
-  const [menu, setMenu] = useState([true, false, false, false]);
+  const [menu, setMenu] = useState([true, false, false, false, false]);
 
-  const getPetInfo = () => {
-    axios
-      .get(`http://3.35.88.23:8080/api/pet/${nickname}`)
+  const getPetInfo = (nickname) => {
+    api
+      .get(`/api/pet/${nickname}`)
       .then((res) => {
         console.log(res.data);
-        const physical = res.data[2].physical;
-        const artistic = res.data[2].artistic;
-        const intelligent = res.data[2].intelligent;
-        const inactive = res.data[2].inactive;
-        const energetic = res.data[2].energetic;
-        const etc = res.data[2].etc;
-        setPetName(res.data[0].pet_name);
-        localStorage.setItem("petId", res.data[0].pet_id);
-        localStorage.setItem("petName", res.data[0].pet_name);
-        localStorage.setItem("petLevel", res.data[0].level);
-        localStorage.setItem("exp", res.data[0].exp);
+        // dispatch(getPetType(res.data.petInfo.type));
+        // setWear({
+        //   type: res.data.petInfo.type,
+        //   // dress: res.data.userProfile.dress,
+        //   hat: hat,
+        //   dress: dress,
+        // });
+        const physical = res.data.petStat.physical;
+        const artistic = res.data.petStat.artistic;
+        const intelligent = res.data.petStat.intelligent;
+        const inactive = res.data.petStat.inactive;
+        const energetic = res.data.petStat.energetic;
+        const etc = res.data.petStat.etc;
+        setPetName(res.data.pet.pet_name);
+        localStorage.setItem("petId", res.data.pet.pet_id);
+        localStorage.setItem("petName", res.data.pet.pet_name);
+        localStorage.setItem("petLevel", res.data.pet.level);
+        dispatch(getPetLevel(res.data.pet.level));
+        dispatch(getPetType(res.data.petInfo.type));
+        localStorage.setItem("exp", res.data.pet.exp);
         const data = {
           physical,
           artistic,
@@ -74,7 +86,9 @@ const Main = () => {
           energetic,
           etc,
         };
+
         dispatch(getCurrentStat(data));
+
         console.log(data);
         console.log("DISPATCHED!!");
       })
@@ -83,18 +97,10 @@ const Main = () => {
       });
   };
 
-  useEffect(() => {
-    getProfile();
-    onGetUserGuildInfo(); // 유저 길드 정보 가져오기
-  }, []);
-
-  useEffect(() => {
-    getPetInfo();
-  }, [name]);
-
   const getProfile = () => {
-    axios
-      .get(`http://3.35.88.23:8080/api/user/mypage?email=${email}`)
+    setLoading(true);
+    api
+      .get(`/api/user/mypage?email=${email}`)
       .then((res) => {
         console.log("회원 정보 조회 api");
         console.log(res.data);
@@ -105,6 +111,78 @@ const Main = () => {
           nickname: res.data.nickname,
           rest_point: res.data.rest_point,
         });
+        dispatch(receivePoint(res.data.point));
+        SetNickName(res.data.nickname);
+        getPetInfo(res.data.nickname);
+        onGetUserGuildInfo(res.data.nickname);
+        // setLoading2(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  // 유저
+  const getAllProfile = () => {
+    setLoading(true);
+    api
+      .get(`/api/user/info/${uid}`)
+      .then((res) => {
+        console.log("회원 모든 정보 조회 api");
+        console.log(res.data);
+        localStorage.setItem("nickname", res.data.userProfile.nickname);
+        setUser({
+          // guild: res.data.guild,
+          point: res.data.userProfile.point,
+          nickname: res.data.userProfile.nickname,
+          rest_point: res.data.userProfile.rest_point,
+        });
+        dispatch(receivePoint(res.data.userProfile.point));
+        SetNickName(res.data.userProfile.nickname);
+        getPetInfo(res.data.userProfile.nickname);
+        onGetUserGuildInfo(res.data.userProfile.nickname);
+        setWear({
+          hat: res.data.userProfile.hat,
+          dress: res.data.userProfile.dress,
+          background: res.data.userProfile.background,
+        });
+        // setLoading2(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  // // 유저
+  const getShopUpdate = () => {
+    setLoading(true);
+    api
+      .get(`/api/user/info/${uid}`)
+      .then((res) => {
+        console.log("회원 모든 정보 조회 api");
+        console.log(res.data);
+        // localStorage.setItem("nickname", res.data.userProfile.nickname);
+        setUser({
+          // guild: res.data.guild,
+          point: res.data.userProfile.point,
+          nickname: res.data.userProfile.nickname,
+          rest_point: res.data.userProfile.rest_point,
+        });
+        setWear({
+          hat: res.data.userProfile.hat,
+          dress: res.data.userProfile.dress,
+          background: res.data.userProfile.background,
+        });
+        dispatch(receivePoint(res.data.userProfile.point));
+        // SetNickName(res.data.userProfile.nickname);
+        // getPetInfo(res.data.userProfile.nickname);
+        // onGetUserGuildInfo(res.data.userProfile.nickname);
+        getPetInfo(
+          res.data.userProfile.nickname,
+          res.data.userProfile.hat,
+          res.data.userProfile.dress
+        );
+        // setLoading2(false);
       })
       .catch((err) => {
         console.log(err);
@@ -113,21 +191,44 @@ const Main = () => {
 
   // 유저 길드 정보 가져오기 api
   // 닉네임으로 가져옴. nickname
-  const onGetUserGuildInfo = async () => {
-    await axios
-      .get(`http://3.35.88.23:8080/api/guild/user?nickname=${nickname}`)
-      .then((res) => {
-        console.log("유저 길드 정보 가져오기 api");
-        console.log(res.data);
-        if (res.data.guild) {
-          setGuildId(res.data.guild.guild_id);
-          console.log(guildId);
-          setGuildUsers(res.data);
-        }
-
-        // setGuilds(res.data);
-      });
+  const onGetUserGuildInfo = async (nickname) => {
+    await api.get(`/api/guild/user?nickname=${nickname}`).then((res) => {
+      console.log("유저 길드 정보 가져오기 api");
+      console.log(res.data);
+      if (res.data.guild) {
+        setGuildId(res.data.guild.guild_id);
+        console.log(guildId);
+        setGuildUsers(res.data);
+        setGuildName(res.data.guild.guild_name);
+      }
+    });
   };
+
+  // 회원탈퇴
+  const onDeleteUser = async () => {
+    await api.delete(`/api/user/delete?email=${email}`).then((res) => {
+      console.log("유저 삭제");
+      console.log(res.data);
+    });
+  };
+
+  useEffect(() => {
+    // callData()
+    getAllProfile();
+    // getProfile();
+    // getPetInfo();
+    //     onGetUserGuildInfo(); // 유저 길드 정보 가져오기
+  }, []);
+
+  useEffect(() => {
+    getPetInfo();
+  }, [name]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+  });
 
   // 메뉴 선택 함수
   const onClickTodo = () => {
@@ -136,9 +237,9 @@ const Main = () => {
       guildShow: false,
       friendShow: false,
       profileShow: false,
+      dressShow: false,
     });
-    setMenu([true, false, false, false]);
-    console.log("투두");
+    setMenu([true, false, false, false, false]);
   };
 
   const onClickGuild = () => {
@@ -147,10 +248,9 @@ const Main = () => {
       guildShow: true,
       friendShow: false,
       profileShow: false,
+      dressShow: false,
     });
-    setMenu([false, true, false, false]);
-    console.log("길드");
-    console.log(show)
+    setMenu([false, true, false, false, false]);
   };
 
   const onClickFriend = () => {
@@ -159,9 +259,9 @@ const Main = () => {
       guildShow: false,
       friendShow: true,
       profileShow: false,
+      dressShow: false,
     });
-    setMenu([false, false, true, false]);
-    console.log("친구");
+    setMenu([false, false, true, false, false]);
   };
 
   const onClickProfile = () => {
@@ -170,75 +270,108 @@ const Main = () => {
       guildShow: false,
       friendShow: false,
       profileShow: true,
+      dressShow: false,
     });
-    setMenu([false, false, false, true]);
-    console.log("프로필");
-    console.log(show)
+    setMenu([false, false, false, true, false]);
+  };
+
+  const onClickDressRoom = () => {
+    setShow({
+      todoShow: false,
+      guildShow: false,
+      friendShow: false,
+      profileShow: false,
+      dressShow: true,
+    });
+    setMenu([false, false, false, false, true]);
   };
 
   return (
-    <div className="app">
-      <div className="Board">
-        <div className="Back">
-          <div className="Hamster">
-            <Ham petName={petName} />
-          </div>
-          <div className="Screen">
-            {show.todoShow && <Todos user={user} />}
-            {show.guildShow && (
-              <Guild
-                // user={user}
-                setGuildUsers={setGuildUsers}
-                guildUsers={guildUsers}
-                guildId={guildId}
-                onGetUserGuildInfo={onGetUserGuildInfo}
-              />
-            )}
-            {show.friendShow && <Friends user={user} />}
-            {show.profileShow && <Profile user={user} />}
-          </div>
+    <>
+      <div className="app">
+        <div className="appboard">
+          <div className="Board">
+            <div className="Back">
+              <div className="Hamster">
+              {loading === false ?
+                <Ham
+                  petName={petName}
+                  Wear={Wear}
+                  getAllProfile={getAllProfile}
+                  onDeleteUser={onDeleteUser}
+                  setWear={setWear}
+                />
+                : null}
+              </div>
+              <div className="Screen">
+                <div className="spring">
+                  <img src="homeback/spring.png" alt="" />
+                </div>
+                {loading === false ? (
+                  <>
+                    {show.todoShow && <Todos user={user} />}
 
-          <div className="buttonflex">
-            <button>
-              <FcSearch size={"100%"} />
-            </button>
-            <button>
-              <BsBookmarkStarFill color={"orange"} size={"100%"} />
-            </button>
-            <button>
-              <FcWebcam size={"100%"} />
-            </button>
-            <button
-              className={menu[0] ? "BoardButto--active" : ""}
-              onClick={onClickTodo}
-              style={{ borderRight: "3px solid black" }}
-            >
-              Todo
-            </button>
-            <button
-              className={menu[1] ? "BoardButto--active" : ""}
-              onClick={onClickGuild}
-              style={{ borderRight: "3px solid black" }}
-            >
-              Guild
-            </button>
-            <button
-              className={menu[2] ? "BoardButto--active" : ""}
-              onClick={onClickFriend}
-              style={{ borderRight: "3px solid black" }}
-            >
-              Friend
-            </button>
-            <button
-              className={menu[3] ? "BoardButto--active" : ""}
-              onClick={onClickProfile}
-            >
-              Profile
-            </button>
+                    {show.guildShow && (
+                      <Guild
+                        setGuildUsers={setGuildUsers}
+                        guildUsers={guildUsers}
+                        guildId={guildId}
+                        onGetUserGuildInfo={onGetUserGuildInfo}
+                        guildName={guildName}
+                      />
+                    )}
+
+                    {show.friendShow && <Quests user={user} />}
+                    {show.dressShow && (
+                      <Shop
+                        user={user}
+                        getAllProfile={getAllProfile}
+                        getShopUpdate={getShopUpdate}
+                        Wear={Wear}
+                      />
+                    )}
+                  </>
+                ) : (
+                  <LoadingModal2 />
+                )}
+              </div>
+              <div className="buttonflex">
+                <button
+                  className={menu[0] ? "BoardButto--active0" : ""}
+                  onClick={onClickTodo}
+                >
+                  Todo
+                </button>
+                <button
+                  className={menu[1] ? "BoardButto--active1" : ""}
+                  onClick={onClickGuild}
+                >
+                  Guild
+                </button>
+                <button
+                  className={menu[2] ? "BoardButto--active2" : ""}
+                  onClick={onClickFriend}
+                >
+                  Quest
+                </button>
+                {/* <button
+                  className={menu[3] ? "BoardButto--active3" : ""}
+                  onClick={onClickProfile}
+                >
+                  Room
+                </button> */}
+                <button
+                  className={menu[4] ? "BoardButto--active4" : ""}
+                  onClick={onClickDressRoom}
+                >
+                  Shop
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

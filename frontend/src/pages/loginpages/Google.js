@@ -5,6 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../../authSlice";
+import api from './../../components/api';
 
 function Google() {
   const [userData, setUserData] = useState(null);
@@ -26,16 +27,16 @@ function Google() {
       );
 
       // uid 보내기
-      const dummy = await axios.get(
-        `http://3.35.88.23:8080/api/user/uid/${email}`
+      const dummy = await api.get(
+        `/api/user/uid/${email}`
       );
       console.log(dummy.data);
       // dummy가 true -> 기존 사용자 -> 메인페이지 이동
       // false -> 신규 사용자 -> 닉네임 설정 페이지 이동
       dummy.data
         ? navigate("/main")
-        : axios
-            .post("http://3.35.88.23:8080/api/user/register", {
+        : api
+            .post("/api/user/register", {
               email: email,
               uid: data.user.uid,
             })
