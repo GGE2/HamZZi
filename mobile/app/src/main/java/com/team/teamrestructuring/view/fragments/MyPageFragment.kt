@@ -120,8 +120,11 @@ class MyPageFragment : Fragment() {
     private fun setUserData(){
         binding.textviewMyPageContentLevel.text = mainViewModel.userData.value!!.userProfile.nickname
         binding.textviewMyPageContentCoin.text = mainViewModel.userData.value!!.userProfile.point.toString()
-        if(mainViewModel.userData.value!!.userProfile!=null)
-            binding.textviewMyPageContentPlace.text = mainViewModel.userData.value!!.userProfile.location
+        if(mainViewModel.userData.value!!.userProfile.latitude!=0.0) {
+            Log.d(TAG, "setUserData: ")
+            binding.textviewMyPageContentPlace.text =
+                mainViewModel.userData.value!!.userProfile.location
+        }
     }
 
     override fun onResume() {

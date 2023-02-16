@@ -16,7 +16,6 @@ class AlarmReceiver:BroadcastReceiver(){
             Log.d("지훈", "onReceive: ")
             var data = intent?.extras?.get("data") as Int
             ApplicationClass.sharedPreferencesUtil.setPedometer("walk_counter",data)
-
         }
     }
 }
