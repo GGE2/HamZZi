@@ -14,7 +14,7 @@ const HamHeader = ({ onDeleteUser }) => {
         <img src={`coin.png`} alt="" />
         {point}
       </div>
-      <div> {nickname} </div>
+      <div className="Nickname"> {nickname} </div>
 
       <div className="Profile">
         <DropdownMenu onDeleteUser={onDeleteUser} />

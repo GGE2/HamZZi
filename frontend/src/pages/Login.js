@@ -1,4 +1,4 @@
-import React, { useState,useRef } from "react";
+import React, { useState, useRef } from "react";
 import Google from "./loginpages/Google";
 import Kakao from "./loginpages/Kakao";
 import LoginForm from "./loginpages/LoginForm";
@@ -26,18 +26,21 @@ const Login = () => {
   return (
     <>
       {token ? navigate("/main") : null}
-      {isModal &&
-       <div
-       className="warning"
-       ref={outside}
-       onClick={(e) => {
-         if (e.target === outside.current) setIsModal(false);
-       }}
-     >
-       <Warning setIsModal={setIsModal} content={"이미 존재하는 계정입니다"}
-            content2={"다시 한번 확인해주세요"}/> 
-       </div>
-      }
+      {isModal && (
+        <div
+          className="warning"
+          ref={outside}
+          onClick={(e) => {
+            if (e.target === outside.current) setIsModal(false);
+          }}
+        >
+          <Warning
+            setIsModal={setIsModal}
+            content={"이미 존재하는 계정입니다"}
+            content2={"다시 한번 확인해주세요"}
+          />
+        </div>
+      )}
       <div className="loginbody">
         <div className="backimg">
           <img src="title.png" alt="" />
@@ -65,7 +68,7 @@ const Login = () => {
             </div>
             <LoginForm />
             <Google />
-            <Kakao />
+            {/* <Kakao /> */}
             <div className="qrcode">
               <img src="QRCodeImg1.png" alt="" />
             </div>
@@ -90,9 +93,9 @@ const Login = () => {
                 회원가입
               </button>
             </div>
-            <Signup setIsModal={setIsModal}/>
+            <Signup setIsModal={setIsModal} />
             <Google />
-            <Kakao />
+            {/* <Kakao /> */}
           </div>
         )}
       </div>

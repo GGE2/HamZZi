@@ -72,6 +72,14 @@ animation: rotate_image 10s linear infinite;
     margin-right: 0.5em;
 }
 
+.Nickname {
+    font-weight: bold;
+    font-size: larger;
+    color: rgb(255, 177, 0);
+    text-shadow: 1px 1px 1px rgb(146, 85, 59);
+
+}
+
 /* 햄 outfit 이height: 100%;미지 크기 설정 */
 .HamOutfit{
     height: 45%;
@@ -277,4 +285,6 @@ animation: rotate_image 10s linear infinite;
 .HamName {
     font-weight: bold;
     font-size: 20px;
+    text-shadow: 1px 1px 1px #803a21;
+    /* text-decoration: ; */
 }
