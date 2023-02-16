@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import "../../styles/Modal.css";
@@ -14,6 +14,8 @@ const PetName = () => {
   console.log(nickname);
   const [isModal, setIsModal] = useState(false);
   const [isModal2, setIsModal2] = useState(false);
+  const text2 = useRef()
+  useEffect(() => {text2.current.focus()}, [])
 
   const handleChange = (e) => {
     setPetName(e.target.value);
@@ -97,6 +99,7 @@ const PetName = () => {
                   placeholder="2글자 이상 8글자 미만 햄스터 이름을 입력하세요"
                   onChange={handleChange}
                   // value={text}
+                  ref={text2}
                 />
               </div>
               <div className="setnickimg" type="submit" >

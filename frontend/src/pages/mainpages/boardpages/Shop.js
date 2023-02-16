@@ -31,33 +31,22 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
   const nickname = localStorage.getItem("nickname");
   const petLevel = useSelector(selectCurrentHamLevel);
   const point = useSelector(selectCurrentPoint);
-  const ham = useSelector(selectCurrentHamStat);
-  const shopshoww = useSelector(selectCurrentshopShow);
   const hat = useSelector(selectCurrenthatShow);
   const cloth = useSelector(selectCurrentclothShow);
   const deco = useSelector(selectCurrentdecoShow);
   const my = useSelector(selectCurrentmyShow);
   // getCheckCloth
 
-  console.log(123123);
-  console.log(shopshoww);
-  console.log(ham);
   const dispatch = useDispatch();
 
-  const [show, setShow] = useState({
-    hatShow: hat,
-    clothShow: cloth,
-    decoShow: deco,
-    myShow: my,
-  });
+
 
   const [loading, setLoading] = useState(true);
 
   // 전체 아이템
   const [items, setItem] = useState([]);
   const [myItems, setMyItem] = useState([]);
-  // 버튼 눌림 css
-  const [menu, setMenu] = useState([hat, cloth, deco, my]);
+
 
   const onCheckHat = () => {
     dispatch(getCheckHat());
@@ -80,12 +69,11 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
     await api
       .get(`/api/item/itemAllList`)
       .then((res) => {
-        console.log(`전체 아이템`);
-        console.log(res);
+       
         setItem(res.data);
       })
       .catch((err) => {
-        console.log(err);
+       
       });
   };
 
@@ -94,12 +82,11 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
     await api
       .get(`/api/item/itemUserList/${nickname}`)
       .then((res) => {
-        console.log(`보유아이템`);
-        console.log(res.data);
+        
         setMyItem(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        
       });
   };
 
@@ -108,11 +95,11 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
     await api
       .put(`/api/item?nickname=${nickname}&item_id=${id}`)
       .then((res) => {
-        console.log(res);
+        
         getShopUpdate();
       })
       .catch((err) => {
-        console.log(err);
+        
       });
   };
 
@@ -123,14 +110,12 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
         nickname: nickname,
       })
       .then((res) => {
-        console.log(`아이템을 구매`);
-        console.log(res);
         onGetItemAllList(); // 상점 전체 아이템
         onGetItemUserNickList(); // 내가 산 아이템 보기
         getShopUpdate()
       })
       .catch((err) => {
-        console.log(err);
+        
       });
   };
 

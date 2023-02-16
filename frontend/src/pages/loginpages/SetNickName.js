@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef,useEffect } from "react";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import "../../styles/Modal.css";
@@ -75,7 +75,11 @@ const SetNickName = () => {
   };
 
   const outside = useRef();
+  const text2 = useRef()
 
+  useEffect(() => {text2.current.focus()}, [])
+  
+  
   return (
     <>
    {isModal &&
@@ -124,6 +128,7 @@ const SetNickName = () => {
                 placeholder="2글자 이상 8글자 미만 닉네임을 입력하세요"
                 onChange={handleChange}
                 value={text}
+                ref={text2}
               />
             </div>
             <div className="setnickimg"  >
