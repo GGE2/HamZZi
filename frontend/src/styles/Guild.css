@@ -388,7 +388,7 @@
   }
   
   .inputWrapGuild:focus-within {
-    border: 1px solid rgb(146, 89, 67);
+    border: 2px solid black;
   }
   
   .inputt {

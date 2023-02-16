@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 import GuildItem from "./GuildItem";
 import api from "./../../api";
@@ -17,8 +17,13 @@ const CreateGuild = ({
 }) => {
   const nickname = localStorage.getItem("nickname");
   const [GuildName, setGuildName] = useState("");
+  const textRef = useRef();
 
   const onCreateGuild = async () => {
+    if (GuildName.length < 1) {
+      textRef.current.focus();
+      return;
+    }
     if (GuildName) {
       await api
         .post(`/api/guild/found?guild_name=${GuildName}&nickname=${nickname}`)
@@ -33,8 +38,16 @@ const CreateGuild = ({
         .catch((err) => {
           console.log(err);
         });
-    } else alert("이름이 없다");
+    } 
   };
+
+  const onSearchG = () => {
+    if (GuildName.length < 1) {
+      textRef.current.focus();
+      return;
+    }
+    onSearchGuild(GuildName)
+  }
 
   const onGuildName = (e) => {
     console.log(e.target.value);
@@ -45,17 +58,18 @@ const CreateGuild = ({
     <>
       <div className="onCreateGuildHeaderButton">
         <div className="inputWrapGuild div1">
-          <form className="inputt" onSubmit={() => onSearchGuild(GuildName)}>
+          <form className="inputt" onSubmit={onSearchG}>
             <input
               type="text"
               placeholder="길드 이름을 입력하세요"
               value={GuildName}
               onChange={onGuildName}
+              ref={textRef}
             />
           </form>
         </div>
 
-        <div onClick={() => onSearchGuild(GuildName)} className="searchbtn">
+        <div onClick={onSearchG} className="searchbtn">
           <img src="guildlist/searchbtn.png" alt="" />
         </div>
         <div onClick={onCreateGuild} className="createbtn">
