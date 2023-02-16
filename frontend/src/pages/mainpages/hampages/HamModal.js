@@ -16,10 +16,10 @@ const HamModal = ({ setIsModal, setIsCreate }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (petName.length < 2 || petName.length > 5) {
+    if (petName.length < 2 || petName.length > 8) {
       setIsModal2(true);
       console.log(isModal2);
-      // alert('2글자 이상 5글자 미만으로 입력해주세요.')
+      // alert('2글자 이상 8글자 미만으로 입력해주세요.')
       setPetName("");
       // setText("");
       return;
@@ -65,7 +65,7 @@ const HamModal = ({ setIsModal, setIsCreate }) => {
           <input
             className="input"
             name="nickname"
-            placeholder="2글자 이상 5글자 미만 햄스터 이름을 입력하세요"
+            placeholder="2글자 이상 8글자 미만 햄스터 이름을 입력하세요"
             onChange={handleChange}
           />
         </div>

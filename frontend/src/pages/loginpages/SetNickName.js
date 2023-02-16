@@ -30,10 +30,10 @@ const SetNickName = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (text.length < 2 || text.length > 5) {
+    if (text.length < 2 || text.length > 8) {
       setIsModal(true)
       console.log(isModal)
-      // alert('2글자 이상 5글자 미만으로 입력해주세요.')
+      // alert('2글자 이상 8글자 미만으로 입력해주세요.')
       SetNickName("");
       setText("");
       return
@@ -121,7 +121,7 @@ const SetNickName = () => {
               <input
                 className="input"
                 name="nickname"
-                placeholder="2글자 이상 5글자 미만 닉네임을 입력하세요"
+                placeholder="2글자 이상 8글자 미만 닉네임을 입력하세요"
                 onChange={handleChange}
                 value={text}
               />

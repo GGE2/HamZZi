@@ -168,11 +168,12 @@ const Todos = ({user, setUser}) => {
       // 포인트 받아온 뒤 redux에 반영
       api.get(`/api/user/mypage?email=${userr}`).then((res) => {
         console.log(res.data.point);
+        if(user.rest_point > 0){
         setUser({
           ...user,
-          rest_point: user.point - 1,
+          rest_point: user.rest_point - 1,
         }
-        )
+        )}
         dispatch(receivePoint(res.data.point));
       });
     });
