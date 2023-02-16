@@ -9,7 +9,7 @@
 
 .loginback {
   width: 20em;
-  height: 27.5em;
+  height: 24em;
     /* height: 50%; */
     position: absolute;
     top: 65%;
@@ -60,7 +60,8 @@
 }
 
 .login_btn {
-  height: 8vh;
+  /* height: 8vh; */
+  width: 106%;
   cursor: pointer;
 }
 

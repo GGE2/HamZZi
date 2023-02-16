@@ -38,7 +38,19 @@ const CreateGuild = ({
         .catch((err) => {
           console.log(err);
         });
+<<<<<<< HEAD
     } 
+=======
+    }
+  };
+
+  const onSearchG = () => {
+    if (GuildName.length < 1) {
+      textRef.current.focus();
+      return;
+    }
+    onSearchGuild(GuildName);
+>>>>>>> 7c7be14ff9342e52a7c571c5438c959918a88868
   };
 
   const onSearchG = () => {
