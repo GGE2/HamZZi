@@ -78,7 +78,7 @@ class HomeFragment : Fragment(),CreateFriendDialog.CreateFriendDialogInterface,C
         }*/
 
         binding.buttonHomeStat.setOnClickListener {
-            val dialog = CreatePetStatDialog(this@HomeFragment)
+            val dialog = CreatePetStatDialog(this@HomeFragment,mainViewModel.petData.value?.petStat!!)
             dialog.isCancelable = false
             dialog.show(activity?.supportFragmentManager!!,"CreatePetStatDialog")
         }
@@ -230,13 +230,12 @@ class HomeFragment : Fragment(),CreateFriendDialog.CreateFriendDialogInterface,C
             }
     }
 
-    override fun onYesButtonClick() {
-
-
-    }
-
     override fun onYesButtonClick(emptyStat: Int) {
         mainViewModel.userData.value!!.userProfile.point = emptyStat
+    }
+
+    override fun onYesButtonClick() {
+
     }
 
 

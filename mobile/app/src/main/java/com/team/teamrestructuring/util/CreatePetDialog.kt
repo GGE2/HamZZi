@@ -40,10 +40,17 @@ class CreatePetDialog(
 
 
         binding.buttonPetCreate.setOnClickListener {
-            val pet = CreatePet(binding.edittextDialogFind.text.toString(),ApplicationClass.currentUser.userProfile.nickname)
-            Log.d(TAG, "CreatePetActivity")
-            sendToServerPetNickname(pet)
-            createPetDialogInterface?.onYesButtonClick()
+            createPetDialogInterface?.onYesButtonClick(binding.edittextDialogFind.text.toString())
+            if(binding.edittextDialogFind.text.toString().length==0){
+                binding.dialogPetTitle.text = "펫 닉네임을 입력해주세요"
+                binding.dialogPetTitle.setTextColor(Color.RED)
+            }else{
+                val pet = CreatePet(binding.edittextDialogFind.text.toString(),ApplicationClass.currentUser.userProfile.nickname)
+                Log.d(TAG, "CreatePetActivity")
+                sendToServerPetNickname(pet)
+
+            }
+
         }
 
         return view
@@ -57,7 +64,7 @@ class CreatePetDialog(
 
 
     interface CreatePetDialogInterface{
-        fun onYesButtonClick()
+        fun onYesButtonClick(text:String)
     }
 
     /**

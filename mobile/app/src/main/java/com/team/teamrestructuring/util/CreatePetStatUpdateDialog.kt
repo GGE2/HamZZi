@@ -12,9 +12,7 @@ import android.view.*
 import androidx.fragment.app.DialogFragment
 import com.team.teamrestructuring.databinding.DialogCreatePetBinding
 import com.team.teamrestructuring.databinding.DialogCreateUpdateStatBinding
-import com.team.teamrestructuring.dto.CreatePet
-import com.team.teamrestructuring.dto.PetData
-import com.team.teamrestructuring.dto.UpdatePetStat
+import com.team.teamrestructuring.dto.*
 import com.team.teamrestructuring.service.HomeService
 import com.team.teamrestructuring.service.PetService
 import com.team.teamrestructuring.view.activities.HomeActivity
@@ -26,6 +24,7 @@ import retrofit2.Response
 private const val TAG="CreatePetUpdateDialog_지훈"
 class CreatePetStatUpdateDialog(
     createStatUpdateInterface: CreateStatUpdateInterface
+
 ) : DialogFragment(){
 
     private var _binding: DialogCreateUpdateStatBinding? = null

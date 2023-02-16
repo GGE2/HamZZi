@@ -60,12 +60,15 @@ class CreateUserNickNameActivity : AppCompatActivity() ,CreateUserNickNameDialog
         }
     }
 
-    override fun onClick() {
-        val intent = Intent(this,CreatePetActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+    override fun onClick(text:String) {
+
+        if(text.length>0){
+            val intent = Intent(this,CreatePetActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            }
+            startActivity(intent)
+            overridePendingTransition(R.anim.horizon_exit,R.anim.none)
         }
-        startActivity(intent)
-        overridePendingTransition(R.anim.horizon_exit,R.anim.none)
     }
 
 }

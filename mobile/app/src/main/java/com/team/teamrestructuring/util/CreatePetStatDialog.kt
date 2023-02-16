@@ -15,6 +15,7 @@ import com.github.mikephil.charting.data.RadarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.team.teamrestructuring.databinding.DialogCreatePetBinding
 import com.team.teamrestructuring.databinding.DialogStatPetBinding
+import com.team.teamrestructuring.dto.PetStat
 import com.team.teamrestructuring.service.HomeService
 import retrofit2.Call
 import retrofit2.Callback
@@ -22,15 +23,18 @@ import retrofit2.Response
 
 private const val TAG="CreatePetStatDialog_지훈"
 class CreatePetStatDialog(
-    createPetStatDialogDialogInterface:CreatePetDialogInterface
+    createPetStatDialogDialogInterface:CreatePetDialogInterface,
+    petStat : PetStat
 ) : DialogFragment(){
 
     private var _binding: DialogStatPetBinding? = null
     private val binding get() = _binding!!
     private var createPetStatDialogDialogInterface : CreatePetDialogInterface? = null
+    private var petStat: PetStat? = null
 
     init{
         this.createPetStatDialogDialogInterface= createPetStatDialogDialogInterface
+        this.petStat = petStat
     }
     override fun onResume() {
         super.onResume()
@@ -71,14 +75,13 @@ class CreatePetStatDialog(
 
     private fun setChart(){
         val radarChart = binding.radarchatPetStat
-
         var datas:MutableList<RadarEntry> = mutableListOf()
-        datas.add(RadarEntry(ApplicationClass.petData?.petStat?.physical!!.toFloat()))
-        datas.add(RadarEntry(ApplicationClass.petData?.petStat?.artistic!!.toFloat()))
-        datas.add(RadarEntry(ApplicationClass.petData?.petStat?.intelligent!!.toFloat()))
-        datas.add(RadarEntry(ApplicationClass.petData?.petStat?.inactive!!.toFloat()))
-        datas.add(RadarEntry(ApplicationClass.petData?.petStat?.energetic!!.toFloat()))
-        datas.add(RadarEntry(ApplicationClass.petData?.petStat?.etc!!.toFloat()))
+        datas.add(RadarEntry(petStat?.physical!!.toFloat()))
+        datas.add(RadarEntry(petStat?.artistic!!.toFloat()))
+        datas.add(RadarEntry(petStat?.intelligent!!.toFloat()))
+        datas.add(RadarEntry(petStat?.inactive!!.toFloat()))
+        datas.add(RadarEntry(petStat?.energetic!!.toFloat()))
+        datas.add(RadarEntry(petStat?.etc!!.toFloat()))
 
 
         val dataSet = RadarDataSet(datas,"스탯")

@@ -3,6 +3,7 @@ package com.team.teamrestructuring.util
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.provider.CalendarContract.Colors
 import android.util.Log
 import android.view.*
 import androidx.fragment.app.DialogFragment
@@ -41,13 +42,19 @@ class CreateUserNickNameDialog(
 
 
         binding.buttonPetNickname.setOnClickListener {
-            createuserNickNameDialogInterface?.onClick()
-            ApplicationClass.currentUser.userProfile.nickname = binding.edittextDialogNickname.text.toString()
-            Log.d(TAG, "Nick Activity 입력된 닉네임 : ${ApplicationClass.currentUser.userProfile.nickname}")
-            sendToServerNickname(binding.edittextDialogNickname.text.toString(),ApplicationClass.currentUser.email)
-            sendToServerQuestData(binding.edittextDialogNickname.text.toString())
-            sendToServerCount(binding.edittextDialogNickname.text.toString())
-            dismiss()
+            createuserNickNameDialogInterface?.onClick(binding.edittextDialogNickname.text.toString())
+            if(binding.edittextDialogNickname.text.toString().equals("")){
+                binding.dialogNicknameTitle.text = "닉네임을 입력해주세요"
+                binding.dialogNicknameTitle.setTextColor(Color.RED)
+            }else{
+                ApplicationClass.currentUser.userProfile.nickname = binding.edittextDialogNickname.text.toString()
+                Log.d(TAG, "Nick Activity 입력된 닉네임 : ${ApplicationClass.currentUser.userProfile.nickname}")
+                sendToServerNickname(binding.edittextDialogNickname.text.toString(),ApplicationClass.currentUser.email)
+                sendToServerQuestData(binding.edittextDialogNickname.text.toString())
+                sendToServerCount(binding.edittextDialogNickname.text.toString())
+                dismiss()
+            }
+
         }
 
         return view
@@ -61,7 +68,7 @@ class CreateUserNickNameDialog(
 
 
     interface CreateUserNickNameDialog{
-        fun onClick()
+        fun onClick(text:String)
     }
 
     /**
