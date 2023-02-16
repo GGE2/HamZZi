@@ -7,6 +7,10 @@ import retrofit2.http.*
 
 
 interface TodoService {
+
+    @POST("api/count")
+    fun createCount(@Query("nickname") nickname: String) : Call<String>
+
     // 투두 가져옴
     @GET("api/todo/{nickname}/{datetime}")
     fun getTodo(@Path("nickname") nickname: String, @Path("datetime") datetime: String): Call<MutableList<Todo>>

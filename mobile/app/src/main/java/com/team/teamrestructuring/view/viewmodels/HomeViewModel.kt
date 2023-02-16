@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.team.teamrestructuring.dto.PetData
+import com.team.teamrestructuring.dto.Todo
 import com.team.teamrestructuring.dto.User
 import com.team.teamrestructuring.util.ApplicationClass
 
@@ -18,6 +19,12 @@ class HomeViewModel : ViewModel() {
     val userData : LiveData<User>
         get() = _userData
 
+    private val _todoData:MutableLiveData<MutableList<Todo>> = MutableLiveData()
+
+
+    val todoData : LiveData<MutableList<Todo>>
+        get() = _todoData
+
     private val _exp : MutableLiveData<Int> = MutableLiveData()
     val exp : LiveData<Int>
         get() = _exp
@@ -30,6 +37,9 @@ class HomeViewModel : ViewModel() {
     }
     fun updateUser(data:User){
         _userData.postValue(data)
+    }
+    fun updateTodo(data:MutableList<Todo>){
+        _todoData.value = data
     }
 
 

@@ -54,37 +54,6 @@
             />
 
 
-        <EditText
-            android:id="@+id/calenderText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/kakao_regular"
-            android:hint="오늘 할 일을 입력하세요"
-            android:textColorHint="#72402b"
-            android:textColor="#72402b"
-            android:layout_marginLeft="4dp"
-            app:layout_constraintHorizontal_bias="0.8"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/CreateTodoButton"
-            app:layout_constraintTop_toBottomOf="@id/calender" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/CreateTodoButton"
-            android:background="@drawable/alert_button_todo"
-            android:textColor="#ffb100"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
-            android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/calender"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_weight="0"
-            android:textSize="20sp"
-            android:layout_marginRight="4dp"
-            android:fontFamily="@font/kakao_regular"
-            android:text="입력" />
 
          <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview_todo_list"
@@ -92,7 +61,7 @@
             android:layout_height="0dp"
              app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/calenderText"
+            app:layout_constraintTop_toBottomOf="@id/calender"
             tools:layout_editor_absoluteX="20dp"
             android:padding="4dp"/>
 

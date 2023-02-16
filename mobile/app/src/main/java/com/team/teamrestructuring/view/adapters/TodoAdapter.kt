@@ -17,12 +17,14 @@ class TodoAdapter (var items: MutableList<Todo>) :  RecyclerView.Adapter<TodoAda
     private lateinit var todoItemClickListener : TodoItemClickListener
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         fun bindItems(item : Todo){
-
             val todo_text = itemView.findViewById<TextView>(R.id.textview_item_todo_title)
             todo_text.text = item.content
             val todo_check = itemView.findViewById<CheckBox>(R.id.radio_item_todo_check)
-            val todo_menu = itemView.findViewById<Button>(R.id.button_item_todo_modify_delete)
             // todo check 가 됐을 때
+            Log.d(TAG, "bindItems: ${item.toString()}")
+            todo_check.setOnClickListener {
+                todoItemClickListener.onClick(it,layoutPosition,item)
+            }
             if (item.ischeck){
                 todo_text.setTextColor(Color.parseColor("#c0c0c0"))
                 todo_check.isChecked = true
@@ -32,29 +34,6 @@ class TodoAdapter (var items: MutableList<Todo>) :  RecyclerView.Adapter<TodoAda
                 todo_check.isChecked = false
                 todo_text.setTextColor(Color.parseColor("#72402b"))
             }
-            todo_menu.setOnClickListener() {
-                todoItemClickListener.onClick(itemView,layoutPosition,item)
-            }
-
-            /*// 버튼을 눌었을 때 이벤트 처리
-            todo_check.setOnCheckedChangeListener { buttonView, isChecked ->
-                // todoFragment 에서 작동
-                boxClick?.onClick(todo_check, layoutPosition)
-
-                if (item.todo_id == null) {
-                    todo_check.isChecked = false
-                } else {
-                    // 버튼 클릭 여부에 대해서 뷰단 수정
-                    if (isChecked) {
-                        todo_check.isClickable = false
-                        todo_text.setTextColor(Color.parseColor("#c0c0c0"))
-                    } else {
-                        todo_text.setTextColor(Color.parseColor("#72402b"))
-                    }
-                }
-
-
-            }*/
         }
     }
 
@@ -66,15 +45,7 @@ class TodoAdapter (var items: MutableList<Todo>) :  RecyclerView.Adapter<TodoAda
         fun onClick(view: View, position: Int,data:Todo)
     }
 
-    interface MemuClick {
-        fun onClick(view: View, position: Int)
-    }
-    var menuClick: MemuClick? =null
 
-    interface BoxClick {
-        fun onClick(view: View, position: Int)
-    }
-    var boxClick : BoxClick? = null
 
 
 
@@ -84,16 +55,7 @@ class TodoAdapter (var items: MutableList<Todo>) :  RecyclerView.Adapter<TodoAda
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if(menuClick != null){
-            holder.itemView.setOnClickListener {
-                    v -> menuClick?.onClick(v, position)
-            }
-        }
-        else if(boxClick != null){
-            holder.itemView.setOnClickListener {
-                    v -> boxClick?.onClick(v, position)
-            }
-        }
+
         holder.bindItems(items[position])
     }
 

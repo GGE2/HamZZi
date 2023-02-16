@@ -10,6 +10,7 @@ import com.team.teamrestructuring.databinding.DialogCreateNicknameBinding
 import com.team.teamrestructuring.databinding.DialogCreatePetBinding
 import com.team.teamrestructuring.service.HomeService
 import com.team.teamrestructuring.service.QuestService
+import com.team.teamrestructuring.service.TodoService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -44,6 +45,7 @@ class CreateUserNickNameDialog(
             ApplicationClass.currentUser.userProfile.nickname = binding.edittextDialogNickname.text.toString()
             sendToServerNickname(binding.edittextDialogNickname.text.toString(),ApplicationClass.currentUser.email)
             sendToServerQuestData(binding.edittextDialogNickname.text.toString())
+            sendToServerCount(binding.edittextDialogNickname.text.toString())
             dismiss()
         }
 
@@ -84,13 +86,28 @@ class CreateUserNickNameDialog(
                         Log.d(TAG, "onResponse: ${response.body()}")
                     }
                 }
-
                 override fun onFailure(call: Call<String>, t: Throwable) {
                     Log.d(TAG, "onFailure: ${t.message}")
                 }
-
             })
+
     }
+
+    private fun sendToServerCount(nickname: String){
+        val service = ApplicationClass.retrofit.create(TodoService::class.java)
+            .createCount(nickname).enqueue(object : Callback<String>{
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    if(response.isSuccessful){
+                        Log.d(TAG, "Count Response: ${response.body()!!}")
+                    }
+                }
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    Log.d(TAG, "onFailure: ${t.message}")
+                }
+            })
+
+    }
+
 
 
     private fun sendToServerNickname(nickname:String,email:String){
