@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.team.teamrestructuring.R
 import com.team.teamrestructuring.databinding.FragmentMyPageBinding
+import com.team.teamrestructuring.dto.PetInfo
 import com.team.teamrestructuring.service.MyPageService
 import com.team.teamrestructuring.util.ApplicationClass
 import com.team.teamrestructuring.util.CreateRegisterTimeDialog
@@ -86,19 +87,16 @@ class MyPageFragment : Fragment() {
     private fun getgraduate() {
         val nickName = mainViewModel.userData.value!!.userProfile.nickname
         val service = ApplicationClass.retrofit.create(MyPageService::class.java)
-        service.getTrophy(nickName).enqueue(object : Callback<MutableList<String>> {
+        service.getTrophy(nickName).enqueue(object : Callback<List<PetInfo>> {
             override fun onResponse(
-                call: Call<MutableList<String>>,
-                response: Response<MutableList<String>>
+                call: Call<List<PetInfo>>,
+                response: Response<List<PetInfo>>
             ) {
                 if (response.isSuccessful) {
-                    val petlist = response.body()
-                    Log.d("졸업", petlist.toString())
-                    // 졸업한 펫이 있을 때
-                    if (!petlist.isNullOrEmpty()){
-                        for (pet in petlist) {
-                            val petObject = JSONObject(pet)
-                            val type = petObject.getInt("type")
+                    val petList = response.body()
+                    if (!petList.isNullOrEmpty()) {
+                        for (petInfo in petList) {
+                            val type = petInfo.type
                             binding.apply {
                                 val left = binding.graduatePet01
                                 val right = binding.graduatePet02
@@ -110,13 +108,15 @@ class MyPageFragment : Fragment() {
                             }
                         }
                     } else {
-                        Log.d(TAG, response.body().toString())
+                        Log.d(TAG, "No graduated pets found")
                     }
+                } else {
+                    Log.d(TAG, "Error retrieving graduated pets: ${response.code()}")
                 }
             }
 
-            override fun onFailure(call: Call<MutableList<String>>, t: Throwable) {
-                Log.d("졸업", "failed")
+            override fun onFailure(call: Call<List<PetInfo>>, t: Throwable) {
+                Log.d(TAG, "Error retrieving graduated pets: ${t.message}")
             }
         })
     }

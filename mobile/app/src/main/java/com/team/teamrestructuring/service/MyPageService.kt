@@ -1,5 +1,6 @@
 package com.team.teamrestructuring.service
 
+import com.team.teamrestructuring.dto.PetInfo
 import com.team.teamrestructuring.dto.Place
 import com.team.teamrestructuring.dto.ResultSearchPlace
 import retrofit2.Call
@@ -17,8 +18,8 @@ interface MyPageService {
         @Query("query") query : String
     ): Call<ResultSearchPlace>
 
-    @GET("pet/trophy/{nickname}")
+    @GET("api/pet/trophy/{nickname}")
     fun getTrophy(
         @Path("nickname") nickname: String
-    ): Call<MutableList<String>>
+    ): Call<List<PetInfo>>
 }
