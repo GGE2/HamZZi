@@ -108,14 +108,7 @@ const Todos = () => {
   useEffect(() => {
     getTodo();
     console.log("날짜가 변해서 데이터 가져옴");
-    // setCaldate(new Date(+d + TIME_ZONE).toISOString().split("T")[0]);
   }, [calDate, addTodo]);
-
-  // useEffect(() => {
-  //   getTodo();
-  //   console.log("todo가 변해서 데이터 가져옴");
-  //   // setCaldate(new Date(+d + TIME_ZONE).toISOString().split("T")[0]);
-  // }, [todotodos]);
 
   // 특정 투두 검색 api
   const onSearchTodo = async (text) => {
@@ -137,8 +130,6 @@ const Todos = () => {
     };
     await api.post("/api/todo", newTodos).then((res) => {
       console.log(res.data);
-      // console.log(parseInt(res.data.slice(4, 7)));
-      // no = parseInt(res.data.slice(4,7))
       setAddTodo({
         todo_id: res.data,
         content: text,
@@ -225,14 +216,6 @@ const Todos = () => {
     setStartDate(yesterday);
   };
 
-  const CreateFlagfunc = () => {
-    setTodoMenu([true, false]);
-  };
-
-  const SearchFlagfunc = () => {
-    setTodoMenu([false, true]);
-  };
-
   const onKeyword = (e) => {
     console.log(e.target.value);
     setSearchWord(e.target.value);
@@ -278,22 +261,6 @@ const Todos = () => {
             <div className="MyBody">
               <TodoInput onAdd={onAdd} onSearchFunc={onSearchFunc} />
               <div className="TodoHeaderButton">
-                {/* <button
-            onClick={CreateFlagfunc}
-            className={todo_menu[0] ? "TodoButton--active" : null}
-          >
-            날짜 선택
-          </button>
-          <button
-            onClick={SearchFlagfunc}
-            className={todo_menu[1] ? "TodoButton--active" : ""}
-          >
-            투두 검색
-          </button> */}
-
-                {/* {todo_menu[0] && (
-          <button onClick={onCreateGuild}>생성하기</button>
-        )} */}
                 {todo_menu[1] && (
                   <>
                     <form onSubmit="return false;">
@@ -312,13 +279,11 @@ const Todos = () => {
                 )}
                 {todo_menu[0] && (
                   <div className="DateControl">
-                    {/* 달력 아이콘을 누르면 isOpen을 true */}
-                    {/* <button onClick={handleClick} className="Calbutton"> */}
+            
                     <div onClick={handleClick} className="HamCalendar">
                       <img src="assets/calendar.png" alt="" />
                     </div>
-                    {/* </button> */}
-                    {/* <div className="DateContainer"> */}
+                  
                     <div className="DateButton" onClick={decreaseMonth}>
                       <AiFillCaretLeft
                         className="DateButton_left"
@@ -333,8 +298,7 @@ const Todos = () => {
                         size={"55%"}
                       />
                     </div>
-                    {/* </div> */}
-                    {/* <p class="arrow_box">내asdasdasd일</p> */}
+                 
                     <div className="ToHomeBtn" onClick={handleToday}>
                       오늘 할 일
                     </div>

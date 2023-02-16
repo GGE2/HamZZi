@@ -1,8 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import { AiOutlineDownload } from "react-icons/ai";
-import { GrPowerReset } from "react-icons/gr";
-import HamModal from "./HamModal";
-// import SetNickName from './../../loginpages/SetNickName';
 import "../../../styles/Modal.css";
 import html2canvas from "html2canvas";
 import api from "./../../../components/api";
@@ -68,28 +65,6 @@ const HamOutfit = ({ Wear, getAllProfile }) => {
 
   return (
     <>
-      {/* 모달창 띄우기 */}
-      {/* {isModal && (
-        <div
-          className="Modal"
-          ref={outside}
-          onClick={(e) => {
-            if (e.target === outside.current) setIsModal(false);
-          }}
-        >
-          <HamModal setIsModal={setIsModal} setIsCreate={setIsCreate} />
-        </div>
-      )} */}
-      {/* 펫이 없으면 만드는 추가 */}
-      {/* {!isCreate && (
-        <div className="HamOutfit">
-          <div className="PetCreate" onClick={onclickCreatePet}>
-            <GrAdd size={"50%"} />
-          </div>
-        </div>
-      )} */}
-      {/* 펫이 있으면 펫 출력 */}
-      {/* {isCreate && ( */}
       <div className="HamOutfit" id="div">
         <div className="HamBody">
           <img
@@ -98,20 +73,17 @@ const HamOutfit = ({ Wear, getAllProfile }) => {
               Wear.hat +
               Wear.dress +
               JSON.stringify(type)
-              // JSON.stringify(type)
+       
             }.gif`}
             alt=""
           />
-          {/* </Draggable> */}
+         
         </div>
         <div className="decoImg">
           <img src={`chara/deco/deco${Wear.background}.png`} alt="" />
         </div>
         
-        {/* 사진 찍기 */}
-        {/* <button className="test" onClick={onCapture}>
-            click
-          </button> */}
+      
       </div>
       <div className="takephoto">
           <AiOutlineDownload onClick={onCapture} size={"100%"} />

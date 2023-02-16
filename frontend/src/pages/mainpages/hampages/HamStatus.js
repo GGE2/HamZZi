@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import HamExp from "./statuspages/HamExp";
-import HamLevel from "./statuspages/HamLevel";
-
 import StatCtrl from "./statuspages/StatCtrl";
 import "../../../styles/HamStatus.css";
 import Chart from "react-apexcharts";
@@ -39,7 +37,6 @@ const HamStatus = ({ setWear }) => {
   const ResetItem = () => {
     api.put(`/api/item/clear?nickname=${nickname}`).then((res) => {
       console.log(res)
-      // setIsModal(true);
     });
   };
 
@@ -52,9 +49,6 @@ const HamStatus = ({ setWear }) => {
       localStorage.setItem("petLevel", '');
       localStorage.setItem("exp", null);
       dispatch(getPetType(0));
-      // setIsModal(true);
-
-      // window.location.replace("/main");
     });
   };
 
@@ -97,7 +91,6 @@ const HamStatus = ({ setWear }) => {
     ///////////////////////////////////////
     series: [
       {
-        // id: 'stat',
         data: [
           hamstat.physical,
           hamstat.artistic,

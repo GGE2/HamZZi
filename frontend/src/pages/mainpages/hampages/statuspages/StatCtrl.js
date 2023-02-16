@@ -19,11 +19,10 @@ import { selectCurrentPoint } from "./../../../../pointSlice";
 import { grantPoint } from "./../../../../pointSlice";
 
 const StatCtrl = () => {
-  // const [localStat, setLocalStat] = useState();
+
   const dispatch = useDispatch();
   const status = useSelector(selectCurrentHamStat);
-  // setLocalStat({ ...status });
-  // console.log(localStat);
+
   const nickname = localStorage.getItem("nickname");
   const petId = localStorage.getItem("petId");
   const point = useSelector(selectCurrentPoint);

@@ -1,5 +1,4 @@
 import React from "react";
-import { GiAchievement } from "react-icons/gi";
 import DropdownMenu from "./../../../components/GuestBook/DropdownMenu";
 import { useSelector } from "react-redux";
 import { selectCurrentPoint } from "./../../../pointSlice";
