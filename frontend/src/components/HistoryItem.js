@@ -1,11 +1,13 @@
 import React from "react";
 
-const HistoryItem = ({ type, pet_name, graduate_date }) => {
+const HistoryItem = ({ type, pet_name, graduate_date, length }) => {
   return (
+    
     <div className="historyflex">
       <div className="HistoryItem">
         <div>
           {" "}
+       
           <img src={`wearlist/${500 + JSON.stringify(type)}.gif`} alt="" />
         </div>
       </div>

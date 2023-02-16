@@ -54,12 +54,15 @@ const History = () => {
           <div> History</div>
         </div>
         <div className="History">
-          {trophys.map((trophy) => (
+          {trophys.length === 0 ? <div className="historyflex">
+      <div className="HistoryItem"><img src={`shadowA.png`} alt="" /> </div></div>: null}
+      {trophys.map((trophy) => (
             <HistoryItem
               key={trophy.petInfo_id}
               type={trophy.type}
               pet_name={trophy.pet.pet_name}
               graduate_date={trophy.pet.graduate_date}
+              length={trophys.length}
             />
           ))}
         </div>
