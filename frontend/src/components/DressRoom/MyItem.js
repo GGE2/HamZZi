@@ -112,7 +112,7 @@ const MyItem = ({ id,onWearItem, setShow, type, Wear, petLevel, itemlevel }) => 
               <motion.div className="DressItem_clicked">
                 <img src={`chara/hat/hat${id}.png`} alt="" />
               </motion.div>
-              <BiLockAlt />
+              <BiLockAlt /> Lv.{itemlevel}
             </div>
         ) : type === "옷"  ? (
           <>
@@ -120,7 +120,7 @@ const MyItem = ({ id,onWearItem, setShow, type, Wear, petLevel, itemlevel }) => 
               <motion.div className="DressItem_clicked">
                 <img src={`chara/cloth/cloth${id}.png`} alt="" />
               </motion.div>
-              <BiLockAlt />
+              <BiLockAlt /> Lv.{itemlevel}
             </div>
           </>
         ) : type === "배경"  ? (
@@ -128,7 +128,7 @@ const MyItem = ({ id,onWearItem, setShow, type, Wear, petLevel, itemlevel }) => 
              <motion.div className="DressItem_clicked">
                 <img src={`chara/deco/decco${id}.png`} alt="" />
               </motion.div>
-              <BiLockAlt />
+              <BiLockAlt /> Lv.{itemlevel}
           </div>
         ) : null
       }

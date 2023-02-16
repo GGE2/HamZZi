@@ -114,6 +114,7 @@
 }
 .statimg img{
   width: 3em;
+  cursor: pointer;
 }
 
 .statbtnbox {
@@ -124,12 +125,13 @@
 .setnickimg {
   /* width: 5em; */
   height: 3em;
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
 .setnickimg img {
   height: 3em;
   /* width: 5em; */
+  cursor: pointer;
 }
 
 .nickinputWrap {

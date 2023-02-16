@@ -52,6 +52,7 @@ export default function LoginForm() {
           alert("존재하지 않는 회원입니다");
           break;
         default:
+          alert("잘못 입력 하셨습니다");
           break;
       }
     }

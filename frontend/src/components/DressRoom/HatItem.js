@@ -104,7 +104,7 @@ const HatItem = ({
               <motion.div className="DressItem_clicked">
                 <img src={`chara/hat/hat${id}.png`} alt="" />
               </motion.div>
-              <BiLockAlt />
+              <BiLockAlt /> Lv.{itemlevel}
             </div>
           ) : (
             <div className="shopitem">
@@ -121,7 +121,7 @@ const HatItem = ({
               </motion.div>
               <div className="Cost">
                 <img src={`coin.png`} alt="" />
-                {cost}
+                {cost} 
               </div>
             </div>
           )}

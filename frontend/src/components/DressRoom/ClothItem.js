@@ -106,7 +106,7 @@ const ClothItem = ({
               >
                 <img src={`chara/cloth/cloth${id}.png`} alt="" />
               </motion.div>
-              <BiLockAlt />
+              <BiLockAlt /> Lv.{itemlevel}
             </div>
           ) : (
             <div className="shopitem">

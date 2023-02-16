@@ -100,7 +100,7 @@ const DecoItem = ({
               <motion.div className="DressItem_clicked">
                 <img src={`chara/deco/decco${id}.png`} alt="" />
               </motion.div>
-              <BiLockAlt />
+              <BiLockAlt /> Lv.{itemlevel}
             </div>
           ) : (
             <div className="shopitem">

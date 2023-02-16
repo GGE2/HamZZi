@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "../../styles/Signup.css";
 import { auth } from "../../Firebase";
 import {
@@ -12,10 +12,12 @@ import { setCredentials } from "../../authSlice";
 import api from "./../../components/api";
 
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
+import Warning from './../../components/Warning';
 
-export default function Signup() {
+export default function Signup({setIsModal}) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  // const [isModal, setIsModal] = useState(false);
 
   // 회원가입 데이터(이메일, 비밀번호, 비밀번호확인, 닉네임, 이름, 성별, 전화번호)
   const [email, setEmail] = useState("");
@@ -90,12 +92,16 @@ export default function Signup() {
       console.log(err.code);
       switch (err.code) {
         case "auth/weak-password":
+          alert("비밀번호는 8자리 이상이어야 합니다")
           setErrorMsg("비밀번호는 8자리 이상이어야 합니다");
           break;
         case "auth/invalid-email":
+          alert("잘못된 이메일 주소입니다")
           setErrorMsg("잘못된 이메일 주소입니다");
           break;
         case "auth/email-already-in-use":
+          // alert("이미 가입되어 있는 계정입니다")
+          setIsModal(true)
           setErrorMsg("이미 가입되어 있는 계정입니다");
           break;
         default:
@@ -169,11 +175,12 @@ export default function Signup() {
       setPasswordConfirmValid(true);
     }
   };
-
+  const outside = useRef();
   // 중복 이메일 검사
 
   return (
     <>
+    
       <div className="contentWrap">
 
         <div className="siginup_inputTitle">이메일 주소</div>
