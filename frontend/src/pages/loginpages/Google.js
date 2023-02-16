@@ -19,7 +19,7 @@ function Google() {
 
       setUserData(data.user); // user data 설정
       const email = data.user.email;
-      console.log(data); // console에 UserCredentialImpl 출력
+      // console.log(data); // console에 UserCredentialImpl 출력
       localStorage.setItem("user", JSON.stringify(data.user.email));
       localStorage.setItem(
         "accessToken",
@@ -29,7 +29,7 @@ function Google() {
 
       // uid 보내기
       const dummy = await api.get(`/api/user/uid/${email}`);
-      console.log(dummy.data);
+      // console.log(dummy.data);
       // dummy가 true -> 기존 사용자 -> 메인페이지 이동
       // false -> 신규 사용자 -> 닉네임 설정 페이지 이동
       dummy.data
@@ -53,9 +53,9 @@ function Google() {
   function handleGoogleLogout() {
     signOut(auth)
       .then(() => {
-        console.log(userData);
+        // console.log(userData);
         localStorage.clear();
-        console.log("로그아웃");
+        // console.log("로그아웃");
       })
       .catch((err) => {
         console.log(err);

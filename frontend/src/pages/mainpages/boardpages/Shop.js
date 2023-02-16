@@ -39,14 +39,11 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
 
   const dispatch = useDispatch();
 
-
-
   const [loading, setLoading] = useState(true);
 
   // 전체 아이템
   const [items, setItem] = useState([]);
   const [myItems, setMyItem] = useState([]);
-
 
   const onCheckHat = () => {
     dispatch(getCheckHat());
@@ -69,12 +66,9 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
     await api
       .get(`/api/item/itemAllList`)
       .then((res) => {
-       
         setItem(res.data);
       })
-      .catch((err) => {
-       
-      });
+      .catch((err) => {});
   };
 
   // 닉네임으로 아이템 유저 조회
@@ -82,12 +76,9 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
     await api
       .get(`/api/item/itemUserList/${nickname}`)
       .then((res) => {
-        
         setMyItem(res.data);
       })
-      .catch((err) => {
-        
-      });
+      .catch((err) => {});
   };
 
   // 아이템 장착
@@ -95,12 +86,9 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
     await api
       .put(`/api/item?nickname=${nickname}&item_id=${id}`)
       .then((res) => {
-        
         getShopUpdate();
       })
-      .catch((err) => {
-        
-      });
+      .catch((err) => {});
   };
 
   // 아이템 구매하기
@@ -112,11 +100,9 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
       .then((res) => {
         onGetItemAllList(); // 상점 전체 아이템
         onGetItemUserNickList(); // 내가 산 아이템 보기
-        getShopUpdate()
+        getShopUpdate();
       })
-      .catch((err) => {
-        
-      });
+      .catch((err) => {});
   };
 
   useEffect(() => {
@@ -156,9 +142,7 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
         >
           <div className="DressButton">
             <motion.button
-              className={
-                hat ? "DressButton_clicked" : "DressButton_Unclicked"
-              }
+              className={hat ? "DressButton_clicked" : "DressButton_Unclicked"}
               onClick={onCheckHat}
             >
               <div
@@ -188,9 +172,7 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
               </div>{" "}
             </motion.button>
             <motion.button
-              className={
-                deco ? "DressButton_clicked" : "DressButton_Unclicked"
-              }
+              className={deco ? "DressButton_clicked" : "DressButton_Unclicked"}
               onClick={onCheckDeco}
             >
               <div
@@ -204,16 +186,12 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
               </div>{" "}
             </motion.button>
             <motion.button
-              className={
-                my ? "DressButton_clicked" : "DressButton_Unclicked"
-              }
+              className={my ? "DressButton_clicked" : "DressButton_Unclicked"}
               onClick={onCheckMy}
             >
               <div
                 className={
-                  my
-                    ? "DressButton_clicked_text"
-                    : "DressButton_Unclicked_text"
+                  my ? "DressButton_clicked_text" : "DressButton_Unclicked_text"
                 }
               >
                 보유중
@@ -229,6 +207,7 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
                     key={idx}
                     id={item.item_id}
                     onBuyItem={onBuyItem}
+                    point={point}
                     cost={item.cost}
                     myItems={myItems}
                     type={item.type}
@@ -251,6 +230,7 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
                     key={idx}
                     id={item.item_id}
                     onBuyItem={onBuyItem}
+                    point={point}
                     cost={item.cost}
                     myItems={myItems}
                     type={item.type}
@@ -273,6 +253,7 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
                     key={idx}
                     id={item.item_id}
                     onBuyItem={onBuyItem}
+                    point={point}
                     cost={item.cost}
                     myItems={myItems}
                     type={item.type}

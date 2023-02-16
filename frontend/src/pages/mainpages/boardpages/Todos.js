@@ -20,7 +20,7 @@ import LoadingModal from "./../../../components/LoadingModal";
 import { useSelector } from "react-redux";
 import { selectCurrentPoint } from "./../../../pointSlice";
 
-const Todos = ({user, setUser}) => {
+const Todos = ({ user, setUser }) => {
   // const nickname =
   const point = useSelector(selectCurrentPoint);
   const [nickname, setNickname] = useState(localStorage.getItem("nickname"));
@@ -67,7 +67,7 @@ const Todos = ({user, setUser}) => {
   // 달력 선택한 날짜로
   const handleChange = (e) => {
     setIsOpen(!isOpen);
-    console.log(e);
+    // console.log(e);
     setStartDate(e);
   };
   // 달력 열기
@@ -80,9 +80,9 @@ const Todos = ({user, setUser}) => {
   const getTodo = async () => {
     await api.get(`/api/todo/${nickname}/${calDate}`).then((res) => {
       // console.log(res);
-      console.log("db에서 todolist 가져오기");
+      // console.log("db에서 todolist 가져오기");
       // console.log(nickname);
-      console.log(res.data);
+      // console.log(res.data);
       setTodos(res.data);
     });
   };
@@ -97,9 +97,9 @@ const Todos = ({user, setUser}) => {
   useEffect(() => {
     setCaldate(new Date(+d + TIME_ZONE).toISOString().split("T")[0]);
     getTodo();
-    console.log(calDate);
-    console.log(todos);
-    console.log(nickname);
+    // console.log(calDate);
+    // console.log(todos);
+    // console.log(nickname);
     // setDate(new Date())
   }, []);
 
@@ -110,7 +110,7 @@ const Todos = ({user, setUser}) => {
 
   useEffect(() => {
     getTodo();
-    console.log("날짜가 변해서 데이터 가져옴");
+    // console.log("날짜가 변해서 데이터 가져옴");
   }, [calDate, addTodo]);
 
   // 특정 투두 검색 api
@@ -118,8 +118,8 @@ const Todos = ({user, setUser}) => {
     await api
       .get(`/api/todo/list/search?nickname=${nickname}&content=${text}`)
       .then((res) => {
-        console.log("특정 투두 검색 api");
-        console.log(res);
+        // console.log("특정 투두 검색 api");
+        // console.log(res);
         setTodos(res.data);
       });
   };
@@ -132,7 +132,7 @@ const Todos = ({user, setUser}) => {
       user_nickname: nickname,
     };
     await api.post("/api/todo", newTodos).then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
       setAddTodo({
         todo_id: res.data,
         content: text,
@@ -141,11 +141,11 @@ const Todos = ({user, setUser}) => {
         nickname: nickname,
       });
     });
-    console.log(addTodo);
+    // console.log(addTodo);
     setTodos([...todos, addTodo]);
-    console.log(todos);
+    // console.log(todos);
     // getTodo();
-    console.log("투두를 추가했다!");
+    // console.log("투두를 추가했다!");
   };
 
   const onDel = (id) => {
@@ -160,20 +160,20 @@ const Todos = ({user, setUser}) => {
     });
     // getTodo();
     setTodos(todos.filter((todo) => todo.id !== id));
-    console.log("투두를 삭제했다!");
+    // console.log("투두를 삭제했다!");
   };
 
   const onToggle = (id) => {
     api.put(`/api/todo/check/${nickname}/${id}`).then(() => {
       // 포인트 받아온 뒤 redux에 반영
       api.get(`/api/user/mypage?email=${userr}`).then((res) => {
-        console.log(res.data.point);
-        if(user.rest_point > 0){
-        setUser({
-          ...user,
-          rest_point: user.rest_point - 1,
+        // console.log(res.data.point);
+        if (user.rest_point > 0) {
+          setUser({
+            ...user,
+            rest_point: user.rest_point - 1,
+          });
         }
-        )}
         dispatch(receivePoint(res.data.point));
       });
     });
@@ -189,7 +189,7 @@ const Todos = ({user, setUser}) => {
       )
     );
     // getTodo();
-    console.log("TodoItem" + id);
+    // console.log("TodoItem" + id);
     const target = "#TodoItem" + id;
     $(document).ready(function () {
       $(target).addClass("disable-div");
@@ -211,11 +211,11 @@ const Todos = ({user, setUser}) => {
       )
     );
     // getTodo();
-    console.log("투두를 수정했다!");
+    // console.log("투두를 수정했다!");
   };
 
   const increaseMonth = () => {
-    console.log(startDate);
+    // console.log(startDate);
     let tomorrow = new Date(startDate.setDate(startDate.getDate() + 1));
     setStartDate(tomorrow);
   };
@@ -226,7 +226,7 @@ const Todos = ({user, setUser}) => {
   };
 
   const onKeyword = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setSearchWord(e.target.value);
   };
 
@@ -250,7 +250,6 @@ const Todos = ({user, setUser}) => {
   return (
     <>
       <div className="DressRoom2">
-        
         <div className="postit"></div>
         {loading ? (
           <>
@@ -288,11 +287,10 @@ const Todos = ({user, setUser}) => {
                 )}
                 {todo_menu[0] && (
                   <div className="DateControl">
-            
                     <div onClick={handleClick} className="HamCalendar">
                       <img src="assets/calendar.png" alt="" />
                     </div>
-                  
+
                     <div className="DateButton" onClick={decreaseMonth}>
                       <AiFillCaretLeft
                         className="DateButton_left"
@@ -307,17 +305,15 @@ const Todos = ({user, setUser}) => {
                         size={"55%"}
                       />
                     </div>
-                 
+
                     <div className="ToHomeBtn" onClick={handleToday}>
                       오늘 할 일
                     </div>
-                    
                   </div>
-
                 )}
                 <div className="todaypoint">
-                    획득 가능한 포인트 : {-user.rest_point+3}/3
-                    </div>
+                  획득 가능한 포인트 : {-user.rest_point + 3}/3
+                </div>
               </div>
 
               {isOpen && (

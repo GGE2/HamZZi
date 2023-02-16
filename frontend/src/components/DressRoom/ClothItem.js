@@ -9,6 +9,7 @@ import WearModal2 from "./WearModal2";
 const ClothItem = ({
   id,
   cost,
+  point,
   onBuyItem,
   myItems,
   type,
@@ -46,6 +47,7 @@ const ClothItem = ({
             onBuyItem={onBuyItem}
             id={id}
             cost={cost}
+            point={point}
             type={type}
             onGetItemAllList={onGetItemAllList}
             onGetItemUserNickList={onGetItemUserNickList}

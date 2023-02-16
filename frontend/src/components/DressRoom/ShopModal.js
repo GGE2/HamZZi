@@ -7,15 +7,19 @@ const ShopModal = ({
   onBuyItem,
   id,
   cost,
+  point,
   type,
   onGetItemUserNickList,
   onGetItemAllList,
 }) => {
+  // console.log("포인트", point);
+  // console.log("값", cost);
+
   const onCloseModal = () => {
     setIsModal(false);
   };
   const nickname = localStorage.getItem("nickname");
-  console.log(id);
+  // console.log(id);
 
   const onBuyItem2 = async (id) => {
     await api
@@ -23,8 +27,8 @@ const ShopModal = ({
         nickname: nickname,
       })
       .then((res) => {
-        console.log(`아이템을 구매`);
-        console.log(res);
+        // console.log(`아이템을 구매`);
+        // console.log(res);
         // setMyItem(res.data);
         // setIsModal(false) // 구매하면 모달닫기
         onGetItemAllList(); // 상점 전체 아이템
@@ -33,7 +37,7 @@ const ShopModal = ({
         // getShopUpdate()
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 
@@ -61,9 +65,19 @@ const ShopModal = ({
         {cost}
       </div>
       <div className="ShopModalBtnList">
+        {/* {point < cost ? (
+          <div className="ShopModalBtn" onClick={buybuy}>
+            <img src="shop/buybtn.png" alt="" />
+          </div>
+        ) : (
+          <div className="ShopModalDisabledBtn">
+            <img src="shop/buybtn.png" alt="" />
+          </div>
+        )} */}
         <div className="ShopModalBtn" onClick={buybuy}>
           <img src="shop/buybtn.png" alt="" />
         </div>
+
         <div className="ShopModalBtn" onClick={onCloseModal}>
           <img src="shop/cancelbtn.png" alt="" />
         </div>

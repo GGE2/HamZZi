@@ -30,9 +30,9 @@ const StatCtrl = () => {
     api
       .get(`/api/pet/${nickname}`)
       .then((res) => {
-        console.log("스탯");
-        console.log(res.data);
-        console.log(res.data.petStat);
+        // console.log("스탯");
+        // console.log(res.data);
+        // console.log(res.data.petStat);
         const physical = res.data.petStat.physical;
         const artistic = res.data.petStat.artistic;
         const intelligent = res.data.petStat.intelligent;
@@ -51,7 +51,7 @@ const StatCtrl = () => {
         dispatch(getCurrentStat(data));
         dispatch(getPetLevel(level));
         dispatch(getPetType(res.data.petInfo.type));
-        console.log("DISPATCHED!!");
+        // console.log("DISPATCHED!!");
       })
       .catch((err) => {
         console.log(err);
@@ -118,10 +118,10 @@ const StatCtrl = () => {
     api
       .put(`/api/pet/exp?pet_id=${petId}&exp=${15}&nickname=${nickname}`)
       .then((res) => {
-        console.log("경험치 올리기", res);
+        // console.log("경험치 올리기", res);
         GetPetInfo();
         api.get(`/api/pet/${nickname}`).then((res) => {
-          console.log("펫 레벨 가져오기", res.data.pet.level);
+          // console.log("펫 레벨 가져오기", res.data.pet.level);
           dispatch(getPetLevel(res.data.pet.level));
           dispatch(getPetType(res.data.petInfo.type));
         });

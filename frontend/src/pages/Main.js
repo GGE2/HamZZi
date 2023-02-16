@@ -60,7 +60,7 @@ const Main = () => {
     api
       .get(`/api/pet/${nickname}`)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         const physical = res.data.petStat.physical;
         const artistic = res.data.petStat.artistic;
         const intelligent = res.data.petStat.intelligent;
@@ -85,8 +85,8 @@ const Main = () => {
 
         dispatch(getCurrentStat(data));
 
-        console.log(data);
-        console.log("DISPATCHED!!");
+        // console.log(data);
+        // console.log("DISPATCHED!!");
       })
       .catch((err) => {
         console.log(err);
@@ -98,8 +98,8 @@ const Main = () => {
     api
       .get(`/api/user/mypage?email=${email}`)
       .then((res) => {
-        console.log("회원 정보 조회 api");
-        console.log(res.data);
+        // console.log("회원 정보 조회 api");
+        // console.log(res.data);
         localStorage.setItem("nickname", res.data.nickname);
         setUser({
           point: res.data.point,
@@ -122,10 +122,10 @@ const Main = () => {
     api
       .get(`/api/user/info/${uid}`)
       .then((res) => {
-        console.log("회원 모든 정보 조회 api");
-        console.log(res.data);
+        // console.log("회원 모든 정보 조회 api");
+        // console.log(res.data);
         localStorage.setItem("nickname", res.data.userProfile.nickname);
-        console.log("nickname 설정!!!");
+        // console.log("nickname 설정!!!");
         setUser({
           // guild: res.data.guild,
           point: res.data.userProfile.point,
@@ -154,8 +154,8 @@ const Main = () => {
     api
       .get(`/api/user/info/${uid}`)
       .then((res) => {
-        console.log("회원 모든 정보 조회 api");
-        console.log(res.data);
+        // console.log("회원 모든 정보 조회 api");
+        // console.log(res.data);
         // localStorage.setItem("nickname", res.data.userProfile.nickname);
         setUser({
           // guild: res.data.guild,
@@ -188,11 +188,11 @@ const Main = () => {
   // 닉네임으로 가져옴. nickname
   const onGetUserGuildInfo = async (nickname) => {
     await api.get(`/api/guild/user?nickname=${nickname}`).then((res) => {
-      console.log("유저 길드 정보 가져오기 api");
-      console.log(res.data);
+      // console.log("유저 길드 정보 가져오기 api");
+      // console.log(res.data);
       if (res.data.guild) {
         setGuildId(res.data.guild.guild_id);
-        console.log(guildId);
+        // console.log(guildId);
         setGuildUsers(res.data);
         setGuildName(res.data.guild.guild_name);
       }
@@ -202,8 +202,8 @@ const Main = () => {
   // 회원탈퇴
   const onDeleteUser = async () => {
     await api.delete(`/api/user/delete?email=${email}`).then((res) => {
-      console.log("유저 삭제");
-      console.log(res.data);
+      // console.log("유저 삭제");
+      // console.log(res.data);
     });
   };
 

@@ -48,7 +48,7 @@ const hamStatSlice = createSlice({
           physical: state.physical,
         })
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           GetPetInfo();
         });
     },
@@ -76,7 +76,7 @@ const hamStatSlice = createSlice({
           physical: 1,
         })
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           increaseExp();
           GetPetInfo();
         })

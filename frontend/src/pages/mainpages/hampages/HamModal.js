@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 
 import GetPetInfo from "./../../../components/GetPetInfo";
 import api from "./../../../components/api";
-import Warning from './../../../components/Warning';
+import Warning from "./../../../components/Warning";
 
 const HamModal = ({ setIsModal, setIsCreate }) => {
   const [petName, setPetName] = useState("");
@@ -18,7 +18,7 @@ const HamModal = ({ setIsModal, setIsCreate }) => {
     e.preventDefault();
     if (petName.length < 2 || petName.length > 8) {
       setIsModal2(true);
-      console.log(isModal2);
+      // console.log(isModal2);
       // alert('2글자 이상 8글자 미만으로 입력해주세요.')
       setPetName("");
       // setText("");
@@ -41,7 +41,7 @@ const HamModal = ({ setIsModal, setIsCreate }) => {
   const outside = useRef();
   return (
     <>
-    {isModal2 && (
+      {isModal2 && (
         <div
           className="warning"
           ref={outside}
@@ -56,29 +56,27 @@ const HamModal = ({ setIsModal, setIsCreate }) => {
           />
         </div>
       )}
-    <div className="modalbody">
-      <h1>햄스터 이름</h1>
-      <h2>당신의 햄스터의 이름을 정해주세요</h2>
-      {/* <p>햄스터 이름은 언제든지 수정할 수 있습니다</p> */}
-      <form onSubmit={handleSubmit}>
-        <div className="nickinputWrap">
-          <input
-            className="input"
-            name="nickname"
-            placeholder="2글자 이상 8글자 미만 햄스터 이름을 입력하세요"
-            onChange={handleChange}
-          />
-        </div>
-        <div className="setnickimg" type="submit" onClick={handleSubmit}>
-          {" "}
-          <img src="guildlist/createbtn.png" alt="" />
-        </div>
-      </form>
-    </div>
+      <div className="modalbody">
+        <h1>햄스터 이름</h1>
+        <h2>당신의 햄스터의 이름을 정해주세요</h2>
+        {/* <p>햄스터 이름은 언제든지 수정할 수 있습니다</p> */}
+        <form onSubmit={handleSubmit}>
+          <div className="nickinputWrap">
+            <input
+              className="input"
+              name="nickname"
+              placeholder="2글자 이상 8글자 미만 햄스터 이름을 입력하세요"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="setnickimg" type="submit" onClick={handleSubmit}>
+            {" "}
+            <img src="guildlist/createbtn.png" alt="" />
+          </div>
+        </form>
+      </div>
     </>
   );
-  
-
 };
 
 export default HamModal;

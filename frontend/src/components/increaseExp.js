@@ -9,7 +9,7 @@ const increaseExp = () => {
   api
     .put(`/api/pet/exp?pet_id=${petId}&exp=${3}&nickname=${nickname}`)
     .then((res) => {
-      console.log(res);
+      // console.log(res);
       GetPetInfo();
     });
 };

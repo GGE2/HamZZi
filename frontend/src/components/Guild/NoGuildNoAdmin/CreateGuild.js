@@ -28,8 +28,8 @@ const CreateGuild = ({
       await api
         .post(`/api/guild/found?guild_name=${GuildName}&nickname=${nickname}`)
         .then((res) => {
-          console.log("길드생성api");
-          console.log(res);
+          // console.log("길드생성api");
+          // console.log(res);
           onGetUserGuildInfo(nickname);
           // getGuildList();
           onGetGuildAdmin(res.data.guild_id);
@@ -46,11 +46,11 @@ const CreateGuild = ({
       textRef.current.focus();
       return;
     }
-    onSearchGuild(GuildName)
-  }
+    onSearchGuild(GuildName);
+  };
 
   const onGuildName = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setGuildName(e.target.value);
   };
 
