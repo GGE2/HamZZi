@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class UserProfile {
 
     @Id
-    @Column(name = "user_nickname")
+    @Column(name = "user_nickname", unique = true)
     private String nickname;
 
     /* About Todo/Quest Point */
