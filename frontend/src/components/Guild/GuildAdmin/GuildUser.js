@@ -10,30 +10,33 @@ const GuildUser = ({
   guildId, // 길드 id
   nickname,
 }) => {
-  console.log(123)
-  console.log(user);
-  console.log(admin)
+  // console.log(123)
+  // console.log(user);
+  // console.log(admin)
   return (
     <div className="GuildUserNo">
-    
       <div className="imgicon">
         <img src="./guildlist/general.png" alt="" />
       </div>
       <div>
-      <div className="GuildUserNoNo">
-            <div className="button_text1" onClick={()=>onKickUser(admin.nickname, user.nickname, guildId)}>
-              <img src="guildlist/kickbtn.png" alt="" />
-            </div>
-            <div className="button_text1" onClick={()=>onGrantAdmin(admin.nickname, user.nickname, guildId)}>
-              <img src="guildlist/grantbtn.png" alt="" />
-            </div>
-            길드원: {user.nickname}
-            </div>
-       {/* <button onClick={()=>onKickUser(admin.nickname, user.nickname, guildId)}>추방</button>
+        <div className="GuildUserNoNo">
+          <div
+            className="button_text1"
+            onClick={() => onKickUser(admin.nickname, user.nickname, guildId)}
+          >
+            <img src="guildlist/kickbtn.png" alt="" />
+          </div>
+          <div
+            className="button_text1"
+            onClick={() => onGrantAdmin(admin.nickname, user.nickname, guildId)}
+          >
+            <img src="guildlist/grantbtn.png" alt="" />
+          </div>
+          길드원: {user.nickname}
+        </div>
+        {/* <button onClick={()=>onKickUser(admin.nickname, user.nickname, guildId)}>추방</button>
       <button onClick={()=>onGrantAdmin(admin.nickname, user.nickname, guildId)}>길드장 임명</button> */}
-      
       </div>
-  
     </div>
   );
 };

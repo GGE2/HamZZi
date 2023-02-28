@@ -7,6 +7,7 @@ import WearModal from "./WearModal";
 import WearModal2 from "./WearModal2";
 // import { useSelector } from 'react-redux';
 // import { selectCurrentHamLevel } from "../../hamStatSlice";
+import ShopWarning from './ShopWarning';
 
 const HatItem = ({
   id,
@@ -14,6 +15,7 @@ const HatItem = ({
   onBuyItem,
   myItems,
   type,
+  point,
   petLevel,
   itemlevel,
   onWearItem,
@@ -23,7 +25,10 @@ const HatItem = ({
   const [isModal, setIsModal] = useState(false);
   const [isModal2, setIsModal2] = useState(false);
   const [isModal3, setIsModal3] = useState(false);
+  const [isModal4, setIsModal4] = useState(false);
   // const petLevel = useSelector(selectCurrentHamLevel)
+
+  
 
   const outside = useRef();
   const onClick = () => {
@@ -32,6 +37,20 @@ const HatItem = ({
 
   return (
     <>
+      {isModal4 && <div
+          className="ShopModal"
+          ref={outside}
+          onClick={(e) => {
+            if (e.target === outside.current) setIsModal4(false);
+          }}
+        >
+          <ShopWarning
+            type={type}
+            setIsModal4={setIsModal4}
+            id={id}
+            onWearItem={onWearItem}
+          />
+        </div>}
       {isModal && (
         <div
           className="ShopModal"
@@ -44,8 +63,10 @@ const HatItem = ({
             setIsModal={setIsModal}
             setIsModal2={setIsModal2}
             setIsModal3={setIsModal3}
+            setIsModal4={setIsModal4}
             onBuyItem={onBuyItem}
             id={id}
+            point={point}
             cost={cost}
             type={type}
             onGetItemAllList={onGetItemAllList}

@@ -13,7 +13,7 @@ function Kakao() {
     const jsKey = "e595889459eeb8a91530f0a20e725351";
     if (Kakao && !Kakao.isInitialized()) {
       await Kakao.init(jsKey);
-      console.log(`kakao 초기화 ${Kakao.isInitialized()}`);
+      // console.log(`kakao 초기화 ${Kakao.isInitialized()}`);
       // 초기화 여부를 확인
     }
   };
@@ -22,11 +22,11 @@ function Kakao() {
     await Kakao.Auth.loginForm({
       success(res) {
         // console.log("123");
-        console.log(res);
+        // console.log(res);
         Kakao.Auth.setAccessToken(res.access_token);
         // setToken(res.access_token)
-        console.log("카카오 로그인 성공");
-        console.log(Kakao.Auth.getAccessToken());
+        // console.log("카카오 로그인 성공");
+        // console.log(Kakao.Auth.getAccessToken());
         axios.post("http://3.35.88.23:8001/kakao_login", {
           authorize_code: res.access_token,
         });
@@ -34,10 +34,10 @@ function Kakao() {
         Kakao.API.request({
           url: "/v2/user/me",
           success(res) {
-            console.log("카카오 인가 요청 성공");
+            // console.log("카카오 인가 요청 성공");
             setIsLogin(true);
             const kakaoAccount = res.kakao_account;
-            console.log(kakaoAccount);
+            // console.log(kakaoAccount);
             localStorage.setItem("email", kakaoAccount.email);
             localStorage.setItem(
               "profileImg",
@@ -56,15 +56,12 @@ function Kakao() {
         console.log(error);
       },
     });
-
   };
 
   const kakaoLogout = () => {
-  
-
     Kakao.Auth.logout((res) => {
-      console.log(Kakao.Auth.getAccessToken()); //
-      console.log(res);
+      // console.log(Kakao.Auth.getAccessToken()); //
+      // console.log(res);
 
       localStorage.clear();
       deleteCookie();
@@ -93,7 +90,7 @@ function Kakao() {
   }, [isLogin]);
 
   const token = () => {
-    console.log(Kakao.Auth.getAccessToken());
+    // console.log(Kakao.Auth.getAccessToken());
   };
 
   return (

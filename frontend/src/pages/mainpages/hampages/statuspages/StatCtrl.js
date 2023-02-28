@@ -19,7 +19,6 @@ import { selectCurrentPoint } from "./../../../../pointSlice";
 import { grantPoint } from "./../../../../pointSlice";
 
 const StatCtrl = () => {
-
   const dispatch = useDispatch();
   const status = useSelector(selectCurrentHamStat);
 
@@ -31,9 +30,9 @@ const StatCtrl = () => {
     api
       .get(`/api/pet/${nickname}`)
       .then((res) => {
-        console.log("스탯");
-        console.log(res.data);
-        console.log(res.data.petStat);
+        // console.log("스탯");
+        // console.log(res.data);
+        // console.log(res.data.petStat);
         const physical = res.data.petStat.physical;
         const artistic = res.data.petStat.artistic;
         const intelligent = res.data.petStat.intelligent;
@@ -52,7 +51,7 @@ const StatCtrl = () => {
         dispatch(getCurrentStat(data));
         dispatch(getPetLevel(level));
         dispatch(getPetType(res.data.petInfo.type));
-        console.log("DISPATCHED!!");
+        // console.log("DISPATCHED!!");
       })
       .catch((err) => {
         console.log(err);
@@ -60,7 +59,7 @@ const StatCtrl = () => {
   };
 
   const handlePhysical = () => {
-    dispatch(increasePhysical(petId));
+    dispatch(increasePhysical({ petId, nickname }));
     dispatch(grantPoint());
     api.get(`/api/pet/${nickname}`).then((res) => {
       dispatch(getPetLevel(res.data.pet.level));
@@ -68,7 +67,7 @@ const StatCtrl = () => {
     });
   };
   const handleArtistic = () => {
-    dispatch(increaseArtistic(petId));
+    dispatch(increaseArtistic({ petId, nickname }));
     dispatch(grantPoint());
     api.get(`/api/pet/${nickname}`).then((res) => {
       dispatch(getPetLevel(res.data.pet.level));
@@ -76,7 +75,7 @@ const StatCtrl = () => {
     });
   };
   const handleIntelligent = () => {
-    dispatch(increaseIntelligent(petId));
+    dispatch(increaseIntelligent({ petId, nickname }));
     dispatch(grantPoint());
     api.get(`/api/pet/${nickname}`).then((res) => {
       dispatch(getPetLevel(res.data.pet.level));
@@ -84,7 +83,7 @@ const StatCtrl = () => {
     });
   };
   const handleInactive = () => {
-    dispatch(increaseInactive(petId));
+    dispatch(increaseInactive({ petId, nickname }));
     dispatch(grantPoint());
     api.get(`/api/pet/${nickname}`).then((res) => {
       dispatch(getPetLevel(res.data.pet.level));
@@ -92,7 +91,7 @@ const StatCtrl = () => {
     });
   };
   const handleEnergetic = () => {
-    dispatch(increaseEnergetic(petId));
+    dispatch(increaseEnergetic({ petId, nickname }));
     dispatch(grantPoint());
     api.get(`/api/pet/${nickname}`).then((res) => {
       dispatch(getPetLevel(res.data.pet.level));
@@ -100,7 +99,7 @@ const StatCtrl = () => {
     });
   };
   const handleEtc = () => {
-    dispatch(increaseEtc(petId));
+    dispatch(increaseEtc({ petId, nickname }));
     dispatch(grantPoint());
     api.get(`/api/pet/${nickname}`).then((res) => {
       dispatch(getPetLevel(res.data.pet.level));
@@ -119,10 +118,10 @@ const StatCtrl = () => {
     api
       .put(`/api/pet/exp?pet_id=${petId}&exp=${15}&nickname=${nickname}`)
       .then((res) => {
-        console.log("경험치 올리기", res);
+        // console.log("경험치 올리기", res);
         GetPetInfo();
         api.get(`/api/pet/${nickname}`).then((res) => {
-          console.log("펫 레벨 가져오기", res.data.pet.level);
+          // console.log("펫 레벨 가져오기", res.data.pet.level);
           dispatch(getPetLevel(res.data.pet.level));
           dispatch(getPetType(res.data.petInfo.type));
         });
@@ -143,28 +142,44 @@ const StatCtrl = () => {
           Physical
           <div className="statbtnbox">
             {status.physical}
-            {point > 0 ?   <div className="statimg" onClick={handlePhysical}><img src="plusbtn.png" alt="" /></div> : null}
+            {point > 0 ? (
+              <div className="statimg" onClick={handlePhysical}>
+                <img src="plusbtn.png" alt="" />
+              </div>
+            ) : null}
           </div>
         </div>
         <div className="StatElement">
           Artistic
           <div className="statbtnbox">
             {status.artistic}
-            {point > 0 ?   <div className="statimg" onClick={handleArtistic}><img src="plusbtn.png" alt="" /></div> : null}
+            {point > 0 ? (
+              <div className="statimg" onClick={handleArtistic}>
+                <img src="plusbtn.png" alt="" />
+              </div>
+            ) : null}
           </div>
         </div>
         <div className="StatElement">
           Intelligent
           <div className="statbtnbox">
             {status.intelligent}
-            {point > 0 ?   <div className="statimg" onClick={handleIntelligent}><img src="plusbtn.png" alt="" /></div> : null}
+            {point > 0 ? (
+              <div className="statimg" onClick={handleIntelligent}>
+                <img src="plusbtn.png" alt="" />
+              </div>
+            ) : null}
           </div>
         </div>
         <div className="StatElement">
           Inactive
           <div className="statbtnbox">
             {status.inactive}
-            {point > 0 ?   <div className="statimg" onClick={handleInactive}><img src="plusbtn.png" alt="" /></div>: null}
+            {point > 0 ? (
+              <div className="statimg" onClick={handleInactive}>
+                <img src="plusbtn.png" alt="" />
+              </div>
+            ) : null}
           </div>
         </div>
         <div className="StatElement">
@@ -172,14 +187,22 @@ const StatCtrl = () => {
           <div className="statbtnbox">
             {status.energetic}
             {/* {point > 0 ? <button onClick={handleEnergetic}>+</button> : null} */}
-            {point > 0 ?   <div className="statimg" onClick={handleEnergetic}><img src="plusbtn.png" alt="" /></div> : null}
+            {point > 0 ? (
+              <div className="statimg" onClick={handleEnergetic}>
+                <img src="plusbtn.png" alt="" />
+              </div>
+            ) : null}
           </div>
         </div>
         <div className="StatElement">
           Etc
           <div className="statbtnbox">
             {status.etc}
-            {point > 0 ?   <div className="statimg" onClick={handleEtc}><img src="plusbtn.png" alt="" /></div> : null}
+            {point > 0 ? (
+              <div className="statimg" onClick={handleEtc}>
+                <img src="plusbtn.png" alt="" />
+              </div>
+            ) : null}
           </div>
         </div>
         {/* <button onClick={handleClear}>CLEAR</button>

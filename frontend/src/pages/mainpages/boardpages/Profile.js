@@ -9,7 +9,7 @@ import "../../../styles/Profile.css";
 import axios from "axios";
 import Draggable from "react-draggable";
 import html2canvas from "html2canvas";
-import api from './../../../components/api';
+import api from "./../../../components/api";
 
 const Profile = () => {
   const nickname = localStorage.getItem("nickname");
@@ -26,7 +26,7 @@ const Profile = () => {
     // const created_date = new Date().getTime()
 
     let today = new Date();
-    console.log(today.getMonth());
+    // console.log(today.getMonth());
     let created_date =
       today.getFullYear() +
       "." +
@@ -63,12 +63,10 @@ const Profile = () => {
   // UID 체크 api
   const getUID = async () => {
     const email2 = JSON.parse(email);
-    await api
-      .get(`/api/user/uid/${email2}?email=${email2}`)
-      .then((res) => {
-        console.log("uid체크 api");
-        console.log(res.data);
-      });
+    await api.get(`/api/user/uid/${email2}?email=${email2}`).then((res) => {
+      // console.log("uid체크 api");
+      // console.log(res.data);
+    });
   };
 
   useEffect(() => {
@@ -89,12 +87,12 @@ const Profile = () => {
   const trackPos = (data) => {
     setPosition({ x: data.x, y: data.y });
   };
-  console.log(position.x);
+  // console.log(position.x);
 
   const test = (e, data) => {
     trackPos(data);
-    console.log(e);
-    console.log(data);
+    // console.log(e);
+    // console.log(data);
 
     // if(data.x > 330) {
     //   setPosition({ x: 330, y: data.y })
@@ -105,26 +103,26 @@ const Profile = () => {
   };
 
   const onCapture = () => {
-		console.log('onCapture');
-		html2canvas(document.getElementById('div')).then(canvas=>{
-			onSaveAs(canvas.toDataURL('image/png'), 'image-download.png',0.1)
-		});
-	};
+    // console.log('onCapture');
+    html2canvas(document.getElementById("div")).then((canvas) => {
+      onSaveAs(canvas.toDataURL("image/png"), "image-download.png", 0.1);
+    });
+  };
 
-    const onSaveAs =(uri, filename)=> {
-		console.log('onSaveAs');
-		var link = document.createElement('a');
-		document.body.appendChild(link);
-		link.href = uri;
-		link.download = filename;
-		link.click();
-		document.body.removeChild(link);
-	};
+  const onSaveAs = (uri, filename) => {
+    // console.log('onSaveAs');
+    var link = document.createElement("a");
+    document.body.appendChild(link);
+    link.href = uri;
+    link.download = filename;
+    link.click();
+    document.body.removeChild(link);
+  };
 
   return (
     <>
       {/* <Header data={nickname} type={"profile"} /> */}
-      <div className="MyBody_profile" id='div'>
+      <div className="MyBody_profile" id="div">
         <Draggable
           // bounds={{ left: -10, top: -10, right: 655, bottom: 495 }}
           onDrag={test}
@@ -132,7 +130,7 @@ const Profile = () => {
           onStop={handleEnd}
           defaultPosition={{ x: 260, y: 150 }}
         >
-          <div className="box" >
+          <div className="box">
             <img src="hamzzi.png" alt="" />
           </div>
           {/* <div className="box" style={{ opacity: Opacity ? "0.6" : "1" }}>

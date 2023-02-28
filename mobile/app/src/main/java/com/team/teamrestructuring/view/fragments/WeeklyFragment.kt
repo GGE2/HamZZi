@@ -127,8 +127,15 @@ class WeeklyFragment : Fragment(),CreateQuestResultDialog.CreateResultListener{
             })
     }
 
-    override fun onConfirmButtonClick() {
 
+
+    override fun onConfirmButtonClick(id: Int) {
+        when(id){
+            2->{
+                parentFragmentManager.beginTransaction().replace(R.id.fragment_quest_container,DailyFragment()).commit()
+                parentFragmentManager.beginTransaction().replace(R.id.fragment_quest_container,WeeklyFragment()).commit()
+            }
+        }
     }
 
 

@@ -13,12 +13,12 @@ import {
 const HamOutfit = ({ Wear, getAllProfile }) => {
   // const type = useSelector(selectCurrentPetType);
   const nickname = localStorage.getItem("nickname");
-  console.log(useSelector(selectCurrentHamLevel));
+  // console.log(useSelector(selectCurrentHamLevel));
   const level = useSelector(selectCurrentHamLevel);
   const type = useSelector(selectCurrentPetType);
   const [isCreate, setIsCreate] = useState(false);
   const [isModal, setIsModal] = useState(false);
-  console.log(Wear);
+  // console.log(Wear);
 
   const outside = useRef();
   // 캐릭터 생성 창을 누르면 모달창을 띄워서 펫 이름을 받는다.
@@ -31,7 +31,7 @@ const HamOutfit = ({ Wear, getAllProfile }) => {
     api.get(`/api/pet/${nickname}`).then((res) => {
       setIsCreate(res.data.pet);
     });
-    console.log(isCreate);
+    // console.log(isCreate);
   }, []);
 
   useEffect(() => {
@@ -39,14 +39,14 @@ const HamOutfit = ({ Wear, getAllProfile }) => {
   }, [level]);
 
   const onCapture = () => {
-    console.log("onCapture");
+    // console.log("onCapture");
     html2canvas(document.getElementById("div")).then((canvas) => {
       onSaveAs(canvas.toDataURL("image/png"), "image-download.png", 0.1);
     });
   };
 
   const onSaveAs = (uri, filename) => {
-    console.log("onSaveAs");
+    // console.log("onSaveAs");
     var link = document.createElement("a");
     document.body.appendChild(link);
     link.href = uri;
@@ -57,11 +57,10 @@ const HamOutfit = ({ Wear, getAllProfile }) => {
 
   const ResetItem = () => {
     api.put(`/api/item/clear?nickname=${nickname}`).then((res) => {
-      console.log(res)
-      getAllProfile()
+      // console.log(res)
+      getAllProfile();
     });
   };
-
 
   return (
     <>
@@ -73,24 +72,20 @@ const HamOutfit = ({ Wear, getAllProfile }) => {
               Wear.hat +
               Wear.dress +
               JSON.stringify(type)
-       
             }.gif`}
             alt=""
           />
-         
         </div>
         <div className="decoImg">
           <img src={`chara/deco/deco${Wear.background}.png`} alt="" />
         </div>
-        
-      
       </div>
       <div className="takephoto">
-          <AiOutlineDownload onClick={onCapture} size={"100%"} />
-        </div>
-        <div className="resetItem" >
-          <img src="reset.png" alt="" onClick={ResetItem}/>
-        </div>
+        <AiOutlineDownload onClick={onCapture} size={"100%"} />
+      </div>
+      <div className="resetItem">
+        <img src="reset.png" alt="" onClick={ResetItem} />
+      </div>
       {/* )} */}
     </>
   );

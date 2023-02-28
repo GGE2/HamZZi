@@ -12,9 +12,9 @@ import { setCredentials } from "../../authSlice";
 import api from "./../../components/api";
 
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
-import Warning from './../../components/Warning';
+import Warning from "./../../components/Warning";
 
-export default function Signup({setIsModal, setIsModal4}) {
+export default function Signup({ setIsModal, setIsModal4 }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // const [isModal, setIsModal] = useState(false);
@@ -48,7 +48,7 @@ export default function Signup({setIsModal, setIsModal4}) {
         email,
         password
       );
-      console.log(createdUser);
+      // console.log(createdUser);
       // 우리 db에 정보 전달
       // const dummy = await axios.post(
       //   "http://3.35.88.23:8080/api/user/register",
@@ -64,7 +64,7 @@ export default function Signup({setIsModal, setIsModal4}) {
         email,
         password
       );
-      console.log(curUserInfo);
+      // console.log(curUserInfo);
 
       setEmail("");
       setPassword("");
@@ -92,18 +92,18 @@ export default function Signup({setIsModal, setIsModal4}) {
       console.log(err.code);
       switch (err.code) {
         case "auth/weak-password":
-          setIsModal(true)
+          setIsModal(true);
           // alert("비밀번호는 8자리 이상이어야 합니다")
           setErrorMsg("비밀번호는 8자리 이상이어야 합니다");
           break;
         case "auth/invalid-email":
-          setIsModal4(true)
+          setIsModal4(true);
           // alert("잘못된 이메일 주소입니다")
           setErrorMsg("잘못된 이메일 주소입니다");
           break;
         case "auth/email-already-in-use":
           // alert("이미 가입되어 있는 계정입니다")
-          setIsModal(true)
+          setIsModal(true);
           setErrorMsg("이미 가입되어 있는 계정입니다");
           break;
         default:
@@ -124,9 +124,9 @@ export default function Signup({setIsModal, setIsModal4}) {
   // 이메일 유효성 검사
   const handleEmail = (e) => {
     const currentEmail = e.target.value;
-    console.log(currentEmail)
+    // console.log(currentEmail)
     setEmail(currentEmail);
-    console.log(email);
+    // console.log(email);
     const regex =
       /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
     if (currentEmail === "") {
@@ -182,9 +182,7 @@ export default function Signup({setIsModal, setIsModal4}) {
 
   return (
     <>
-    
       <div className="contentWrap">
-
         <div className="siginup_inputTitle">이메일 주소</div>
         <div className="siginup_inputWrap">
           <input
@@ -194,7 +192,15 @@ export default function Signup({setIsModal, setIsModal4}) {
             onChange={handleEmail}
             placeholder="ssafy123@naver.com"
           />
-          {emailValid ? <div className="error_icon"><AiOutlineCheckCircle color="orange"/></div> : <div className="error_icon"><AiOutlineCloseCircle color="#dadada"/></div> }
+          {emailValid ? (
+            <div className="error_icon">
+              <AiOutlineCheckCircle color="orange" />
+            </div>
+          ) : (
+            <div className="error_icon">
+              <AiOutlineCloseCircle color="#dadada" />
+            </div>
+          )}
         </div>
         {/* <div className="siginup_errorMessageWrap">{emailMessage}</div> */}
 
@@ -207,7 +213,15 @@ export default function Signup({setIsModal, setIsModal4}) {
             onChange={handlePw}
             placeholder="숫자,영문자,특수문자 8자리 이상"
           />
-          {passwordValid ? <div className="error_icon"><AiOutlineCheckCircle color="orange"/></div> : <div className="error_icon"><AiOutlineCloseCircle color="#dadada"/></div> }
+          {passwordValid ? (
+            <div className="error_icon">
+              <AiOutlineCheckCircle color="orange" />
+            </div>
+          ) : (
+            <div className="error_icon">
+              <AiOutlineCloseCircle color="#dadada" />
+            </div>
+          )}
         </div>
         {/* <div className="siginup_errorMessageWrap">{passwordMessage}</div> */}
 
@@ -219,7 +233,15 @@ export default function Signup({setIsModal, setIsModal4}) {
             value={passwordConfirm}
             onChange={handlePasswordConfirm}
           />
-          {passwordConfirmValid ? <div className="error_icon"><AiOutlineCheckCircle color="orange"/></div> : <div className="error_icon"><AiOutlineCloseCircle color="#dadada"/></div> }
+          {passwordConfirmValid ? (
+            <div className="error_icon">
+              <AiOutlineCheckCircle color="orange" />
+            </div>
+          ) : (
+            <div className="error_icon">
+              <AiOutlineCloseCircle color="#dadada" />
+            </div>
+          )}
         </div>
         {/* <div className="siginup_errorMessageWrap">{passwordConfirmMessage}</div> */}
       </div>

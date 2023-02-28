@@ -2,13 +2,16 @@ package com.team.teamrestructuring.view.fragments
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
+<<<<<<< HEAD
 import androidx.fragment.app.activityViewModels
+=======
+import androidx.fragment.app.*
+>>>>>>> 3a143bd55cc858ffaf5190244138471598ec95dd
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.team.teamrestructuring.R
 import com.team.teamrestructuring.databinding.FragmentDailyBinding
@@ -21,6 +24,11 @@ import com.team.teamrestructuring.util.CreateQuestResultDialog
 import com.team.teamrestructuring.view.activities.HomeActivity
 import com.team.teamrestructuring.view.adapters.DailyQuestAdapter
 import com.team.teamrestructuring.view.viewmodels.HomeViewModel
+<<<<<<< HEAD
+=======
+import com.team.teamrestructuring.view.viewmodels.QuestViewModel
+import kotlinx.coroutines.*
+>>>>>>> 3a143bd55cc858ffaf5190244138471598ec95dd
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -66,6 +74,7 @@ class DailyFragment : Fragment() ,CreateQuestResultDialog.CreateResultListener{
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private val questViewModel by viewModels<QuestViewModel>()
 
     private val mainViewModel by activityViewModels<HomeViewModel>()
 
@@ -151,7 +160,11 @@ class DailyFragment : Fragment() ,CreateQuestResultDialog.CreateResultListener{
                     //2번일 경우
                     1->{
                         val walk_count = StepService.mStepCounter - HomeActivity.sCount
+<<<<<<< HEAD
                         if(walk_count>=20000000000){
+=======
+                        if(walk_count>=0){
+>>>>>>> 3a143bd55cc858ffaf5190244138471598ec95dd
                             val dialog = CreateQuestResultDialog(this@DailyFragment,"퀘스트를 성공하셨습니다",QuestEnum.TRUE,data)
                             dialog.isCancelable = false
                             dialog.show(activity!!.supportFragmentManager,"성공 알람")
@@ -163,6 +176,34 @@ class DailyFragment : Fragment() ,CreateQuestResultDialog.CreateResultListener{
                             dialog.show(activity!!.supportFragmentManager,"미성공")
                         }
                     }
+                    2->{
+                        val walk_count = StepService.mStepCounter - HomeActivity.sCount
+                        if(walk_count>=0){
+                            val dialog = CreateQuestResultDialog(this@DailyFragment,"퀘스트를 성공하셨습니다",QuestEnum.TRUE,data)
+                            dialog.isCancelable = false
+                            dialog.show(activity!!.supportFragmentManager,"성공 알람")
+                        }else{
+                            val dialog = CreateQuestResultDialog(this@DailyFragment,
+                                "오늘 총 걸음수는 ${walk_count}보 입니다.\n" +
+                                        "퀘스트를 완료하기 위해선 ${5000-walk_count}보만 더 걸어보세요.",QuestEnum.NOT_YET,data)
+                            dialog.isCancelable = false
+                            dialog.show(activity!!.supportFragmentManager,"미성공")
+                        }
+                    }
+                    3->{
+                        val walk_count = StepService.mStepCounter - HomeActivity.sCount
+                        if(walk_count>=0){
+                            val dialog = CreateQuestResultDialog(this@DailyFragment,"퀘스트를 성공하셨습니다",QuestEnum.TRUE,data)
+                            dialog.isCancelable = false
+                            dialog.show(activity!!.supportFragmentManager,"성공 알람")
+                        }else{
+                            val dialog = CreateQuestResultDialog(this@DailyFragment,
+                                "오늘 총 걸음수는 ${walk_count}보 입니다.\n" +
+                                        "퀘스트를 완료하기 위해선 ${5000-walk_count}보만 더 걸어보세요.",QuestEnum.NOT_YET,data)
+                            dialog.isCancelable = false
+                            dialog.show(activity!!.supportFragmentManager,"미성공")
+                        }
+                    }
                 }
             }
         })
@@ -170,6 +211,11 @@ class DailyFragment : Fragment() ,CreateQuestResultDialog.CreateResultListener{
         binding.recyclerviewDaily.apply {
             adapter = questAdapter
         }
+        questViewModel.data.observe(viewLifecycleOwner,{
+            Log.d(TAG, "viwemodel = ${it}")
+            questAdapter.datas = it
+            questAdapter.notifyDataSetChanged()
+        })
 
         return binding.root
     }
@@ -178,6 +224,7 @@ class DailyFragment : Fragment() ,CreateQuestResultDialog.CreateResultListener{
 
 
     private fun getQuestData(nickname:String){
+<<<<<<< HEAD
         val service = ApplicationClass.retrofit.create(QuestService::class.java)
             .getQuestList(nickname).enqueue(object:Callback<List<DailyQuest>>{
                 override fun onResponse(
@@ -191,16 +238,35 @@ class DailyFragment : Fragment() ,CreateQuestResultDialog.CreateResultListener{
                         questAdapter.notifyDataSetChanged()
                     }
                 }
+=======
+>>>>>>> 3a143bd55cc858ffaf5190244138471598ec95dd
 
-                override fun onFailure(call: Call<List<DailyQuest>>, t: Throwable) {
-                    Log.d(TAG, "onFailure: ${t.message}")
+        var job: Job? = null
+        job = CoroutineScope(Dispatchers.IO).launch {
+            val response = ApplicationClass.retrofit.create(QuestService::class.java).getQuestList(nickname)
+            withContext(Dispatchers.Main){
+                if(response.isSuccessful){
+                    questViewModel.updateQuestData(response.body()!!)
+                    questAdapter.datas = response.body()!!
+                    questAdapter.notifyDataSetChanged()
+                }else{
+                    Log.d(TAG, "getQuestData: ")
                 }
-
-            })
+            }
+        }
     }
 
-    override fun onConfirmButtonClick() {
+    override fun onConfirmButtonClick(id:Int) {
+        getQuestData(ApplicationClass.currentUser.userProfile.nickname)
+            refreshFragment(DailyFragment(),parentFragmentManager)
+        }
 
-    }
+fun refreshFragment(fragment: Fragment, fragmentManager: FragmentManager) {
+    Log.d(TAG, "refreshFragment: ")
+    var ft: FragmentTransaction = fragmentManager.beginTransaction()
+    ft.detach(fragment).attach(fragment).commit()
+}
+
+
 
 }

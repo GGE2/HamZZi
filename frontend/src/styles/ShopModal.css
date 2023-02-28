@@ -67,8 +67,18 @@
   /* mar */
 }
 
-
 .ShopModalBtn img{
+  width: 6em;
+}
+
+.ShopModalDisabledBtn {
+  width: 6em;
+  background-color: gray;
+  /* cursor: pointer; */
+  /* mar */
+}
+
+.ShopModalDisabledBtn img{
   width: 6em;
 }
   

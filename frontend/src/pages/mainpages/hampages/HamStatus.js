@@ -12,7 +12,7 @@ import {
 } from "./../../../hamStatSlice";
 
 import api from "./../../../components/api";
-import HamModal from './HamModal';
+import HamModal from "./HamModal";
 
 const HamStatus = ({ setWear }) => {
   const hamstat = useSelector(selectCurrentHamStat);
@@ -28,31 +28,29 @@ const HamStatus = ({ setWear }) => {
   const [isModal, setIsModal] = useState(false);
 
   const graduatee = () => {
-    ResetItem()       // 장착한 아이템 초기화
-    handleGraduate()  // 졸업해서 데이터 비우기
+    ResetItem(); // 장착한 아이템 초기화
+    handleGraduate(); // 졸업해서 데이터 비우기
     // 새로 만들기
     setIsModal(true);
-  }
+  };
 
   const ResetItem = () => {
     api.put(`/api/item/clear?nickname=${nickname}`).then((res) => {
-      console.log(res)
+      // console.log(res)
     });
   };
 
   const handleGraduate = () => {
     api.put(`/api/pet/graduate?pet_id=${petId}`).then(() => {
-      console.log("graduated");
+      // console.log("graduated");
       dispatch(clearStat());
       localStorage.setItem("petId", null);
-      localStorage.setItem("petName", '');
-      localStorage.setItem("petLevel", '');
+      localStorage.setItem("petName", "");
+      localStorage.setItem("petLevel", "");
       localStorage.setItem("exp", null);
       dispatch(getPetType(0));
     });
   };
-
-
 
   const state = {
     options: {
@@ -108,7 +106,6 @@ const HamStatus = ({ setWear }) => {
 
   return (
     <>
-
       {/* 모달창 띄우기 */}
       {isModal && (
         <div
@@ -125,7 +122,7 @@ const HamStatus = ({ setWear }) => {
       <div className="HamStatus">
         <div className="HamName">{petName}</div>
 
-        <HamExp graduatee={graduatee}/>
+        <HamExp graduatee={graduatee} />
 
         {/* {level === "5" && (
           <>

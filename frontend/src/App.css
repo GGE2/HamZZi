@@ -172,8 +172,77 @@ body {
 .postit4 {
     width: 1.5em;
     height: 2.5em;
-    background-color: #FFE7CC;
+    background-color: #FFDDD2;
     position: absolute;
     right: 0;
     top:8.92em;
+}
+
+.postit5 {
+    width: 1.5em;
+    height: 2.5em;
+    background-color: #FFE7CC;
+    position: absolute;
+    right: 0;
+    top:11.75em;
+}
+
+.History {
+    display: grid;
+    /* height: 100%; */
+    /* height: 31.7em; */
+    /* height: 100%; */
+    width: 100%;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    /* justify-content: center; */
+    /* align-items: center; */
+    place-items: center;
+    overflow: scroll;
+}
+
+.History::-webkit-scrollbar{
+    display: none; /* Chrome, Safari, Opera*/
+}
+
+.HistoryItem {
+    background-image: url("../public/webhamback.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* background-color: #ececec; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* margin: auto; */
+    padding: 0.5em;
+    margin: 0.5em;
+    border-radius: 10px;
+    width: 8em;
+    height: 8em;
+}
+
+.HistoryItem img {
+    width: 8em;
+    height: 8em;
+}
+
+.HistoryHeader {
+    /* background-color: #F0997D; */
+    color: rgb(255, 177, 0);
+    margin-top: 1.5em;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-left: 3em;
+    /* width: auto; */
+    margin-bottom: 1em;
+}
+
+.HistoryHeader div {
+    width: auto;
+    padding: 5px;
+    font-size: 36px;
+    background-color: #803a21;
+    box-shadow: 1px 1px 1px black;
+    border-radius: 5px;
+    border: 1px solid black;
 }

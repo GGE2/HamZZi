@@ -12,10 +12,14 @@ const pointSlice = createSlice({
     grantPoint: (state, action) => {
       state.stat -= 1;
     },
+    shopPoint: (state, action) => {
+      const cost = action.payload;
+      state.stat -= cost;
+    },
   },
 });
 
-export const { receivePoint, grantPoint } = pointSlice.actions;
+export const { receivePoint, grantPoint, shopPoint } = pointSlice.actions;
 
 export default pointSlice.reducer;
 

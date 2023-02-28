@@ -13,21 +13,15 @@ const ExpSlice = createSlice({
   },
   reducers: {
     getExp: (state, action) => {
-        const expp = action.payload;
-        console.log(123123123123)
-        console.log(expp)
-        state.exp = expp;
+      const expp = action.payload;
+      // console.log(123123123123)
+      // console.log(expp)
+      state.exp = expp;
     },
-
-
-   
   },
 });
 
-export const {
-    getExp,
-
-} = ExpSlice.actions;
+export const { getExp } = ExpSlice.actions;
 
 export default ExpSlice.reducer;
 

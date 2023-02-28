@@ -40,9 +40,17 @@ class CreatePetDialog(
 
 
         binding.buttonPetCreate.setOnClickListener {
-            val pet = CreatePet(binding.edittextDialogFind.text.toString(),ApplicationClass.currentUser.userProfile.nickname)
-            sendToServerPetNickname(pet)
-            createPetDialogInterface?.onYesButtonClick()
+            createPetDialogInterface?.onYesButtonClick(binding.edittextDialogFind.text.toString())
+            if(binding.edittextDialogFind.text.toString().length==0){
+                binding.dialogPetTitle.text = "펫 닉네임을 입력해주세요"
+                binding.dialogPetTitle.setTextColor(Color.RED)
+            }else{
+                val pet = CreatePet(binding.edittextDialogFind.text.toString(),ApplicationClass.currentUser.userProfile.nickname)
+                Log.d(TAG, "CreatePetActivity")
+                sendToServerPetNickname(pet)
+
+            }
+
         }
 
         return view
@@ -56,7 +64,7 @@ class CreatePetDialog(
 
 
     interface CreatePetDialogInterface{
-        fun onYesButtonClick()
+        fun onYesButtonClick(text:String)
     }
 
     /**
@@ -78,7 +86,7 @@ class CreatePetDialog(
             .createPet(pet).enqueue(object:Callback<String>{
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     if(response.isSuccessful){
-                        Log.d(TAG, "onResponse: ${response.body()!!}")
+                        Log.d(TAG, "1. 서버에 펫 닉네임 전송 완료 ${response.body()!!}")
                     }
                 }
 

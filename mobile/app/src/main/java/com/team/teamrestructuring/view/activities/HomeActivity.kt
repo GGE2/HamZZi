@@ -127,9 +127,6 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
 
 
 
-    override fun onYesButtonClick() {
-        finish()
-    }
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -277,6 +274,9 @@ class HomeActivity : AppCompatActivity(),BottomNavigationView.OnNavigationItemSe
         super.onDestroy()
     }
 
+    override fun onYesButtonClick(text: String) {
+
+    }
 
 
 }

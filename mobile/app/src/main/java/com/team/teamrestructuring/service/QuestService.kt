@@ -11,7 +11,7 @@ interface QuestService {
     @POST("api/quest/user/{nickname}")
     suspend fun createQuestUser(@Path("nickname") nickname:String): Response<String>
     @GET("api/quest/daily/{nickname}")
-    fun getQuestList(@Path("nickname") nickname:String):Call<List<DailyQuest>>
+    suspend fun getQuestList(@Path("nickname") nickname:String): Response<List<DailyQuest>>
     @GET("api/quest/weekly/{nickname}")
     fun getWeeklyQuestList(@Path("nickname") nickname:String):Call<List<WeeklyQuest>>
     @PUT("api/quest/time")

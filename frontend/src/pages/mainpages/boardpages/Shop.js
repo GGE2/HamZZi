@@ -31,33 +31,19 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
   const nickname = localStorage.getItem("nickname");
   const petLevel = useSelector(selectCurrentHamLevel);
   const point = useSelector(selectCurrentPoint);
-  const ham = useSelector(selectCurrentHamStat);
-  const shopshoww = useSelector(selectCurrentshopShow);
   const hat = useSelector(selectCurrenthatShow);
   const cloth = useSelector(selectCurrentclothShow);
   const deco = useSelector(selectCurrentdecoShow);
   const my = useSelector(selectCurrentmyShow);
   // getCheckCloth
 
-  console.log(123123);
-  console.log(shopshoww);
-  console.log(ham);
   const dispatch = useDispatch();
-
-  const [show, setShow] = useState({
-    hatShow: hat,
-    clothShow: cloth,
-    decoShow: deco,
-    myShow: my,
-  });
 
   const [loading, setLoading] = useState(true);
 
   // 전체 아이템
   const [items, setItem] = useState([]);
   const [myItems, setMyItem] = useState([]);
-  // 버튼 눌림 css
-  const [menu, setMenu] = useState([hat, cloth, deco, my]);
 
   const onCheckHat = () => {
     dispatch(getCheckHat());
@@ -80,13 +66,9 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
     await api
       .get(`/api/item/itemAllList`)
       .then((res) => {
-        console.log(`전체 아이템`);
-        console.log(res);
         setItem(res.data);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
 
   // 닉네임으로 아이템 유저 조회
@@ -94,13 +76,9 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
     await api
       .get(`/api/item/itemUserList/${nickname}`)
       .then((res) => {
-        console.log(`보유아이템`);
-        console.log(res.data);
         setMyItem(res.data);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
 
   // 아이템 장착
@@ -108,12 +86,9 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
     await api
       .put(`/api/item?nickname=${nickname}&item_id=${id}`)
       .then((res) => {
-        console.log(res);
         getShopUpdate();
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
 
   // 아이템 구매하기
@@ -123,15 +98,11 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
         nickname: nickname,
       })
       .then((res) => {
-        console.log(`아이템을 구매`);
-        console.log(res);
         onGetItemAllList(); // 상점 전체 아이템
         onGetItemUserNickList(); // 내가 산 아이템 보기
-        getShopUpdate()
+        getShopUpdate();
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
 
   useEffect(() => {
@@ -171,9 +142,7 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
         >
           <div className="DressButton">
             <motion.button
-              className={
-                hat ? "DressButton_clicked" : "DressButton_Unclicked"
-              }
+              className={hat ? "DressButton_clicked" : "DressButton_Unclicked"}
               onClick={onCheckHat}
             >
               <div
@@ -203,9 +172,7 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
               </div>{" "}
             </motion.button>
             <motion.button
-              className={
-                deco ? "DressButton_clicked" : "DressButton_Unclicked"
-              }
+              className={deco ? "DressButton_clicked" : "DressButton_Unclicked"}
               onClick={onCheckDeco}
             >
               <div
@@ -219,16 +186,12 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
               </div>{" "}
             </motion.button>
             <motion.button
-              className={
-                my ? "DressButton_clicked" : "DressButton_Unclicked"
-              }
+              className={my ? "DressButton_clicked" : "DressButton_Unclicked"}
               onClick={onCheckMy}
             >
               <div
                 className={
-                  my
-                    ? "DressButton_clicked_text"
-                    : "DressButton_Unclicked_text"
+                  my ? "DressButton_clicked_text" : "DressButton_Unclicked_text"
                 }
               >
                 보유중
@@ -244,6 +207,7 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
                     key={idx}
                     id={item.item_id}
                     onBuyItem={onBuyItem}
+                    point={point}
                     cost={item.cost}
                     myItems={myItems}
                     type={item.type}
@@ -266,6 +230,7 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
                     key={idx}
                     id={item.item_id}
                     onBuyItem={onBuyItem}
+                    point={point}
                     cost={item.cost}
                     myItems={myItems}
                     type={item.type}
@@ -288,6 +253,7 @@ const DressRoom = ({ getAllProfile, getShopUpdate, Wear }) => {
                     key={idx}
                     id={item.item_id}
                     onBuyItem={onBuyItem}
+                    point={point}
                     cost={item.cost}
                     myItems={myItems}
                     type={item.type}

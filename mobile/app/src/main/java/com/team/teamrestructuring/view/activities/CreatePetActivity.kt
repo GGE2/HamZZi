@@ -27,12 +27,14 @@ class CreatePetActivity : AppCompatActivity(),CreatePetDialog.CreatePetDialogInt
         setFullScreen()
     }
 
-    override fun onYesButtonClick() {
-        val intent = Intent(this,HomeActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+    override fun onYesButtonClick(text:String) {
+        if(text.length>0){
+            val intent = Intent(this,HomeActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            }
+            startActivity(intent)
+            overridePendingTransition(R.anim.horizon_exit,R.anim.none)
         }
-        startActivity(intent)
-        overridePendingTransition(R.anim.horizon_exit,R.anim.none)
     }
 
 

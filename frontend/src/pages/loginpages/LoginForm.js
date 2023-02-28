@@ -11,7 +11,7 @@ import "../../styles/LoginForm.css";
 // import LoginForm from './LoginForm';
 import api from "./../../components/api";
 
-export default function LoginForm({setIsModal , setIsModal2}) {
+export default function LoginForm({ setIsModal, setIsModal2 }) {
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
 
@@ -29,7 +29,7 @@ export default function LoginForm({setIsModal , setIsModal2}) {
     try {
       // 파이어베이스 인증 받아오기
       const curUserInfo = await signInWithEmailAndPassword(auth, email, pw);
-      console.log(curUserInfo);
+      // console.log(curUserInfo);
 
       // localStorage 저장
       localStorage.setItem("user", JSON.stringify(curUserInfo.user.email));
@@ -49,11 +49,11 @@ export default function LoginForm({setIsModal , setIsModal2}) {
     } catch (err) {
       switch (err.code) {
         case "auth/user-not-found":
-          setIsModal(true)
+          setIsModal(true);
           // alert("존재하지 않는 회원입니다");
           break;
         default:
-          setIsModal2(true)
+          setIsModal2(true);
           // alert("잘못 입력 하셨습니다");
           break;
       }

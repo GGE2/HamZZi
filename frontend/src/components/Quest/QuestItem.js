@@ -16,7 +16,7 @@ const QuestItem = ({ content, completed, questId, point }) => {
     setIsModal(true);
   };
 
-  console.log(completed);
+  // console.log(completed);
 
   const isCompleted = (id) => {
     const target = id;
@@ -36,7 +36,6 @@ const QuestItem = ({ content, completed, questId, point }) => {
             onClick={(e) => {
               if (e.target === outside.current) setIsModal(false);
             }}
-            
           >
             <QuestModal
               content={content}
@@ -47,7 +46,12 @@ const QuestItem = ({ content, completed, questId, point }) => {
             />
           </div>
         )}
-        <div id={questId} onClick={onOpenModal} defaultValue={content} className='questmodall'>
+        <div
+          id={questId}
+          onClick={onOpenModal}
+          defaultValue={content}
+          className="questmodall"
+        >
           {content}
         </div>
       </div>

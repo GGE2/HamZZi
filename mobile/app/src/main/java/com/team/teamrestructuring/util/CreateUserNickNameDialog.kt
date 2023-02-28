@@ -3,6 +3,7 @@ package com.team.teamrestructuring.util
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.provider.CalendarContract.Colors
 import android.util.Log
 import android.view.*
 import androidx.fragment.app.DialogFragment
@@ -60,7 +61,7 @@ class CreateUserNickNameDialog(
 
 
     interface CreateUserNickNameDialog{
-        fun onClick()
+        fun onClick(text:String)
     }
 
     /**
@@ -98,7 +99,7 @@ class CreateUserNickNameDialog(
             .createCount(nickname).enqueue(object : Callback<String>{
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     if(response.isSuccessful){
-                        Log.d(TAG, "Count Response: ${response.body()!!}")
+                        Log.d(TAG, "3. 서버에 count 생성 완료 ${response.body()!!}")
                     }
                 }
                 override fun onFailure(call: Call<String>, t: Throwable) {
@@ -112,7 +113,6 @@ class CreateUserNickNameDialog(
 
     private fun sendToServerNickname(nickname:String,email:String){
         var job : Job? = null
-
         job = CoroutineScope(Dispatchers.IO).launch {
             val response = ApplicationClass.retrofit.create(HomeService::class.java).createNickName(ApplicationClass.currentUser.userProfile.nickname
             ,ApplicationClass.currentUser.email)

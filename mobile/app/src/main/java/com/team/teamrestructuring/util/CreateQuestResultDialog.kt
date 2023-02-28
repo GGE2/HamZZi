@@ -16,6 +16,7 @@ import com.team.teamrestructuring.view.fragments.DailyFragment
 import com.team.teamrestructuring.view.fragments.HomeFragment
 import com.team.teamrestructuring.view.fragments.QuestFragment
 import com.team.teamrestructuring.view.fragments.WeeklyFragment
+import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,6 +35,7 @@ class CreateQuestResultDialog(
     private var enum : QuestEnum? = null
     private var quest:DailyQuest? = null
     private var weeklyQ:WeeklyQuest? = null
+
     init{
         this.createResultListener= createResultListener
         this.text = text
@@ -65,15 +67,16 @@ class CreateQuestResultDialog(
         binding.textviewDialogQuestResultTitle.text = text
 
         binding.buttonDialogQuestResult.setOnClickListener {
-            this.createResultListener?.onConfirmButtonClick()
             when(enum){
                 QuestEnum.TRUE->{
+                    this.createResultListener?.onConfirmButtonClick(1)
                     Log.d(TAG, "onCreateView: ${true}")
                     if(quest!=null) {
                         sendToServerResult()
                         //updateExp()
                         getQuestData(ApplicationClass.currentUser.userProfile.nickname)
                     }else{
+                        this.createResultListener?.onConfirmButtonClick(2)
                         sendToServerWeeklyResult()
                         //updateExp()
                         getWeeklyQuestData()
@@ -88,7 +91,7 @@ class CreateQuestResultDialog(
                         sendToServerWeeklyResult()
                         getWeeklyQuestData()
                     }
-                    HomeActivity.viewPagerAdapter.refreshFragment(2,QuestFragment())
+                    this.createResultListener?.onConfirmButtonClick(3)
                 }
                 else -> {
                     if(quest!=null) {
@@ -98,6 +101,7 @@ class CreateQuestResultDialog(
                     }else{
                         getWeeklyQuestData()
                     }
+                    this.createResultListener?.onConfirmButtonClick(4)
                     dismiss()
                 }
             }
@@ -114,7 +118,7 @@ class CreateQuestResultDialog(
 
 
     interface CreateResultListener{
-        fun onConfirmButtonClick()
+        fun onConfirmButtonClick(id:Int)
     }
 
     private fun getCurrentUserInfo(){
@@ -160,25 +164,21 @@ class CreateQuestResultDialog(
     }
 
     private fun getQuestData(nickname:String){
-        val service = ApplicationClass.retrofit.create(QuestService::class.java)
-            .getQuestList(nickname).enqueue(object:Callback<List<DailyQuest>>{
-                override fun onResponse(
-                    call: Call<List<DailyQuest>>,
-                    response: Response<List<DailyQuest>>
-                ) {
-                    if(response.isSuccessful){
-                        Log.d(TAG, "onResponse: ${response.body()}")
-                        DailyFragment.questAdapter.datas = response.body()!!
-                        DailyFragment.questAdapter.notifyDataSetChanged()
-                    }
-                }
+        var job: Job? = null
 
-                override fun onFailure(call: Call<List<DailyQuest>>, t: Throwable) {
-                    Log.d(TAG, "onFailure: ${t.message}")
+        job = CoroutineScope(Dispatchers.IO).launch {
+            val response = ApplicationClass.retrofit.create(QuestService::class.java).getQuestList(nickname)
+            withContext(Dispatchers.Main){
+                if(response.isSuccessful){
+                    DailyFragment.questAdapter.datas = response.body()!!
+                    DailyFragment.questAdapter.notifyDataSetChanged()
                 }
+            }
+        }
 
-            })
     }
+
+
     private fun sendToServerWeeklyResult(){
         val service = ApplicationClass.retrofit.create(QuestService::class.java)
             .updateWeeklyQuestResult(weeklyQ!!.nickname,weeklyQ!!.questWeekly_id.toInt(),weeklyQ!!.quest.quest_id.toInt())

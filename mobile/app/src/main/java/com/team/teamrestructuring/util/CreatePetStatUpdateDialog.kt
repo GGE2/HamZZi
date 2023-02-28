@@ -12,9 +12,7 @@ import android.view.*
 import androidx.fragment.app.DialogFragment
 import com.team.teamrestructuring.databinding.DialogCreatePetBinding
 import com.team.teamrestructuring.databinding.DialogCreateUpdateStatBinding
-import com.team.teamrestructuring.dto.CreatePet
-import com.team.teamrestructuring.dto.PetData
-import com.team.teamrestructuring.dto.UpdatePetStat
+import com.team.teamrestructuring.dto.*
 import com.team.teamrestructuring.service.HomeService
 import com.team.teamrestructuring.service.PetService
 import com.team.teamrestructuring.view.activities.HomeActivity
@@ -26,6 +24,7 @@ import retrofit2.Response
 private const val TAG="CreatePetUpdateDialog_지훈"
 class CreatePetStatUpdateDialog(
     createStatUpdateInterface: CreateStatUpdateInterface
+
 ) : DialogFragment(){
 
     private var _binding: DialogCreateUpdateStatBinding? = null
@@ -119,7 +118,7 @@ class CreatePetStatUpdateDialog(
             dismiss()
         }
         binding.buttonStatOk.setOnClickListener {
-            createStatUpdateInterface!!.onYesButtonClick()
+            createStatUpdateInterface!!.onYesButtonClick(count)
             ApplicationClass.currentUser.userProfile.point = count
             updateExp()
             HomeActivity.viewPagerAdapter.refreshFragment(0,HomeFragment())
@@ -141,7 +140,7 @@ class CreatePetStatUpdateDialog(
                 @SuppressLint("LongLogTag")
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     if(response.isSuccessful){
-                        Log.d(TAG, "onResponse: ${response.body()!!}")
+                        Log.d(TAG, "스텟 증가 완료: ${response.body()!!}")
                     }
                 }
 
@@ -185,7 +184,7 @@ class CreatePetStatUpdateDialog(
 
 
     interface CreateStatUpdateInterface{
-        fun onYesButtonClick()
+        fun onYesButtonClick(emptyStat:Int)
     }
 
     /**

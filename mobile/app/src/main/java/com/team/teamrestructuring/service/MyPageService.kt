@@ -23,4 +23,6 @@ interface MyPageService {
         @Path("nickname") nickname: String
     ): Call<List<PetInfo>>
 
+
+
 }
