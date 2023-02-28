@@ -14,6 +14,7 @@ import com.team.teamrestructuring.service.TodoService
 import com.team.teamrestructuring.util.ApplicationClass
 import com.team.teamrestructuring.view.adapters.TodoAdapter
 import com.team.teamrestructuring.util.TodoBottomSheet
+import com.team.teamrestructuring.view.activities.HomeActivity
 import com.team.teamrestructuring.view.viewmodels.HomeViewModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -143,7 +144,7 @@ class TodoFragment : Fragment(),TodoBottomSheet.SetOnModifyButtonInterface{
             .checkTodo(id, nickName).enqueue(object : Callback<String>{
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     if (response.isSuccessful){
-                        Log.d(TAG,"투두 완료 되었습니다.")
+                        callService(nickName,dateStr)
                     }
                 }
                 override fun onFailure(call: Call<String>, t: Throwable) {

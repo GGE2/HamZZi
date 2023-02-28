@@ -27,6 +27,7 @@
             android:layout_marginTop="6dp"
             android:layout_marginRight="20dp"
             android:paddingStart="4dp"
+            android:inputType="text"
             android:background="@drawable/item_edit_text"
             android:fontFamily="@font/nexon_gothic_medium"
             android:gravity="center"

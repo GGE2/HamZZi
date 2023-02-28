@@ -4,6 +4,7 @@ import android.service.autofill.UserData
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.team.teamrestructuring.dto.DailyQuest
 import com.team.teamrestructuring.dto.PetData
 import com.team.teamrestructuring.dto.Todo
 import com.team.teamrestructuring.dto.User
@@ -15,6 +16,11 @@ class HomeViewModel : ViewModel() {
     private val _petData: MutableLiveData<PetData> = MutableLiveData()
     val petData : LiveData<PetData>
         get() = _petData
+
+    private val _dailyQuestData:MutableLiveData<List<DailyQuest>> = MutableLiveData()
+    val dailyQuestData : LiveData<List<DailyQuest>>
+        get() = _dailyQuestData
+
     private val _userData:MutableLiveData<User> = MutableLiveData()
     val userData : LiveData<User>
         get() = _userData
@@ -28,6 +34,11 @@ class HomeViewModel : ViewModel() {
     private val _exp : MutableLiveData<Int> = MutableLiveData()
     val exp : LiveData<Int>
         get() = _exp
+
+    fun updateQuest(data:List<DailyQuest>){
+        _dailyQuestData.value = data
+    }
+
 
     fun updatePet(data:PetData){
         _petData.postValue(data)

@@ -3,6 +3,7 @@ package com.team.teamrestructuring.util
 
 import android.app.Application
 import android.util.Log
+import androidx.appcompat.app.AppCompatDelegate
 import com.google.gson.GsonBuilder
 import com.kakao.auth.KakaoSDK
 import com.kakao.sdk.common.KakaoSdk
@@ -27,10 +28,13 @@ class ApplicationClass : Application(){
         var petData:PetData? = null
         var isNew : Boolean = false
         lateinit var sharedPreferencesUtil:SharedPreferencesUtil
+
+
     }
 
     override fun onCreate() {
         super.onCreate()
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         NaverMapSdk.getInstance(this).client = NaverMapSdk.NaverCloudPlatformClient("t0ipbviz9p")
         KakaoSdk.init(this,"98207802012408560593bd7763f3bedd")
         instance = this

@@ -78,7 +78,7 @@ class CreateQuestResultDialog(
                         //updateExp()
                         getWeeklyQuestData()
                     }
-
+                    HomeActivity.viewPagerAdapter.refreshFragment(2,QuestFragment())
                 }
                 QuestEnum.FALSE->{
                     if(quest!=null){
@@ -88,11 +88,12 @@ class CreateQuestResultDialog(
                         sendToServerWeeklyResult()
                         getWeeklyQuestData()
                     }
+                    HomeActivity.viewPagerAdapter.refreshFragment(2,QuestFragment())
                 }
                 else -> {
                     if(quest!=null) {
                         getQuestData(ApplicationClass.currentUser.userProfile.nickname)
-                        if(quest!!.quest.quest_id.toInt()==1)
+                        if(quest!!.quest.quest_id.toInt()==1&&ApplicationClass.currentUser.userProfile.latitude==0.0)
                             HomeActivity.binding.viewpagerMainPager.currentItem = 3
                     }else{
                         getWeeklyQuestData()

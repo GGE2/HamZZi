@@ -8,9 +8,8 @@ import android.view.*
 import androidx.fragment.app.DialogFragment
 import com.team.teamrestructuring.databinding.DialogCreateNicknameBinding
 import com.team.teamrestructuring.databinding.DialogCreatePetBinding
-import com.team.teamrestructuring.service.HomeService
-import com.team.teamrestructuring.service.QuestService
-import com.team.teamrestructuring.service.TodoService
+import com.team.teamrestructuring.service.*
+import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -43,8 +42,8 @@ class CreateUserNickNameDialog(
         binding.buttonPetNickname.setOnClickListener {
             createuserNickNameDialogInterface?.onClick()
             ApplicationClass.currentUser.userProfile.nickname = binding.edittextDialogNickname.text.toString()
+            Log.d(TAG, "CreateUserNickname: ${ApplicationClass.currentUser.userProfile.nickname}")
             sendToServerNickname(binding.edittextDialogNickname.text.toString(),ApplicationClass.currentUser.email)
-            sendToServerQuestData(binding.edittextDialogNickname.text.toString())
             sendToServerCount(binding.edittextDialogNickname.text.toString())
             dismiss()
         }
@@ -56,6 +55,7 @@ class CreateUserNickNameDialog(
         super.onDestroyView()
         _binding = null
     }
+
 
 
 
@@ -78,18 +78,18 @@ class CreateUserNickNameDialog(
     }
 
     private fun sendToServerQuestData(nickname: String){
+        var job : Job? = null
         Log.d(TAG, "sendToServerQuestData: ${nickname}")
-        val service = ApplicationClass.retrofit.create(QuestService::class.java)
-            .createQuestUser(nickname).enqueue(object : Callback<String>{
-                override fun onResponse(call: Call<String>, response: Response<String>) {
-                    if(response.isSuccessful){
-                        Log.d(TAG, "onResponse: ${response.body()}")
-                    }
+        job = CoroutineScope(Dispatchers.IO).launch {
+            val response = ApplicationClass.retrofit.create(QuestService::class.java).createQuestUser(nickname)
+            withContext(Dispatchers.Main){
+                if(response.isSuccessful){
+                    Log.d(TAG, "sendToServerQuestData: ${response.body()!!}")
+                }else{
+                    Log.d(TAG, "sendToServerQuestData: error")
                 }
-                override fun onFailure(call: Call<String>, t: Throwable) {
-                    Log.d(TAG, "onFailure: ${t.message}")
-                }
-            })
+            }
+        }
 
     }
 
@@ -111,20 +111,21 @@ class CreateUserNickNameDialog(
 
 
     private fun sendToServerNickname(nickname:String,email:String){
-        val service = ApplicationClass.retrofit.create(HomeService::class.java)
-            .createNickName(nickname,email).enqueue(object : Callback<String> {
-                override fun onResponse(call: Call<String>, response: Response<String>) {
-                    if(response.isSuccessful){
-                        Log.d(TAG, "유저 닉네임 서버 전송 완료")
-                        dismiss()
-                    }
-                }
+        var job : Job? = null
 
-                override fun onFailure(call: Call<String>, t: Throwable) {
-                    Log.d(TAG, "onFailure: ${t.message}")
+        job = CoroutineScope(Dispatchers.IO).launch {
+            val response = ApplicationClass.retrofit.create(HomeService::class.java).createNickName(ApplicationClass.currentUser.userProfile.nickname
+            ,ApplicationClass.currentUser.email)
+            withContext(Dispatchers.Main){
+                if(response.isSuccessful){
+                    Log.d(TAG, "sendToServerNickname: ${response.body()!!}")
+                    sendToServerQuestData(ApplicationClass.currentUser.userProfile.nickname)
+                }else{
+                    binding.dialogNicknameTitle.text = "중복된 닉네임입니다"
+                    binding.dialogNicknameTitle.setTextColor(Color.RED)
                 }
-
-            })
+            }
+        }
 
     }
 

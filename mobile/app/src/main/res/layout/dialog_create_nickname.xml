@@ -31,6 +31,7 @@
             android:background="@drawable/item_edit_text"
             android:fontFamily="@font/nexon_gothic_medium"
             android:gravity="center"
+            android:inputType="text"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintTop_toBottomOf="@id/dialog_nickname_title"
             app:layout_constraintLeft_toLeftOf="parent"
