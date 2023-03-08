@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/alert_background_confirm"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <TextView
+        android:id="@+id/textview_dialog_place"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="장소명 : 삼성전자 구미2캠퍼스"
+        android:fontFamily="@font/nexon_gothic_medium"
+        android:textSize="20sp"
+        android:layout_margin="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:id="@+id/textview_dialog_address"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="주소 : 인의동 391-22"
+        android:textSize="20sp"
+        android:fontFamily="@font/nexon_gothic_medium"
+        android:layout_marginRight="10dp"
+        app:layout_constraintTop_toBottomOf="@id/textview_dialog_place"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_confirm_dialog_cancle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="취소"
+        android:fontFamily="@font/nexon_gothic_bold"
+        android:textSize="20sp"
+        android:background="@drawable/tab_style02"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintTop_toBottomOf="@id/textview_dialog_address"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/button_confirm_dialog_ok"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_confirm_dialog_ok"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/tab_style02"
+        android:text="등록"
+        android:fontFamily="@font/nexon_gothic_bold"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintTop_toBottomOf="@id/textview_dialog_address"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/button_confirm_dialog_cancle"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

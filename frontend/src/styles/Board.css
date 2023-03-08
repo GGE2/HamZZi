@@ -1,0 +1,20 @@
+.MyBody {
+    display: flex;
+    flex-direction: column;
+    height: 85%;
+    position: relative;
+    /* width: 100%; */
+    /* position: absolute; */
+    /* z-index: 0; */
+    
+
+}
+
+.BoardButto--active {
+    color: pink;
+    background: red;
+  }
+
+  .TodoBack {
+    background: red;
+  }

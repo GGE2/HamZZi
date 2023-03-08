@@ -1,0 +1,159 @@
+.UserName {
+    border-bottom: 3px solid #803a21;
+    display: flex;
+    justify-content: start;
+    padding-left: 10px;
+    height: 0px;
+    align-items: center;
+}
+
+
+/* 미니룸 꾸미기 */
+.MyBody_profile {
+    height: 100%;
+    /* background-image: url("../../public/room2.gif"); */
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 10px;
+    /* -webkit-border-radius: 50px;
+  -moz-border-radius: 50px; */
+    /* background-attachment: fixed; */
+    display: flex;
+}
+
+.MyBody_profile img {
+    /* display: inline; */
+    /* position: absolute; */
+    width: 4em;
+    height: 4em;
+    cursor: move;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+.HamGrad {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    border-right: 3px solid #803a21;
+    
+}
+
+.HamSlot {
+    display: flex;
+    height: 33%;
+    border-bottom: 3px solid #803a21;
+}
+
+.HamSlot2 {
+    display: flex;
+    height: 33%;
+    /* border-bottom: 3px solid black; */
+}
+
+.HamSlotSlot {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 33%;
+    /* border-right: 3px solid black; */
+    transition: all 3 linear ;
+}
+
+.HamSlotSlot:hover {
+    transform: scale(1.1, 1.1);
+}
+
+
+/* 여기는 방명록 CSS */
+.GuestBook {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.DiaryEditor {
+    border: 1px solid #803a21;
+}
+
+.DiaryEditor textarea {
+    width: 80%;
+    height: 4em;
+    /* border: none; */
+    resize: none;
+}
+
+/* 방명록 아이템  */
+.DiaryItem {
+    /* background-color: rgba(69, 178, 93, 1); */
+    padding-bottom: 10px;
+    border-bottom: 3px solid #803a21;
+    
+}
+
+/* 방명록 작성자 정보(이름,날짜,수정버튼) */
+.info {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 1rem;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    /* background-color: pink; */
+    margin-left: 1rem;
+    margin-right: 1rem;
+   
+}
+.author{
+
+}
+.created_date{
+
+}
+/* 방명록 수정 버튼 */
+
+
+.DiaryItemContent {
+    /* border: 3px solid black; */
+    border-radius: 8px;
+    /* background-color: pink; */
+    /* margin-top: 1rem; */
+    margin-left: 1rem;
+    margin-right: 1rem;
+    text-decoration: underline;
+    
+}
+
+.DiaryList {
+    overflow: scroll;
+}
+
+.DiaryList::-webkit-scrollbar {
+    display: none;
+}
+
+
+
+
+.box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: move;
+    /* color: black; */
+    width: 5em;
+    height: 5em;
+    padding: 0.3em;
+    /* margin: auto; */
+    user-select: none;
+    background: transparent;
+  }
+  
+
+
+/* img {
+    width: 10em;
+    height: 10em;
+    cursor: move;
+    user-select: none;
+    -webkit-user-drag: none;
+} */

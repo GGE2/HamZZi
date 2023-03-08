@@ -1,0 +1,91 @@
+.loginbody {
+  background-image: url("../../public/webbck.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  width: 100vw;
+  height: 100vh;
+}
+
+.loginback {
+  width: 20em;
+  height: 24em;
+    /* height: 50%; */
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* padding: 0 20px; */
+    padding-top: 20px;
+    padding-right: 20px;
+    padding-left: 20px;
+  
+    /* 블러 처리 해버리기 */
+    backdrop-filter: blur(10px);
+    box-shadow: 2px 7px 15px 8px rgba(0,0,0,0.3);
+    border-radius: 20px;
+  
+    /* overflow: hidden; */
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+  }
+
+.qrcode img {
+  margin-top: 5%;
+  width: 7em;
+  height: 7em;
+}
+
+/* .backback {
+  padding-top: 20px;
+  padding-bottom: 20px;
+} */
+
+
+
+  .backimg{
+    width: 40em;
+  position: absolute; 
+     top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* padding: 0 20px; */
+    /* z-index:  */
+}
+
+.backimg img {
+  width: 40em;
+}
+
+.login_btn {
+  /* height: 8vh; */
+  width: 106%;
+  cursor: pointer;
+}
+
+.selectlogin {
+  /* margin-top: 20px ; */
+  display: flex;
+  width: 100%;
+}
+
+.selectBtn1 {
+  height: 26px;
+  width: 50%;
+  background-color: #ff7f00;
+  color: #803a21;
+  border: none;
+  cursor: pointer;
+}
+
+.selectBtn2 {
+  height: 26px;
+  width: 50%;
+  background-color: #ff9f40;
+  color: #803a21;
+  border: none;
+  cursor: pointer;
+}
+
