@@ -9,4 +9,9 @@
 
 그래서 저희는 계획과 퀘스트를 완료하여 사용자를 투영한 햄스터를 성장시키며 성취감과 재미 모두 느낄 수 있는 서비스를 제작하였습니다.
 
-![최초](https://user-images.githubusercontent.com/68943993/228574498-73912170-7ba9-4442-b70f-c4a5d37084a5.jpg)
+
+<img src="https://user-images.githubusercontent.com/68943993/228837058-65c72c39-0c6b-4e17-acff-437a31f643c7.jpg" width="350" height="600">   <img src="https://user-images.githubusercontent.com/68943993/228837036-c72da9c1-52a2-4736-8182-4cdd04e37425.jpg" width="350" height="600">
+<img src="https://user-images.githubusercontent.com/68943993/228837052-efa8718e-4d71-46e1-8810-dabddd536357.jpg" width="350" height="600"> <img src="https://user-images.githubusercontent.com/68943993/228837073-3285df0e-ed82-41b6-a814-1e14a80dfea7.jpg" width="350" height="600"> 
+<img src="https://user-images.githubusercontent.com/68943993/228837064-8d81298b-61f1-46c6-ac6c-f64741372367.jpg" width="350" height="600"> <img src="https://user-images.githubusercontent.com/68943993/228837069-d74312b0-d1f9-466f-b8f4-2f86e5ef745b.jpg" width="350" height="600">
+
+
