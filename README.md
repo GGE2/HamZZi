@@ -44,3 +44,10 @@ minSDK : 21
 targetSDK : 32
 
 Java Version : 1.8
+
+### Communication Tools & VCS
+- GitLab
+- Figma
+- Notion
+- MatterMost
+
